@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 @RequestMapping("/")
 @Before(AdminLoginInterceptor.class)
 public class WeiboController extends BaseController {
-    private final static String MANAGE_FTL_PATH = "/manage/weibo/";
+    private static final String MANAGE_FTL_PATH = "/manage/weibo/";
     @Resource
     private IWeiboService weiboService;
 

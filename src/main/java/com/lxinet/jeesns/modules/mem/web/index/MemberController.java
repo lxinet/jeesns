@@ -29,7 +29,7 @@ import java.util.Map;
 @RequestMapping("/member")
 @Before(UserLoginInterceptor.class)
 public class MemberController extends BaseController {
-    private final static String MEMBER_FTL_PATH = "/member/";
+    private static final String MEMBER_FTL_PATH = "/member/";
     @Resource
     private IMemberService memberService;
     @Resource

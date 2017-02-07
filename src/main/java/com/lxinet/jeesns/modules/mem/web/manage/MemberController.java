@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 @RequestMapping("/")
 @Before(AdminLoginInterceptor.class)
 public class MemberController extends BaseController {
-    private final static String MANAGE_FTL_PATH = "/manage/mem/";
+    private static final String MANAGE_FTL_PATH = "/manage/mem/";
     @Resource
     private IMemberService memberService;
 

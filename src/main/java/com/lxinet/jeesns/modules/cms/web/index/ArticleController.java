@@ -30,7 +30,7 @@ import java.util.List;
 @Controller("indexArticleController")
 @RequestMapping("/article")
 public class ArticleController extends BaseController {
-    private final static String INDEX_FTL_PATH = "/index/cms/";
+    private static final String INDEX_FTL_PATH = "/index/cms/";
     @Resource
     private IArticleCateService articleCateService;
     @Resource

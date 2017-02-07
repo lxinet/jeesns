@@ -40,10 +40,10 @@ public class ArticleServiceImpl implements IArticleService {
     public ResponseModel save(Member member, Article article) {
         Map<String,String> config = configService.getConfigToMap();
         if(member.getIsAdmin() == 0 && "0".equals(config.get(ConfigUtil.CMS_POST))){
-            new ResponseModel(-1,"投稿功能已关闭");
+            return new ResponseModel(-1,"投稿功能已关闭");
         }
         if(article.getCateId() == null || article.getCateId() == 0){
-            new ResponseModel(-1,"栏目不能为空");
+            return new ResponseModel(-1,"栏目不能为空");
         }
         article.setMemberId(member.getId());
         Archive archive = new Archive();

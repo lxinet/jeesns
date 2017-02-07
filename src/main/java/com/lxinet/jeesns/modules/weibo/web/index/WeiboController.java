@@ -23,7 +23,7 @@ import java.util.List;
 @Controller("weiboIndexController")
 @RequestMapping("/weibo")
 public class WeiboController extends BaseController {
-    private final static String MEMBER_FTL_PATH = "/index/weibo/";
+    private static final String MEMBER_FTL_PATH = "/index/weibo/";
     @Resource
     private IWeiboService weiboService;
     @Resource

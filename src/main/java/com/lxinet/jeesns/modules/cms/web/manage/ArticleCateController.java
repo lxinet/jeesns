@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/")
 @Before(AdminLoginInterceptor.class)
 public class ArticleCateController extends BaseController {
-    private final static String MANAGE_FTL_PATH = "/manage/cms/articleCate";
+    private static final String MANAGE_FTL_PATH = "/manage/cms/articleCate";
     @Resource
     private IArticleCateService articleCateService;
 

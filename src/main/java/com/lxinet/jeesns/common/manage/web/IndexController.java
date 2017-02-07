@@ -33,7 +33,7 @@ import java.util.Properties;
 @RequestMapping("/${managePath}")
 @Before(AdminLoginInterceptor.class)
 public class IndexController extends BaseController {
-    private final static String FTL_PATH = "/manage";
+    private static final String FTL_PATH = "/manage";
     @Resource
     private IMemberService memberService;
     @Resource

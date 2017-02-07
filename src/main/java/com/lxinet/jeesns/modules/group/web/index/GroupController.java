@@ -31,7 +31,7 @@ import java.util.List;
 @Controller("indexGroupController")
 @RequestMapping("/group")
 public class GroupController extends BaseController {
-    private final static String INDEX_FTL_PATH = "/index/group/";
+    private static final String INDEX_FTL_PATH = "/index/group/";
     @Resource
     private IGroupService groupService;
     @Resource

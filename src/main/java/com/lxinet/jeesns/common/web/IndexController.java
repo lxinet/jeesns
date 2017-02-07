@@ -29,7 +29,7 @@ import java.util.List;
 @Controller("indexController")
 @RequestMapping("/")
 public class IndexController extends BaseController{
-    private final static String FTL_PATH = "/index/";
+    private static final String FTL_PATH = "/index/";
     @Resource
     private IArticleService articleService;
     @Resource

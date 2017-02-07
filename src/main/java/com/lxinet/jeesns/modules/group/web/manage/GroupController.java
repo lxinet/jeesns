@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping("/")
 @Before(AdminLoginInterceptor.class)
 public class GroupController extends BaseController {
-    private final static String MANAGE_FTL_PATH = "/manage/group/";
+    private static final String MANAGE_FTL_PATH = "/manage/group/";
     @Resource
     private IGroupService groupService;
 

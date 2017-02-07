@@ -30,9 +30,9 @@ public final class ConfigManager {
 	private String parentPath = null;
 	private JSONObject jsonConfig = null;
 	// 涂鸦上传filename定义
-	private final static String SCRAWL_FILE_NAME = "scrawl";
+	private static final String SCRAWL_FILE_NAME = "scrawl";
 	// 远程图片抓取filename定义
-	private final static String REMOTE_FILE_NAME = "remote";
+	private static final String REMOTE_FILE_NAME = "remote";
 	
 	/*
 	 * 通过一个给定的路径构建一个配置管理器， 该管理器要求地址路径所在目录下必须存在config.properties文件

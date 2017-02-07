@@ -22,7 +22,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/${managePath}/config/")
 public class ConfigController extends BaseController {
-    private final static String MANAGE_FTL_PATH = "/manage/config/";
+    private static final String MANAGE_FTL_PATH = "/manage/config/";
     @Resource
     private IConfigService configService;
 
