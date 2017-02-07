@@ -34,13 +34,13 @@
                     </div>
                     <div>
                         <div class="ibox-content profile-element text-center">
-                            <img alt="image" class="img-circle" src="${base}${loginUser.avatar}" width="80px" height="80px"/>
-                            <h4><strong>${loginUser.name!''}</strong></h4>
+                            <img alt="image" class="img-circle" src="${base}${member.avatar}" width="80px" height="80px"/>
+                            <h4><strong>${member.name!''}</strong></h4>
                         </div>
                         <div class="ibox-content profile-content">
                             <h5>个人说明</h5>
                             <p>
-                            ${loginUser.introduce!''}
+                            ${member.introduce!''}
                             </p>
                         </div>
                     </div>
