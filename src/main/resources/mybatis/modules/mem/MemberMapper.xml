@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.modules.mem.dao.IMemberDao">
+    <select id="login" parameterType="Member" resultType="Member">
+        select
+        id,group_id,name,email,phone,sex,avatar,is_admin,status,is_active
+        from tbl_member
+        where name = #{name} and password = #{password}
+    </select>
+    <select id="manageLogin" parameterType="Member" resultType="Member">
+        select
+        id,group_id,name,email,phone,sex,avatar,is_admin,is_active
+        from tbl_member
+        where name = #{name} and password = #{password} and is_admin=1
+    </select>
+    <select id="listByPage" resultType="Member">
+        select
+        a.id, a.name, a.phone, a.email, a.create_time, a.login_count, a.status,a.is_admin from tbl_member a
+        <where>
+            <if test="key != null and key != ''">
+                and (a.name LIKE #{key} or a.phone like #{key} or email like #{key})
+            </if>
+        </where>
+        order by a.id DESC
+    </select>
+    <select id="findById" parameterType="java.lang.Integer" resultType="Member">
+        select * from tbl_member where id = #{id}
+    </select>
+    <select id="findByName" resultType="Member">
+        select * from tbl_member where name = #{name}
+    </select>
+    <select id="findByEmail" resultType="Member">
+        select * from tbl_member where email = #{email}
+    </select>
+    <select id="findByNameAndEmail" resultType="Member">
+        select * from tbl_member where name = #{name} and email = #{email}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from tbl_member where id = #{id}
+    </delete>
+    <update id="isenable" parameterType="java.lang.Integer">
+      update tbl_member set status=(case when status=0 then -1 else 0 end) where id=#{id}
+    </update>
+    <update id="changepwd">
+        update tbl_member set password=#{password} WHERE id=#{id}
+    </update>
+    <update id="updateAvatar">
+        update tbl_member set avatar=#{avatar} WHERE id=#{id}
+    </update>
+    <insert id="register" parameterType="Member">
+    insert into tbl_member (name, email, password, avatar, create_time, regip,last_login_time,last_login_ip,curr_login_time,curr_login_ip)
+    values (#{name}, #{email}, #{password}, #{avatar}, now(),#{regip},now(),#{regip},now(),#{regip})
+    </insert>
+    <update id="editBaseInfo" parameterType="Member">
+        update tbl_member
+        <set>
+            name=#{name},sex=#{sex},introduce=#{introduce}
+        </set>
+        where id = #{id}
+    </update>
+    <update id="editOtherInfo" parameterType="Member">
+        update tbl_member
+        <set>
+            birthday=#{birthday},qq=#{qq},wechat=#{wechat},contact_phone=#{contactPhone},contact_email=#{contactEmail},website=#{website}
+        </set>
+        where id = #{id}
+    </update>
+    <update id="active">
+        update tbl_member set is_active=1 where id = #{id}
+    </update>
+    <update id="loginSuccess">
+        update tbl_member set login_count=login_count+1,last_login_time=curr_login_time,last_login_ip=curr_login_ip,
+        curr_login_time=now(),curr_login_ip=#{currLoginIp} where id = #{id}
+    </update>
+</mapper>

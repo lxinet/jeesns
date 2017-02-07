@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粉丝 - ${group.name} - ${GROUP_ALIAS} - ${SITE_NAME} - Powered By JEESNS</title>
+    <meta name="keywords" content="${SITE_KEYS}"/>
+    <meta name="description" content="${SITE_DESCRIPTION}"/>
+    <meta name="author" content="JEESNS"/>
+    <link href="${base}/res/common/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${base}/res/common/css/jeesns.css">
+    <link rel="stylesheet" href="${base}/res/common/css/jeesns-skin.css">
+    <!--[if lt IE 9]>
+    <script src="${base}/res/common/js/html5shiv.min.js"></script>
+    <script src="${base}/res/common/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="${base}/res/common/js/jquery-2.1.1.min.js"></script>
+    <script src="${base}/res/common/js/bootstrap.min.js"></script>
+    <script src="${base}/res/plugins/layer/layer.js"></script>
+    <script src="${base}/res/common/js/jquery.form.js"></script>
+    <script src="${base}/res/common/js/jeesns.js"></script>
+    <script src="${base}/res/common/js/extendPagination.js"></script>
+</head>
+
+<body class="gray-bg">
+<#include "/index/common/header.ftl"/>
+<div class="wrapper wrapper-content blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="ibox float-e-margins">
+                    <ol class="breadcrumb">
+                        <li><a href="${base}/">首页</a></li>
+                        <li><a href="${base}/group/">群组</a></li>
+                        <li><a href="${base}/group/detail/${group.id}">${group.name}</a></li>
+                        <li class="active">粉丝</li>
+                    </ol>
+                    <div class="ibox float-e-margins">
+                        <div>
+                            <div class="ibox-title">
+                                <h5>粉丝(${model.data?size})</h5>
+                            </div>
+                            <div class="ibox-content profile-content">
+                            <#list model.data as groupFans>
+                                <div class="group-fans">
+                                    <a href="${base}/u/${groupFans.member.id}" target="_blank">
+                                        <div class="group-fans-avatar">
+                                            <img class="img-circle" src="${base}${groupFans.member.avatar}" width="60px" height="60px"/>
+                                        </div>
+                                        <div class="group-fans-name text-center">
+                                        ${groupFans.member.name}
+                                        </div>
+                                    </a>
+                                </div>
+                            </#list>
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin pull-right"
+                                        url="${base}/group/fans/${group.id}"
+                                        currentPage="${model.page.pageNo}"
+                                        pageCount="${model.page.totalPage}">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        简介
+                    </div>
+                    <div class="ibox-content profile-element group">
+                        <div class="group-logo">
+                            <a href="${base}/group/detail/${group.id}"><img alt="${group.name}" src="${base}${group.logo}" width="80px" height="80px"/></a>
+                        </div>
+                        <div class="group-detail">
+                            <p><a href="${base}/group/detail/${group.id}"><strong>${group.name}</strong></a></p>
+                            <p>${model.data?size}关注</p>
+                            <p><a href="${base}/u/${group.creatorMember.id}">${group.creatorMember.name}</a> 创建于${group.createTime?string("yyyy-MM-dd")}</p>
+                        </div>
+                        <div class="text-left">
+                        ${group.introduce!''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<#include "/index/common/footer.ftl"/>
+<script type="text/javascript">
+    $(function () {
+        $(".pagination").jeesns_page("jeesnsPageForm");
+    });
+</script>
+</body>
+</html>

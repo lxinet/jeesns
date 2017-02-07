@@ -1,0 +1,26 @@
+package com.lxinet.jeesns.modules.weibo.service;
+
+import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.entity.Page;
+import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.weibo.entity.Weibo;
+
+import java.util.List;
+
+/**
+ * Created by zchuanzhao on 2016/11/25.
+ */
+public interface IWeiboService {
+
+    Weibo findById(int id);
+
+    ResponseModel save(Member loginMember, String content);
+
+    ResponseModel<Weibo> listByPage(Page page, int memberId);
+
+    ResponseModel delete(int id);
+
+    ResponseModel userDelete(Member loginMember, int id);
+
+    List<Weibo> hotList();
+}

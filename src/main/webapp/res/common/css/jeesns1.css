@@ -1,0 +1,169 @@
+html,body {height:100%;width:100%}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 100
+}
+
+h1 {font-size: 30px}
+
+h2 {font-size: 24px}
+
+h3 {font-size: 16px}
+
+h4 {font-size: 14px}
+
+h5 {font-size: 12px}
+
+h6 {font-size: 10px}
+
+h3,h4,h5 {margin-top: 5px;font-weight: 600}
+
+.pad-5 {padding: 5px}
+.pad-10 {padding: 10px}
+.pad-15 {padding: 15px}
+.pad-20 {padding: 20px}
+.pad-25 {padding: 25px}
+.pad-l-10 {padding-left: 10px}
+.pad-l-20 {padding-left: 20px}
+.marg-l-5 {margin-left: 5px;}
+.green {color: green}
+.red {color: red}
+.row {margin-left: 0px;margin-right: 0px;}
+
+.jeesns-main {
+    height:100%;
+    width: 100%;
+}
+
+.jeesns-btn {background-color: #5FB870;color: #FFFFFF;}
+.jeesns-btn:hover {background-color: #5FBe70;color: #FFFFFF;}
+
+.content-main {
+    height: 100%;
+    min-height: 100%;
+    padding-top: 50px;
+}
+
+.jeesns-header {
+    height:50px;
+    background-color: #FFFFFF;
+    border-bottom: 3px solid #5FB870;
+}
+
+.navbar-default .jeesns-menu>li>a {
+    color: #5FB870;
+    font-weight: 600;
+    padding: 14px 20px 14px 25px;
+    display: block
+}
+
+.navbar-default .jeesns-menu>li>a:hover {
+    text-decoration: none;
+    background-color: #5FB870;
+    color: #FFFFFF;
+}
+.navbar-default .jeesns-menu>li>a>.active {
+    text-decoration: none;
+    background-color: #5FB870;
+    color: #FFFFFF;
+}
+.navbar-default .jeesns-menu>li>a>.active:hover {
+    text-decoration: none;
+    background-color: #5FB870;
+    color: #FFFFFF;
+}
+
+.jeesns-title {margin-top: 5px;padding: 5px 0 5px 20px;border:1px solid #fff;border-left-width: 5px;border-radius: 3px;}
+.jeesns-title-info {border-left-color: #5FB870;}
+.jeesns-title-info .right {padding-right: 5px;float: right}
+.jeesns-left ul li {list-style-type:none;padding-top: 3px;padding-bottom: 3px;}
+.article-list-search {width: 200px;float: right;}
+
+.form-control {
+    border: 1px solid #d3dde7;
+    border-radius: 1px;
+    color: inherit;
+    display: block;
+    padding: 6px 12px;
+    -webkit-transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+    transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+    width: 100%;
+    font-size: 14px;
+    box-shadow:none;
+}
+
+.form-control:focus{
+    border: 1px solid #5FB870;
+    box-shadow:none;
+}
+
+.jeesns-dialog {padding-top: 10px;}
+
+
+.jeesns-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 200px auto;
+}
+.jeesns-signin .jeesns-signin-heading{
+    margin: 10px auto;
+}
+.jeesns-signin .checkbox {
+    font-weight: normal;
+}
+.jeesns-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.jeesns-signin .form-control:focus {
+    z-index: 2;
+}
+.jeesns-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.jeesns-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+
+
+/*webkit内核浏览器*/
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 3px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+    border-radius: 3px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(0,0,0,0.1);
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255,0,0,0.4);
+}
+
+/*IE内核浏览器*/
+body{
+    /*IE内核浏览器*/
+    scrollbar-arrow-color:#fff; /*三角箭头的颜色*/
+    scrollbar-face-color:#fff; /*立体滚动条的颜色（包括箭头部分的背景色）*/
+    scrollbar-3dlight-color:#fff; /*立体滚动条亮边的颜色*/
+    scrollbar-highlight-color:#fff; /*滚动条的高亮颜色（左阴影？）*/
+    scrollbar-shadow-color:#fff; /*立体滚动条阴影的颜色*/
+    scrollbar-darkshadow-color:#fff; /*立体滚动条外阴影的颜色*/
+    scrollbar-track-color:#fff; /*立体滚动条背景颜色*/
+    scrollbar-base-color:#fff; /*滚动条的基色*/
+}
