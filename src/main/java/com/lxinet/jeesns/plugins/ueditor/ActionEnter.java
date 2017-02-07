@@ -95,9 +95,7 @@ public class ActionEnter {
 				break;
 				
 		}
-		
-		return state.toJSONString();
-		
+		return state == null ? null : state.toJSONString();
 	}
 	
 	public int getStartIndex () {
