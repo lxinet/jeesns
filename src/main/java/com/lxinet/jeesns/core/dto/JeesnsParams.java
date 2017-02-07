@@ -18,8 +18,7 @@ public class JeesnsParams {
     }
 
     public String getString(String key){
-        String value = (String) this.attrs.get(key);
-        return value;
+        return (String) this.attrs.get(key);
     }
 
     public String getString(String key,String defaultValue){
@@ -31,8 +30,7 @@ public class JeesnsParams {
     }
 
     public int getInt(String key){
-        int value = (int) this.attrs.get(key);
-        return value;
+        return (int) this.attrs.get(key);
     }
 
     public int getInt(String key,int defaultValue){
@@ -44,8 +42,7 @@ public class JeesnsParams {
     }
 
     public double getDouble(String key){
-        double value = (double) this.attrs.get(key);
-        return value;
+        return (double) this.attrs.get(key);
     }
 
     public double getDouble(String key,double defaultValue){

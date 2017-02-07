@@ -42,6 +42,7 @@ public class Md5 {
 			resultString = byteToString(md.digest(strObj.getBytes()));
 		} catch (NoSuchAlgorithmException ex) {
 			ex.printStackTrace();
+			return null;
 		}
 		return resultString;
 	}

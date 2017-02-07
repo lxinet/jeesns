@@ -39,6 +39,7 @@ public class EmailSenderUtils {
 				sendnickname = javax.mail.internet.MimeUtility.encodeText(config.get(ConfigUtil.SITE_NAME));
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
+				return false;
 			}
 			msg.setFrom(new InternetAddress(account));
 //			msg.setFrom(new InternetAddress(sendnickname + " <" + email +">"));
