@@ -18,4 +18,6 @@ public interface IArticleCommentService {
     ResponseModel delete(int id);
 
     ResponseModel listByArticle(Page page, int articleId);
+
+    void deleteByArticle(Integer articleId);
 }

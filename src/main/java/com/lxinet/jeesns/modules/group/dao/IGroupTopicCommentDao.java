@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface IGroupTopicCommentDao extends IBaseDao<GroupTopicComment> {
 
-    List<GroupTopicComment> listByGroupTopic(@Param("groupTopicId") int groupTopicId);
+    List<GroupTopicComment> listByGroupTopic(@Param("groupTopicId") Integer groupTopicId);
 
-    
+    int deleteByTopic(@Param("groupTopicId") Integer groupTopicId);
 }

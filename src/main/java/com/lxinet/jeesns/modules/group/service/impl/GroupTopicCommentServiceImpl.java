@@ -60,6 +60,11 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
     }
 
     @Override
+    public void deleteByTopic(int groupTopicId) {
+        groupTopicCommentDao.deleteByTopic(groupTopicId);
+    }
+
+    @Override
     public ResponseModel delete(int id) {
         int result = groupTopicCommentDao.delete(id);
         if(result == 1){

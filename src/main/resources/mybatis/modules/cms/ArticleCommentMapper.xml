@@ -16,8 +16,10 @@
    select * from tbl_article_comment where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_article_comment
-    where id = #{id}
+    delete from tbl_article_comment where id = #{id}
+  </delete>
+  <delete id="deleteByArticle" parameterType="java.lang.Integer">
+    delete from tbl_article_comment where article_id = #{articleId}
   </delete>
   <insert id="save" parameterType="ArticleComment">
     insert into tbl_article_comment (article_id,member_id,content,create_time)

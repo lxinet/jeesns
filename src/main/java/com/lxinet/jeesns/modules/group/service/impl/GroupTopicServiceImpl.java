@@ -11,6 +11,7 @@ import com.lxinet.jeesns.modules.group.entity.Group;
 import com.lxinet.jeesns.modules.group.entity.GroupTopic;
 import com.lxinet.jeesns.modules.group.service.IGroupFansService;
 import com.lxinet.jeesns.modules.group.service.IGroupService;
+import com.lxinet.jeesns.modules.group.service.IGroupTopicCommentService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     private IGroupTopicDao groupTopicDao;
     @Resource
     private IGroupService groupService;
+    @Resource
+    private IGroupTopicCommentService groupTopicCommentService;
     @Resource
     private IGroupFansService groupFansService;
     @Resource
@@ -121,6 +124,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         int result = groupTopicDao.delete(id);
         if(result == 1){
             archiveService.delete(groupTopic.getArchiveId());
+            groupTopicCommentService.deleteByTopic(id);
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");

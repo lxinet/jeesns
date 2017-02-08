@@ -10,8 +10,10 @@ import com.lxinet.jeesns.modules.sys.entity.Config;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.dao.IWeiboDao;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
+import com.lxinet.jeesns.modules.weibo.service.IWeiboCommentService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,6 +28,8 @@ public class WeiboServiceImpl implements IWeiboService {
     private IWeiboDao weiboDao;
     @Resource
     private IConfigService configService;
+    @Resource
+    private IWeiboCommentService weiboCommentService;
 
     @Override
     public Weibo findById(int id) {
@@ -64,14 +68,18 @@ public class WeiboServiceImpl implements IWeiboService {
         return model;
     }
 
+    @Transactional
     @Override
     public ResponseModel delete(int id) {
         if(weiboDao.delete(id) == 1){
+            //删除该微博评论
+            weiboCommentService.deleteByWeibo(id);
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");
     }
 
+    @Transactional
     @Override
     public ResponseModel userDelete(Member loginMember, int id) {
         if(loginMember == null){
@@ -85,6 +93,8 @@ public class WeiboServiceImpl implements IWeiboService {
             return new ResponseModel(-1,"没有权限");
         }
         if(weiboDao.delete(id) == 1){
+            //删除该微博评论
+            weiboCommentService.deleteByWeibo(id);
             return new ResponseModel(0,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");

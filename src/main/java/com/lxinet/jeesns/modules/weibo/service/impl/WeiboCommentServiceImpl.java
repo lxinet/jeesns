@@ -72,6 +72,11 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     }
 
     @Override
+    public void deleteByWeibo(Integer weiboId) {
+        weiboCommentDao.deleteByWeibo(weiboId);
+    }
+
+    @Override
     public ResponseModel delete(int id) {
         int result = weiboCommentDao.delete(id);
         if(result == 1){

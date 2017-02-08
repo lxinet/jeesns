@@ -9,6 +9,7 @@ import com.lxinet.jeesns.core.utils.ConfigUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.cms.dao.IArticleDao;
 import com.lxinet.jeesns.modules.cms.entity.Article;
+import com.lxinet.jeesns.modules.cms.service.IArticleCommentService;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
@@ -29,6 +30,8 @@ public class ArticleServiceImpl implements IArticleService {
     private IArchiveService archiveService;
     @Resource
     private IConfigService configService;
+    @Resource
+    private IArticleCommentService articleCommentService;
 
     @Override
     public Article findById(int id) {
@@ -136,6 +139,7 @@ public class ArticleServiceImpl implements IArticleService {
         int result = articleDao.delete(id);
         if(result == 1){
             archiveService.delete(article.getArchiveId());
+            articleCommentService.deleteByArticle(id);
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");

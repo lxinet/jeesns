@@ -5,6 +5,7 @@ import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.cms.entity.ArticleComment;
 import com.lxinet.jeesns.modules.group.entity.GroupTopicComment;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import org.apache.ibatis.annotations.Param;
 
 
 /**
@@ -19,4 +20,6 @@ public interface IGroupTopicCommentService {
     ResponseModel delete(int id);
 
     ResponseModel listByGroupTopic(Page page, int groupTopicId);
+
+    void deleteByTopic(int groupTopicId);
 }

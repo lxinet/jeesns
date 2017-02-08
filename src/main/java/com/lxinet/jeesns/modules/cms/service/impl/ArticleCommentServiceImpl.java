@@ -64,6 +64,11 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     }
 
     @Override
+    public void deleteByArticle(Integer articleId) {
+        articleCommentDao.deleteByArticle(articleId);
+    }
+
+    @Override
     @Transactional
     public ResponseModel delete(int id) {
         int result = articleCommentDao.delete(id);

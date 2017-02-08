@@ -16,8 +16,10 @@
    select * from tbl_group_topic_comment where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_group_topic_comment
-    where id = #{id}
+    delete from tbl_group_topic_comment where id = #{id}
+  </delete>
+  <delete id="deleteByTopic" parameterType="java.lang.Integer">
+    delete from tbl_group_topic_comment where group_topic_id = #{groupTopicId}
   </delete>
   <insert id="save" parameterType="GroupTopicComment">
     insert into tbl_group_topic_comment (group_topic_id,member_id,content,create_time)

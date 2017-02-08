@@ -16,5 +16,10 @@ public interface IWeiboCommentDao extends IBaseDao<WeiboComment> {
 
     List<WeiboComment> listByWeibo(@Param("weiboId") Integer weiboId);
 
-    
+    /**
+     * 根据微博ID删除评论
+     * @param weiboId
+     * @return
+     */
+    int deleteByWeibo(@Param("weiboId") Integer weiboId);
 }

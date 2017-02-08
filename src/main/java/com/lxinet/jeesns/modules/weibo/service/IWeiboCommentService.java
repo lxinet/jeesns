@@ -2,7 +2,6 @@ package com.lxinet.jeesns.modules.weibo.service;
 
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
-import com.lxinet.jeesns.modules.cms.entity.ArticleComment;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.weibo.entity.WeiboComment;
 
@@ -19,4 +18,6 @@ public interface IWeiboCommentService {
     ResponseModel delete(int id);
 
     ResponseModel listByWeibo(Page page, int articleId);
+
+    void deleteByWeibo(Integer weiboId);
 }
