@@ -42,16 +42,20 @@ public class WeiboController extends BaseController {
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public String list(Model model){
         Page page = new Page(request);
-        ResponseModel responseModel = weiboService.listByPage(page,0);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
+        ResponseModel responseModel = weiboService.listByPage(page,0,loginMemberId);
         model.addAttribute("model",responseModel);
-        List<Weibo> hotList = weiboService.hotList();
+        List<Weibo> hotList = weiboService.hotList(loginMemberId);
         model.addAttribute("hotList",hotList);
         return MEMBER_FTL_PATH + "list";
     }
 
     @RequestMapping(value = "/detail/{weiboId}",method = RequestMethod.GET)
     public String detail(@PathVariable("weiboId") Integer weiboId, Model model){
-        Weibo weibo = weiboService.findById(weiboId);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
+        Weibo weibo = weiboService.findById(weiboId,loginMemberId);
         model.addAttribute("weibo",weibo);
         return MEMBER_FTL_PATH + "detail";
     }
@@ -87,5 +91,18 @@ public class WeiboController extends BaseController {
             weiboId = 0;
         }
         return weiboCommentService.listByWeibo(page,weiboId);
+    }
+
+    @RequestMapping(value="/favor/{weiboId}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object favor(@PathVariable("weiboId") Integer weiboId){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        if(weiboId == null) {
+            return new ResponseModel(-1, "非法操作");
+        }
+        return weiboService.favor(loginMember,weiboId);
     }
 }

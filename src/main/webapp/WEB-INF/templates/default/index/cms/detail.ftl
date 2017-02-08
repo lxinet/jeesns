@@ -24,7 +24,7 @@
         var base = "${base}";
         var articleId = ${article.id};
     </script>
-    <script src="${base}/res/modules/cms/js/comment.js"></script>
+    <script src="${base}/res/modules/cms.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -86,5 +86,15 @@
 </div>
 
 <#include "/index/common/footer.ftl"/>
+<script>
+    $(document).ready(function () {
+        var pageNo = 1;
+        cms.commentList(articleId,pageNo);
+        $("#moreComment").click(function () {
+            pageNo ++;
+            cms.commentList(articleId,pageNo);
+        })
+    });
+</script>
 </body>
 </html>

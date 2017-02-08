@@ -24,7 +24,7 @@
         var base = "${base}";
         var groupTopicId = ${groupTopic.id};
     </script>
-    <script src="${base}/res/modules/group/js/comment.js"></script>
+    <script src="${base}/res/modules/group.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -87,5 +87,15 @@
 </div>
 
 <#include "/index/common/footer.ftl"/>
+<script>
+    $(document).ready(function () {
+        var pageNo = 1;
+        group.commentList(groupTopicId,pageNo);
+        $("#moreComment").click(function () {
+            pageNo ++;
+            group.commentList(groupTopicId,pageNo);
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,19 +1,7 @@
-/**
- * Created by zchuanzhao on 2016/12/21.
- */
-$(document).ready(function () {
-    var pageNo = 1;
-    articleComment.commentList(articleId,pageNo);
-    $("#moreComment").click(function () {
-        pageNo ++;
-        articleComment.commentList(articleId,pageNo);
-    })
-});
-
-var articleComment = {
-    commentList : function (articleId,pageNo) {
+var group = {
+    commentList : function (groupTopicId,pageNo) {
         $.ajax({
-            url : base+"/article/commentList/"+articleId+".json?pageNo="+pageNo,
+            url : base+"/group/commentList/"+groupTopicId+".json?pageNo="+pageNo,
             type : "get",
             dataType: "json",
             success : function (json) {

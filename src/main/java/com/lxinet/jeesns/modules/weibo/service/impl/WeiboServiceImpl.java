@@ -11,6 +11,7 @@ import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.dao.IWeiboDao;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboCommentService;
+import com.lxinet.jeesns.modules.weibo.service.IWeiboFavorService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +31,12 @@ public class WeiboServiceImpl implements IWeiboService {
     private IConfigService configService;
     @Resource
     private IWeiboCommentService weiboCommentService;
+    @Resource
+    private IWeiboFavorService weiboFavorService;
 
     @Override
-    public Weibo findById(int id) {
-        return weiboDao.findById(id);
+    public Weibo findById(int id,int memberId) {
+        return weiboDao.findById(id,memberId);
     }
 
     @Override
@@ -60,9 +63,9 @@ public class WeiboServiceImpl implements IWeiboService {
     }
 
     @Override
-    public ResponseModel<Weibo> listByPage(Page page, int memberId) {
+    public ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId) {
         PageInterceptor.startPage(page);
-        List<Weibo> list = weiboDao.listByPage(memberId);
+        List<Weibo> list = weiboDao.listByPage(memberId,loginMemberId);
         ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
         model.setData(list);
         return model;
@@ -71,9 +74,7 @@ public class WeiboServiceImpl implements IWeiboService {
     @Transactional
     @Override
     public ResponseModel delete(int id) {
-        if(weiboDao.delete(id) == 1){
-            //删除该微博评论
-            weiboCommentService.deleteByWeibo(id);
+        if(weiboDao.delete(id) > 0){
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");
@@ -85,23 +86,44 @@ public class WeiboServiceImpl implements IWeiboService {
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        Weibo weibo = this.findById(id);
+        Weibo weibo = this.findById(id,loginMember.getId());
         if(weibo == null){
             return new ResponseModel(-1,"微博不存在");
         }
         if(loginMember.getId() != weibo.getMember().getId()){
             return new ResponseModel(-1,"没有权限");
         }
-        if(weiboDao.delete(id) == 1){
-            //删除该微博评论
-            weiboCommentService.deleteByWeibo(id);
+        if(weiboDao.delete(id) > 0){
             return new ResponseModel(0,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");
     }
 
     @Override
-    public List<Weibo> hotList() {
-        return weiboDao.hotList();
+    public List<Weibo> hotList(int loginMemberId) {
+        return weiboDao.hotList(loginMemberId);
+    }
+
+    @Transactional
+    @Override
+    public ResponseModel favor(Member loginMember, int weiboId) {
+        String message;
+        ResponseModel<Integer> responseModel;
+        if(weiboFavorService.find(weiboId,loginMember.getId()) == null){
+            //增加
+            weiboDao.favor(weiboId,1);
+            weiboFavorService.save(weiboId,loginMember.getId());
+            message = "点赞成功";
+            responseModel = new ResponseModel(0,message);
+        }else {
+            //减少
+            int num = weiboDao.favor(weiboId,-1);
+            weiboFavorService.delete(weiboId,loginMember.getId());
+            message = "取消赞成功";
+            responseModel = new ResponseModel(1,message);
+        }
+        Weibo findWeibo = this.findById(weiboId,loginMember.getId());
+        responseModel.setData(findWeibo.getFavor());
+        return responseModel;
     }
 }

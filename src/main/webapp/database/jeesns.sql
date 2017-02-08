@@ -186,6 +186,15 @@ CREATE TABLE `tbl_weibo_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tbl_weibo_favor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` DATETIME DEFAULT NULL,
+  `weibo_id` INT(11) DEFAULT '0',
+  `member_id` INT(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE (`weibo_id`,`member_id`)
+) ENGINE=InnoDb DEFAULT CHARSET=utf8;
+
 
 ##数据
 INSERT INTO `tbl_config` (`jkey`, `jvalue`, `description`)

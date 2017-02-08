@@ -155,8 +155,9 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String index(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Page page = new Page(request);
-        ResponseModel weiboModel = weiboService.listByPage(page,loginMember.getId());
+        ResponseModel weiboModel = weiboService.listByPage(page,loginMember.getId(),loginMemberId);
         model.addAttribute("weiboModel",weiboModel);
         return MEMBER_FTL_PATH + "index";
     }

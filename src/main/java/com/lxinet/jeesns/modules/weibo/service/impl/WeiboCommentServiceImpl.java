@@ -40,7 +40,7 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
 
     @Override
     public ResponseModel save(Member loginMember, String content, Integer weiboId) {
-        Weibo weibo = weiboService.findById(weiboId);
+        Weibo weibo = weiboService.findById(weiboId,loginMember.getId());
         if(weibo == null){
             return new ResponseModel(-1,"微博不存在");
         }

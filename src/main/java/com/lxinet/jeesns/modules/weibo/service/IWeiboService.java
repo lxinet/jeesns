@@ -12,15 +12,17 @@ import java.util.List;
  */
 public interface IWeiboService {
 
-    Weibo findById(int id);
+    Weibo findById(int id,int memberId);
 
     ResponseModel save(Member loginMember, String content);
 
-    ResponseModel<Weibo> listByPage(Page page, int memberId);
+    ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId);
 
     ResponseModel delete(int id);
 
     ResponseModel userDelete(Member loginMember, int id);
 
-    List<Weibo> hotList();
+    List<Weibo> hotList(int loginMemberId);
+
+    ResponseModel favor(Member loginMember, int weiboId);
 }

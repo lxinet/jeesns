@@ -11,11 +11,27 @@ import java.util.List;
  */
 public interface IWeiboDao extends IBaseDao<Weibo> {
 
-    List<Weibo> listByPage(@Param("memberId") int memberId);
+    /**
+     * 列表
+     * @param memberId 查询该会员微博列表
+     * @param loginMemberId 当前登录的会员ID，用来判断是否已点赞
+     * @return
+     */
+    List<Weibo> listByPage(@Param("memberId") int memberId,@Param("loginMemberId") int loginMemberId);
 
     int save(Weibo weibo);
 
     int delete(int id);
 
-    List<Weibo> hotList();
+    List<Weibo> hotList(@Param("loginMemberId") int loginMemberId);
+
+    int favor(@Param("id") Integer id,@Param("num") Integer num);
+
+    /**
+     * 查询微博明细
+     * @param id
+     * @param loginMemberId 当前登录的会员ID，用来判断是否已点赞
+     * @return
+     */
+    Weibo findById(@Param("id") Integer id,@Param("loginMemberId") Integer loginMemberId);
 }

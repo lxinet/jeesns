@@ -19,6 +19,8 @@ public class Weibo extends BaseEntity {
     private Integer favor;
     private Integer status;
     private Integer commentCount;
+    //是否已点赞，0未点赞，1已点赞
+    private Integer isFavor;
 
     public Integer getId() {
         return id;
@@ -90,5 +92,13 @@ public class Weibo extends BaseEntity {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public Integer getIsFavor() {
+        return isFavor;
+    }
+
+    public void setIsFavor(Integer isFavor) {
+        this.isFavor = isFavor;
     }
 }

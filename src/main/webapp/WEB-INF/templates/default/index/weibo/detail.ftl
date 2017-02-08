@@ -24,7 +24,7 @@
         var base = "${base}";
         var weiboId = ${weibo.id};
     </script>
-    <script src="${base}/res/modules/weibo/js/comment.js"></script>
+    <script src="${base}/res/modules/weibo.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -44,8 +44,8 @@
                         <a href="${base}/u/${weibo.member.id}" target="_blank">${weibo.member.name}</a>
                             <small>发布于 ${weibo.createTime?string("yyyy-MM-dd HH:mm:ss")}</small>
                         </h5>
-                        <#if loginUser?? && loginUser.id == weibo.member.id>
                         <div class="ibox-tools">
+                            <#if loginUser?? && loginUser.id == weibo.member.id>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
                                 <i class="fa fa-wrench"></i>
                             </a>
@@ -53,12 +53,20 @@
                                 <li><a href="${base}/weibo/delete/${weibo.id}" target="_jeesnsLink">删除</a>
                                 </li>
                             </ul>
+                            </#if>
+
                         </div>
-                        </#if>
                     </div>
                     <div class="ibox-content">
                         <div class="vwangluo-content">
                             <p>${weibo.content}</p>
+                        </div>
+                        <div class="text-right">
+                        <#if weibo.isFavor==0>
+                            <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                        <#else>
+                            <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
+                        </#if>
                         </div>
                     </div>
                 </div>
@@ -110,5 +118,18 @@
     </div>
 </div>
 <#include "/index/common/footer.ftl"/>
+<script>
+    $(document).ready(function () {
+        $(".weibo-favor").click(function () {
+            weibo.favor($(this),"${base}")
+        });
+        var pageNo = 1;
+        weibo.commentList(weiboId,pageNo);
+        $("#moreComment").click(function () {
+            pageNo ++;
+            weibo.commentList(weiboId,pageNo);
+        })
+    });
+</script>
 </body>
 </html>

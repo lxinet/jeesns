@@ -3,7 +3,8 @@
 <mapper namespace="com.lxinet.jeesns.modules.weibo.dao.IWeiboDao">
   <select id="listByPage" resultType="Weibo">
     select a.id,a.create_time,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',
-    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount from tbl_weibo a left join
+    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount,
+    (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor from tbl_weibo a left join
     tbl_member b on a.member_id = b.id
     <where>
       <if test="memberId &gt; 0">
@@ -12,15 +13,18 @@
     </where>
     order by a.id DESC
   </select>
-  <select id="findById" parameterType="java.lang.Integer" resultType="Weibo">
+  <select id="findById" resultType="Weibo">
     select a.id,a.create_time,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',b.introduce as 'member.introduce',
-    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount from tbl_weibo a left join
+    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount,
+    (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=#{id} AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
+    from tbl_weibo a left join
     tbl_member b on a.member_id = b.id
     where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_weibo
-    where id = #{id}
+    delete from tbl_weibo_favor where weibo_id = #{id};
+    delete from tbl_weibo_comment where weibo_id = #{id};
+    delete from tbl_weibo where id = #{id}
   </delete>
   <insert id="save" parameterType="Weibo">
     insert into tbl_weibo (create_time, member_id, type, content) VALUES (now(),#{memberId},#{type},#{content})
@@ -28,8 +32,13 @@
 
   <select id="hotList" resultType="Weibo">
     select a.id,a.create_time,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',
-    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount from tbl_weibo a left join
+    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount,
+    (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor from tbl_weibo a left join
     tbl_member b on a.member_id = b.id where date_sub(curdate(), INTERVAL 7 DAY) &lt;= date(a.create_time)
     order by commentCount DESC,a.id desc limit 0,20
   </select>
+
+  <update id="favor">
+    update tbl_weibo set favor = favor + #{num} where id = #{id}
+  </update>
 </mapper>

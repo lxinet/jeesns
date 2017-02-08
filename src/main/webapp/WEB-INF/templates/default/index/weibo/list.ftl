@@ -21,6 +21,7 @@
     <script src="${base}/res/common/js/jquery.form.js"></script>
     <script src="${base}/res/common/js/jeesns.js"></script>
     <script src="${base}/res/common/js/extendPagination.js"></script>
+    <script src="${base}/res/modules/weibo.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -55,7 +56,12 @@
                                             <a href="${base}/u/${weibo.member.id}" target="_blank">${weibo.member.name}</a></strong><br/>
                                         <p>${weibo.content}</p>
                                         <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                        (<a href="${base}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
+                                        (<#if weibo.isFavor==0>
+                                            <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                        <#else>
+                                            <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
+                                        </#if>
+                                        <a href="${base}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
                                     </div>
                                 </div>
                             </#list>
@@ -87,6 +93,11 @@
                                     <div class="media-body ">
                                         <strong><a href="${base}/u/${weibo.member.id}" target="_blank" class="pull-left">${weibo.member.name}</a></strong><br/>
                                         <p>${weibo.content}</p>
+                                        <#if weibo.isFavor==0>
+                                            <a class="btn btn-xs btn-white weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                        <#else>
+                                            <a class="btn btn-xs btn-info weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                        </#if>
                                         <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
                                         (<a href="${base}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
                                     </div>
@@ -104,6 +115,9 @@
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");
+        $(".weibo-favor").click(function () {
+            weibo.favor($(this),"${base}")
+        });
     });
 </script>
 </body>

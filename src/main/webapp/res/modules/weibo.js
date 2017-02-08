@@ -1,16 +1,28 @@
-/**
- * Created by zchuanzhao on 2016/12/21.
- */
-$(document).ready(function () {
-    var pageNo = 1;
-    weiboComment.commentList(weiboId,pageNo);
-    $("#moreComment").click(function () {
-        pageNo ++;
-        weiboComment.commentList(weiboId,pageNo);
-    })
-});
-
-var weiboComment = {
+var weibo = {
+    favor : function (_this,base) {
+        var weiboId = _this.attr("weibo-id");
+        $.ajax({
+            url: base+"/weibo/favor/"+weiboId,
+            type: "get",
+            dataType: "json",
+            timeout: 5000,
+            success:function(res){
+                if(res.code < 0){
+                    jeesnsDialog.errorTips(res.message);
+                }else {
+                    if(res.code == 0){
+                        _this.html("<i class='fa fa-thumbs-up'></i> "+res.data);
+                        _this.removeClass("text-primary");
+                        _this.addClass("text-success")
+                    }else {
+                        _this.html("<i class='fa fa-thumbs-o-up'></i> "+res.data);
+                        _this.removeClass("text-success");
+                        _this.addClass("text-primary")
+                    }
+                }
+            }
+        });
+    },
     commentList : function (weiboId,pageNo) {
         $.ajax({
             url : base+"/weibo/commentList/"+weiboId+".json?pageNo="+pageNo,

@@ -5,6 +5,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
+import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.cms.entity.ArticleCate;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
@@ -47,11 +48,13 @@ public class IndexController extends BaseController{
         if(cateid == null){
             cateid = 0;
         }
+        Member loginMember = MemberUtil.getLoginMember(request);
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         ResponseModel articleModel = articleService.listByPage(page,key,cateid,1);
         ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1);
         ResponseModel groupModel = groupService.listByPage(1,page,key);
         page.setPageSize(50);
-        ResponseModel weiboModel = weiboService.listByPage(page,0);
+        ResponseModel weiboModel = weiboService.listByPage(page,0,loginMemberId);
         model.addAttribute("articleModel",articleModel);
         model.addAttribute("groupTopicModel",groupTopicModel);
         model.addAttribute("groupModel",groupModel);
@@ -66,7 +69,9 @@ public class IndexController extends BaseController{
         if(member == null){
             return ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
         }
-        ResponseModel weiboModel = weiboService.listByPage(page,id);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
+        ResponseModel weiboModel = weiboService.listByPage(page,id,loginMemberId);
         model.addAttribute("weiboModel",weiboModel);
         model.addAttribute("member",member);
         return FTL_PATH + "u";

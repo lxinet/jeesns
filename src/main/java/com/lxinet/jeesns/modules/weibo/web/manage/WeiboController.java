@@ -29,7 +29,7 @@ public class WeiboController extends BaseController {
     @Before(AdminLoginInterceptor.class)
     public String index(Model model) {
         Page page = new Page(request);
-        ResponseModel responseModel = weiboService.listByPage(page,0);
+        ResponseModel responseModel = weiboService.listByPage(page,0,0);
         model.addAttribute("model",responseModel);
         return MANAGE_FTL_PATH + "index";
     }
