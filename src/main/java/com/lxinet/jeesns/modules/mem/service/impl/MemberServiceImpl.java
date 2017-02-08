@@ -186,7 +186,7 @@ public class MemberServiceImpl implements IMemberService {
     public ResponseModel updateAvatar(Member member,String oldAvatar,HttpServletRequest request) {
         int result = memberDao.updateAvatar(member.getId(),member.getAvatar());
         if(result == 1){
-            if(StringUtils.isNotEmpty(oldAvatar)){
+            if(StringUtils.isNotEmpty(oldAvatar) && !Const.DEFAULT_AVATAR.equals(oldAvatar)){
                 //头像真实路径
                 String realPath = request.getServletContext().getRealPath(oldAvatar);
                 //删除旧头像
