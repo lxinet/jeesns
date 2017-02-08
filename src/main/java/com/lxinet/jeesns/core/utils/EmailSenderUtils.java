@@ -14,9 +14,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailSenderUtils {
+	private static final String CONFIG_SERVICE = "configService";
+
+	private EmailSenderUtils(){
+
+	}
 
 	private static boolean sendMail(String email, String content,String title) {
-		IConfigService configService = SpringContextHolder.getBean("configService");
+		IConfigService configService = SpringContextHolder.getBean(CONFIG_SERVICE);
 		Map<String,String> config = configService.getConfigToMap();
 		final String account = config.get(ConfigUtil.SITE_SEND_EMAIL_ACCOUNT);
 		final String passWord = config.get(ConfigUtil.SITE_SEND_EMAIL_PASSWORD);
@@ -62,7 +67,7 @@ public class EmailSenderUtils {
 	 * @return
 	 */
 	public static boolean activeMember(String email,String randomCode){
-		IConfigService configService = SpringContextHolder.getBean("configService");
+		IConfigService configService = SpringContextHolder.getBean(CONFIG_SERVICE);
 		Map<String,String> config = configService.getConfigToMap();
 		String title = config.get(ConfigUtil.SITE_NAME) + "会员账号激活";
 		String content = "欢迎加入"+config.get("site_name")+"，您的账号激活验证码为：【"+randomCode+"】，30分钟内有效，请马上进行验证。若非本人操作，请忽略此邮件。";
@@ -76,7 +81,7 @@ public class EmailSenderUtils {
 	 * @return
 	 */
 	public static boolean forgetpwd(String email,String randomCode){
-		IConfigService configService = SpringContextHolder.getBean("configService");
+		IConfigService configService = SpringContextHolder.getBean(CONFIG_SERVICE);
 		Map<String,String> config = configService.getConfigToMap();
 		String title = config.get(ConfigUtil.SITE_NAME) + "找回密码";
 		String content = "<h4>您好，"+email+"：</h4><p>请点击下面的链接来重置您的密码<br  />"+

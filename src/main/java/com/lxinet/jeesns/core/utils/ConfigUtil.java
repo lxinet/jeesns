@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.core.utils;
 
+
 /**
  * Created by zchuanzhao on 2017/1/5.
  */
@@ -24,5 +25,9 @@ public class ConfigUtil {
     public static final String WEIBO_ALIAS = "weibo_alias";
     public static final String WEIBO_POST = "weibo_post";
     public static final String WEIBO_POST_MAXCONTENT = "weibo_post_maxcontent";
+
+    private ConfigUtil(){
+
+    }
 
 }
