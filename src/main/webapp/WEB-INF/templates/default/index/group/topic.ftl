@@ -25,6 +25,7 @@
         var groupTopicId = ${groupTopic.id};
     </script>
     <script src="${base}/res/modules/group.js"></script>
+    <script src="${base}/res/modules/archive.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -59,6 +60,15 @@
                             <a href="${base}/group/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink">删除</a>
                         </#if>
                         </div>
+                    <#if groupTopic.isFavor == 0>
+                        <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                            <i class="fa fa-heart-o"></i> 喜欢 ${groupTopic.favor}
+                        </a>
+                    <#else>
+                        <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                            <i class="fa fa-heart"></i> 喜欢 ${groupTopic.favor}
+                        </a>
+                    </#if>
                     </div>
                     <div class="ibox-content" id="comment">
                         <h3>评论</h3>
@@ -94,6 +104,9 @@
         $("#moreComment").click(function () {
             pageNo ++;
             group.commentList(groupTopicId,pageNo);
+        });
+        $(".archive-favor").click(function () {
+            archive.favor($(this),"${base}")
         });
     });
 </script>

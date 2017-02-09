@@ -13,6 +13,8 @@ public interface IArticleService {
 
     Article findById(int id);
 
+    Article findById(int id,Member loginMember);
+
     ResponseModel save(Member member,Article article);
 
     ResponseModel update(Member member,Article article);

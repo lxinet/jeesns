@@ -35,7 +35,13 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     public Article findById(int id) {
-        return articleDao.findById(id);
+        return articleDao.findById(id,0);
+    }
+
+    @Override
+    public Article findById(int id,Member loginMember) {
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
+        return articleDao.findById(id,loginMemberId);
     }
 
     @Override
@@ -103,7 +109,7 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     @Transactional
     public ResponseModel update(Member member,Article article) {
-        Article findArticle = this.findById(article.getId());
+        Article findArticle = this.findById(article.getId(),member);
         if(findArticle == null){
             return new ResponseModel(-2);
         }

@@ -1,11 +1,14 @@
 package com.lxinet.jeesns.core.service.impl;
 
 import com.lxinet.jeesns.core.dao.IArchiveDao;
+import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Archive;
+import com.lxinet.jeesns.core.service.IArchiveFavorService;
 import com.lxinet.jeesns.core.service.IArchiveService;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,6 +23,8 @@ import javax.annotation.Resource;
 public class ArchiveServiceImpl implements IArchiveService {
     @Resource
     private IArchiveDao archiveDao;
+    @Resource
+    private IArchiveFavorService archiveFavorService;
 
     @Override
     public Archive findByArchiveId(int id) {
@@ -57,6 +62,29 @@ public class ArchiveServiceImpl implements IArchiveService {
     @Override
     public void updateViewCount(int id) {
         archiveDao.updateViewCount(id);
+    }
+
+    @Transactional
+    @Override
+    public ResponseModel favor(Member loginMember, int archiveId) {
+        String message;
+        ResponseModel<Integer> responseModel;
+        if(archiveFavorService.find(archiveId,loginMember.getId()) == null){
+            //增加
+            archiveDao.favor(archiveId,1);
+            archiveFavorService.save(archiveId,loginMember.getId());
+            message = "喜欢成功";
+            responseModel = new ResponseModel(0,message);
+        }else {
+            //减少
+            archiveDao.favor(archiveId,-1);
+            archiveFavorService.delete(archiveId,loginMember.getId());
+            message = "取消喜欢成功";
+            responseModel = new ResponseModel(1,message);
+        }
+        Archive findArchive = this.findByArchiveId(archiveId);
+        responseModel.setData(findArchive.getFavor());
+        return responseModel;
     }
 
     @Override

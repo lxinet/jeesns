@@ -37,7 +37,13 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     public GroupTopic findById(int id) {
-        return groupTopicDao.findById(id);
+        return groupTopicDao.findById(id,0);
+    }
+
+    @Override
+    public GroupTopic findById(int id,Member loginMember) {
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
+        return groupTopicDao.findById(id,loginMemberId);
     }
 
     @Override
@@ -91,7 +97,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Override
     @Transactional
     public ResponseModel update(Member member,GroupTopic groupTopic) {
-        GroupTopic findGroupTopic = this.findById(groupTopic.getId());
+        GroupTopic findGroupTopic = this.findById(groupTopic.getId(),member);
         if(findGroupTopic == null){
             return new ResponseModel(-2);
         }
@@ -137,7 +143,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         if(member == null){
             return new ResponseModel(-1,"请先登录");
         }
-        GroupTopic groupTopic = this.findById(id);
+        GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
             return new ResponseModel(-1,"帖子不存在");
         }
@@ -164,7 +170,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         if(member == null){
             return new ResponseModel(-1,"请先登录");
         }
-        GroupTopic groupTopic = this.findById(id);
+        GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
             return new ResponseModel(-1,"帖子不存在");
         }

@@ -25,6 +25,7 @@
         var articleId = ${article.id};
     </script>
     <script src="${base}/res/modules/cms.js"></script>
+    <script src="${base}/res/modules/archive.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -58,6 +59,15 @@
                             <a href="${base}/article/delete/${article.id}" confirm="确定要删除文章吗？" target="_jeesnsLink">删除</a>
                             </#if>
                         </div>
+                        <#if article.isFavor == 0>
+                            <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${article.archiveId}">
+                                <i class="fa fa-heart-o"></i> 喜欢 ${article.favor}
+                            </a>
+                        <#else>
+                            <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${article.archiveId}">
+                                <i class="fa fa-heart"></i> 喜欢 ${article.favor}
+                            </a>
+                        </#if>
                     </div>
                     <div class="ibox-content" id="comment">
                         <h3>评论</h3>
@@ -93,7 +103,10 @@
         $("#moreComment").click(function () {
             pageNo ++;
             cms.commentList(articleId,pageNo);
-        })
+        });
+        $(".archive-favor").click(function () {
+            archive.favor($(this),"${base}")
+        });
     });
 </script>
 </body>

@@ -1,15 +1,13 @@
 package com.lxinet.jeesns.common.web;
 
-import com.lxinet.jeesns.core.annotation.Clear;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
+import com.lxinet.jeesns.core.service.IArchiveService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
-import com.lxinet.jeesns.modules.cms.entity.ArticleCate;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
-import com.lxinet.jeesns.modules.group.dao.IGroupTopicDao;
 import com.lxinet.jeesns.modules.group.service.IGroupService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
@@ -19,10 +17,7 @@ import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import javax.json.JsonObject;
-import java.util.List;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -41,6 +36,8 @@ public class IndexController extends BaseController{
     private IWeiboService weiboService;
     @Resource
     private IMemberService memberService;
+    @Resource
+    private IArchiveService archiveService;
 
     @RequestMapping(value="index",method = RequestMethod.GET)
     public String index(String key,Integer cateid,Model model) {
@@ -85,6 +82,24 @@ public class IndexController extends BaseController{
         jsonObject.put("LAST_SYSTEM_VERSION",Const.LAST_SYSTEM_VERSION);
         jsonObject.put("LAST_SYSTEM_UPDATE_TIME",Const.LAST_SYSTEM_UPDATE_TIME);
         return callback + "(" + jsonObject.toString() + ")";
+    }
+
+    /**
+     * 文档、喜欢
+     * @param archiveId
+     * @return
+     */
+    @RequestMapping(value="/archive/favor/{archiveId}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object favor(@PathVariable("archiveId") Integer archiveId){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        if(archiveId == null) {
+            return new ResponseModel(-1, "非法操作");
+        }
+        return archiveService.favor(loginMember,archiveId);
     }
 
 }

@@ -182,7 +182,8 @@ public class GroupController extends BaseController {
 
     @RequestMapping(value = "/topic/{topicId}",method = RequestMethod.GET)
     public String topic(@PathVariable("topicId") Integer topicId,Model model){
-        GroupTopic groupTopic = groupTopicService.findById(topicId);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        GroupTopic groupTopic = groupTopicService.findById(topicId,loginMember);
         if(groupTopic == null){
             return ErrorUtil.error(model,-1004,Const.INDEX_ERROR_FTL_PATH);
         }
@@ -195,7 +196,6 @@ public class GroupController extends BaseController {
         }
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
-        Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
             model.addAttribute("isPermission",0);
         }else {
@@ -252,7 +252,7 @@ public class GroupController extends BaseController {
         if(loginMember == null){
             return "redirect:"+request.getContextPath()+"/member/login";
         }
-        GroupTopic groupTopic = groupTopicService.findById(topicId);
+        GroupTopic groupTopic = groupTopicService.findById(topicId,loginMember);
         if(groupTopic == null){
             return ErrorUtil.error(model,-1004, Const.INDEX_ERROR_FTL_PATH);
         }

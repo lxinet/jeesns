@@ -87,6 +87,7 @@
                                 <span class="text-muted">
                                     <i class="fa fa-user"> </i> <a href="${base}/u/${topic.member.id}">${topic.member.name}</a>&nbsp;&nbsp;
                                     <i class="fa fa-clock-o"></i> ${topic.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
+                                    <i class="fa fa-heart"> </i> ${topic.favor}</span>
                                     <i class="fa fa-eye"> </i> ${topic.viewCount} 浏览
 
                                 </span>

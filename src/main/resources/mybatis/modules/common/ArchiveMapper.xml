@@ -33,5 +33,7 @@
     </set>
     where archive_id = #{archiveId}
   </update>
-
+  <update id="favor">
+    update tbl_archive set favor = favor + #{num} where archive_id = #{archiveId}
+  </update>
 </mapper>

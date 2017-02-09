@@ -16,7 +16,7 @@ CREATE TABLE `tbl_archive` (
   `thumbnail` varchar(255) DEFAULT NULL COMMENT '缩略图',
   `last_reply` datetime DEFAULT NULL COMMENT '最后回复时间',
   `can_reply` int(1) DEFAULT '0' COMMENT '是否可以回复，0可以回复，1不可以回复',
-  `good_num` int(11) DEFAULT '0' COMMENT '点赞数量',
+  `good_num` int(11) DEFAULT '0' COMMENT '顶数量',
   `bad_num` int(11) DEFAULT '0' COMMENT '踩数量',
   `check_admin` int(11) DEFAULT '0' COMMENT '审核管理员id',
   `content` text COMMENT '内容',

@@ -59,6 +59,12 @@ public class Archive extends BaseEntity {
     @NotBlank(message = "文章内容不能为空")
     private String content;
 
+    //喜欢数量
+    private Integer favor;
+
+    //会员是否已点击喜欢
+    private Integer isFavor;
+
     public Integer getArchiveId() {
         return archiveId;
     }
@@ -225,6 +231,22 @@ public class Archive extends BaseEntity {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public Integer getFavor() {
+        return favor;
+    }
+
+    public void setFavor(Integer favor) {
+        this.favor = favor;
+    }
+
+    public Integer getIsFavor() {
+        return isFavor;
+    }
+
+    public void setIsFavor(Integer isFavor) {
+        this.isFavor = isFavor;
     }
 
     public Archive copy(Object object) throws Exception {

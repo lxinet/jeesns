@@ -20,5 +20,7 @@ public interface IArchiveDao extends IBaseDao<Archive> {
      * @return
      */
     int updateViewCount(@Param("archiveId") int archiveId);
+
+    int favor(@Param("archiveId") int archiveId,@Param("num") int num);
     
 }

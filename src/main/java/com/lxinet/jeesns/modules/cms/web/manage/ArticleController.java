@@ -86,9 +86,10 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value="${managePath}/cms/article/edit/{id}",method = RequestMethod.GET)
     public String edit(@PathVariable("id") Integer id, Model model){
+        Member loginMember = MemberUtil.getLoginMember(request);
         List<ArticleCate> cateList = articleCateService.list();
         model.addAttribute("cateList",cateList);
-        Article article = articleService.findById(id);
+        Article article = articleService.findById(id,loginMember);
         model.addAttribute("article",article);
         return MANAGE_FTL_PATH + "/edit";
     }

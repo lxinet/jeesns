@@ -31,7 +31,7 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
 
     @Override
     public ResponseModel save(Member loginMember, String content, Integer groupTopicId) {
-        GroupTopic groupTopic = groupTopicService.findById(groupTopicId);
+        GroupTopic groupTopic = groupTopicService.findById(groupTopicId,loginMember);
         if(groupTopic == null){
             return new ResponseModel(-1,"帖子不存在");
         }

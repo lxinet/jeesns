@@ -48,6 +48,7 @@
 
                             <div class="small m-b-xs">
                                 <span class="text-muted"><i class="fa fa-clock-o"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
+                                <i class="fa fa-heart"> </i> ${article.favor}</span>
                                 <i class="fa fa-eye"> </i> ${article.viewCount} 浏览</span>
                             </div>
                         </div>
@@ -101,6 +102,7 @@
 
                             <div class="small m-b-xs">
                                 <span class="text-muted"><i class="fa fa-clock-o"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
+                                <i class="fa fa-heart"> </i> ${article.favor}</span>
                                 <i class="fa fa-eye"> </i> ${article.viewCount} 浏览</span>
                             </div>
                         </div>

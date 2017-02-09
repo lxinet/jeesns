@@ -57,7 +57,8 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value="/detail/{id}",method = RequestMethod.GET)
     public String detail(@PathVariable("id") Integer id, Model model){
-        Article article = articleService.findById(id);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        Article article = articleService.findById(id,loginMember);
         if(article != null){
             archiveService.updateViewCount(article.getArchiveId());
         }else {
@@ -102,7 +103,7 @@ public class ArticleController extends BaseController {
         if(loginMember == null){
             return "redirect:"+request.getContextPath()+"/member/login";
         }
-        Article article = articleService.findById(id);
+        Article article = articleService.findById(id,loginMember);
         if(article.getMemberId() != loginMember.getId()){
             return ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
         }

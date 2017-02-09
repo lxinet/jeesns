@@ -16,4 +16,6 @@ public interface IGroupTopicDao extends IBaseDao<GroupTopic> {
     List<GroupTopic> listByPage(@Param("key") String key, @Param("groupId") Integer groupId,@Param("status") Integer status);
 
     int audit(@Param("id") Integer id);
+
+    GroupTopic findById(@Param("id") Integer id,@Param("loginMemberId") Integer loginMemberId);
 }
