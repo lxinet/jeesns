@@ -37,10 +37,13 @@
             <div class="col-sm-8">
                 <div class="ibox-content">
                     <form class="form-horizontal m-t jeesns_form" action="${base}/weibo/publish" method="post">
-                        <p><textarea cols="3" class="form-control area" name="content" id="weibo-content"></textarea></p>
+                        <p><textarea cols="3" class="form-control area" name="content" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea></p>
                         <div class="row emoji-container" id="emoji">
                             <i class="fa fa-smile-o emoji-tbtn"></i>
-                            <input type="submit" value="发布" class="pull-right btn btn-primary" style="margin-right: 14px;">
+                            <span class="pull-right mg-r-15">
+                                 <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>
+                                <input type="submit" value="发布" class="btn btn-primary">
+                            </span>
                         </div>
                     </form>
                 </div>
@@ -59,7 +62,9 @@
                                     <div class="media-body ">
                                         <strong>
                                             <a href="${base}/u/${weibo.member.id}" target="_blank">${weibo.member.name}</a></strong><br/>
-                                        <p>${weibo.content}</p>
+                                        <div class="mg-t-10 mg-b-10">
+                                            ${weibo.content}
+                                        </div>
                                         <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
                                         (<#if weibo.isFavor==0>
                                             <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
@@ -97,11 +102,13 @@
                                     </a>
                                     <div class="media-body ">
                                         <strong><a href="${base}/u/${weibo.member.id}" target="_blank" class="pull-left">${weibo.member.name}</a></strong><br/>
-                                        <p>${weibo.content}</p>
+                                        <div class="mg-t-10 mg-b-10">
+                                            ${weibo.content}
+                                        </div>
                                         <#if weibo.isFavor==0>
-                                            <a class="btn btn-xs btn-white weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                            <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
                                         <#else>
-                                            <a class="btn btn-xs btn-info weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                            <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
                                         </#if>
                                         <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
                                         (<a href="${base}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)

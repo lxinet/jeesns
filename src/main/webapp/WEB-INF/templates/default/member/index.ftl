@@ -21,6 +21,7 @@
     <script src="${base}/res/plugins/layer/layer.js"></script>
     <script src="${base}/res/common/js/jquery.form.js"></script>
     <script src="${base}/res/common/js/jeesns.js"></script>
+    <script src="${base}/res/modules/weibo.js"></script>
     <script src="${base}/res/plugins/emoji/js/underscore-min.js"></script>
     <script src="${base}/res/plugins/emoji/js/editor.js"></script>
     <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
@@ -53,10 +54,13 @@
             <div class="col-sm-9">
                 <div class="ibox-content">
                     <form class="form-horizontal m-t jeesns_form" action="${base}/weibo/publish" method="post">
-                        <p><textarea cols="3" class="form-control" name="content" id="weibo-content"></textarea></p>
+                        <p><textarea cols="3" class="form-control" name="content" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea></p>
                         <div class="row emoji-container" id="emoji">
                             <i class="fa fa-smile-o emoji-tbtn"></i>
-                            <input type="submit" value="发布" class="pull-right btn btn-primary" style="margin-right: 14px;">
+                            <span class="pull-right mg-r-15">
+                                 <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>
+                                <input type="submit" value="发布" class="btn btn-primary">
+                            </span>
                         </div>
                     </form>
                 </div>

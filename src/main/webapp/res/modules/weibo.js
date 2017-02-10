@@ -46,3 +46,19 @@ var weibo = {
         });
     }
 }
+$(document).ready(function () {
+    //输入前内容
+    var inputBeforeContent = "";
+    $("#weibo-content").bind('input propertychange focus blur', function() {
+        var $this = $(this);
+        var _val = $this.val();
+        var maxlength = $this.attr("maxlength");
+        $("#weibo-words").text(_val.length+"/"+maxlength);
+        if (_val.length > maxlength) {
+            $this.val(inputBeforeContent);
+        }else {
+            inputBeforeContent = _val;
+        }
+    });
+});
+

@@ -58,9 +58,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div class="vwangluo-content">
-                            <p>${weibo.content}</p>
-                        </div>
+                        ${weibo.content}
                         <div class="text-right">
                         <#if weibo.isFavor==0>
                             <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
