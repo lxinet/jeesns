@@ -54,6 +54,17 @@ h5 {
 
 .list-search {margin-top: -10px}
 
+.emoji{
+  line-height: 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: -2px 2px;
+  text-align: center;
+  vertical-align: top;
+  background-size:cover;
+}
+
 /*.nav {*/
   /*height: 50px;*/
 /*}*/

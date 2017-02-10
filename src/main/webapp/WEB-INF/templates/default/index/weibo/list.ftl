@@ -9,8 +9,9 @@
     <meta name="author" content="JEESNS"/>
     <link href="${base}/res/common/css/bootstrap.min.css" rel="stylesheet">
     <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${base}/res/common/css/jeesns.css">
-    <link rel="stylesheet" href="${base}/res/common/css/jeesns-skin.css">
+    <link href="${base}/res/common/css/jeesns.css" rel="stylesheet">
+    <link href="${base}/res/common/css/jeesns-skin.css" rel="stylesheet">
+    <link href="${base}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${base}/res/common/js/html5shiv.min.js"></script>
     <script src="${base}/res/common/js/respond.min.js"></script>
@@ -22,6 +23,10 @@
     <script src="${base}/res/common/js/jeesns.js"></script>
     <script src="${base}/res/common/js/extendPagination.js"></script>
     <script src="${base}/res/modules/weibo.js"></script>
+    <script src="${base}/res/plugins/emoji/js/underscore-min.js"></script>
+    <script src="${base}/res/plugins/emoji/js/editor.js"></script>
+    <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
+
 </head>
 
 <body class="gray-bg">
@@ -32,10 +37,10 @@
             <div class="col-sm-8">
                 <div class="ibox-content">
                     <form class="form-horizontal m-t jeesns_form" action="${base}/weibo/publish" method="post">
-                        <p><textarea cols="3" class="form-control" name="content"></textarea></p>
-                        <div class="row">
-                            <input type="submit" value="发布" class="pull-right btn btn-primary"
-                                   style="margin-right: 14px;">
+                        <p><textarea cols="3" class="form-control area" name="content" id="weibo-content"></textarea></p>
+                        <div class="row emoji-container" id="emoji">
+                            <i class="fa fa-smile-o emoji-tbtn"></i>
+                            <input type="submit" value="发布" class="pull-right btn btn-primary" style="margin-right: 14px;">
                         </div>
                     </form>
                 </div>
@@ -118,6 +123,11 @@
         $(".weibo-favor").click(function () {
             weibo.favor($(this),"${base}")
         });
+        $('#emoji').emoji({
+            insertAfter: function(item){
+                $('#weibo-content').insertContent(':'+item.name+':')
+            }
+        },"${base}");
     });
 </script>
 </body>

@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.service.IArchiveService;
 import com.lxinet.jeesns.core.utils.Const;
+import com.lxinet.jeesns.core.utils.Emoji;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
@@ -100,6 +101,16 @@ public class IndexController extends BaseController{
             return new ResponseModel(-1, "非法操作");
         }
         return archiveService.favor(loginMember,archiveId);
+    }
+
+    /**
+     * 获取Emoji数据
+     * @return
+     */
+    @RequestMapping(value="/emoji/emojiJsonData.json",method = RequestMethod.GET)
+    @ResponseBody
+    public Object emojiJsonData(){
+        return Emoji.emojiJson();
     }
 
 }

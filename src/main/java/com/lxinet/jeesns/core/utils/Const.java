@@ -9,6 +9,11 @@ public class Const {
 	public static final String LAST_SYSTEM_UPDATE_TIME = "2017-02-7";
 
 	/**
+	 * 项目路径
+	 */
+	public static String PROJECT_PATH;
+
+	/**
 	 * 文件上传路径
      */
 	public static final String UPLOAD_PATH = "/upload";

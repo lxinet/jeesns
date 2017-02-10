@@ -32,6 +32,7 @@ public class WeiboController extends BaseController {
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ResponseBody
     public ResponseModel publish(String content){
+
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
