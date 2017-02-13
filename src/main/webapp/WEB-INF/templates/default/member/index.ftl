@@ -39,8 +39,15 @@
                     </div>
                     <div>
                         <div class="ibox-content profile-element text-center">
-                            <img alt="image" class="img-circle" src="${base}${loginUser.avatar}" width="80px" height="80px"/>
-                            <h4><strong>${loginUser.name!''}</strong></h4>
+                            <a href="${base}/member/avatar">
+                                <img alt="image" class="img-circle" src="${base}${loginUser.avatar}" width="80px" height="80px"/>
+                            </a>
+                            <h4>
+                                <strong>
+                                    ${loginUser.name!''}
+                                    <a href="${base}/member/editInfo"><i class="fa fa-edit"></i></a>
+                                </strong>
+                            </h4>
                         </div>
                         <div class="ibox-content profile-content">
                             <h5>个人说明</h5>

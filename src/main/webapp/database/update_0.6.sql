@@ -18,3 +18,8 @@ CREATE TABLE `tbl_archive_favor` (
   PRIMARY KEY (`id`),
   UNIQUE (`archive_id`,`member_id`)
 ) ENGINE=InnoDb DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `tbl_group_topic` ADD is_top int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶';
+ALTER TABLE `tbl_group_topic` ADD is_essence int(11) DEFAULT '0' COMMENT '精华，0不加精，1加精';
+

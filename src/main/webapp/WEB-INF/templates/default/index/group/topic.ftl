@@ -42,33 +42,63 @@
                     <li class="active">${groupTopic.title}</li>
                 </ol>
                 <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>
+                            <i class="fa fa-user"> </i> <a href="${base}/u/${groupTopic.member.id}">${groupTopic.member.name}</a>&nbsp;&nbsp;
+                            <i class="fa fa-clock-o"> </i> ${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
+                            <i class="fa fa-eye"> </i> ${groupTopic.viewCount} 浏览
+                        </h5>
+                        <div class="ibox-tools">
+                        <#if loginUser?? && ((loginUser.isAdmin == 1) || (loginUser.id == groupTopic.memberId) || isPermission==1)>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                        </#if>
+                            <ul class="dropdown-menu dropdown-user">
+                            <#if loginUser?? && loginUser.isAdmin == 1>
+                                <#if groupTopic.isTop = 0>
+                                    <li><a href="${base}/group/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
+                                    <li><a href="${base}/group/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
+                                <#elseif groupTopic.isTop = 1>
+                                    <li><a href="${base}/group/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消置顶</a></li>
+                                    <li><a href="${base}/group/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
+                                <#elseif groupTopic.isTop = 2>
+                                    <li><a href="${base}/group/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消置顶</a></li>
+                                    <li><a href="${base}/group/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
+                                </#if>
+                                <#if groupTopic.isEssence = 0>
+                                    <li><a href="${base}/group/topic/essence/${groupTopic.id}?essence=1" target="_jeesnsLink">精华</a></li>
+                                <#elseif groupTopic.isEssence = 1>
+                                    <li><a href="${base}/group/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink">取消精华</a></li>
+                                </#if>
+                            </#if>
+
+                            <#if loginUser?? && loginUser.id == groupTopic.memberId>
+                                <li><a href="${base}/group/topicEdit/${groupTopic.id}">编辑</a></li>
+                            </#if>
+                            <#if isPermission==1>
+                                <li><a href="${base}/group/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink">删除</a></li>
+                            </#if>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="ibox-content">
                         <div class="pull-right">
-                            <i class="fa fa-user"> </i> <a href="${base}/u/${groupTopic.member.id}">${groupTopic.member.name}</a>&nbsp;&nbsp;
-                            <i class="fa fa-clock-o"></i> ${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
-                            <i class="fa fa-eye"> </i> ${groupTopic.viewCount} 浏览
+
                         </div>
                         <div class="text-center groupTopic-title">
                             <h2>${groupTopic.title}</h2>
                         </div>
                         <div class="content"><p>${groupTopic.content}</p></div>
-                        <div class="text-right">
-                        <#if loginUser?? && loginUser.id==groupTopic.memberId>
-                            <a href="${base}/group/topicEdit/${groupTopic.id}">编辑</a>
+                        <#if groupTopic.isFavor == 0>
+                            <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                                <i class="fa fa-heart-o"></i> 喜欢 ${groupTopic.favor}
+                            </a>
+                        <#else>
+                            <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                                <i class="fa fa-heart"></i> 喜欢 ${groupTopic.favor}
+                            </a>
                         </#if>
-                        <#if isPermission==1>
-                            <a href="${base}/group/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink">删除</a>
-                        </#if>
-                        </div>
-                    <#if groupTopic.isFavor == 0>
-                        <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
-                            <i class="fa fa-heart-o"></i> 喜欢 ${groupTopic.favor}
-                        </a>
-                    <#else>
-                        <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
-                            <i class="fa fa-heart"></i> 喜欢 ${groupTopic.favor}
-                        </a>
-                    </#if>
                     </div>
                     <div class="ibox-content" id="comment">
                         <h3>评论</h3>

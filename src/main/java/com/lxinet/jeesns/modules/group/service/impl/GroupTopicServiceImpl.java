@@ -195,4 +195,66 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         return new ResponseModel(-1,"权限不足");
     }
+
+    @Override
+    public ResponseModel top(Member member,int id, int top) {
+        if(member == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        GroupTopic groupTopic = this.findById(id,member);
+        if (groupTopic == null){
+            return new ResponseModel(-1,"帖子不存在");
+        }
+        Group group = groupService.findById(groupTopic.getGroup().getId());
+        if(group == null){
+            return new ResponseModel(-1,"出现异常");
+        }
+        String groupManagers = group.getManagers();
+        String[] groupManagerArr = groupManagers.split(",");
+        boolean isManager = false;
+        for (String manager : groupManagerArr){
+            if(member.getId() == Integer.parseInt(manager)){
+                isManager = true;
+            }
+        }
+        if(member.getId() == groupTopic.getMember().getId() || member.getIsAdmin() == 1 || isManager || member.getId() == group.getCreator()){
+            if(groupTopicDao.top(id,top) == 1){
+                return new ResponseModel(1,"操作成功");
+            }else {
+                return new ResponseModel(-1,"操作失败");
+            }
+        }
+        return new ResponseModel(-1,"权限不足");
+    }
+
+    @Override
+    public ResponseModel essence(Member member,int id, int essence) {
+        if(member == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        GroupTopic groupTopic = this.findById(id,member);
+        if (groupTopic == null){
+            return new ResponseModel(-1,"帖子不存在");
+        }
+        Group group = groupService.findById(groupTopic.getGroup().getId());
+        if(group == null){
+            return new ResponseModel(-1,"出现异常");
+        }
+        String groupManagers = group.getManagers();
+        String[] groupManagerArr = groupManagers.split(",");
+        boolean isManager = false;
+        for (String manager : groupManagerArr){
+            if(member.getId() == Integer.parseInt(manager)){
+                isManager = true;
+            }
+        }
+        if(member.getId() == groupTopic.getMember().getId() || member.getIsAdmin() == 1 || isManager || member.getId() == group.getCreator()){
+            if(groupTopicDao.essence(id,essence) == 1){
+                return new ResponseModel(1,"操作成功");
+            }else {
+                return new ResponseModel(-1,"操作失败");
+            }
+        }
+        return new ResponseModel(-1,"权限不足");
+    }
 }

@@ -411,4 +411,33 @@ public class GroupController extends BaseController {
         return INDEX_FTL_PATH + "fans";
     }
 
+    /**
+     * 置顶、取消置顶
+     * @param id
+     * @param top
+     * @return
+     */
+    @RequestMapping(value = "/topic/top/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object top(@PathVariable("id") Integer id,@RequestParam("top") Integer top) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        ResponseModel responseModel = groupTopicService.top(loginMember,id,top);
+        return responseModel;
+    }
+
+    /**
+     * 加精、取消加精
+     * @param id
+     * @param essence
+     * @return
+     */
+    @RequestMapping(value = "/topic/essence/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object essence(@PathVariable("id") Integer id,@RequestParam("essence") Integer essence) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        ResponseModel responseModel = groupTopicService.essence(loginMember,id,essence);
+        return responseModel;
+    }
+
+
 }

@@ -4,8 +4,16 @@
             <h5>个人资料</h5>
         </div>
         <div>
-            <div class="ibox-content profile-element">
-                <img alt="image" class="img-circle mg-l-30" src="${base}${loginUser.avatar}" width="80px" height="80px"/>
+            <div class="ibox-content profile-element text-center">
+                <a href="${base}/member/avatar">
+                    <img alt="image" class="img-circle" src="${base}${loginUser.avatar}" width="80px" height="80px"/>
+                </a>
+                <h4>
+                    <strong>
+                    ${loginUser.name!''}
+                        <a href="${base}/member/editInfo"><i class="fa fa-edit"></i></a>
+                    </strong>
+                </h4>
             </div>
             <div class="ibox-content">
                 <ul class="sortable-list connectList agile-list" id="todo">

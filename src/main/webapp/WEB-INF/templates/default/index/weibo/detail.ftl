@@ -11,6 +11,7 @@
     <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${base}/res/common/css/jeesns.css">
     <link rel="stylesheet" href="${base}/res/common/css/jeesns-skin.css">
+    <link href="${base}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${base}/res/common/js/html5shiv.min.js"></script>
     <script src="${base}/res/common/js/respond.min.js"></script>
@@ -20,6 +21,9 @@
     <script src="${base}/res/plugins/layer/layer.js"></script>
     <script src="${base}/res/common/js/jquery.form.js"></script>
     <script src="${base}/res/common/js/jeesns.js"></script>
+    <script src="${base}/res/plugins/emoji/js/underscore-min.js"></script>
+    <script src="${base}/res/plugins/emoji/js/editor.js"></script>
+    <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
     <script>
         var base = "${base}";
         var weiboId = ${weibo.id};
@@ -54,7 +58,6 @@
                                 </li>
                             </ul>
                             </#if>
-
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -74,8 +77,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form class="form-horizontal m-t jeesns_form" action="${base}/weibo/comment/${weibo.id}" method="post">
-                                <textarea rows="3" name="content" style="width:100%;" class="form-control" data-type="require" alt="评论内容"></textarea>
-                                <input type="submit" value="评论" class="pull-right btn btn-primary mg-t-10 jeesns-submit">
+                                <textarea rows="3" name="content" style="width:100%;" class="form-control" data-type="require" alt="评论内容" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
+                                <div class="row emoji-container" id="emoji">
+                                    <i class="fa fa-smile-o emoji-tbtn"></i>
+                                    <span class="pull-right mg-r-15 mg-t-10">
+                                        <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>
+                                        <input type="submit" value="评论" class="btn btn-primary">
+                                    </span>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -126,7 +135,12 @@
         $("#moreComment").click(function () {
             pageNo ++;
             weibo.commentList(weiboId,pageNo);
-        })
+        });
+        $('#emoji').emoji({
+            insertAfter: function(item){
+                $('#weibo-content').insertContent(':'+item.name+':')
+            }
+        },"${base}");
     });
 </script>
 </body>

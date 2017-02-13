@@ -79,6 +79,14 @@
                             </#if>
                             <h3>
                                 <a href="${base}/group/topic/${topic.id}" class="btn-link" target="_blank">
+                                <#if topic.isTop==1>
+                                    <img src="${base}/res/common/images/top.png"/>
+                                <#elseif topic.isTop==2>
+                                    <img src="${base}/res/common/images/supertop.png"/>
+                                </#if>
+                                <#if topic.isEssence==1>
+                                    <img src="${base}/res/common/images/essence.gif"/>
+                                </#if>
                                 ${topic.title}
                                 </a>
                             </h3>

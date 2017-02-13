@@ -69,7 +69,6 @@ public class Weibo extends BaseEntity {
         }else {
             this.content = content;
         }
-
     }
 
     public Integer getFavor() {

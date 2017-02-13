@@ -26,4 +26,8 @@ public interface IGroupTopicService {
     ResponseModel listByPage(Page page, String key, int groupId,int status);
 
     ResponseModel audit(Member member,int id);
+
+    ResponseModel top(Member member,int id,int top);
+
+    ResponseModel essence(Member member,int id,int essence);
 }
