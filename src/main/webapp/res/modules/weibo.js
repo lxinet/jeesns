@@ -33,7 +33,8 @@ var weibo = {
                 var html = "";
                 for(var i=0;i<data.length;i++){
                     html += "<div class='social-feed-box'><div class='social-avatar'><a href='' class='pull-left'><img src='"+base+data[i].member.avatar+"'>";
-                    html += "</a><div class='media-body'><a href=''>"+data[i].member.name+"</a><small class='text-muted'>"+data[i].createTime+"</small></div></div><div class='social-body'><p>"+data[i].content+"</p></div></div>";
+                    html += "</a><div class='media-body'><a href=''>"+data[i].member.name+"</a><small class='text-muted'>"+data[i].createTime+"</small></div></div>" +
+                        "<div class='social-body'><p>"+data[i].content+"</p><div class='text-right'><a href='javascript:void(0)' onclick='weibo.commentReply(\""+data[i].member.name+"\")'>回复</a></div></div></div>";
                 }
                 pageNo = json.page.pageNo;
                 if(json.page.totalPage<=pageNo){
@@ -44,6 +45,10 @@ var weibo = {
                 $("#commentList").append(html);
             }
         });
+    },
+    commentReply : function (name) {
+        $('.weibo-comment-textarea').append("@"+name+" ");
+        $('.weibo-comment-textarea').focus();
     }
 }
 $(document).ready(function () {

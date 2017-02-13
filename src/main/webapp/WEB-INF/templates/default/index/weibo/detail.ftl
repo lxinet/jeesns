@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form class="form-horizontal m-t jeesns_form" action="${base}/weibo/comment/${weibo.id}" method="post">
-                                <textarea rows="3" name="content" style="width:100%;" class="form-control" data-type="require" alt="评论内容" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
+                                <textarea rows="3" name="content" style="width:100%;" class="form-control weibo-comment-textarea" data-type="require" alt="评论内容" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
                                 <div class="row emoji-container" id="emoji">
                                     <i class="fa fa-smile-o emoji-tbtn"></i>
                                     <span class="pull-right mg-r-15 mg-t-10">

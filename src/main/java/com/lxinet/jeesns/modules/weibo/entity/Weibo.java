@@ -2,6 +2,7 @@ package com.lxinet.jeesns.modules.weibo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.core.entity.BaseEntity;
+import com.lxinet.jeesns.core.utils.AtUtil;
 import com.lxinet.jeesns.core.utils.Emoji;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 
@@ -63,12 +64,15 @@ public class Weibo extends BaseEntity {
         // 判断内容是否存在:*:格式的内容，
         // 如果有存在，默认说明是有存在Emoji，则替换相应内容，
         // 不存在Emoji则直接返回内容
-        String reg=".*:.*:.*";
-        if(content.matches(reg)){
-            this.content = Emoji.replace(content);
-        }else {
-            this.content = content;
+        String regEmoji=".*:.*:.*";
+        if(content.matches(regEmoji)){
+            content = Emoji.replace(content);
         }
+        String regAt = ".*@.*";
+        if(content.matches(regAt)){
+            content = AtUtil.at(content);
+        }
+        this.content = content;
     }
 
     public Integer getFavor() {
