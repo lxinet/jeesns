@@ -17,7 +17,7 @@ public interface IWeiboDao extends IBaseDao<Weibo> {
      * @param loginMemberId 当前登录的会员ID，用来判断是否已点赞
      * @return
      */
-    List<Weibo> listByPage(@Param("memberId") int memberId,@Param("loginMemberId") int loginMemberId);
+    List<Weibo> listByPage(@Param("memberId") int memberId,@Param("loginMemberId") int loginMemberId,@Param("key") String key);
 
     int save(Weibo weibo);
 

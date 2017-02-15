@@ -70,9 +70,12 @@ public class WeiboServiceImpl implements IWeiboService {
     }
 
     @Override
-    public ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId) {
+    public ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId,String key) {
+        if (StringUtils.isNotBlank(key)){
+            key = "%"+key.trim()+"%";
+        }
         PageInterceptor.startPage(page);
-        List<Weibo> list = weiboDao.listByPage(memberId,loginMemberId);
+        List<Weibo> list = weiboDao.listByPage(memberId,loginMemberId,key);
         ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
         model.setData(list);
         return model;

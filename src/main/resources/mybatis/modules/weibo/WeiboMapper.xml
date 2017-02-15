@@ -7,6 +7,9 @@
     (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor from tbl_weibo a left join
     tbl_member b on a.member_id = b.id
     <where>
+      <if test="key != null and key != ''">
+        and a.content LIKE #{key}
+      </if>
       <if test="memberId &gt; 0">
         a.member_id=#{memberId}
       </if>

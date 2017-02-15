@@ -45,7 +45,7 @@ public class IndexController extends BaseController{
     private IActionLogService actionLogService;
 
     @RequestMapping(value="index",method = RequestMethod.GET)
-    public String index(String key,Integer cateid,Model model) {
+    public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Integer cateid,Model model) {
         Page page = new Page(request);
         if(cateid == null){
             cateid = 0;
@@ -56,7 +56,7 @@ public class IndexController extends BaseController{
         ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1);
         ResponseModel groupModel = groupService.listByPage(1,page,key);
         page.setPageSize(50);
-        ResponseModel weiboModel = weiboService.listByPage(page,0,loginMemberId);
+        ResponseModel weiboModel = weiboService.listByPage(page,0,loginMemberId,"");
         model.addAttribute("articleModel",articleModel);
         model.addAttribute("groupTopicModel",groupTopicModel);
         model.addAttribute("groupModel",groupModel);

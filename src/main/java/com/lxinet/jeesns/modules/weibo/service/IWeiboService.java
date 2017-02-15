@@ -17,7 +17,7 @@ public interface IWeiboService {
 
     ResponseModel save(Member loginMember, String content);
 
-    ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId);
+    ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId,String key);
 
     ResponseModel delete(Member loginMember, int id);
 

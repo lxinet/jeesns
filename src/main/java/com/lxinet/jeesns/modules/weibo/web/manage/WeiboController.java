@@ -10,10 +10,8 @@ import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 
 /**
@@ -29,9 +27,9 @@ public class WeiboController extends BaseController {
 
     @RequestMapping("${managePath}/weibo/index")
     @Before(AdminLoginInterceptor.class)
-    public String index(Model model) {
+    public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Model model) {
         Page page = new Page(request);
-        ResponseModel responseModel = weiboService.listByPage(page,0,0);
+        ResponseModel responseModel = weiboService.listByPage(page,0,0,key);
         model.addAttribute("model",responseModel);
         return MANAGE_FTL_PATH + "index";
     }
