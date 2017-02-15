@@ -47,7 +47,7 @@
     <update id="updateAvatar">
         update tbl_member set avatar=#{avatar} WHERE id=#{id}
     </update>
-    <insert id="register" parameterType="Member">
+    <insert id="register" parameterType="Member" keyProperty="id" useGeneratedKeys="true">
     insert into tbl_member (name, email, password, avatar, create_time, regip,last_login_time,last_login_ip,curr_login_time,curr_login_ip)
     values (#{name}, #{email}, #{password}, #{avatar}, now(),#{regip},now(),#{regip},now(),#{regip})
     </insert>

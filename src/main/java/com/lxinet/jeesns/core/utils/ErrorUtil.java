@@ -18,6 +18,7 @@ public class ErrorUtil {
         errors.put(-1004,"帖子不存在");
         errors.put(-1005,"会员不存在");
         errors.put(-1006,"群组已关闭发帖功能");
+        errors.put(-1007,"微博不存在");
     }
 
     public static String error(Model model, Integer errorcode, String ftlPath){

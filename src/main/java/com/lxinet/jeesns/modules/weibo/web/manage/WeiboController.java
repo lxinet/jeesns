@@ -4,7 +4,9 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
+import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,7 @@ public class WeiboController extends BaseController {
     @RequestMapping(value = "${managePath}/weibo/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("id") int id) {
-        return weiboService.delete(id);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        return weiboService.delete(loginMember,id);
     }
 }

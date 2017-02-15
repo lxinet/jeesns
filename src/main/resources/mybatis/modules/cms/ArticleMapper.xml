@@ -25,6 +25,7 @@
     where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_action_log where type=1 and foreign_id = #{id};
     delete from tbl_article where id = #{id}
   </delete>
   <insert id="save" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
@@ -32,8 +33,7 @@
   </insert>
 
   <update id="update" parameterType="Article">
-    update tbl_article set cate_id=#{cateId}
-    where id = #{id}
+    update tbl_article set cate_id=#{cateId} where id = #{id}
   </update>
   <update id="audit">
     update tbl_article set status=(CASE WHEN status=0 THEN 1 ELSE 0 END)

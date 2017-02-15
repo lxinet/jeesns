@@ -5,6 +5,7 @@ import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public interface IWeiboService {
 
     ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId);
 
-    ResponseModel delete(int id);
+    ResponseModel delete(Member loginMember, int id);
 
     ResponseModel userDelete(Member loginMember, int id);
 

@@ -17,7 +17,7 @@ public interface IGroupTopicCommentService {
 
     ResponseModel save(Member loginMember, String content, Integer groupTopicId);
 
-    ResponseModel delete(int id);
+    ResponseModel delete(Member loginMember,int id);
 
     ResponseModel listByGroupTopic(Page page, int groupTopicId);
 

@@ -13,6 +13,8 @@ import com.lxinet.jeesns.modules.group.service.IGroupService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
+import com.lxinet.jeesns.modules.sys.entity.ActionLog;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -39,6 +41,8 @@ public class IndexController extends BaseController{
     private IMemberService memberService;
     @Resource
     private IArchiveService archiveService;
+    @Resource
+    private IActionLogService actionLogService;
 
     @RequestMapping(value="index",method = RequestMethod.GET)
     public String index(String key,Integer cateid,Model model) {
@@ -67,11 +71,9 @@ public class IndexController extends BaseController{
         if(member == null){
             return ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
         }
-        Member loginMember = MemberUtil.getLoginMember(request);
-        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResponseModel weiboModel = weiboService.listByPage(page,id,loginMemberId);
-        model.addAttribute("weiboModel",weiboModel);
         model.addAttribute("member",member);
+        ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,id);
+        model.addAttribute("actionLogModel",list);
         return FTL_PATH + "u";
     }
 

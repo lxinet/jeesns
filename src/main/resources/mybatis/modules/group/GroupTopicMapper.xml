@@ -26,9 +26,10 @@
     where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_action_log where type=4 and foreign_id = #{id};
     delete from tbl_group_topic where id = #{id}
   </delete>
-  <insert id="save">
+  <insert id="save" keyProperty="id" useGeneratedKeys="true">
     insert into tbl_group_topic (collect_time, group_id, archive_id,status) values (now(), #{groupId}, #{archiveId},#{status})
   </insert>
   <update id="audit">

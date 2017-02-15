@@ -5,6 +5,8 @@ import com.lxinet.jeesns.core.entity.Archive;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.service.IArchiveService;
+import com.lxinet.jeesns.core.utils.ActionLogType;
+import com.lxinet.jeesns.core.utils.ActionUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.group.dao.IGroupTopicDao;
 import com.lxinet.jeesns.modules.group.entity.Group;
@@ -14,6 +16,7 @@ import com.lxinet.jeesns.modules.group.service.IGroupService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicCommentService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -34,6 +37,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     private IGroupFansService groupFansService;
     @Resource
     private IArchiveService archiveService;
+    @Resource
+    private IActionLogService actionLogService;
 
     @Override
     public GroupTopic findById(int id) {
@@ -74,8 +79,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         //保存文档
         if(archiveService.save(member,archive)){
             //保存文章
-            int result = groupTopicDao.save(groupTopic.getGroupId(),archive.getArchiveId(),group.getTopicReview()==0?1:0);
+            groupTopic.setStatus(group.getTopicReview()==0?1:0);
+            groupTopic.setArchiveId(archive.getArchiveId());
+            int result = groupTopicDao.save(groupTopic);
             if(result == 1){
+                actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_GROUP_TOPIC,"", ActionLogType.GROUP_TOPIC.getValue(),groupTopic.getId());
                 return new ResponseModel(2,"帖子发布成功","../detail/"+groupTopic.getGroupId());
             }
         }
@@ -125,12 +133,16 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     @Transactional
-    public ResponseModel delete(int id) {
-        GroupTopic groupTopic = groupTopicDao.findById(id);
+    public ResponseModel delete(Member loginMember,int id) {
+        GroupTopic groupTopic = this.findById(id);
+        if(groupTopic == null){
+            return new ResponseModel(-1,"帖子不存在");
+        }
         int result = groupTopicDao.delete(id);
         if(result == 1){
             archiveService.delete(groupTopic.getArchiveId());
             groupTopicCommentService.deleteByTopic(id);
+            actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP_TOPIC,"ID："+groupTopic.getId()+"，标题："+groupTopic.getTitle());
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");
@@ -139,11 +151,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     @Transactional
-    public ResponseModel indexDelete(Member member, int id) {
-        if(member == null){
+    public ResponseModel indexDelete(Member loginMember, int id) {
+        if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        GroupTopic groupTopic = this.findById(id,member);
+        GroupTopic groupTopic = this.findById(id,loginMember);
         if (groupTopic == null){
             return new ResponseModel(-1,"帖子不存在");
         }
@@ -155,12 +167,12 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         String[] groupManagerArr = groupManagers.split(",");
         boolean isManager = false;
         for (String manager : groupManagerArr){
-            if(member.getId() == Integer.parseInt(manager)){
+            if(loginMember.getId() == Integer.parseInt(manager)){
                 isManager = true;
             }
         }
-        if(member.getId() == groupTopic.getMember().getId() || member.getIsAdmin() == 1 || isManager || member.getId() == group.getCreator()){
-            return this.delete(id);
+        if(loginMember.getId() == groupTopic.getMember().getId() || loginMember.getIsAdmin() == 1 || isManager || loginMember.getId() == group.getCreator()){
+            return this.delete(loginMember,id);
         }
         return new ResponseModel(-1,"权限不足");
     }

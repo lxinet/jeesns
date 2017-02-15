@@ -11,6 +11,7 @@ import com.lxinet.jeesns.modules.cms.entity.Article;
 import com.lxinet.jeesns.modules.cms.service.IArticleCateService;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -115,7 +116,8 @@ public class ArticleController extends BaseController {
     @RequestMapping(value = "${managePath}/cms/article/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("id") Integer id){
-        ResponseModel response = articleService.delete(id);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        ResponseModel response = articleService.delete(loginMember,id);
         return response;
     }
 

@@ -11,6 +11,9 @@
                 <a href="javascript:void(0)"><i class="fa fa-th-large"></i> <span class="nav-label">系统设置</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="active"><a href="${managePath}/config/edit" target="jeesns_iframe">系统设置</a></li>
+                    <li class="active"><a href="${managePath}/config/action/list" target="jeesns_iframe">动态类型</a></li>
+                    <li class="active"><a href="${managePath}/config/action/actionLogList" target="jeesns_iframe">会员日志</a></li>
+                    <li class="active"><a href="${managePath}/config/action/memberActionLog" target="jeesns_iframe">会员动态</a></li>
                 </ul>
             </li>
             <li>

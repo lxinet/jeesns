@@ -5,6 +5,8 @@ import com.lxinet.jeesns.core.entity.Archive;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.service.IArchiveService;
+import com.lxinet.jeesns.core.utils.ActionLogType;
+import com.lxinet.jeesns.core.utils.ActionUtil;
 import com.lxinet.jeesns.core.utils.ConfigUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.cms.dao.IArticleDao;
@@ -12,6 +14,7 @@ import com.lxinet.jeesns.modules.cms.entity.Article;
 import com.lxinet.jeesns.modules.cms.service.IArticleCommentService;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +35,8 @@ public class ArticleServiceImpl implements IArticleService {
     private IConfigService configService;
     @Resource
     private IArticleCommentService articleCommentService;
+    @Resource
+    private IActionLogService actionLogService;
 
     @Override
     public Article findById(int id) {
@@ -74,6 +79,7 @@ public class ArticleServiceImpl implements IArticleService {
             article.setArchiveId(archive.getArchiveId());
             int result = articleDao.save(article);
             if(result == 1){
+                actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_ARTICLE,"", ActionLogType.ARTICLE.getValue(),article.getId());
                 return new ResponseModel(0,"文章发布成功");
             }
         }
@@ -140,12 +146,16 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     @Transactional
-    public ResponseModel delete(int id) {
-        Article article = articleDao.findById(id);
+    public ResponseModel delete(Member member,int id) {
+        Article article = this.findById(id);
+        if (article == null){
+            return new ResponseModel(-1,"文章不存在");
+        }
         int result = articleDao.delete(id);
         if(result == 1){
             archiveService.delete(article.getArchiveId());
             articleCommentService.deleteByArticle(id);
+            actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.DELETE_ARTICLE,"ID："+article.getId()+"，标题："+article.getTitle());
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");

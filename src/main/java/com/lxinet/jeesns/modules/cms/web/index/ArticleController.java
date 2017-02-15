@@ -169,7 +169,7 @@ public class ArticleController extends BaseController {
         if(loginMember.getIsAdmin() == 0){
             return new ResponseModel(-1,"权限不足");
         }
-        ResponseModel responseModel = articleService.delete(id);
+        ResponseModel responseModel = articleService.delete(loginMember,id);
         if(responseModel.getCode() > 0){
             responseModel.setCode(2);
             responseModel.setUrl(request.getContextPath() + "/article/list");

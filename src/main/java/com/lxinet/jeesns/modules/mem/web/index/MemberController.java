@@ -9,6 +9,8 @@ import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
+import com.lxinet.jeesns.modules.sys.entity.ActionLog;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,8 @@ public class MemberController extends BaseController {
     private IWeiboService weiboService;
     @Resource
     private IConfigService configService;
+    @Resource
+    private IActionLogService actionLogService;
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     @Clear
@@ -157,8 +161,8 @@ public class MemberController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Page page = new Page(request);
-        ResponseModel weiboModel = weiboService.listByPage(page,loginMember.getId(),loginMemberId);
-        model.addAttribute("weiboModel",weiboModel);
+        ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,loginMemberId);
+        model.addAttribute("actionLogModel",list);
         return MEMBER_FTL_PATH + "index";
     }
 

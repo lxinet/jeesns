@@ -25,6 +25,7 @@
     <script src="${base}/res/plugins/emoji/js/underscore-min.js"></script>
     <script src="${base}/res/plugins/emoji/js/editor.js"></script>
     <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
+    <script src="${base}/res/common/js/extendPagination.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -73,26 +74,40 @@
                 </div>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>最新动态</h5>
+                        <h5>动态</h5>
                     </div>
                     <div class="ibox-content">
                         <div>
                             <div class="feed-activity-list">
-                            <#list weiboModel.data as weibo>
+                            <#list actionLogModel.data as actionLog>
                                 <div class="feed-element">
-                                    <a href="${base}/u/${weibo.member.id}" class="pull-left">
-                                        <img alt="image" class="img-circle" src="${base}${weibo.member.avatar!''}">
+                                    <a href="${base}/u/${actionLog.member.id}" class="pull-left">
+                                        <img alt="image" class="img-circle" src="${base}${actionLog.member.avatar!''}">
                                     </a>
                                     <div class="media-body ">
-                                        <small class="pull-right text-navy">${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                        <strong>${weibo.member.name}</strong>发表了${WEIBO_ALIAS}<br/>
-                                        ${weibo.content}
+                                        <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
+                                        <strong>${actionLog.member.name}</strong>${actionLog.action.log}：<br/>
+                                        <#if actionLog.type==1>
+                                            <a href="${base}/article/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                        <#elseif actionLog.type==2>
+                                            <p>${actionLog.remark}</p>
+                                            <a href="${base}/weibo/detail/${actionLog.foreignId}" target="_blank">查看</a>
+                                        <#elseif actionLog.type==4>
+                                            <a href="${base}/group/topic/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                        </#if>
                                         <br>
                                         <div class="actions">
                                         </div>
                                     </div>
                                 </div>
                             </#list>
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin pull-right"
+                                        url="${base}/member/"
+                                        currentPage="${actionLogModel.page.pageNo}"
+                                        pageCount="${actionLogModel.page.totalPage}">
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,6 +120,7 @@
 <#include "/member/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
+        $(".pagination").jeesns_page("jeesnsPageForm");
         $('#emoji').emoji({
             insertAfter: function(item){
                 $('#weibo-content').insertContent(':'+item.name+':')

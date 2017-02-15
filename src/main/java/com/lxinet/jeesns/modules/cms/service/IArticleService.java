@@ -19,7 +19,7 @@ public interface IArticleService {
 
     ResponseModel update(Member member,Article article);
 
-    ResponseModel delete(int id);
+    ResponseModel delete(Member member,int id);
 
     ResponseModel listByPage(Page page, String key, int cateid,int status);
 

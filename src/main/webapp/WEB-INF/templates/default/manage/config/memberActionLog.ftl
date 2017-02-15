@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>微博模块首页 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>会员动态 - ${SITE_NAME} - Powered By JEESNS</title>
+    <meta name="keywords" content="${SITE_KEYS}"/>
+    <meta name="description" content="${SITE_DESCRIPTION}"/>
+    <meta name="author" content="JEESNS"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
     <link href="${base}/res/common/css/bootstrap.min.css" rel="stylesheet">
     <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${base}/res/common/css/jeesns.css">
@@ -29,17 +31,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>微博列表(${model.page.totalCount})</h5>
-                    <div class="col-sm-3 pull-right list-search">
-                        <form method="post" action="${managePath}/weibo/index">
-                            <div class="input-group">
-                                <input type="text" name="key" placeholder="请输入关键词" class="input-sm form-control">
-                                <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-sm btn-primary"> <i class="fa fa-search"></i></button>
-                                    </span>
-                            </div>
-                        </form>
-                    </div>
+                    <h5>会员日志(${model.page.totalCount})</h5>
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
@@ -47,35 +39,27 @@
                             <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
-                                <th>用户名</th>
-                                <th width="70%">内容</th>
-                                <th>赞</th>
-                                <th>发布时间</th>
-                                <th>状态</th>
-                                <th width="50px">操作</th>
+                                <th>会员</th>
+                                <th style="width: 75%">描述</th>
+                                <th>时间</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <#list model.data as weibo>
+                            <#list model.data as actionLog>
                             <tr>
-                                <td>${weibo.id}</td>
-                                <td>${weibo.member.name}</td>
-                                <td>${weibo.content}</td>
-                                <td>${weibo.favor}</td>
-                                <td>${weibo.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                <td>
-                                    <#if weibo.status=-1>
-                                        禁用
-                                    <#else>
-                                        正常
+                                <td>${actionLog.id}</td>
+                                <td>${actionLog.member.name}</td>
+                                <td>${actionLog.action.log}：
+                                    <br/>
+                                    <#if actionLog.type==1>
+                                        <a href="${base}/article/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                    <#elseif actionLog.type==2>
+                                        <a href="${base}/weibo/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                    <#elseif actionLog.type==4>
+                                        <a href="${base}/group/topic/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
                                     </#if>
                                 </td>
-                                <td>
-                                    <a class="marg-l-5" target="_jeesnsLink"
-                                       href="${managePath}/weibo/delete/${weibo.id}" confirm="确定要删除微博吗？">
-                                        <i class="fa fa-trash red"></i>
-                                    </a>
-                                </td>
+                                <td>${actionLog.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                             </tr>
                             </#list>
                             </tbody>
@@ -83,22 +67,15 @@
                     </div>
                     <div class="box-footer clearfix">
                         <ul class="pagination pagination-sm no-margin pull-right"
-                            url="${managePath}/weibo/index?key=${key}"
+                            url="${managePath}/config/actionLog/memberActionLog?key=${key}"
                             currentPage="${model.page.pageNo}"
                             pageCount="${model.page.totalPage}">
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-</body>
-<script type="text/javascript">
-    $(function () {
-        $(".pagination").jeesns_page("jeesnsPageForm");
-    });
-</script>
 </body>
 </html>

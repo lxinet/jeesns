@@ -49,7 +49,7 @@ public interface IMemberService {
      * @param password
      * @return
      */
-    ResponseModel changepwd(int id,String password);
+    ResponseModel changepwd(Member loginMember, int id,String password);
 
 
     /**

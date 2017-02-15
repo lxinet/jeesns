@@ -3,6 +3,8 @@ package com.lxinet.jeesns.modules.weibo.service.impl;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
+import com.lxinet.jeesns.core.utils.ActionLogType;
+import com.lxinet.jeesns.core.utils.ActionUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.cms.dao.IArticleCommentDao;
 import com.lxinet.jeesns.modules.cms.dao.IArticleDao;
@@ -11,6 +13,7 @@ import com.lxinet.jeesns.modules.cms.entity.ArticleComment;
 import com.lxinet.jeesns.modules.cms.service.IArticleCommentService;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.weibo.dao.IWeiboCommentDao;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import com.lxinet.jeesns.modules.weibo.entity.WeiboComment;
@@ -32,6 +35,8 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     private IWeiboCommentDao weiboCommentDao;
     @Resource
     private IWeiboService weiboService;
+    @Resource
+    private IActionLogService actionLogService;
 
     @Override
     public WeiboComment findById(int id) {
@@ -77,9 +82,14 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     }
 
     @Override
-    public ResponseModel delete(int id) {
+    public ResponseModel delete(Member loginMember,int id) {
+        WeiboComment weiboComment = this.findById(id);
+        if(weiboComment == null){
+            return new ResponseModel(-1,"评论不存在");
+        }
         int result = weiboCommentDao.delete(id);
         if(result == 1){
+            actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO_COMMENT,"ID："+weiboComment.getId()+"内容："+weiboComment.getContent());
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");

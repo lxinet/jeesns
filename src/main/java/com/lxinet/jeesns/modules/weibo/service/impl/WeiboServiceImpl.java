@@ -3,10 +3,13 @@ package com.lxinet.jeesns.modules.weibo.service.impl;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
+import com.lxinet.jeesns.core.utils.ActionLogType;
+import com.lxinet.jeesns.core.utils.ActionUtil;
 import com.lxinet.jeesns.core.utils.ConfigUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.entity.Config;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.dao.IWeiboDao;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +37,8 @@ public class WeiboServiceImpl implements IWeiboService {
     private IWeiboCommentService weiboCommentService;
     @Resource
     private IWeiboFavorService weiboFavorService;
+    @Resource
+    private IActionLogService actionLogService;
 
     @Override
     public Weibo findById(int id,int memberId) {
@@ -57,6 +63,7 @@ public class WeiboServiceImpl implements IWeiboService {
         weibo.setContent(content);
         weibo.setStatus(1);
         if(weiboDao.save(weibo) == 1){
+            actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.POST_WEIBO,"", ActionLogType.WEIBO.getValue(),weibo.getId());
             return new ResponseModel(1,"发布成功");
         }
         return new ResponseModel(-1,"发布失败");
@@ -73,11 +80,14 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Transactional
     @Override
-    public ResponseModel delete(int id) {
-        if(weiboDao.delete(id) > 0){
-            return new ResponseModel(1,"删除成功");
+    public ResponseModel delete(Member loginMember, int id) {
+        Weibo weibo = this.findById(id,loginMember.getId());
+        if(weibo == null){
+            return new ResponseModel(-1,"微博不存在");
         }
-        return new ResponseModel(-1,"删除失败");
+        weiboDao.delete(id);
+        actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO, "ID："+weibo.getId()+"，内容："+weibo.getContent());
+        return new ResponseModel(1,"操作成功");
     }
 
     @Transactional
@@ -93,10 +103,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if(loginMember.getId() != weibo.getMember().getId()){
             return new ResponseModel(-1,"没有权限");
         }
-        if(weiboDao.delete(id) > 0){
-            return new ResponseModel(0,"删除成功");
-        }
-        return new ResponseModel(-1,"删除失败");
+        return this.delete(loginMember,id);
     }
 
     @Override

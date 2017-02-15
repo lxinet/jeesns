@@ -19,9 +19,9 @@ public interface IGroupTopicService {
 
     ResponseModel update(Member member, GroupTopic groupTopic);
 
-    ResponseModel delete(int id);
+    ResponseModel delete(Member loginMember,int id);
 
-    ResponseModel indexDelete(Member member, int id);
+    ResponseModel indexDelete(Member loginMember,int id);
 
     ResponseModel listByPage(Page page, String key, int groupId,int status);
 

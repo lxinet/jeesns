@@ -2,6 +2,8 @@ package com.lxinet.jeesns.modules.weibo.web.index;
 
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
+import com.lxinet.jeesns.core.utils.Const;
+import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.mem.entity.Member;
@@ -57,6 +59,9 @@ public class WeiboController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Weibo weibo = weiboService.findById(weiboId,loginMemberId);
+        if(weibo == null){
+            return ErrorUtil.error(model,1007, Const.INDEX_ERROR_FTL_PATH);
+        }
         model.addAttribute("weibo",weibo);
         return MEMBER_FTL_PATH + "detail";
     }
@@ -66,7 +71,7 @@ public class WeiboController extends BaseController {
     public Object delete(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
         ResponseModel responseModel = weiboService.userDelete(loginMember,weiboId);
-        if(responseModel.getCode() == 0){
+        if(responseModel.getCode() >= 0){
             responseModel.setCode(2);
             responseModel.setUrl(request.getContextPath() + "/weibo/list");
         }

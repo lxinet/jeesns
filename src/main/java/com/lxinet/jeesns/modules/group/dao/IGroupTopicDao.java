@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface IGroupTopicDao extends IBaseDao<GroupTopic> {
 
-    int save(@Param("groupId") Integer groupId, @Param("archiveId") Integer archiveId,@Param("status") Integer status);
+    int save(GroupTopic groupTopic);
 
     List<GroupTopic> listByPage(@Param("key") String key, @Param("groupId") Integer groupId,@Param("status") Integer status);
 

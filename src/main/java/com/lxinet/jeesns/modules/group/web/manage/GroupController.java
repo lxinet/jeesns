@@ -4,12 +4,14 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.cms.entity.ArticleCate;
 import com.lxinet.jeesns.modules.cms.entity.Article;
 import com.lxinet.jeesns.modules.cms.service.IArticleCateService;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.group.service.IGroupService;
+import com.lxinet.jeesns.modules.mem.entity.Member;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +48,8 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "${managePath}/group/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("id") int id){
-        ResponseModel response = groupService.delete(id);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        ResponseModel response = groupService.delete(loginMember,id);
         return response;
     }
 

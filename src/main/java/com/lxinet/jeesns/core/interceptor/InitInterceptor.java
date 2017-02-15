@@ -28,7 +28,9 @@ public class InitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
-        Const.PROJECT_PATH = httpServletRequest.getContextPath();
+        if(StringUtils.isEmpty(Const.PROJECT_PATH)){
+            Const.PROJECT_PATH = httpServletRequest.getContextPath();
+        }
         httpServletRequest.setAttribute("base",Const.PROJECT_PATH);
         JeesnsConfig jeesnsConfig = SpringContextHolder.getBean("jeesnsConfig");
         httpServletRequest.setAttribute("jeesnsConfig",jeesnsConfig);

@@ -20,7 +20,7 @@ public interface IGroupService {
 
     ResponseModel update(Member loginMember, Group group);
 
-    ResponseModel delete(int id);
+    ResponseModel delete(Member loginMember, int id);
 
     ResponseModel listByPage(int status,Page page, String key);
 

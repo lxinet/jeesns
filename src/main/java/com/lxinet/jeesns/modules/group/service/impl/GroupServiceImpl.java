@@ -3,15 +3,15 @@ package com.lxinet.jeesns.modules.group.service.impl;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
-import com.lxinet.jeesns.core.utils.ConfigUtil;
-import com.lxinet.jeesns.core.utils.Const;
-import com.lxinet.jeesns.core.utils.StringUtils;
+import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.group.dao.IGroupDao;
 import com.lxinet.jeesns.modules.group.entity.Group;
 import com.lxinet.jeesns.modules.group.service.IGroupFansService;
 import com.lxinet.jeesns.modules.group.service.IGroupService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
+import com.lxinet.jeesns.modules.sys.entity.ActionLog;
+import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +33,8 @@ public class GroupServiceImpl implements IGroupService {
     private IMemberService memberService;
     @Resource
     private IConfigService configService;
+    @Resource
+    private IActionLogService actionLogService;
 
     @Override
     public ResponseModel listByPage(int status,Page page, String key) {
@@ -176,8 +178,13 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
-    public ResponseModel delete(int id) {
+    public ResponseModel delete(Member loginMember, int id) {
+        Group group = this.findById(id);
+        if(group == null){
+            return new ResponseModel(-1,"群组不存在");
+        }
         if(groupDao.delete(id) == 1){
+            actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP,"ID："+group.getId()+"，名字："+group.getName());
             return new ResponseModel(1,"删除成功");
         }
         return new ResponseModel(-1,"删除失败");
