@@ -35,9 +35,9 @@
 <body class="gray-bg">
 <#include "/index/common/header.ftl"/>
 <div class="wrapper wrapper-content article">
-    <div class="row">
-        <div class="col-sm-22">
-            <div class="col-lg-10 col-lg-offset-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-22">
                 <ol class="breadcrumb">
                     <li><a href="${base}/">首页</a></li>
                     <li><a href="${base}/group/">群组</a></li>

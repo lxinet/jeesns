@@ -42,9 +42,9 @@
 <body class="gray-bg">
 <#include "/index/common/header.ftl"/>
 <div class="wrapper wrapper-content article">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="col-lg-10 col-lg-offset-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-content">
                         <form class="form-horizontal jeesns_form" role="form" action="${base}/article/update"

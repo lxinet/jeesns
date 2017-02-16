@@ -78,7 +78,7 @@
                                 </div>
                             </#if>
                             <h3>
-                                <a href="${base}/group/topic/${topic.id}" class="btn-link" target="_blank">
+                                <a href="${base}/group/topic/${topic.id}" class="btn-link">
                                 <#if topic.isTop==1>
                                     <img src="${base}/res/common/images/top.png"/>
                                 <#elseif topic.isTop==2>
@@ -104,7 +104,7 @@
                         <#if topic.thumbnail??>
                             <div class="col-sm-2">
                                 <div class="text-center list-thumbnail">
-                                    <a href="${base}/group/topic/${topic.id}" class="btn-link" target="_blank">
+                                    <a href="${base}/group/topic/${topic.id}" class="btn-link">
                                         <img alt="${topic.title}" class="m-t-xs img-responsive list-thumbnail"
                                              src="${topic.thumbnail}">
                                     </a>

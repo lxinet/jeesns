@@ -60,7 +60,7 @@
                             </div>
                             </#if>
                             <h3>
-                               <a href="${base}/article/detail/${article.id}" class="btn-link" target="_blank">
+                               <a href="${base}/article/detail/${article.id}" class="btn-link">
                                 ${article.title}
                                </a>
                             </h3>
@@ -74,7 +74,7 @@
                         <#if article.thumbnail??>
                         <div class="col-sm-2">
                             <div class="text-center list-thumbnail">
-                                <a href="${base}/article/detail/${article.id}" class="btn-link" target="_blank">
+                                <a href="${base}/article/detail/${article.id}" class="btn-link">
                                     <img alt="${article.title}" class="m-t-xs img-responsive list-thumbnail" src="${article.thumbnail}">
                                 </a>
                             </div>

@@ -42,29 +42,27 @@
 <body class="gray-bg">
 <#include "/index/common/header.ftl"/>
 <div class="wrapper wrapper-content article">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="col-lg-10 col-lg-offset-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <form class="form-horizontal jeesns_form" role="form" action="${base}/article/save"
-                              method="post">
+                        <form class="form-horizontal jeesns_form" role="form" action="${base}/article/save" method="post">
                             <div class="form-group">
                                 <label for="lastname" class="col-sm-1 control-label">栏目</label>
                                 <div class="col-sm-3">
                                     <select class="form-control" name="cateId" data-type="selected" alt="栏目">
                                         <option value="" selected>=请选择栏目=</option>
-                                    <#list cateList as mainMenu>
-                                        <option value="${mainMenu.id}">${mainMenu.name}</option>
-                                    </#list>
+                                        <#list cateList as mainMenu>
+                                            <option value="${mainMenu.id}">${mainMenu.name}</option>
+                                        </#list>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="firstname" class="col-sm-1 control-label">标题</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="标题"
-                                           data-type="require">
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="标题" data-type="require">
                                 </div>
                             </div>
                             <div class="form-group">

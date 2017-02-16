@@ -63,3 +63,14 @@ CREATE TABLE `tbl_action_log` (
   PRIMARY KEY (`id`)
 )ENGINE = InnoDb DEFAULT CHARSET = utf8;
 
+
+CREATE TABLE `tbl_member_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` DATETIME DEFAULT NULL,
+  `follow_who` INT(11) DEFAULT '0',
+  `who_follow` INT(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE (`follow_who`,`who_follow`)
+) ENGINE=InnoDb DEFAULT CHARSET=utf8;
+
+
