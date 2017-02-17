@@ -42,13 +42,7 @@ public class IndexController extends BaseController {
     private ICommonService commonService;
 
     @RequestMapping("/index")
-    public String index(){
-
-        return FTL_PATH + "/index";
-    }
-
-    @RequestMapping("/main")
-    public String main(Model model){
+    public String index(Model model){
         Properties props = System.getProperties();
         //java版本
         String javaVersion = props.getProperty("java.version");
@@ -92,9 +86,8 @@ public class IndexController extends BaseController {
         model.addAttribute("systemVersion", Const.SYSTEM_VERSION);
         model.addAttribute("systemName",Const.SYSTEM_NAME);
         model.addAttribute("systemUpdateTime",Const.SYSTEM_UPDATE_TIME);
-        return FTL_PATH + "/main";
+        return FTL_PATH + "/index";
     }
-
 
     /**
      * 登录页面

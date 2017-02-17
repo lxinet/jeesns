@@ -1,10 +1,38 @@
+/*! AdminLTE app.js
+ * ================
+ * Main JS application file for AdminLTE v2. This file
+ * should be included in all pages. It controls some layout
+ * options and implements exclusive AdminLTE plugins.
+ *
+ * @Author  Almsaeed Studio
+ * @Support <http://www.almsaeedstudio.com>
+ * @Email   <abdullah@almsaeedstudio.com>
+ * @version 2.3.8
+ * @license MIT <http://opensource.org/licenses/MIT>
+ */
+
+//Make sure jQuery has been loaded before app.js
 if (typeof jQuery === "undefined") {
-  throw new Error("JEESNS requires jQuery");
+  throw new Error("AdminLTE requires jQuery");
 }
 
-$.JEESNS = {};
+/* AdminLTE
+ *
+ * @type Object
+ * @description $.AdminLTE is the main object for the template's app.
+ *              It's used for implementing functions and options related
+ *              to the template. Keeping everything wrapped in an object
+ *              prevents conflict with other plugins and is a better
+ *              way to organize our code.
+ */
+$.AdminLTE = {};
 
-$.JEESNS.options = {
+/* --------------------
+ * - AdminLTE Options -
+ * --------------------
+ * Modify these options to suit your implementation
+ */
+$.AdminLTE.options = {
   //Add slimscroll to navbar menus
   //This requires you to load the slimscroll plugin
   //in every page before app.js
@@ -12,7 +40,7 @@ $.JEESNS.options = {
   navbarMenuSlimscrollWidth: "3px", //The width of the scroll bar
   navbarMenuHeight: "200px", //The height of the inner menu
   //General animation speed for JS animated elements such as box collapse/expand and
-  //sidebar treeview slide up/down. This options accepts an integer as milliseconds,
+  //sidebar treeview slide up/down. This option accepts an integer as milliseconds,
   //'fast', 'normal', or 'slow'
   animationSpeed: 500,
   //Sidebar push menu toggle button selector
@@ -33,8 +61,10 @@ $.JEESNS.options = {
   //Enable Fast Click. Fastclick.js creates a more
   //native touch experience with touch devices. If you
   //choose to enable the plugin, make sure you load the script
-  //before JEESNS's app.js
+  //before AdminLTE's app.js
   enableFastclick: false,
+  //Control Sidebar Tree views
+  enableControlTreeView: true,
   //Control Sidebar Options
   enableControlSidebar: true,
   controlSidebarOptions: {
@@ -105,7 +135,7 @@ $.JEESNS.options = {
 /* ------------------
  * - Implementation -
  * ------------------
- * The next block of code implements JEESNS's
+ * The next block of code implements AdminLTE's
  * functions and plugins as specified by the
  * options above.
  */
@@ -116,27 +146,29 @@ $(function () {
   $("body").removeClass("hold-transition");
 
   //Extend options if external options exist
-  if (typeof JEESNSOptions !== "undefined") {
+  if (typeof AdminLTEOptions !== "undefined") {
     $.extend(true,
-      $.JEESNS.options,
-      JEESNSOptions);
+      $.AdminLTE.options,
+      AdminLTEOptions);
   }
 
   //Easy access to options
-  var o = $.JEESNS.options;
+  var o = $.AdminLTE.options;
 
   //Set up the object
   _init();
 
   //Activate the layout maker
-  $.JEESNS.layout.activate();
+  $.AdminLTE.layout.activate();
 
   //Enable sidebar tree view controls
-  $.JEESNS.tree('.sidebar');
+  if (o.enableControlTreeView) {
+    $.AdminLTE.tree('.sidebar');
+  }
 
   //Enable control sidebar
   if (o.enableControlSidebar) {
-    $.JEESNS.controlSidebar.activate();
+    $.AdminLTE.controlSidebar.activate();
   }
 
   //Add slimscroll to navbar dropdown
@@ -150,19 +182,20 @@ $(function () {
 
   //Activate sidebar push menu
   if (o.sidebarPushMenu) {
-    $.JEESNS.pushMenu.activate(o.sidebarToggleSelector);
+    $.AdminLTE.pushMenu.activate(o.sidebarToggleSelector);
   }
 
   //Activate Bootstrap tooltip
   if (o.enableBSToppltip) {
     $('body').tooltip({
-      selector: o.BSTooltipSelector
+      selector: o.BSTooltipSelector,
+      container: 'body'
     });
   }
 
   //Activate box widget
   if (o.enableBoxWidget) {
-    $.JEESNS.boxWidget.activate();
+    $.AdminLTE.boxWidget.activate();
   }
 
   //Activate fast click
@@ -194,9 +227,9 @@ $(function () {
 });
 
 /* ----------------------------------
- * - Initialize the JEESNS Object -
+ * - Initialize the AdminLTE Object -
  * ----------------------------------
- * All JEESNS functions are implemented below.
+ * All AdminLTE functions are implemented below.
  */
 function _init() {
   'use strict';
@@ -205,11 +238,11 @@ function _init() {
    * Fixes the layout height in case min-height fails.
    *
    * @type Object
-   * @usage $.JEESNS.layout.activate()
-   *        $.JEESNS.layout.fix()
-   *        $.JEESNS.layout.fixSidebar()
+   * @usage $.AdminLTE.layout.activate()
+   *        $.AdminLTE.layout.fix()
+   *        $.AdminLTE.layout.fixSidebar()
    */
-  $.JEESNS.layout = {
+  $.AdminLTE.layout = {
     activate: function () {
       var _this = this;
       _this.fix();
@@ -224,13 +257,14 @@ function _init() {
       // Remove overflow from .wrapper if layout-boxed exists
       $(".layout-boxed > .wrapper").css('overflow', 'hidden');
       //Get window height and the wrapper height
-      var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
+      var footer_height = $('.main-footer').outerHeight() || 0;
+      var neg = $('.main-header').outerHeight() + footer_height;
       var window_height = $(window).height();
-      var sidebar_height = $(".sidebar").height();
+      var sidebar_height = $(".sidebar").height() || 0;
       //Set the min-height of the content and sidebar based on the
       //the height of the document.
       if ($("body").hasClass("fixed")) {
-        $(".content-wrapper, .right-side").css('min-height', window_height - $('.main-footer').outerHeight());
+        $(".content-wrapper, .right-side").css('min-height', window_height - footer_height);
       } else {
         var postSetWidth;
         if (window_height >= sidebar_height) {
@@ -242,7 +276,7 @@ function _init() {
         }
 
         //Fix for the control sidebar height
-        var controlSidebar = $($.JEESNS.options.controlSidebarOptions.selector);
+        var controlSidebar = $($.AdminLTE.options.controlSidebarOptions.selector);
         if (typeof controlSidebar !== "undefined") {
           if (controlSidebar.height() > postSetWidth)
             $(".content-wrapper, .right-side").css('min-height', controlSidebar.height());
@@ -261,12 +295,12 @@ function _init() {
         window.console.error("Error: the fixed layout requires the slimscroll plugin!");
       }
       //Enable slimscroll for fixed layout
-      if ($.JEESNS.options.sidebarSlimScroll) {
+      if ($.AdminLTE.options.sidebarSlimScroll) {
         if (typeof $.fn.slimScroll != 'undefined') {
           //Destroy if it exists
           $(".sidebar").slimScroll({destroy: true}).height("auto");
           //Add slimscroll
-          $(".sidebar").slimscroll({
+          $(".sidebar").slimScroll({
             height: ($(window).height() - $(".main-header").height()) + "px",
             color: "rgba(0,0,0,0.2)",
             size: "3px"
@@ -281,12 +315,12 @@ function _init() {
    * Adds the push menu functionality to the sidebar.
    *
    * @type Function
-   * @usage: $.JEESNS.pushMenu("[data-toggle='offcanvas']")
+   * @usage: $.AdminLTE.pushMenu("[data-toggle='offcanvas']")
    */
-  $.JEESNS.pushMenu = {
+  $.AdminLTE.pushMenu = {
     activate: function (toggleBtn) {
       //Get the screen sizes
-      var screenSizes = $.JEESNS.options.screenSizes;
+      var screenSizes = $.AdminLTE.options.screenSizes;
 
       //Enable sidebar toggle
       $(document).on('click', toggleBtn, function (e) {
@@ -318,7 +352,7 @@ function _init() {
       });
 
       //Enable expand on hover for sidebar mini
-      if ($.JEESNS.options.sidebarExpandOnHover
+      if ($.AdminLTE.options.sidebarExpandOnHover
         || ($('body').hasClass('fixed')
         && $('body').hasClass('sidebar-mini'))) {
         this.expandOnHover();
@@ -326,7 +360,7 @@ function _init() {
     },
     expandOnHover: function () {
       var _this = this;
-      var screenWidth = $.JEESNS.options.screenSizes.sm - 1;
+      var screenWidth = $.AdminLTE.options.screenSizes.sm - 1;
       //Expand sidebar on hover
       $('.main-sidebar').hover(function () {
         if ($('body').hasClass('sidebar-mini')
@@ -358,11 +392,11 @@ function _init() {
    * tree view menu.
    *
    * @type Function
-   * @Usage: $.JEESNS.tree('.sidebar')
+   * @Usage: $.AdminLTE.tree('.sidebar')
    */
-  $.JEESNS.tree = function (menu) {
+  $.AdminLTE.tree = function (menu) {
     var _this = this;
-    var animationSpeed = $.JEESNS.options.animationSpeed;
+    var animationSpeed = $.AdminLTE.options.animationSpeed;
     $(document).off('click', menu + ' li a')
       .on('click', menu + ' li a', function (e) {
         //Get the clicked link and the next element
@@ -412,15 +446,15 @@ function _init() {
    * Adds functionality to the right sidebar
    *
    * @type Object
-   * @usage $.JEESNS.controlSidebar.activate(options)
+   * @usage $.AdminLTE.controlSidebar.activate(options)
    */
-  $.JEESNS.controlSidebar = {
+  $.AdminLTE.controlSidebar = {
     //instantiate the object
     activate: function () {
       //Get the object
       var _this = this;
       //Update options
-      var o = $.JEESNS.options.controlSidebarOptions;
+      var o = $.AdminLTE.options.controlSidebarOptions;
       //Get the sidebar
       var sidebar = $(o.selector);
       //The toggle button
@@ -510,13 +544,13 @@ function _init() {
    * removing boxes from the screen.
    *
    * @type Object
-   * @usage $.JEESNS.boxWidget.activate()
-   *        Set all your options in the main $.JEESNS.options object
+   * @usage $.AdminLTE.boxWidget.activate()
+   *        Set all your options in the main $.AdminLTE.options object
    */
-  $.JEESNS.boxWidget = {
-    selectors: $.JEESNS.options.boxWidgetOptions.boxWidgetSelectors,
-    icons: $.JEESNS.options.boxWidgetOptions.boxWidgetIcons,
-    animationSpeed: $.JEESNS.options.animationSpeed,
+  $.AdminLTE.boxWidget = {
+    selectors: $.AdminLTE.options.boxWidgetOptions.boxWidgetSelectors,
+    icons: $.AdminLTE.options.boxWidgetOptions.boxWidgetIcons,
+    animationSpeed: $.AdminLTE.options.animationSpeed,
     activate: function (_box) {
       var _this = this;
       if (!_box) {
@@ -668,17 +702,17 @@ function _init() {
   'use strict';
 
   $.fn.activateBox = function () {
-    $.JEESNS.boxWidget.activate(this);
+    $.AdminLTE.boxWidget.activate(this);
   };
 
   $.fn.toggleBox = function () {
-    var button = $($.JEESNS.boxWidget.selectors.collapse, this);
-    $.JEESNS.boxWidget.collapse(button);
+    var button = $($.AdminLTE.boxWidget.selectors.collapse, this);
+    $.AdminLTE.boxWidget.collapse(button);
   };
 
   $.fn.removeBox = function () {
-    var button = $($.JEESNS.boxWidget.selectors.remove, this);
-    $.JEESNS.boxWidget.remove(button);
+    var button = $($.AdminLTE.boxWidget.selectors.remove, this);
+    $.AdminLTE.boxWidget.remove(button);
   };
 
 })(jQuery);

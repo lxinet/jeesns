@@ -4,7 +4,7 @@
 	<groupId>com.lxinet</groupId>
 	<artifactId>jeesns</artifactId>
 	<packaging>war</packaging>
-	<version>0.1</version>
+	<version>0.8</version>
     <name>JEESNS</name>
 	<url>http://www.jeesns.cn</url>
 	<properties>

@@ -2,83 +2,95 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>会员动态类型 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="${base}/res/common/css/bootstrap.min.css" rel="stylesheet">
     <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${base}/res/common/css/jeesns.css">
-    <link rel="stylesheet" href="${base}/res/common/css/jeesns-skin.css">
+    <link href="${base}/res/manage/css/AdminLTE.css" rel="stylesheet">
+    <link href="${base}/res/manage/css/skins/_all-skins.css" rel="stylesheet">
+    <link href="${base}/res/plugins/webuploader/webuploader.css" rel="stylesheet">
+    <link href="${base}/res/plugins/layer/skin/layer.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="${base}/res/common/js/html5shiv.min.js"></script>
+    <script src="${base}/res/common/js/html5shiv.js"></script>
     <script src="${base}/res/common/js/respond.min.js"></script>
     <![endif]-->
     <script src="${base}/res/common/js/jquery-2.1.1.min.js"></script>
+    <script src="${base}/res/common/js/jquery.form.js"></script>
     <script src="${base}/res/common/js/bootstrap.min.js"></script>
-    <script src="${base}/res/plugins/metisMenu/metisMenu.js"></script>
-    <script src="${base}/res/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="${base}/res/manage/js/app.js"></script>
     <script src="${base}/res/plugins/layer/layer.js"></script>
     <script src="${base}/res/common/js/jeesns.js"></script>
-    <script src="${base}/res/common/js/manage.js"></script>
+    <script src="${base}/res/common/js/extendPagination.js"></script>
 </head>
-<body class="gray-bg">
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>会员动态类型(${list?size})</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th>名称</th>
-                                <th>描述</th>
-                                <th>添加时间</th>
-                                <th>更新时间</th>
-                                <th>状态</th>
-                                <th width="150px">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <#list list as action>
-                            <tr>
-                                <td>${action.id}</td>
-                                <td>${action.name}</td>
-                                <td>${action.log}</td>
-                                <td>${action.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                <td>${action.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                <td>
-                                    <#if action.status=1>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/config/action/isenable/${action.id}">
-                                            禁用
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+<#include "/manage/common/header.ftl"/>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                会员动态类型
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="${managePath}/index"><i class="fa fa-dashboard"></i> 主页</a></li>
+                <li class="active">会员动态类型</li>
+            </ol>
+        </section>
+        <section class="content">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>描述</th>
+                                    <th>添加时间</th>
+                                    <th>更新时间</th>
+                                    <th>状态</th>
+                                    <th width="150px">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <#list list as action>
+                                <tr>
+                                    <td>${action.id}</td>
+                                    <td>${action.name}</td>
+                                    <td>${action.log}</td>
+                                    <td>${action.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td>${action.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td>
+                                        <#if action.status=1>
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/config/action/isenable/${action.id}">
+                                                <span class="label label-danger">禁用</span>
+                                            </a>
+                                        <#else>
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/config/action/isenable/${action.id}">
+                                                <span class="label label-success">启用</span>
+                                            </a>
+                                        </#if>
+                                    </td>
+                                    <td>
+                                        <a href="${managePath}/config/action/edit/${action.id}" target="_jeesnsOpen" title="编辑动态类型" height="350px">
+                                            <span class="label label-warning"><i class="fa fa-edit green"></i></span>
                                         </a>
-                                    <#else>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/config/action/isenable/${action.id}">
-                                            启用
-                                        </a>
-                                    </#if>
-                                </td>
-                                <td>
-                                    <a href="${managePath}/config/action/edit/${action.id}" target="_jeesnsOpen" title="编辑动态类型">
-                                        <i class="fa fa-edit green"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </#list>
-                            </tbody>
-                        </table>
+                                    </td>
+                                </tr>
+                                </#list>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
+<#include "/manage/common/footer.ftl"/>
 </div>
 </body>
 </html>
