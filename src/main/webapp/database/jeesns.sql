@@ -1,4 +1,29 @@
 ##开始创建表
+CREATE TABLE `tbl_action` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `log` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT '0' COMMENT '状态，0正常，1禁用',
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_action_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `member_id` int(11) DEFAULT NULL,
+  `action_id` int(11) DEFAULT NULL,
+  `remark` varchar(1000) DEFAULT NULL,
+  `type` tinyint(2) DEFAULT '0',
+  `foreign_id` int(11) DEFAULT '0',
+  `action_ip` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `tbl_archive` (
   `archive_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_type` int(11) DEFAULT '0' COMMENT '发布类型，1是普通文章，2是群组文章',
@@ -16,12 +41,24 @@ CREATE TABLE `tbl_archive` (
   `thumbnail` varchar(255) DEFAULT NULL COMMENT '缩略图',
   `last_reply` datetime DEFAULT NULL COMMENT '最后回复时间',
   `can_reply` int(1) DEFAULT '0' COMMENT '是否可以回复，0可以回复，1不可以回复',
-  `good_num` int(11) DEFAULT '0' COMMENT '顶数量',
+  `good_num` int(11) DEFAULT '0' COMMENT '点赞数量',
   `bad_num` int(11) DEFAULT '0' COMMENT '踩数量',
   `check_admin` int(11) DEFAULT '0' COMMENT '审核管理员id',
   `content` text COMMENT '内容',
+  `favor` int(11) DEFAULT '0' COMMENT '喜欢、点赞',
   PRIMARY KEY (`archive_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_archive_favor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `archive_id` int(11) DEFAULT '0',
+  `member_id` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `archive_id` (`archive_id`,`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `tbl_article` (
@@ -62,6 +99,7 @@ CREATE TABLE `tbl_config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 CREATE TABLE `tbl_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
@@ -91,6 +129,8 @@ CREATE TABLE `tbl_group_topic` (
   `group_id` int(11) DEFAULT NULL,
   `archive_id` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT '0' COMMENT '状态，0未审核，1已审核',
+  `is_essence` int(11) DEFAULT '0' COMMENT '精华，0不加精，1加精',
+  `is_top` int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -172,7 +212,7 @@ CREATE TABLE `tbl_weibo` (
   `favor` int(11) DEFAULT '0' COMMENT '赞',
   `status` tinyint(11) DEFAULT '0' COMMENT '0未审核，1已审核，-1审核不通过',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `tbl_weibo_comment` (
@@ -186,14 +226,17 @@ CREATE TABLE `tbl_weibo_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE `tbl_weibo_favor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `create_time` DATETIME DEFAULT NULL,
-  `weibo_id` INT(11) DEFAULT '0',
-  `member_id` INT(11) DEFAULT '0',
+  `create_time` datetime DEFAULT NULL,
+  `weibo_id` int(11) DEFAULT '0',
+  `member_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE (`weibo_id`,`member_id`)
-) ENGINE=InnoDb DEFAULT CHARSET=utf8;
+  UNIQUE KEY `weibo_id` (`weibo_id`,`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 ##数据
@@ -226,32 +269,6 @@ VALUES
   (1,0,'admin','admin@jeesns.cn','13800138000','56b0436e6dd61a1f5f6a636cdf790eee','女','/res/common/images/default-avatar.png',now(),'',0,now(),'127.0.0.1',now(),'127.0.0.1',NULL,0.00,0,1,0,'1971-12-20','','','','','8888888','admin','13800138000','admin@jeesns.cn','www.jeesns.cn','',1);
 
 
-ALTER TABLE `tbl_archive` ADD favor int(11) default '0' COMMENT '喜欢、点赞';
-
-CREATE TABLE `tbl_archive_favor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `create_time` DATETIME DEFAULT NULL,
-  `archive_id` INT(11) DEFAULT '0',
-  `member_id` INT(11) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE (`archive_id`,`member_id`)
-) ENGINE=InnoDb DEFAULT CHARSET=utf8;
-
-
-ALTER TABLE `tbl_group_topic` ADD is_top int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶';
-ALTER TABLE `tbl_group_topic` ADD is_essence int(11) DEFAULT '0' COMMENT '精华，0不加精，1加精';
-
-CREATE TABLE `tbl_action` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `create_time` DATETIME DEFAULT NULL,
-  `name` VARCHAR(50),
-  `log` VARCHAR(255),
-  `status` INT(11) DEFAULT '0' COMMENT '状态，0正常，1禁用',
-  `update_time` DATETIME DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE (`name`)
-)ENGINE = InnoDb DEFAULT CHARSET = utf8;
-
 INSERT INTO tbl_action(id, create_time, name, log, status, update_time) VALUES
   (1,now(),'会员注册','注册了账号',0,now()),
   (2,now(),'会员登录','登录了账号',0,now()),
@@ -268,15 +285,3 @@ INSERT INTO tbl_action(id, create_time, name, log, status, update_time) VALUES
   (10001,now(),'发布微博','发布了微博',0,now()),
   (10002,now(),'群组发帖','发布了群组帖子',0,now()),
   (10003,now(),'发布文章','发布了文章',0,now());
-
-CREATE TABLE `tbl_action_log` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `create_time` DATETIME DEFAULT NULL,
-  `member_id` INT(11),
-  `action_id` INT(11),
-  `remark` VARCHAR(1000),
-  `type` TINYINT(2) DEFAULT '0',
-  `foreign_id` INT(11) DEFAULT '0',
-  `action_ip` VARCHAR(15),
-  PRIMARY KEY (`id`)
-)ENGINE = InnoDb DEFAULT CHARSET = utf8;
