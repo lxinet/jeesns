@@ -115,4 +115,14 @@ public class IndexController extends BaseController{
         return Emoji.emojiJson();
     }
 
+    @RequestMapping(value="/404",method = RequestMethod.GET)
+    public String jeesns404(){
+        return FTL_PATH + "/common/404";
+    }
+
+    @RequestMapping(value="/error",method = RequestMethod.GET)
+    public String error(){
+        return FTL_PATH + "/common/error";
+    }
+
 }

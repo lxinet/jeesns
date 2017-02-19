@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>出现错误 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>页面找不到 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -156,14 +156,10 @@
         <div class="in">
             <div class="textThis">
                 <h2>
-                <#if msg??>
-                ${msg}
-                <#else>
-                    抱歉，系统出现异常
-                </#if>
+                    抱歉，您访问的页面找不到
                 </h2>
-                <p><span>自动<a id="href" href="javascript:history.go(-1);">返回上一页面</a></span><span>等待<b id="wait">10</b>秒</span></p>
-                <p><span><a href="${base}/">返回首页</a></span></p>
+                <p><span>自动<a id="href" href="${base}/">返回首页</a></span><span>等待<b id="wait">20</b>秒</span></p>
+                <p><span><a href="javascript:history.go(-1);">返回上一页面</a></span></p>
                 <script type="text/javascript">
                     $(function() {
                         var wait = document.getElementById('wait');
