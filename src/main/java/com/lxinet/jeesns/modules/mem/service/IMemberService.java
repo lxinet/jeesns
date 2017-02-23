@@ -112,4 +112,20 @@ public interface IMemberService {
     ResponseModel forgetpwd(String name,String email);
 
     ResponseModel resetpwd(String email,String token,String password, HttpServletRequest request);
+
+    /**
+     * 关注、取消关注
+     * @param loginMember
+     * @param followWhoId
+     * @return
+     */
+    ResponseModel follows(Member loginMember,Integer followWhoId);
+
+    /**
+     * 是否已关注
+     * @param loginMember
+     * @param followWhoId
+     * @return
+     */
+    ResponseModel isFollowed(Member loginMember,Integer followWhoId);
 }

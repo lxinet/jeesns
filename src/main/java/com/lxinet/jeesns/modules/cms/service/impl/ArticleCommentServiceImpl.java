@@ -60,9 +60,8 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
 
     @Override
     public ResponseModel listByArticle(Page page, int articleId) {
-        PageInterceptor.startPage(page);
-        List<ArticleComment> list = articleCommentDao.listByArticle(articleId);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<ArticleComment> list = articleCommentDao.listByArticle(page, articleId);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }

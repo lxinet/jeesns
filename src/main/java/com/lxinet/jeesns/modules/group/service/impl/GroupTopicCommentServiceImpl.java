@@ -56,9 +56,8 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
 
     @Override
     public ResponseModel listByGroupTopic(Page page, int groupTopicId) {
-        PageInterceptor.startPage(page);
-        List<GroupTopicComment> list = groupTopicCommentDao.listByGroupTopic(groupTopicId);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<GroupTopicComment> list = groupTopicCommentDao.listByGroupTopic(page, groupTopicId);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }

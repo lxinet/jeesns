@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.modules.group.dao;
 
 import com.lxinet.jeesns.core.dao.IBaseDao;
+import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.group.entity.GroupTopicComment;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface IGroupTopicCommentDao extends IBaseDao<GroupTopicComment> {
 
-    List<GroupTopicComment> listByGroupTopic(@Param("groupTopicId") Integer groupTopicId);
+    List<GroupTopicComment> listByGroupTopic(@Param("page") Page page, @Param("groupTopicId") Integer groupTopicId);
 
     int deleteByTopic(@Param("groupTopicId") Integer groupTopicId);
 }

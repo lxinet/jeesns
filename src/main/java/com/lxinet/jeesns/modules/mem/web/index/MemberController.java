@@ -220,4 +220,30 @@ public class MemberController extends BaseController {
         MemberUtil.setLoginMember(request,null);
         return "redirect:"+request.getContextPath()+"/member/login";
     }
+
+    /**
+     * 关注、取消关注
+     * @param followWhoId
+     * @return
+     */
+    @RequestMapping(value = "/follows/{followWhoId}",method = RequestMethod.GET)
+    @Clear
+    @ResponseBody
+    public Object follows(@PathVariable(value = "followWhoId") Integer followWhoId){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        return memberService.follows(loginMember,followWhoId);
+    }
+
+    /**
+     * 查询是否已关注该用户
+     * @param followWhoId
+     * @return
+     */
+    @RequestMapping(value = "/isFollowed/{followWhoId}",method = RequestMethod.GET)
+    @Clear
+    @ResponseBody
+    public Object isFollowed(@PathVariable(value = "followWhoId") Integer followWhoId){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        return memberService.isFollowed(loginMember,followWhoId);
+    }
 }

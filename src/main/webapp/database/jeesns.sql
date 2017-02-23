@@ -178,6 +178,8 @@ CREATE TABLE `tbl_member` (
   `website` varchar(50) DEFAULT '' COMMENT '个人网站',
   `introduce` varchar(255) DEFAULT '' COMMENT '个人介绍',
   `is_admin` int(11) DEFAULT '0' COMMENT '是否管理员，0不是，1是',
+  `follows` INT(11) DEFAULT '0' comment '关注会员数量',
+  `fans` INT(11) DEFAULT '0' comment '粉丝数量',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

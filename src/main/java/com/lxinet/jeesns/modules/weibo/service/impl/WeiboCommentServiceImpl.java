@@ -69,9 +69,8 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
 
     @Override
     public ResponseModel listByWeibo(Page page, int weiboId) {
-        PageInterceptor.startPage(page);
-        List<WeiboComment> list = weiboCommentDao.listByWeibo(weiboId);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<WeiboComment> list = weiboCommentDao.listByWeibo(page, weiboId);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }

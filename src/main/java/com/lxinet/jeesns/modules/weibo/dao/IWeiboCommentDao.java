@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.modules.weibo.dao;
 
 import com.lxinet.jeesns.core.dao.IBaseDao;
+import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.cms.entity.Article;
 import com.lxinet.jeesns.modules.cms.entity.ArticleComment;
 import com.lxinet.jeesns.modules.weibo.entity.WeiboComment;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface IWeiboCommentDao extends IBaseDao<WeiboComment> {
 
-    List<WeiboComment> listByWeibo(@Param("weiboId") Integer weiboId);
+    List<WeiboComment> listByWeibo(@Param("page") Page page, @Param("weiboId") Integer weiboId);
 
     /**
      * 根据微博ID删除评论

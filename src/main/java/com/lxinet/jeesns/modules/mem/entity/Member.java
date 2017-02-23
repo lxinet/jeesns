@@ -102,6 +102,12 @@ public class Member extends BaseEntity {
 	//是否管理员
 	private Integer isAdmin;
 
+	//关注会员数
+	private Integer follows;
+
+	//粉丝数
+	private Integer fans;
+
 
 	public Integer getId() {
 		return id;
@@ -358,5 +364,21 @@ public class Member extends BaseEntity {
 
 	public void setCurrLoginIp(String currLoginIp) {
 		this.currLoginIp = currLoginIp;
+	}
+
+	public Integer getFollows() {
+		return follows;
+	}
+
+	public void setFollows(Integer follows) {
+		this.follows = follows;
+	}
+
+	public Integer getFans() {
+		return fans;
+	}
+
+	public void setFans(Integer fans) {
+		this.fans = fans;
 	}
 }

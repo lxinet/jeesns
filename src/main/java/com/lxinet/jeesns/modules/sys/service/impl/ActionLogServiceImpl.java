@@ -24,18 +24,16 @@ public class ActionLogServiceImpl implements IActionLogService {
 
     @Override
     public ResponseModel<ActionLog> listByPage(Page page, Integer memberId) {
-        PageInterceptor.startPage(page);
-        List<ActionLog> list = actionLogDao.listByPage(memberId);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<ActionLog> list = actionLogDao.listByPage(page, memberId);
+        ResponseModel model = new ResponseModel(0, page);
         model.setData(list);
         return model;
     }
 
     @Override
     public ResponseModel<ActionLog> memberActionLog(Page page, Integer memberId) {
-        PageInterceptor.startPage(page);
-        List<ActionLog> list = actionLogDao.memberActionLog(memberId);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<ActionLog> list = actionLogDao.memberActionLog(page, memberId);
+        ResponseModel model = new ResponseModel(0, page);
         model.setData(list);
         return model;
     }

@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.modules.weibo.dao;
 
 import com.lxinet.jeesns.core.dao.IBaseDao;
+import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +18,7 @@ public interface IWeiboDao extends IBaseDao<Weibo> {
      * @param loginMemberId 当前登录的会员ID，用来判断是否已点赞
      * @return
      */
-    List<Weibo> listByPage(@Param("memberId") int memberId,@Param("loginMemberId") int loginMemberId,@Param("key") String key);
+    List<Weibo> listByPage(@Param("page") Page page, @Param("memberId") int memberId, @Param("loginMemberId") int loginMemberId, @Param("key") String key);
 
     int save(Weibo weibo);
 
