@@ -92,12 +92,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     public ResponseModel listByPage(Page page, String key, int groupId,int status) {
-        PageInterceptor.startPage(page);
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
-        List<GroupTopic> list = groupTopicDao.listByPage(key,groupId,status);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<GroupTopic> list = groupTopicDao.listByPage(page, key,groupId,status);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }

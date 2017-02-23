@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.modules.group.dao;
 
 import com.lxinet.jeesns.core.dao.IBaseDao;
+import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.group.entity.GroupTopic;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,7 +14,7 @@ public interface IGroupTopicDao extends IBaseDao<GroupTopic> {
 
     int save(GroupTopic groupTopic);
 
-    List<GroupTopic> listByPage(@Param("key") String key, @Param("groupId") Integer groupId,@Param("status") Integer status);
+    List<GroupTopic> listByPage(@Param("page") Page page, @Param("key") String key, @Param("groupId") Integer groupId, @Param("status") Integer status);
 
     int audit(@Param("id") Integer id);
 

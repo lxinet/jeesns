@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.modules.mem.dao;
 
 import com.lxinet.jeesns.core.dao.IBaseDao;
+import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +17,7 @@ public interface IMemberDao extends IBaseDao<Member> {
 
     Member manageLogin(Member member);
 
-    List<Member> listByPage(@Param("key") String key);
+    List<Member> listByPage(@Param("page") Page page, @Param("key") String key);
 
     int register(Member member);
 
@@ -71,4 +72,18 @@ public interface IMemberDao extends IBaseDao<Member> {
     int active(@Param("id") Integer id);
 
     int loginSuccess(@Param("id") Integer id,@Param("currLoginIp") String currLoginIp);
+
+    /**
+     * 关注
+     * @param id
+     * @return
+     */
+    int follows(@Param("id") Integer id);
+
+    /**
+     * 粉丝
+     * @param id
+     * @return
+     */
+    int fans(@Param("id") Integer id);
 }

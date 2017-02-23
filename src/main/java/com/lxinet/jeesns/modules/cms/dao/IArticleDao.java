@@ -15,7 +15,7 @@ public interface IArticleDao extends IBaseDao<Article> {
 
     int save(Article article);
 
-    List<Article> listByPage(@Param("key") String key, @Param("cateid") Integer cateid, @Param("status") Integer status);
+    List<Article> listByPage(@Param("page") Page page, @Param("key") String key, @Param("cateid") Integer cateid, @Param("status") Integer status);
 
     /**
      * 设置某个栏目的所有文章为未分类文章，一般在删除某个栏目的时候调用

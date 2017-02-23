@@ -74,9 +74,8 @@ public class WeiboServiceImpl implements IWeiboService {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
-        PageInterceptor.startPage(page);
-        List<Weibo> list = weiboDao.listByPage(memberId,loginMemberId,key);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<Weibo> list = weiboDao.listByPage(page, memberId,loginMemberId,key);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }

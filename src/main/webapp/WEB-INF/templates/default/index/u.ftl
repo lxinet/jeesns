@@ -21,72 +21,144 @@
     <script src="${base}/res/common/js/jquery.form.js"></script>
     <script src="${base}/res/common/js/jeesns.js"></script>
     <script src="${base}/res/common/js/extendPagination.js"></script>
+    <script src="${base}/res/modules/mem.js"></script>
 </head>
 
 <body class="gray-bg">
 <#include "/member/common/header.ftl"/>
-<div class="wrapper wrapper-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>${member.name}资料</h5>
+<div class="wrapper wrapper-content" >
+    <div class="member-banner" style="background-image: url(${base}/res/common/images/member_banner.png);">
+        <div class="attempts"></div>
+        <div class="container">
+            <div class="container content">
+                <div class="left">
+                    <div class="avatar">
+                        <img src="${base}${member.avatar}" class="img-circle" width="80px" height="80px"/>
                     </div>
-                    <div>
-                        <div class="ibox-content profile-element text-center">
-                            <img alt="image" class="img-circle" src="${base}${member.avatar}" width="80px" height="80px"/>
-                            <h4><strong>${member.name!''}</strong></h4>
+                    <div class="info">
+                        <div class="name">
+                        ${member.name}
+                        <#if member.sex=='女'>
+                            <span class="sex"><i class="fa fa-venus"></i></span>
+                        <#elseif member.sex=='男'>
+                            <span class="sex"><i class="fa fa-mars"></i></span>
+                        <#else>
+                            <span class="sex"><i class="fa fa-intersex"></i></span>
+                        </#if>
                         </div>
-                        <div class="ibox-content profile-content">
-                            <h5>个人说明</h5>
-                            <p>
-                            ${member.introduce!''}
-                            </p>
-                        </div>
+                        <p>${member.website}</p>
+                        <p>${member.introduce}</p>
+                        <p class="operator">
+                            <a class="label label-primary member-follows" member-id="${member.id}">
+                                <i class="fa fa-heart-o"></i> 关注
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="follows">
+                        <span>关注</span>
+                        <a href="">${member.follows}</a>
+                    </div>
+                    <div class="fans">
+                        <span>粉丝</span>
+                        <a href="">${member.fans}</a>
+                    </div>
+                    <div class="login-info">
+                        加入时间:${member.createTime?string('yyyy-MM-dd')}
+                        最近登录:<#if member.currLoginTime??>${member.currLoginTime?string('yyyy-MM-dd')}<#else>未登陆过</#if>
+
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>动态</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div>
-                            <div class="feed-activity-list">
-                            <#list actionLogModel.data as actionLog>
-                                <div class="feed-element">
-                                    <a href="${base}/u/${actionLog.member.id}" class="pull-left">
-                                        <img alt="image" class="img-circle" src="${base}${actionLog.member.avatar!''}">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="col-sm-2">
+                        <div class="float-e-margins">
+                                <div class="feed-activity-list">
+                                    <a href="">
+                                        <div class="feed-element">
+                                            <div class="media-body">
+                                                粉丝
+                                            </div>
+                                        </div>
                                     </a>
-                                    <div class="media-body ">
-                                        <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                        <strong>${actionLog.member.name}</strong>${actionLog.action.log}：<br/>
-                                        <#if actionLog.type==1>
-                                            <a href="${base}/article/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
-                                        <#elseif actionLog.type==2>
-                                            <p>${actionLog.remark}</p>
-                                            <a href="${base}/weibo/detail/${actionLog.foreignId}" target="_blank">查看</a>
-                                        <#elseif actionLog.type==4>
-                                            <a href="${base}/group/topic/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
-                                        </#if>
-                                        <br>
-                                        <div class="actions">
+                                    <a href="">
+                                        <div class="feed-element">
+                                            <div class="media-body">
+                                                关注
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="">
+                                        <div class="feed-element">
+                                            <div class="media-body">
+                                                文章
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="">
+                                        <div class="feed-element">
+                                            <div class="media-body">
+                                                微博
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="">
+                                        <div class="feed-element">
+                                            <div class="media-body">
+                                                关注群组
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>动态</h5>
+                            </div>
+                                <div>
+                                    <div class="feed-activity-list">
+                                    <#list actionLogModel.data as actionLog>
+                                        <div class="feed-element">
+                                            <a href="${base}/u/${actionLog.member.id}" class="pull-left">
+                                                <img alt="image" class="img-circle" src="${base}${actionLog.member.avatar!''}">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
+                                                <strong>${actionLog.member.name}</strong>${actionLog.action.log}：<br/>
+                                                <#if actionLog.type==1>
+                                                    <a href="${base}/article/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                                <#elseif actionLog.type==2>
+                                                    <p>${actionLog.remark}</p>
+                                                    <a href="${base}/weibo/detail/${actionLog.foreignId}" target="_blank">查看</a>
+                                                <#elseif actionLog.type==4>
+                                                    <a href="${base}/group/topic/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                                </#if>
+                                                <br>
+                                                <div class="actions">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#list>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right"
+                                                url="${base}/u/${member.id}"
+                                                currentPage="${actionLogModel.page.pageNo}"
+                                                pageCount="${actionLogModel.page.totalPage}">
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </#list>
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right"
-                                        url="${base}/u/${member.id}"
-                                        currentPage="${actionLogModel.page.pageNo}"
-                                        pageCount="${actionLogModel.page.totalPage}">
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -96,6 +168,11 @@
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");
+        mem.isFollowed(${member.id},"${base}");
+        $(".member-follows").click(function () {
+            mem.follows($(this),"${base}")
+        });
+
     });
 </script>
 </body>

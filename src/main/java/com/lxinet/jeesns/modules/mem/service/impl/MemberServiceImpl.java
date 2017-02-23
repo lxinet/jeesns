@@ -5,12 +5,15 @@ import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.mem.dao.IMemberDao;
+import com.lxinet.jeesns.modules.mem.dao.IMemberFansDao;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.entity.ValidateCode;
+import com.lxinet.jeesns.modules.mem.service.IMemberFansService;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
 import com.lxinet.jeesns.modules.mem.service.IValidateCodeService;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
+import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -33,6 +36,8 @@ public class MemberServiceImpl implements IMemberService {
     private IConfigService configService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IMemberFansService memberFansService;
 
     @Override
     public ResponseModel login(Member member, HttpServletRequest request) {
@@ -117,9 +122,8 @@ public class MemberServiceImpl implements IMemberService {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
-        PageInterceptor.startPage(page);
-        List<Member> list = memberDao.listByPage(key);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<Member> list = memberDao.listByPage(page, key);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }
@@ -339,5 +343,45 @@ public class MemberServiceImpl implements IMemberService {
             return new ResponseModel(2,"密码重置成功",request.getContextPath()+"/member/login");
         }
         return new ResponseModel(-1,"密码重置失败");
+    }
+
+    @Transactional
+    @Override
+    public ResponseModel follows(Member loginMember, Integer followWhoId) {
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        if(this.findById(followWhoId) == null){
+            return new ResponseModel(-1,"关注的会员不存在");
+        }
+        if(loginMember.getId() == followWhoId){
+            return new ResponseModel(-1,"不能关注自己");
+        }
+        if(memberFansService.find(loginMember.getId(),followWhoId) == null){
+            //关注
+            memberFansService.save(loginMember.getId(),followWhoId);
+            memberDao.follows(loginMember.getId());
+            memberDao.fans(followWhoId);
+            return new ResponseModel(1,"关注成功");
+        }else {
+            //取消关注
+            memberFansService.delete(loginMember.getId(),followWhoId);
+            memberDao.follows(loginMember.getId());
+            memberDao.fans(followWhoId);
+            return new ResponseModel(0,"取消关注成功");
+        }
+    }
+
+    @Override
+    public ResponseModel isFollowed(Member loginMember, Integer followWhoId) {
+        Integer loginMemberId = 0;
+        if(loginMember != null){
+            loginMemberId = loginMember.getId();
+        }
+        if(memberFansService.find(loginMemberId,followWhoId) == null){
+            return new ResponseModel(0,"未关注");
+        }else {
+            return new ResponseModel(1,"已关注");
+        }
     }
 }

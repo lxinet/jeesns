@@ -72,4 +72,11 @@
         update tbl_member set login_count=login_count+1,last_login_time=curr_login_time,last_login_ip=curr_login_ip,
         curr_login_time=now(),curr_login_ip=#{currLoginIp} where id = #{id}
     </update>
+
+    <update id="follows">
+        update tbl_member set follows=(select COUNT(*) FROM tbl_member_fans where who_follow=#{id}) where id = #{id}
+    </update>
+    <update id="fans">
+        update tbl_member set fans=(select COUNT(*) FROM tbl_member_fans where follow_who=#{id}) where id = #{id}
+    </update>
 </mapper>

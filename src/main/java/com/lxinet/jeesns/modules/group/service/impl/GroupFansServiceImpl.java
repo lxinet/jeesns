@@ -28,9 +28,8 @@ public class GroupFansServiceImpl implements IGroupFansService {
 
     @Override
     public ResponseModel listByPage(Page page, Integer groupId) {
-        PageInterceptor.startPage(page);
-        List<GroupFans> list = groupFansDao.listByPage(groupId);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<GroupFans> list = groupFansDao.listByPage(page, groupId);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }

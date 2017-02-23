@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.modules.group.dao;
 
 import com.lxinet.jeesns.core.dao.IBaseDao;
+import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.group.entity.Group;
 import com.lxinet.jeesns.modules.group.entity.GroupFans;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +17,7 @@ public interface IGroupFansDao extends IBaseDao<GroupFans> {
      * 获取群组粉丝
      * @return
      */
-    List<GroupFans> listByPage(@Param("groupId") Integer groupId);
+    List<GroupFans> listByPage(@Param("page") Page page, @Param("groupId") Integer groupId);
 
     GroupFans findByMemberAndGroup(@Param("groupId") Integer groupId,@Param("memberId") Integer memberId);
 

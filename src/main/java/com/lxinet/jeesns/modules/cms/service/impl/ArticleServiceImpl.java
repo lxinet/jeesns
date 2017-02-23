@@ -88,12 +88,11 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     public ResponseModel listByPage(Page page, String key, int cateid,int status) {
-        PageInterceptor.startPage(page);
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
-        List<Article> list = articleDao.listByPage(key,cateid,status);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<Article> list = articleDao.listByPage(page, key,cateid,status);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }

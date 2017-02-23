@@ -38,12 +38,11 @@ public class GroupServiceImpl implements IGroupService {
 
     @Override
     public ResponseModel listByPage(int status,Page page, String key) {
-        PageInterceptor.startPage(page);
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
-        List<Group> list = groupDao.listByPage(status,key);
-        ResponseModel model = new ResponseModel(0,PageInterceptor.endPage());
+        List<Group> list = groupDao.listByPage(page, status,key);
+        ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
     }
