@@ -31,101 +31,165 @@
 <body class="gray-bg">
 <#include "/member/common/header.ftl"/>
 <div class="wrapper wrapper-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>个人资料</h5>
+    <div class="member-banner" style="background-image: url(${base}/res/common/images/member_banner.png);">
+        <div class="attempts"></div>
+        <div class="container">
+            <div class="container content">
+                <div class="left">
+                    <div class="avatar">
+                        <img src="${base}${loginUser.avatar}" class="img-circle" width="80px" height="80px"/>
                     </div>
-                    <div>
-                        <div class="ibox-content profile-element text-center">
-                            <a href="${base}/member/avatar">
-                                <img alt="image" class="img-circle" src="${base}${loginUser.avatar}" width="80px" height="80px"/>
+                    <div class="info">
+                        <div class="name">
+                        ${loginUser.name}
+                        <#if loginUser.sex=='女'>
+                            <span class="sex"><i class="fa fa-venus"></i></span>
+                        <#elseif loginUser.sex=='男'>
+                            <span class="sex"><i class="fa fa-mars"></i></span>
+                        <#else>
+                            <span class="sex"><i class="fa fa-intersex"></i></span>
+                        </#if>
+                        </div>
+                        <p>${loginUser.website}</p>
+                        <p>${loginUser.introduce}</p>
+                        <p class="operator">
+                            <a class="btn btn-info btn-outline member-follows" href="${base}/member/editInfo">
+                                <i class="fa fa-edit"></i> 编辑个人资料
                             </a>
-                            <h4>
-                                <strong>
-                                    ${loginUser.name!''}
-                                    <a href="${base}/member/editInfo"><i class="fa fa-edit"></i></a>
-                                </strong>
-                            </h4>
-                        </div>
-                        <div class="ibox-content profile-content">
-                            <h5>个人说明</h5>
-                            <p>
-                            ${loginUser.introduce!''}
-                            </p>
-                        </div>
+                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-9">
-                <div class="ibox-content">
-                    <form class="form-horizontal m-t jeesns_form" action="${base}/weibo/publish" method="post">
-                        <p><textarea cols="3" class="form-control" name="content" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea></p>
-                        <div class="row emoji-container" id="emoji">
-                            <i class="fa fa-smile-o emoji-tbtn"></i>
-                            <span class="pull-right mg-r-15">
-                                 <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>
-                                <input type="submit" value="发布" class="btn btn-primary">
-                            </span>
-                        </div>
-                    </form>
-                </div>
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>动态</h5>
+                <div class="right">
+                    <div class="follows">
+                        <span>关注</span>
+                        <a href="${base}/u/${loginUser.id}/home/follows">${loginUser.follows}</a>
                     </div>
-                    <div class="ibox-content">
-                        <div>
-                            <div class="feed-activity-list">
-                            <#list actionLogModel.data as actionLog>
-                                <div class="feed-element">
-                                    <a href="${base}/u/${actionLog.member.id}" class="pull-left">
-                                        <img alt="image" class="img-circle" src="${base}${actionLog.member.avatar!''}">
-                                    </a>
-                                    <div class="media-body ">
-                                        <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                        <strong>${actionLog.member.name}</strong>${actionLog.action.log}：<br/>
-                                        <#if actionLog.type==1>
-                                            <a href="${base}/article/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
-                                        <#elseif actionLog.type==2>
-                                            <p>${actionLog.remark}</p>
-                                            <a href="${base}/weibo/detail/${actionLog.foreignId}" target="_blank">查看</a>
-                                        <#elseif actionLog.type==4>
-                                            <a href="${base}/group/topic/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
-                                        </#if>
-                                        <br>
-                                        <div class="actions">
-                                        </div>
-                                    </div>
-                                </div>
-                            </#list>
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right"
-                                        url="${base}/member/"
-                                        currentPage="${actionLogModel.page.pageNo}"
-                                        pageCount="${actionLogModel.page.totalPage}">
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="fans">
+                        <span>粉丝</span>
+                        <a href="${base}/u/${loginUser.id}/home/fans">${loginUser.fans}</a>
+                    </div>
+                    <div class="login-info">
+                        加入时间:${loginUser.createTime?string('yyyy-MM-dd')}
+                        最近登录:<#if loginUser.currLoginTime??>${loginUser.currLoginTime?string('yyyy-MM-dd')}<#else>未登陆过</#if>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="col-sm-2">
+                        <div class="float-e-margins">
+                            <div class="feed-activity-list">
+                                <a href="${base}/u/${loginUser.id}">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            动态
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="${base}/u/${loginUser.id}/home/fans">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            粉丝
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="${base}/u/${loginUser.id}/home/follows">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            关注
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="${base}/u/${loginUser.id}/home/article">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            文章
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="${base}/u/${loginUser.id}/home/groupTopic">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            群帖
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="${base}/u/${loginUser.id}/home/weibo">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            微博
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="${base}/u/${loginUser.id}/home/group">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            关注群组
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>动态</h5>
+                            </div>
+                            <div>
+                                <div class="feed-activity-list">
+                                <#list actionLogModel.data as actionLog>
+                                    <div class="feed-element">
+                                        <a href="${base}/u/${actionLog.member.id}" class="pull-left">
+                                            <img alt="image" class="img-circle"
+                                                 src="${base}${actionLog.member.avatar!''}">
+                                        </a>
+                                        <div class="media-body ">
+                                            <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
+                                            <strong>${actionLog.member.name}</strong>${actionLog.action.log}：<br/>
+                                            <#if actionLog.type==1>
+                                                <a href="${base}/article/detail/${actionLog.foreignId}"
+                                                   target="_blank">${actionLog.remark}</a>
+                                            <#elseif actionLog.type==2>
+                                                <p>${actionLog.remark}</p>
+                                                <a href="${base}/weibo/detail/${actionLog.foreignId}"
+                                                   target="_blank">查看</a>
+                                            <#elseif actionLog.type==4>
+                                                <a href="${base}/group/topic/${actionLog.foreignId}"
+                                                   target="_blank">${actionLog.remark}</a>
+                                            </#if>
+                                            <br>
+                                            <div class="actions">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </#list>
+                                    <div class="box-footer clearfix">
+                                        <ul class="pagination pagination-sm no-margin pull-right"
+                                            url="${base}/member/"
+                                            currentPage="${actionLogModel.page.pageNo}"
+                                            pageCount="${actionLogModel.page.totalPage}">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <#include "/member/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");
-        $('#emoji').emoji({
-            insertAfter: function(item){
-                $('#weibo-content').insertContent(':'+item.name+':')
-            }
-        },"${base}");
     });
 </script>
 </body>

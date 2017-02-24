@@ -2624,6 +2624,9 @@ a.compose-mail {
 .media-body {
   overflow: hidden;
 }
+.media-body {
+  display: block;
+}
 .feed-element > .pull-left {
   margin-right: 10px;
 }

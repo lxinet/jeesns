@@ -24,4 +24,13 @@ public interface IGroupFansDao extends IBaseDao<GroupFans> {
     int save(@Param("groupId") Integer groupId,@Param("memberId") Integer memberId);
 
     int delete(@Param("groupId") Integer groupId,@Param("memberId") Integer memberId);
+
+
+    /**
+     * 获取用户关注的群组列表
+     * @param page
+     * @param memberId
+     * @return
+     */
+    List<Group> listByMember(@Param("page") Page page, @Param("memberId") Integer memberId);
 }

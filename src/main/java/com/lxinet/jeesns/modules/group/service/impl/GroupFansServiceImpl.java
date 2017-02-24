@@ -73,4 +73,12 @@ public class GroupFansServiceImpl implements IGroupFansService {
     }
 
 
+    @Override
+    public ResponseModel listByMember(Page page, Integer memberId) {
+        List<Group> list = groupFansDao.listByMember(page, memberId);
+        ResponseModel model = new ResponseModel(0,page);
+        model.setData(list);
+        return model;
+    }
+
 }

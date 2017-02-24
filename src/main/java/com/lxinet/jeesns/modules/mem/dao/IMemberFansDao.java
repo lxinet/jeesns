@@ -12,7 +12,9 @@ import java.util.List;
  */
 public interface IMemberFansDao extends IBaseDao<MemberFans> {
 
-    List<MemberFans> listByPage(@Param("page") Page page, @Param("key") String key);
+    List<MemberFans> followsList(@Param("page") Page page, @Param("whoFollowId") Integer whoFollowId);
+
+    List<MemberFans> fansList(@Param("page") Page page, @Param("followWhoId") Integer followWhoId);
 
     MemberFans find(@Param("whoFollowId") Integer whoFollowId, @Param("followWhoId") Integer followWhoId);
 

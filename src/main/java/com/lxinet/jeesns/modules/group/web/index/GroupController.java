@@ -90,7 +90,7 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow",true);
         }
         //获取群组帖子列表
-        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,1);
+        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,1,0);
         model.addAttribute("model",responseModel);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();
@@ -371,7 +371,7 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow",true);
         }
         //获取群组帖子列表
-        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,0);
+        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,0,0);
         model.addAttribute("model",responseModel);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();

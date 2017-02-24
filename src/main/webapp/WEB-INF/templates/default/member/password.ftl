@@ -25,44 +25,47 @@
 <body class="gray-bg">
 <#include "/member/common/header.ftl"/>
 <div class="wrapper wrapper-content">
-    <div class="container">
-        <div class="row">
-        <#include "/member/common/editLeft.ftl"/>
-            <div class="col-sm-9">
-                <div class="ibox-title">
-                    <h5>修改密码</h5>
+<#include "/member/common/editLeft.ftl"/>
+    <div class="col-sm-9">
+        <div class="ibox-title">
+            <h5>修改密码</h5>
+        </div>
+        <div class="ibox-content">
+            <form class="form-horizontal m-t jeesns_form" action="${base}/member/password" method="post">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">旧密码：</label>
+                    <div class="col-sm-8">
+                        <input id="oldPassword" name="oldPassword" class="form-control" type="password"
+                               data-type="require" alt="密码">
+                    </div>
                 </div>
-                <div class="ibox-content">
-                    <form class="form-horizontal m-t jeesns_form" action="${base}/member/password" method="post">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">旧密码：</label>
-                            <div class="col-sm-8">
-                                <input id="oldPassword" name="oldPassword" class="form-control" type="password" data-type="require" alt="密码">
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">新密码：</label>
-                            <div class="col-sm-8">
-                                <input id="newPassword" name="newPassword" class="form-control" type="password" data-type="require" alt="新密码">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">确认新密码：</label>
-                            <div class="col-sm-8">
-                                <input id="renewPassword" name="renewPassword" class="form-control" type="password" data-type="require" data-rule="equal[newPassword]" alt="两次密码必须一致">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <input type="submit" class="btn btn-primary block full-width m-b jeesns-submit" value="修改密码">
-                            </div>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">新密码：</label>
+                    <div class="col-sm-8">
+                        <input id="newPassword" name="newPassword" class="form-control" type="password"
+                               data-type="require" alt="新密码">
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">确认新密码：</label>
+                    <div class="col-sm-8">
+                        <input id="renewPassword" name="renewPassword" class="form-control" type="password"
+                               data-type="require" data-rule="equal[newPassword]" alt="两次密码必须一致">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <input type="submit" class="btn btn-primary block full-width m-b jeesns-submit" value="修改密码">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <#include "/member/common/footer.ftl"/>
 </body>

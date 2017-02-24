@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.modules.cms.dao.IArticleDao">
   <select id="listByPage" resultType="Article">
-    select a.id,a.cate_id as 'articleCate.id', a.collect_time,a.status, b.*,c.name 'articleCate.name'
+    select a.id,a.cate_id as 'articleCate.id', a.collect_time,a.status, b.*,c.name 'articleCate.name',
+    b.member_id as 'member.id',d.name as 'member.name'
     from tbl_article as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id
     LEFT JOIN tbl_article_cate as c ON a.cate_id = c.id
+    LEFT JOIN tbl_member as d ON b.member_id = d.id
     <where>
       <if test="cateid &gt; 0">
         a.cate_id = #{cateid}
@@ -14,6 +16,9 @@
       </if>
       <if test="status != 2">
         and a.status = #{status}
+      </if>
+      <if test="memberId &gt; 0">
+        and b.member_id = #{memberId}
       </if>
     </where>
     order by a.id DESC

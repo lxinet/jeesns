@@ -15,10 +15,7 @@ import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -39,13 +36,12 @@ public class ArticleController extends BaseController {
 
     @RequestMapping("${managePath}/cms/index")
     @Before(AdminLoginInterceptor.class)
-    public String index(String key,Integer cateid,Model model) {
-        if(cateid == null){
-            cateid = 0;
-        }
+    public String index(String key, @RequestParam(value = "cateid",defaultValue = "0",required = false) Integer cateid,
+    @RequestParam(value = "status",defaultValue = "2",required = false) Integer status,
+    @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
         List<ArticleCate> cateList = articleCateService.list();
         Page page = new Page(request);
-        ResponseModel responseModel = articleService.listByPage(page,key,cateid,2);
+        ResponseModel responseModel = articleService.listByPage(page,key,cateid,status,memberId);
         model.addAttribute("model",responseModel);
         model.addAttribute("cateList",cateList);
         model.addAttribute("key",key);
@@ -75,12 +71,11 @@ public class ArticleController extends BaseController {
     }
 
     @RequestMapping(value="${managePath}/cms/article/list",method = RequestMethod.GET)
-    public String list(String key,Integer cateid,Model model) {
-        if(cateid == null){
-            cateid = 0;
-        }
+    public String list(String key, @RequestParam(value = "cateid",defaultValue = "0",required = false) Integer cateid,
+                       @RequestParam(value = "status",defaultValue = "2",required = false) Integer status,
+                       @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
         Page page = new Page(request);
-        ResponseModel responseModel = articleService.listByPage(page,key,cateid,2);
+        ResponseModel responseModel = articleService.listByPage(page,key,cateid,status,memberId);
         model.addAttribute("model",responseModel);
         return MANAGE_FTL_PATH + "list";
     }
