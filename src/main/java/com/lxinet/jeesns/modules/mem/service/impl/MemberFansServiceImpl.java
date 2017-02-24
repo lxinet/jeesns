@@ -25,14 +25,6 @@ public class MemberFansServiceImpl implements IMemberFansService {
     private IMemberFansDao memberFansDao;
 
     @Override
-    public ResponseModel listByPage(Page page,Integer whoFollowId, Integer followWhoId) {
-        List<MemberFans> list = memberFansDao.listByPage(page, "");
-        ResponseModel model = new ResponseModel(0,page);
-        model.setData(list);
-        return model;
-    }
-
-    @Override
     public MemberFans find(Integer whoFollowId, Integer followWhoId) {
         return memberFansDao.find(whoFollowId,followWhoId);
     }
@@ -62,6 +54,22 @@ public class MemberFansServiceImpl implements IMemberFansService {
             return new ResponseModel(1,"取消关注成功");
         }
         return new ResponseModel(-1,"取消关注失败");
+    }
+
+    @Override
+    public ResponseModel followsList(Page page, Integer whoFollowId) {
+        List<MemberFans> list = memberFansDao.followsList(page, whoFollowId);
+        ResponseModel model = new ResponseModel(0,page);
+        model.setData(list);
+        return model;
+    }
+
+    @Override
+    public ResponseModel fansList(Page page, Integer followWhoId) {
+        List<MemberFans> list = memberFansDao.fansList(page, followWhoId);
+        ResponseModel model = new ResponseModel(0,page);
+        model.setData(list);
+        return model;
     }
 
 

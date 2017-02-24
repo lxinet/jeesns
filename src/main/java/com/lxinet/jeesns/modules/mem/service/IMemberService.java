@@ -128,4 +128,14 @@ public interface IMemberService {
      * @return
      */
     ResponseModel isFollowed(Member loginMember,Integer followWhoId);
+
+    /**
+     * 会员主页
+     * @param page
+     * @param memberId
+     * @param type
+     * @return
+     */
+    ResponseModel home(Member loginMember, Page page, Integer memberId,String type);
+
 }

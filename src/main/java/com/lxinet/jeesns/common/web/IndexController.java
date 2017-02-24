@@ -52,8 +52,8 @@ public class IndexController extends BaseController{
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResponseModel articleModel = articleService.listByPage(page,key,cateid,1);
-        ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1);
+        ResponseModel articleModel = articleService.listByPage(page,key,cateid,1,0);
+        ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1,0);
         ResponseModel groupModel = groupService.listByPage(1,page,key);
         page.setPageSize(50);
         ResponseModel weiboModel = weiboService.listByPage(page,0,loginMemberId,"");
@@ -75,6 +75,22 @@ public class IndexController extends BaseController{
         ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,id);
         model.addAttribute("actionLogModel",list);
         return FTL_PATH + "u";
+    }
+
+    @RequestMapping(value = "u/{id}/home/{type}",method = RequestMethod.GET)
+    public String home(@PathVariable("id") Integer id, @PathVariable("type") String type, Model model){
+        Page page = new Page(request);
+        Member member = memberService.findById(id);
+        if(member == null){
+            return ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
+        }
+        model.addAttribute("member",member);
+        Member loginMember = MemberUtil.getLoginMember(request);
+
+        ResponseModel responseModel = memberService.home(loginMember,page,id,type);
+        model.addAttribute("model",responseModel);
+        model.addAttribute("type",type);
+        return FTL_PATH + "home";
     }
 
 

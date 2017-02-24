@@ -21,7 +21,7 @@ public interface IArticleService {
 
     ResponseModel delete(Member member,int id);
 
-    ResponseModel listByPage(Page page, String key, int cateid,int status);
+    ResponseModel listByPage(Page page, String key, int cateid,int status,int memberId);
 
     void updateViewCount(int id);
 

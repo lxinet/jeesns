@@ -91,11 +91,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     }
 
     @Override
-    public ResponseModel listByPage(Page page, String key, int groupId,int status) {
+    public ResponseModel listByPage(Page page, String key, int groupId,int status,int memberId) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
-        List<GroupTopic> list = groupTopicDao.listByPage(page, key,groupId,status);
+        List<GroupTopic> list = groupTopicDao.listByPage(page, key,groupId,status,memberId);
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;

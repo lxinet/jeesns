@@ -19,4 +19,12 @@ public interface IGroupFansService {
     ResponseModel listByPage(Page page, Integer groupId);
 
     GroupFans findByMemberAndGroup(@Param("groupId") Integer groupId, @Param("memberId") Integer memberId);
+
+    /**
+     * 获取用户关注的群组列表
+     * @param page
+     * @param memberId
+     * @return
+     */
+    ResponseModel listByMember(Page page, Integer memberId);
 }

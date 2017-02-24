@@ -10,8 +10,16 @@
   <insert id="save" parameterType="MemberFans">
     insert into tbl_member_fans(create_time,follow_who,who_follow) values(now(),#{followWhoId},#{whoFollowId})
   </insert>
-  <select id="listByPage" resultType="MemberFans">
-    select a.group_id as 'group.id',a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar' FROM tbl_group_fans as a left join tbl_member as b
-    on a.member_id = b.id WHERE a.group_id=#{groupId} order by a.create_time DESC
+  <select id="followsList" resultType="MemberFans">
+    SELECT a.who_follow,a.follow_who as follow_who,b.id as 'followWhoMember.id',b.name as 'followWhoMember.name',
+     b.avatar as 'followWhoMember.avatar',b.fans as 'followWhoMember.fans',b.follows as 'followWhoMember.follows'
+      FROM tbl_member_fans as a LEFT JOIN tbl_member as b ON a.follow_who = b.id
+     WHERE who_follow = #{whoFollowId}
+  </select>
+  <select id="fansList" resultType="MemberFans">
+    SELECT a.follow_who,a.who_follow as who_follow,b.id as 'whoFollowMember.id',b.name as 'whoFollowMember.name',
+    b.avatar as 'whoFollowMember.avatar',b.fans as 'whoFollowMember.fans',b.follows as 'whoFollowMember.follows'
+     FROM tbl_member_fans as a LEFT JOIN tbl_member as b ON a.who_follow = b.id
+    WHERE follow_who = #{followWhoId}
   </select>
 </mapper>

@@ -17,7 +17,9 @@ public interface IMemberFansService {
 
     ResponseModel delete(Integer whoFollowId, Integer followWhoId);
 
-    ResponseModel listByPage(Page page,Integer whoFollowId, Integer followWhoId);
+    ResponseModel followsList(Page page,Integer whoFollowId);
+
+    ResponseModel fansList(Page page,Integer followWhoId);
 
     MemberFans find(Integer whoFollowId, Integer followWhoId);
 }

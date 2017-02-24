@@ -4,6 +4,11 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.utils.*;
+import com.lxinet.jeesns.modules.cms.service.IArticleService;
+import com.lxinet.jeesns.modules.group.dao.IGroupTopicDao;
+import com.lxinet.jeesns.modules.group.service.IGroupFansService;
+import com.lxinet.jeesns.modules.group.service.IGroupService;
+import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.dao.IMemberDao;
 import com.lxinet.jeesns.modules.mem.dao.IMemberFansDao;
 import com.lxinet.jeesns.modules.mem.entity.Member;
@@ -14,6 +19,7 @@ import com.lxinet.jeesns.modules.mem.service.IValidateCodeService;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
+import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -38,6 +44,14 @@ public class MemberServiceImpl implements IMemberService {
     private IActionLogService actionLogService;
     @Resource
     private IMemberFansService memberFansService;
+    @Resource
+    private IArticleService articleService;
+    @Resource
+    private IGroupTopicService groupTopicService;
+    @Resource
+    private IGroupFansService groupFansService;
+    @Resource
+    private IWeiboService weiboService;
 
     @Override
     public ResponseModel login(Member member, HttpServletRequest request) {
@@ -383,5 +397,36 @@ public class MemberServiceImpl implements IMemberService {
         }else {
             return new ResponseModel(1,"已关注");
         }
+    }
+
+
+    /**
+     * 会员主页
+     * @param loginMember 登录会员
+     * @param page 分页信息
+     * @param memberId 被查看的会员ID
+     * @param type 类型
+     * @return
+     */
+    @Override
+    public ResponseModel home(Member loginMember, Page page, Integer memberId,String type) {
+        Integer loginMemberId = 0;
+        if(loginMember != null){
+            loginMemberId = loginMember.getId();
+        }
+        if("article".equals(type)){
+            return articleService.listByPage(page,"",0,1, memberId);
+        } else if("groupTopic".equals(type)){
+            return groupTopicService.listByPage(page,"",0,1, memberId);
+        } else if("group".equals(type)){
+            return groupFansService.listByMember(page, memberId);
+        } else if("weibo".equals(type)){
+            return weiboService.listByPage(page,memberId,loginMemberId,"");
+        } else if("follows".equals(type)){
+            return memberFansService.followsList(page,memberId);
+        } else if("fans".equals(type)){
+            return memberFansService.fansList(page,memberId);
+        }
+        return new ResponseModel(-1);
     }
 }

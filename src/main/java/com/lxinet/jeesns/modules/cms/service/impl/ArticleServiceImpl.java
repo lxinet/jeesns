@@ -87,11 +87,11 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public ResponseModel listByPage(Page page, String key, int cateid,int status) {
+    public ResponseModel listByPage(Page page, String key, int cateid,int status,int memberId) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
-        List<Article> list = articleDao.listByPage(page, key,cateid,status);
+        List<Article> list = articleDao.listByPage(page, key,cateid,status,memberId);
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
@@ -151,6 +151,7 @@ public class ArticleServiceImpl implements IArticleService {
             return new ResponseModel(-1,"文章不存在");
         }
         int result = articleDao.delete(id);
+        System.out.println("result:"+result);
         if(result == 1){
             archiveService.delete(article.getArchiveId());
             articleCommentService.deleteByArticle(id);

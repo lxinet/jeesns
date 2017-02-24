@@ -23,7 +23,7 @@ public interface IGroupTopicService {
 
     ResponseModel indexDelete(Member loginMember,int id);
 
-    ResponseModel listByPage(Page page, String key, int groupId,int status);
+    ResponseModel listByPage(Page page, String key, int groupId,int status,int memberId);
 
     ResponseModel audit(Member member,int id);
 

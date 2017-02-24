@@ -15,6 +15,9 @@
       <if test="status != 2">
         and a.status = #{status}
       </if>
+      <if test="memberId &gt; 0">
+        and b.member_id = #{memberId}
+      </if>
     </where>
     order by a.is_top DESC,a.id DESC
   </select>
