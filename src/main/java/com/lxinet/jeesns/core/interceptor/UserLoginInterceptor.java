@@ -20,7 +20,7 @@ public class UserLoginInterceptor implements JeesnsInterceptor {
     public boolean interceptor(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception{
         try {
             Member loginUser = MemberUtil.getLoginMember(httpServletRequest);
-            if (loginUser == null) {
+            if (loginUser == null || loginUser.getId() == null) {
                 httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/member/login");
                 return false;
             }else {

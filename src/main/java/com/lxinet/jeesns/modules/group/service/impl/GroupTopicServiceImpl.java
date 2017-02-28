@@ -108,7 +108,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         if(findGroupTopic == null){
             return new ResponseModel(-2);
         }
-        if(member.getId() != findGroupTopic.getMember().getId()){
+        if(member.getId().intValue() != findGroupTopic.getMember().getId().intValue()){
             return new ResponseModel(-1,"没有权限");
         }
         groupTopic.setArchiveId(findGroupTopic.getArchiveId());
@@ -121,7 +121,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         if(archiveService.update(member,archive)){
             //更新栏目
-            if(findGroupTopic.getGroupId() != groupTopic.getGroupId()){
+            if(findGroupTopic.getGroupId().intValue() != groupTopic.getGroupId().intValue()){
                 findGroupTopic.setGroupId(groupTopic.getGroupId());
                 groupTopicDao.update(findGroupTopic);
             }
@@ -166,11 +166,12 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         String[] groupManagerArr = groupManagers.split(",");
         boolean isManager = false;
         for (String manager : groupManagerArr){
-            if(loginMember.getId() == Integer.parseInt(manager)){
+            if(loginMember.getId().intValue() == Integer.parseInt(manager)){
                 isManager = true;
             }
         }
-        if(loginMember.getId() == groupTopic.getMember().getId() || loginMember.getIsAdmin() == 1 || isManager || loginMember.getId() == group.getCreator()){
+        if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() == 1 ||
+                isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
             return this.delete(loginMember,id);
         }
         return new ResponseModel(-1,"权限不足");
@@ -197,7 +198,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 isManager = true;
             }
         }
-        if(member.getId() == groupTopic.getMember().getId() || member.getIsAdmin() == 1 || isManager || member.getId() == group.getCreator()){
+        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() == 1 ||
+                isManager || member.getId().intValue() == group.getCreator().intValue()){
             if(groupTopicDao.audit(id) == 1){
                 return new ResponseModel(1,"审核成功");
             }else {
@@ -228,7 +230,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 isManager = true;
             }
         }
-        if(member.getId() == groupTopic.getMember().getId() || member.getIsAdmin() == 1 || isManager || member.getId() == group.getCreator()){
+        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() == 1 ||
+                isManager || member.getId().intValue() == group.getCreator().intValue()){
             if(groupTopicDao.top(id,top) == 1){
                 return new ResponseModel(1,"操作成功");
             }else {
@@ -259,7 +262,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 isManager = true;
             }
         }
-        if(member.getId() == groupTopic.getMember().getId() || member.getIsAdmin() == 1 || isManager || member.getId() == group.getCreator()){
+        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() == 1 ||
+                isManager || member.getId().intValue() == group.getCreator().intValue()){
             if(groupTopicDao.essence(id,essence) == 1){
                 return new ResponseModel(1,"操作成功");
             }else {

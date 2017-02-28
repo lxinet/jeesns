@@ -100,7 +100,7 @@ public class ArticleController extends BaseController {
             return "redirect:"+request.getContextPath()+"/member/login";
         }
         Article article = articleService.findById(id,loginMember);
-        if(article.getMemberId() != loginMember.getId()){
+        if(article.getMemberId().intValue() != loginMember.getId().intValue()){
             return ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("article",article);
