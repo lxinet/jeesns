@@ -148,7 +148,7 @@ public class GroupController extends BaseController {
         if(group == null){
             return ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
         }
-        if(group.getCreator() != loginMember.getId()){
+        if(group.getCreator().intValue() != loginMember.getId().intValue()){
             return ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
@@ -205,8 +205,8 @@ public class GroupController extends BaseController {
                     isManager = true;
                 }
             }
-            if(loginMember.getId() == groupTopic.getMember().getId() || loginMember.getIsAdmin() == 1 ||
-                    isManager || loginMember.getId() == group.getCreator()){
+            if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() == 1 ||
+                    isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
                 model.addAttribute("isPermission",1);
             }
         }
@@ -256,7 +256,7 @@ public class GroupController extends BaseController {
         if(groupTopic == null){
             return ErrorUtil.error(model,-1004, Const.INDEX_ERROR_FTL_PATH);
         }
-        if(loginMember.getId() != groupTopic.getMember().getId()){
+        if(loginMember.getId().intValue() != groupTopic.getMember().getId().intValue()){
             return ErrorUtil.error(model,-1001, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("groupTopic",groupTopic);

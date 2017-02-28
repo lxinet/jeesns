@@ -100,7 +100,7 @@ public class ArchiveServiceImpl implements IArchiveService {
         findArchive.setKeywords(archive.getKeywords());
         //普通会员
         if (member.getIsAdmin() == 0) {
-            if (member.getId() != findArchive.getMemberId()) {
+            if (member.getId().intValue() != findArchive.getMemberId().intValue()) {
                 return false;
             }
         } else {

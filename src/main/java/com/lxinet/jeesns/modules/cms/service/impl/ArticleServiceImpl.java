@@ -134,7 +134,7 @@ public class ArticleServiceImpl implements IArticleService {
                 findArticle.setStatus(1);
             }
             //更新栏目
-            if(findArticle.getCateId() != article.getCateId()){
+            if(findArticle.getCateId().intValue() != article.getCateId().intValue()){
                 findArticle.setCateId(article.getCateId());
             }
             articleDao.update(findArticle);
@@ -151,7 +151,6 @@ public class ArticleServiceImpl implements IArticleService {
             return new ResponseModel(-1,"文章不存在");
         }
         int result = articleDao.delete(id);
-        System.out.println("result:"+result);
         if(result == 1){
             archiveService.delete(article.getArchiveId());
             articleCommentService.deleteByArticle(id);

@@ -368,7 +368,7 @@ public class MemberServiceImpl implements IMemberService {
         if(this.findById(followWhoId) == null){
             return new ResponseModel(-1,"关注的会员不存在");
         }
-        if(loginMember.getId() == followWhoId){
+        if(loginMember.getId().intValue() == followWhoId.intValue()){
             return new ResponseModel(-1,"不能关注自己");
         }
         if(memberFansService.find(loginMember.getId(),followWhoId) == null){
@@ -388,9 +388,9 @@ public class MemberServiceImpl implements IMemberService {
 
     @Override
     public ResponseModel isFollowed(Member loginMember, Integer followWhoId) {
-        Integer loginMemberId = 0;
+        int loginMemberId = 0;
         if(loginMember != null){
-            loginMemberId = loginMember.getId();
+            loginMemberId = loginMember.getId().intValue();
         }
         if(memberFansService.find(loginMemberId,followWhoId) == null){
             return new ResponseModel(0,"未关注");
@@ -410,9 +410,9 @@ public class MemberServiceImpl implements IMemberService {
      */
     @Override
     public ResponseModel home(Member loginMember, Page page, Integer memberId,String type) {
-        Integer loginMemberId = 0;
+        int loginMemberId = 0;
         if(loginMember != null){
-            loginMemberId = loginMember.getId();
+            loginMemberId = loginMember.getId().intValue();
         }
         if("article".equals(type)){
             return articleService.listByPage(page,"",0,1, memberId);

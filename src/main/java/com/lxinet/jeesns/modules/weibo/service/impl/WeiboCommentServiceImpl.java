@@ -6,6 +6,7 @@ import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.utils.ActionLogType;
 import com.lxinet.jeesns.core.utils.ActionUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
+import com.lxinet.jeesns.core.utils.WeiboCommentUtil;
 import com.lxinet.jeesns.modules.cms.dao.IArticleCommentDao;
 import com.lxinet.jeesns.modules.cms.dao.IArticleDao;
 import com.lxinet.jeesns.modules.cms.entity.Article;
@@ -40,7 +41,9 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
 
     @Override
     public WeiboComment findById(int id) {
-        return weiboCommentDao.findById(id);
+        WeiboComment weiboComment = weiboCommentDao.findById(id);
+        WeiboCommentUtil.format(weiboComment);
+        return weiboComment;
     }
 
     @Override
@@ -70,6 +73,9 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     @Override
     public ResponseModel listByWeibo(Page page, int weiboId) {
         List<WeiboComment> list = weiboCommentDao.listByWeibo(page, weiboId);
+        for (WeiboComment weiboComment : list){
+            WeiboCommentUtil.format(weiboComment);
+        }
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;

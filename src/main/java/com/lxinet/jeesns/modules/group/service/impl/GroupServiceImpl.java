@@ -64,7 +64,7 @@ public class GroupServiceImpl implements IGroupService {
             return groupFansService.save(loginMember,groupId);
         }else {
             //创建者无法取消关注
-            if(loginMember.getId() == group.getCreator()){
+            if(loginMember.getId().intValue() == group.getCreator().intValue()){
                 return new ResponseModel(-1,"管理员不能取消关注");
             }
             return groupFansService.delete(loginMember,groupId);
@@ -116,7 +116,7 @@ public class GroupServiceImpl implements IGroupService {
         for (String name : names){
             Member member = memberService.findByName(name.trim());
             if(member != null){
-                if(member.getId() != loginMember.getId()){
+                if(member.getId().intValue() != loginMember.getId().intValue()){
                     managerIds += member.getId() + ",";
                 }
             }
@@ -139,7 +139,7 @@ public class GroupServiceImpl implements IGroupService {
         if(findGroup == null){
             return new ResponseModel(-1,"群组不存在");
         }
-        if(loginMember.getId() != findGroup.getCreator()){
+        if(loginMember.getId().intValue() != findGroup.getCreator().intValue()){
             return new ResponseModel(-1,"没有权限");
         }
 

@@ -61,17 +61,6 @@ public class Weibo extends BaseEntity {
     }
 
     public void setContent(String content) {
-        // 判断内容是否存在:*:格式的内容，
-        // 如果有存在，默认说明是有存在Emoji，则替换相应内容，
-        // 不存在Emoji则直接返回内容
-        String regEmoji=".*:.*:.*";
-        if(content.matches(regEmoji)){
-            content = Emoji.replace(content);
-        }
-        String regAt = ".*@.*";
-        if(content.matches(regAt)){
-            content = AtUtil.at(content);
-        }
         this.content = content;
     }
 

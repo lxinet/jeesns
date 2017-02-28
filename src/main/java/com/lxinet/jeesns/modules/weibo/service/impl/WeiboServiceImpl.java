@@ -3,10 +3,7 @@ package com.lxinet.jeesns.modules.weibo.service.impl;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
-import com.lxinet.jeesns.core.utils.ActionLogType;
-import com.lxinet.jeesns.core.utils.ActionUtil;
-import com.lxinet.jeesns.core.utils.ConfigUtil;
-import com.lxinet.jeesns.core.utils.StringUtils;
+import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.entity.Config;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
@@ -42,6 +39,8 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Override
     public Weibo findById(int id,int memberId) {
+        Weibo weibo = weiboDao.findById(id,memberId);
+        WeiboUtil.format(weibo);
         return weiboDao.findById(id,memberId);
     }
 
@@ -75,6 +74,9 @@ public class WeiboServiceImpl implements IWeiboService {
             key = "%"+key.trim()+"%";
         }
         List<Weibo> list = weiboDao.listByPage(page, memberId,loginMemberId,key);
+        for (Weibo weibo : list){
+            WeiboUtil.format(weibo);
+        }
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
@@ -102,7 +104,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if(weibo == null){
             return new ResponseModel(-1,"微博不存在");
         }
-        if(loginMember.getId() != weibo.getMember().getId()){
+        if(loginMember.getId().intValue() != weibo.getMember().getId().intValue()){
             return new ResponseModel(-1,"没有权限");
         }
         return this.delete(loginMember,id);
@@ -110,6 +112,10 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Override
     public List<Weibo> hotList(int loginMemberId) {
+        List<Weibo> hotList = weiboDao.hotList(loginMemberId);
+        for (Weibo weibo : hotList){
+            WeiboUtil.format(weibo);
+        }
         return weiboDao.hotList(loginMemberId);
     }
 
