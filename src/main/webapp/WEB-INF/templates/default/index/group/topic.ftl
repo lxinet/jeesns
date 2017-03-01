@@ -35,19 +35,29 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <ol class="breadcrumb">
-                    <li><a href="${base}/">首页</a></li>
-                    <li><a href="${base}/group/">群组</a></li>
-                    <li><a href="${base}/group/detail/${groupTopic.group.id}">${groupTopic.group.name}</a></li>
-                    <li class="active">${groupTopic.title}</li>
-                </ol>
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>
-                            <i class="fa fa-user"> </i> <a href="${base}/u/${groupTopic.member.id}">${groupTopic.member.name}</a>&nbsp;&nbsp;
-                            <i class="fa fa-clock-o"> </i> ${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
-                            <i class="fa fa-eye"> </i> ${groupTopic.viewCount} 浏览
-                        </h5>
+                    <div class="ibox-content">
+                        <div class="text-center article-title">
+                            <h2>${groupTopic.title}</h2>
+                            <div >
+                                <p>
+                                    <i class="fa fa-user"> </i> <a href="${base}/u/${groupTopic.member.id}">${groupTopic.member.name}</a>&nbsp;&nbsp;
+                                    <i class="fa fa-clock-o"> </i> ${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
+                                    <i class="fa fa-eye"> </i> ${groupTopic.viewCount} 浏览
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="content"><p>${groupTopic.content}</p></div>
+                        <#if groupTopic.isFavor == 0>
+                            <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                                <i class="fa fa-heart-o"></i> 喜欢 ${groupTopic.favor}
+                            </a>
+                        <#else>
+                            <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                                <i class="fa fa-heart"></i> 喜欢 ${groupTopic.favor}
+                            </a>
+                        </#if>
                         <div class="ibox-tools">
                         <#if loginUser?? && ((loginUser.isAdmin == 1) || (loginUser.id == groupTopic.memberId) || isPermission==1)>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
@@ -81,24 +91,6 @@
                             </#if>
                             </ul>
                         </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="pull-right">
-
-                        </div>
-                        <div class="text-center groupTopic-title">
-                            <h2>${groupTopic.title}</h2>
-                        </div>
-                        <div class="content"><p>${groupTopic.content}</p></div>
-                        <#if groupTopic.isFavor == 0>
-                            <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
-                                <i class="fa fa-heart-o"></i> 喜欢 ${groupTopic.favor}
-                            </a>
-                        <#else>
-                            <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
-                                <i class="fa fa-heart"></i> 喜欢 ${groupTopic.favor}
-                            </a>
-                        </#if>
                     </div>
                     <div class="ibox-content" id="comment">
                         <h3>评论</h3>

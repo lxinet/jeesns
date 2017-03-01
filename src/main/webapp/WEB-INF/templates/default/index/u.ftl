@@ -22,6 +22,7 @@
     <script src="${base}/res/common/js/jeesns.js"></script>
     <script src="${base}/res/common/js/extendPagination.js"></script>
     <script src="${base}/res/modules/mem.js"></script>
+    <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -76,7 +77,7 @@
     <div class="container">
         <div class="row">
             <div class="ibox">
-                <div class="ibox-content">
+                <div class="ibox-content float-left">
                     <div class="col-sm-2">
                         <div class="float-e-margins">
                             <div class="feed-activity-list">

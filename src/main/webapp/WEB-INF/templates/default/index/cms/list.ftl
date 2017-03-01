@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title><#if articleCate??>${articleCate.name}<#else>文章列表</#if> - ${SITE_NAME} - Powered By JEESNS</title>
+    <title><#if articleCate??>${articleCate.name}<#else>文章列表</#if> - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -32,9 +32,9 @@
                 <div class="ibox ibox-content">
                     <div class="row mg-t-10 mg-b-20">
                         <div class="col-md-11">
-                            <#list cateList as cate>
+                        <#list cateList as cate>
                             <a href="${base}/article/list?cateid=${cate.id}" class="cate-btn">${cate.name}</a>
-                            </#list>
+                        </#list>
                         </div>
                     </div>
                     <div class="row m-b-sm m-t-sm">
@@ -51,37 +51,39 @@
                     <#if CMS_POST==1><a class="marg-l-5" href="${base}/article/add" title="发布文章">
                         <i class="fa fa-plus-circle green"></i>
                     </a></#if></strong></h3>
-                    <#list model.data as article>
-                    <div class="ibox-content">
+                <#list model.data as article>
+                    <div class="ibox-content col-sm-12 bottom-line">
                         <div class="col-sm-10">
                             <#if article.thumbnail??>
-                            <div class="small m-b-xs">
-                                <span class="text-muted">&nbsp;</span>
-                            </div>
+                                <div class="small m-b-xs">
+                                    <span class="text-muted">&nbsp;</span>
+                                </div>
                             </#if>
                             <h3>
-                               <a href="${base}/article/detail/${article.id}" class="btn-link">
+                                <a href="${base}/article/detail/${article.id}" class="btn-link">
                                 ${article.title}
-                               </a>
+                                </a>
                             </h3>
 
                             <div class="small m-b-xs">
-                                <span class="text-muted"><i class="fa fa-clock-o"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
+                                <span class="text-muted"><i
+                                        class="fa fa-clock-o"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
                                 <i class="fa fa-heart"> </i> ${article.favor}</span>
                                 <i class="fa fa-eye"> </i> ${article.viewCount} 浏览</span>
                             </div>
                         </div>
                         <#if article.thumbnail??>
-                        <div class="col-sm-2">
-                            <div class="text-center list-thumbnail">
-                                <a href="${base}/article/detail/${article.id}" class="btn-link">
-                                    <img alt="${article.title}" class="m-t-xs img-responsive list-thumbnail" src="${article.thumbnail}">
-                                </a>
+                            <div class="col-sm-2">
+                                <div class="list-thumbnail float-right">
+                                    <a href="${base}/article/detail/${article.id}" class="btn-link">
+                                        <img alt="${article.title}" class="m-t-xs img-responsive list-thumbnail"
+                                             src="${article.thumbnail}">
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         </#if>
                     </div>
-                    </#list>
+                </#list>
                     <div class="box-footer clearfix">
                         <ul class="pagination pagination-sm no-margin pull-right"
                             url="${base}/article/list?key=${key}"
