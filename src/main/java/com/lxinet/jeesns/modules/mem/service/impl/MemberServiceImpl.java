@@ -226,7 +226,7 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     /**
-     * 修改会员级别信息
+     * 修改会员基本信息
      * @param member 登录会员
      * @param name  昵称
      * @param sex  性别
@@ -235,6 +235,11 @@ public class MemberServiceImpl implements IMemberService {
      */
     @Override
     public ResponseModel editBaseInfo(Member member,String name,String sex,String introduce) {
+        if (name != null && !name.equals(member.getName())){
+            if(this.findByName(name) != null){
+                return new ResponseModel(-1,"昵称已被占用，请更换一个");
+            }
+        }
         member.setName(name);
         member.setSex(sex);
         member.setIntroduce(introduce);

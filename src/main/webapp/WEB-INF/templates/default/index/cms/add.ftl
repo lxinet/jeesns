@@ -94,6 +94,7 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-1 col-sm-10">
                                     <button type="submit" class="btn btn-info jeesns-submit">保存</button>
+                                    <a href="${base}/article/list" class="btn btn-default jeesns-submit">取消</a>
                                 </div>
                             </div>
                         </form>

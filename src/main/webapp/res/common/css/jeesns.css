@@ -40,7 +40,11 @@ h5 {
 .mg-l-30{margin-left: 30px}
 .mg-r-5{margin-right: 5px}
 .mg-r-15{margin-right: 15px}
-
+.float-right{float: right;}
+.float-left{float: left;}
+.bottom-line{
+  border-bottom: solid 1px #eee;
+}
 .main-page {
   padding: 0px 0px 0px 0px;
   height: calc(100% - 70px);
@@ -127,6 +131,11 @@ h5 {
   font-size: 16px;
   color: #0099cc;
 }
+
+.member-banner .left .info .sex i{
+  width: 18px;
+  height: 18px;
+}
 .member-banner .left .info p{
   margin: 5px 0;
 }
@@ -207,6 +216,9 @@ h5 {
 }
 .navbar a{
   color: #FFFFFF;
+}
+.navbar img{
+  margin-top: -15px;
 }
 .navbar-default {
   background-color: transparent;
@@ -2223,11 +2235,7 @@ code {
   background-color: #ffffff;
   color: inherit;
   padding: 15px 20px;
-  border-color: #e7eaec;
-  border-width: 0px 0;
-  float: left;
   width: 100%;
-  border-bottom: solid 1px #eee;
 }
 .ibox-footer {
   color: inherit;
@@ -2262,11 +2270,12 @@ code {
 }
 .ibox-tools {
   display: block;
-  float: none;
+  float: right;
   margin-top: 0;
   position: relative;
   padding: 0;
   text-align: right;
+  width: 100px;
 }
 .ibox-tools a {
   cursor: pointer;
@@ -2702,7 +2711,9 @@ a.compose-mail {
 }
 .article-title {
   text-align: center;
-  margin: 40px 0 50px 0;
+  margin: 0px 0 50px 0;
+  padding-bottom: 30px;
+  border-bottom: solid 1px #eee;
 }
 .article .content img{
   max-width: 100%;

@@ -34,16 +34,11 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <ol class="breadcrumb">
-                    <li><a href="${base}/">首页</a></li>
-                    <li><a href="${base}/article/list?cateid=${article.articleCate.id}">${article.articleCate.name}</a></li>
-                    <li class="active">${article.title}</li>
-                </ol>
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="text-center article-title">
                             <h2>${article.title}</h2>
-                            <div class="pull-right">
+                            <div class="text-center">
                                 <i class="fa fa-clock-o"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
                                 <i class="fa fa-eye"> </i> ${article.viewCount} 浏览
                             </div>

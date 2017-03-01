@@ -22,6 +22,7 @@
     <script src="${base}/res/common/js/jeesns.js"></script>
     <script src="${base}/res/common/js/extendPagination.js"></script>
     <script src="${base}/res/modules/mem.js"></script>
+    <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -58,11 +59,11 @@
                 <div class="right">
                     <div class="follows">
                         <span>关注</span>
-                        <a href="">${member.follows}</a>
+                        <a href="${base}/u/${member.id}/home/follows">${member.follows}</a>
                     </div>
                     <div class="fans">
                         <span>粉丝</span>
-                        <a href="">${member.fans}</a>
+                        <a href="${base}/u/${member.id}/home/fans">${member.fans}</a>
                     </div>
                     <div class="login-info">
                         加入时间:${member.createTime?string('yyyy-MM-dd')}
@@ -75,7 +76,7 @@
     <div class="container">
         <div class="row">
             <div class="ibox">
-                <div class="ibox-content">
+                <div class="ibox-content float-left">
                     <div class="col-sm-2">
                         <div class="float-e-margins">
                             <div class="feed-activity-list">
@@ -158,7 +159,7 @@
                                 <div class="feed-activity-list">
                                 <#if type=="article">
                                     <#list model.data as article>
-                                        <div class="ibox-content">
+                                        <div class="ibox-content col-sm-12 bottom-line">
                                             <div class="col-sm-10">
                                                 <#if article.thumbnail??>
                                                     <div class="small m-b-xs">
@@ -200,7 +201,7 @@
                                     </div>
                                 <#elseif type=="groupTopic">
                                     <#list model.data as groupTopic>
-                                        <div class="ibox-content">
+                                        <div class="ibox-content col-sm-12 bottom-line">
                                             <div class="col-sm-10">
                                                 <#if groupTopic.thumbnail??>
                                                     <div class="small m-b-xs">

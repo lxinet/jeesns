@@ -39,7 +39,7 @@
                 <#assign size=0/>
                 <#list model.data as topic>
                     <#assign size=size+1>
-                    <div class="ibox-content">
+                    <div class="ibox-content col-sm-12">
                         <div class="col-sm-10">
                             <h3>
                                 <a href="${base}/group/topic/${topic.id}" class="btn-link" target="_blank">

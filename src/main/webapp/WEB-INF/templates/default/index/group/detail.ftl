@@ -29,11 +29,6 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <ol class="breadcrumb">
-                    <li><a href="${base}/">首页</a></li>
-                    <li><a href="${base}/group/">群组</a></li>
-                    <li class="active">${group.name}</li>
-                </ol>
                 <div class="ibox float-e-margins">
                     <div class="ibox-content profile-element group">
                         <div class="group-logo">
@@ -70,7 +65,7 @@
                         <a class="btn btn-outline btn-info" href="${base}/group/post/${group.id}">发帖</a>
                     </div>
                 <#list model.data as topic>
-                    <div class="ibox-content">
+                    <div class="ibox-content col-sm-12 bottom-line">
                         <div class="col-sm-10">
                             <#if topic.thumbnail??>
                                 <div class="small m-b-xs">

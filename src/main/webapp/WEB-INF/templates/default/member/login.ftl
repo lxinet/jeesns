@@ -36,8 +36,8 @@
                 <h2 class="font-bold">登录</h2>
                 <form class="m-t jeesns_form" action="${base}/member/login" method="post">
                     <div class="form-group">
-                        用户名
-                        <input type="text" class="form-control" name="name" placeholder="用户名" data-type="require">
+                        用户名/邮箱
+                        <input type="text" class="form-control" name="name" placeholder="用户名/邮箱" data-type="require">
                     </div>
                     <div class="form-group">
                         密码

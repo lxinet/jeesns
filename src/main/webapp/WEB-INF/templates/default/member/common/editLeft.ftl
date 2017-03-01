@@ -47,7 +47,7 @@
 <div class="container">
     <div class="row">
         <div class="ibox">
-            <div class="ibox-content">
+            <div class="ibox-content float-left">
                 <div class="col-sm-2">
                     <div class="float-e-margins">
                         <div class="feed-activity-list">

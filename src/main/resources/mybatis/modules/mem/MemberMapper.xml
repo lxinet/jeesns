@@ -5,7 +5,7 @@
         select
         id,group_id,name,email,phone,sex,avatar,is_admin,status,is_active
         from tbl_member
-        where name = #{name} and password = #{password}
+        where (name = #{name} or email = #{name}) and password = #{password}
     </select>
     <select id="manageLogin" parameterType="Member" resultType="Member">
         select

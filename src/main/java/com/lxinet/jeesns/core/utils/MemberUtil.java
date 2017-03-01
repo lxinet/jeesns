@@ -11,13 +11,6 @@ public class MemberUtil {
 
     public static Member getLoginMember(HttpServletRequest request){
         Member loginMember = (Member) request.getSession().getAttribute(Const.SESSION_MEMBER);
-        if(loginMember != null){
-            System.out.println("=================================:"+loginMember.getId());
-        }
-        //避免重启tomcat后，loginMember不是null，ID是null的情况
-//        if(loginMember == null || loginMember.getId() == null){
-//            return null;
-//        }
         return loginMember;
     }
 
