@@ -25,14 +25,16 @@ JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企�
 - Tomcat7.0或更高版本
 - MySQL5.1或更高版本
 
-## 搭建步骤
+## 部署说明
 
 1. 创建数据库。如使用MySQL，字符集选择为`utf8`或者`utf8mb4`（支持更多特殊字符，推荐）。
 2. 执行数据库脚本。数据库脚本在`/src/main/webapp/database`目录下。
-3. 在eclipse中导入maven项目。点击eclipse菜单`File` - `Import`，选择`Maven` - `Existing Maven Projects`。创建好maven项目后，会开始从maven服务器下载第三方jar包（如spring等），需要一定时间，请耐心等待。
-4. 修改数据库连接。打开`/src/main/resources/jeesns.propertis`文件，根据实际情况修改`jdbc.url`、`jdbc.user`、`jdbc.password`的值，修改后台路径：`managePath`，如：`managePath=manage`
-5. 运行程序。在eclipse中，右键点击项目名，选择`Run as` - `Maven build...`，`Goals`填入`tomcat7:run`，然后点击`Run`。
-6. 访问系统。前台地址：[http://localhost:8080/](http://localhost:8080/)；后台登录地址：[http://localhost:8080/manage/login](http://localhost:8080/manage/login)，用户名：admin，密码：jeesns。
+3. 在eclipse中导入maven项目。点击eclipse菜单`File` - `Import`，选择`Maven` - `Existing Maven Projects`。
+4. 设置项目编码为utf-8，选择jdk1.7版本或以上，不要选择jre。
+5. 修改数据库连接。打开`/src/main/resources/jeesns.propertis`文件，根据实际情况修改`jdbc.url`、`jdbc.user`、`jdbc.password`的值，修改后台路径：`managePath`，如：`managePath=manage`
+6. 编译项目。在eclipse中，右键点击项目名，选择`Run as` - `Maven build...`，`Goals`填入`clean package`，然后点击`Run`，第一次运行需要下载jar包，请耐心等待。
+7. 部署项目。将项目部署到Tomcat7或以上版本，启动Tomcat。
+8. 访问系统。前台地址：[http://localhost:8080/](http://localhost:8080/)；后台登录地址：[http://localhost:8080/manage/login](http://localhost:8080/manage/login)，用户名：admin，密码：jeesns。
 
 ## 相关网站
 官方网站：[http://www.jeesns.cn](http://www.jeesns.cn/)
