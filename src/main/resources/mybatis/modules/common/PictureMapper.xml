@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.core.dao.IPictureDao">
+  <select id="findById" resultType="Picture">
+    select * from tbl_picture where id=#{id}
+  </select>
+  <delete id="delete">
+    delete from tbl_picture where id=#{id}
+  </delete>
+  <insert id="save">
+    insert into tbl_picture (create_time, type, path, narrow_path, md5, width, height)
+    values (now(), #{type}, #{path}, #{narrowPath}, #{md5}, #{width}, #{height})
+  </insert>
+</mapper>
