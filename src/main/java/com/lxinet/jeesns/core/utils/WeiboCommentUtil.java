@@ -11,11 +11,11 @@ public class WeiboCommentUtil {
         // 判断内容是否存在:*:格式的内容，
         // 如果有存在，默认说明是有存在Emoji，则替换相应内容，
         // 不存在Emoji则直接返回内容
-        String regEmoji=".*:.*:.*";
+        String regEmoji="[\\s\\S]*:[\\s\\S]*:[\\s\\S]*";
         if(weiboComment.getContent().matches(regEmoji)){
             weiboComment.setContent(Emoji.replace(weiboComment.getContent()));
         }
-        String regAt = ".*@.*";
+        String regAt = "[\\s\\S]*@[\\s\\S]*";
         if(weiboComment.getContent().matches(regAt)){
             weiboComment.setContent(AtUtil.at(weiboComment.getContent()));
         }

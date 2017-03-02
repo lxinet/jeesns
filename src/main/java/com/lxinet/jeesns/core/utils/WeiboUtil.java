@@ -11,11 +11,11 @@ public class WeiboUtil {
         // 判断内容是否存在:*:格式的内容，
         // 如果有存在，默认说明是有存在Emoji，则替换相应内容，
         // 不存在Emoji则直接返回内容
-        String regEmoji=".*:.*:.*";
+        String regEmoji="[\\s\\S]*:[\\s\\S]*:[\\s\\S]*";
         if(weibo.getContent().matches(regEmoji)){
             weibo.setContent(Emoji.replace(weibo.getContent()));
         }
-        String regAt = ".*@.*";
+        String regAt = "[\\s\\S]*@[\\s\\S]*";
         if(weibo.getContent().matches(regAt)){
             weibo.setContent(AtUtil.at(weibo.getContent()));
         }
