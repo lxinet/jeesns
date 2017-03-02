@@ -23,30 +23,34 @@
     <script src="${base}/res/common/js/jquery.form.js"></script>
     <script src="${base}/res/common/js/manage.js"></script>
     <script src="${base}/res/common/js/jeesns.js"></script>
+
 </head>
 
 <body class="gray-bg">
 <#include "/member/common/header.ftl"/>
-<div class="loginpage">
-    <div class="bg-img">
-        <div class="content">
-            <div class="login-bg">
-                <div class="login-box">
-                    <h2>会员登录 <a href="register">没账号？立即注册</a></h2>
-                    <form  class="jeesns_form login-form" action="${base}/member/login" method="post">
-                        <div class="input-box">
-                            <input name="name" type="text" class="input-style" placeholder="用户名/邮箱" data-type="require"/>
-                        </div>
-                        <div class="input-box">
-                            <input name="password" type="password" class="input-style" placeholder="密码" data-type="require"/>
-                        </div>
-                        <div class="input-box">
-                            <input id="login-submit" type="submit" class="submit-btn" value="登录">
-                            <p><a href="forgetpwd">忘记密码？</a></p>
-                        </div>
-
-                    </form>
-                </div>
+<div class="animated fadeInDown">
+    <div class="row login-panel">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="ibox ibox-content">
+                <h2 class="font-bold">登录</h2>
+                <form class="m-t jeesns_form" action="${base}/member/login" method="post">
+                    <div class="form-group">
+                        用户名/邮箱
+                        <input type="text" class="form-control" name="name" placeholder="用户名/邮箱" data-type="require">
+                    </div>
+                    <div class="form-group">
+                        密码
+                        <input type="password" class="form-control" name="password" placeholder="密码"
+                               data-type="require">
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+                </form>
+                <p></p>
+                <p class="text-muted text-center">
+                    <a href="forgetpwd">忘记密码?</a> |
+                    <a href="register">我要注册</a>
+                </p>
             </div>
         </div>
     </div>
