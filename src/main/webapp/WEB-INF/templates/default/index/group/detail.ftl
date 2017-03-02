@@ -37,7 +37,8 @@
                         <div class="group-detail">
                             <p><strong>${group.name}</strong></p>
                             <p>${model.page.totalCount}帖子 · ${groupFansList?size}关注</p>
-                            <p><a href="${base}/u/${group.creatorMember.id}">${group.creatorMember.name}</a> 创建于${group.createTime?string("yyyy-MM-dd")}</p>
+                            <p><a href="${base}/u/${group.creatorMember.id}">${group.creatorMember.name}</a>
+                                创建于${group.createTime?string("yyyy-MM-dd")}</p>
                         </div>
                         <div class="text-right">
                         <#if isfollow == true>
@@ -55,7 +56,7 @@
                         </#if>
                         </div>
                         <div class="group-introduce">
-                            ${group.introduce!''}
+                        ${group.introduce!''}
                         </div>
                     </div>
                 </div>
@@ -74,24 +75,25 @@
                             </#if>
                             <h3>
                                 <a href="${base}/group/topic/${topic.id}" class="btn-link">
-                                <#if topic.isTop==1>
-                                    <img src="${base}/res/common/images/top.png"/>
-                                <#elseif topic.isTop==2>
-                                    <img src="${base}/res/common/images/supertop.png"/>
-                                </#if>
-                                <#if topic.isEssence==1>
-                                    <img src="${base}/res/common/images/essence.gif"/>
-                                </#if>
+                                    <#if topic.isTop==1>
+                                        <img src="${base}/res/common/images/top.png"/>
+                                    <#elseif topic.isTop==2>
+                                        <img src="${base}/res/common/images/supertop.png"/>
+                                    </#if>
+                                    <#if topic.isEssence==1>
+                                        <img src="${base}/res/common/images/essence.gif"/>
+                                    </#if>
                                 ${topic.title}
                                 </a>
                             </h3>
 
                             <div class="small m-b-xs">
                                 <span class="text-muted">
-                                    <i class="fa fa-user"> </i> <a href="${base}/u/${topic.member.id}">${topic.member.name}</a>&nbsp;&nbsp;
+                                    <i class="fa fa-user"> </i> <a
+                                        href="${base}/u/${topic.member.id}">${topic.member.name}</a>&nbsp;&nbsp;
                                     <i class="fa fa-clock-o"></i> ${topic.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
                                     <i class="fa fa-heart"> </i> ${topic.favor}</span>
-                                    <i class="fa fa-eye"> </i> ${topic.viewCount} 浏览
+                                <i class="fa fa-eye"> </i> ${topic.viewCount} 浏览
 
                                 </span>
                             </div>
@@ -125,27 +127,24 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="ibox float-e-margins">
-                    <div class="ibox float-e-margins">
-                        <div>
-                            <div class="ibox-title">
-                                <h5>粉丝</h5>&nbsp;&nbsp;<a href="${base}/group/fans/${group.id}">更多>></a>
-                            </div>
-                            <div class="ibox-content profile-content">
-                                <#list groupFansList as groupFans>
-                                    <div class="group-fans">
-                                        <a href="${base}/u/${groupFans.member.id}" target="_blank">
-                                            <div class="group-fans-avatar">
-                                                <img class="img-circle" src="${base}${groupFans.member.avatar}" width="60px" height="60px"/>
-                                            </div>
-                                            <div class="group-fans-name text-center">
-                                                ${groupFans.member.name}
-                                            </div>
-                                        </a>
-                                    </div>
-                                </#list>
-                            </div>
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>粉丝</h5>&nbsp;&nbsp;<a href="${base}/group/fans/${group.id}">更多>></a>
+                    </div>
+                    <div class="ibox-content col-sm-12 profile-content">
+                    <#list groupFansList as groupFans>
+                        <div class="group-fans">
+                            <a href="${base}/u/${groupFans.member.id}" target="_blank">
+                                <div class="group-fans-avatar">
+                                    <img class="img-circle" src="${base}${groupFans.member.avatar}" width="60px"
+                                         height="60px"/>
+                                </div>
+                                <div class="group-fans-name text-center">
+                                ${groupFans.member.name}
+                                </div>
+                            </a>
                         </div>
+                    </#list>
                     </div>
                 </div>
             </div>

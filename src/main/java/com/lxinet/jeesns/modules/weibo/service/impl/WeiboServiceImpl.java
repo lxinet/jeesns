@@ -41,7 +41,7 @@ public class WeiboServiceImpl implements IWeiboService {
     public Weibo findById(int id,int memberId) {
         Weibo weibo = weiboDao.findById(id,memberId);
         WeiboUtil.format(weibo);
-        return weiboDao.findById(id,memberId);
+        return weibo;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class WeiboServiceImpl implements IWeiboService {
         for (Weibo weibo : hotList){
             WeiboUtil.format(weibo);
         }
-        return weiboDao.hotList(loginMemberId);
+        return hotList;
     }
 
     @Transactional
