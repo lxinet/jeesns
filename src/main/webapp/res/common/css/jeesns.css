@@ -81,7 +81,7 @@ h5 {
 }
 .navBox{height: 90px;}
 .navBox .logoImg{position: absolute; top: 0; max-height: 90px; width: auto; margin-top:5px;}
-.navBox .nav{margin-left: 130px; text-align: left;width: 600px;float: left;}
+.navBox .nav{margin-left: 180px; text-align: left;width: 600px;float: left;}
 .navBox .navright{text-align: right;float: right;margin-top: 30px;font-size: 16px;}
 .navBox .nav .list{display: inline-block;}
 .navBox .nav .list .aList{display: inline-block;  padding: 30px 5px 0px 5px; margin-left: 20px; font-size: 18px;color: #333;}
@@ -95,110 +95,6 @@ h5 {
 
 .cate-btn{padding: 5px 10px;color: #0099cc;background-color: #ffffff;border-radius: 4px;border:solid 0px #c1c1c1;}
 .cate-btn:hover{color: #ffffff;background-color: #0099cc;border-radius: 4px;border:solid 0px #c1c1c1;}
-
-
-.loginpage {
-  background-color: #c9c9c9;
-  margin-bottom: -20px;
-  margin-top: -20px;
-}
-
-.loginpage .bg-img {
-  position: relative;
-  height: 705px;
-  background: url(../images/loginbg.jpg) center top no-repeat;
-  margin: 0 auto;
-}
-
-.loginpage .content {
-  position: relative;
-  width: 1200px;
-  min-width: 1200px;
-  height: 705px;
-  margin: 0 auto;
-  overflow: hidden;
-  *zoom: 1;
-}
-
-.loginpage .login-bg {
-  position: absolute;
-  top: 75px;
-  right: 45px;
-  padding: 4px;
-  background-color: rgba(0, 0, 0, 0.1);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-}
-
-.loginpage .login-box {
-  background-color: #FFF;
-  position: relative;
-  width: 380px;
-  padding-bottom: 30px;
-}
-
-.loginpage .login-box h2 {
-  font-size: 24px;
-  font-weight: normal;
-  color: #3C3C3C;
-  line-height: 1;
-  background-color: #fff;
-  border-bottom: 1px dashed #F0F1F1;
-  padding: 20px;
-  margin: 0 20px;
-}
-
-.loginpage .login-box h2 p {
-  font-size: 14px;
-  color: #646567;
-  float: right;
-  *margin-top: -15px;
-}
-.loginpage .login-box h2 a {
-  line-height: 32px;
-  color: #0099cc;
-  font-size: 14px;
-}
-.loginpage .login-form{
-  margin-top: 20px;
-}
-.loginpage .input-box{
-  margin: 30px 0;
-  padding-left: 40px;
-}
-.loginpage .input-box .input-style{
-  width: 300px;
-  height: 45px;
-  line-height: 45px;
-  padding: 5px 10px;
-  border: solid 1px #eeeeee;
-  border-radius: 3px;
-  outline:none;
-}
-.loginpage .input-box .input-style:focus {
-  border: 1px solid #0099cc;
-}
-.loginpage .input-box p{
-  margin-top: 10px;
-}
-.loginpage .submit-btn {
-  height: 40px;
-  line-height: 40px;
-  background-color: #0099cc;
-  border-radius: 4px;
-  color: #fff;
-  border: none;
-  outline:none;
-  text-align: center;
-  width: 300px;
-}
-.loginpage .submit-btn:hover{
-  background-color: #00c1de;
-}
-
 
 .group{float:left;width: 100%;margin-bottom: 5px;}
 .group-logo{float:left;width: 100px;height: 100px;}
@@ -302,9 +198,9 @@ h5 {
 
 
 .nav > li > a {
-  color: #FFFFFF;
-  font-weight: 600;
+  color: #333;
   padding: 14px 20px 16px 25px;
+  font-size: 18px;
 }
 
 .nav > li > a:hover,
@@ -336,12 +232,13 @@ h5 {
 .nav > li > a i {
   margin-right: 6px;
 }
-.navbar img{
-  margin-top: -15px;
-}
 .navbar-default {
   background-color: transparent;
   border-color: #2f4050;
+}
+
+.navbar-top-links {
+  padding-top:30px
 }
 .navbar-top-links li {
   display: inline-block;
@@ -359,6 +256,11 @@ h5 {
 
 .navbar-nav .open {
   background-color: #0099cc;
+}
+
+.navbar-nav li {
+  height: 90px;
+  padding-top: 20px;
 }
 
 .dropdown-menu {
