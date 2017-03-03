@@ -3,9 +3,7 @@ package com.lxinet.jeesns.modules.cms.web.index;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.service.IArchiveService;
-import com.lxinet.jeesns.core.utils.Const;
-import com.lxinet.jeesns.core.utils.ErrorUtil;
-import com.lxinet.jeesns.core.utils.MemberUtil;
+import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.cms.entity.ArticleCate;
 import com.lxinet.jeesns.modules.cms.entity.Article;
@@ -68,9 +66,9 @@ public class ArticleController extends BaseController {
     public String add(Model model) {
         List<ArticleCate> cateList = articleCateService.list();
         model.addAttribute("cateList",cateList);
-        Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return "redirect:/member/login";
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.ARTICLE_ADD);
+        if(StringUtils.isNotEmpty(judgeLoginJump)){
+            return judgeLoginJump;
         }
         return INDEX_FTL_PATH + "add";
     }
@@ -96,8 +94,9 @@ public class ArticleController extends BaseController {
     @RequestMapping(value="/edit/{id}",method = RequestMethod.GET)
     public String edit(@PathVariable("id") int id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return "redirect:/member/login";
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.ARTICLE_EDIT+"/"+id);
+        if(StringUtils.isNotEmpty(judgeLoginJump)){
+            return judgeLoginJump;
         }
         Article article = articleService.findById(id,loginMember);
         if(article.getMemberId().intValue() != loginMember.getId().intValue()){

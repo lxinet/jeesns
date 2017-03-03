@@ -3,10 +3,7 @@ package com.lxinet.jeesns.modules.group.web.index;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.service.IArchiveService;
-import com.lxinet.jeesns.core.utils.Const;
-import com.lxinet.jeesns.core.utils.ErrorUtil;
-import com.lxinet.jeesns.core.utils.MemberUtil;
-import com.lxinet.jeesns.core.utils.StringUtils;
+import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.group.entity.Group;
 import com.lxinet.jeesns.modules.group.entity.GroupFans;
@@ -56,9 +53,9 @@ public class GroupController extends BaseController {
 
     @RequestMapping(value = "/apply",method = RequestMethod.GET)
     public String apply(){
-        Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return "redirect:/member/login";
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_APPLY);
+        if(StringUtils.isNotEmpty(judgeLoginJump)){
+            return judgeLoginJump;
         }
         return INDEX_FTL_PATH + "apply";
     }
@@ -141,9 +138,11 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/edit/{groupId}",method = RequestMethod.GET)
     public String edit(@PathVariable("groupId") Integer groupId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return "redirect:/member/login";
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_EDIT+"/"+groupId);
+        if(StringUtils.isNotEmpty(judgeLoginJump)){
+            return judgeLoginJump;
         }
+
         Group group = groupService.findById(groupId);
         if(group == null){
             return ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
@@ -218,8 +217,9 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/post/{groupId}",method = RequestMethod.GET)
     public String post(@PathVariable("groupId") Integer groupId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return "redirect:/member/login";
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_POST+"/"+groupId);
+        if(StringUtils.isNotEmpty(judgeLoginJump)){
+            return judgeLoginJump;
         }
         Group group = groupService.findById(groupId);
         if(group == null){
@@ -249,8 +249,9 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/topicEdit/{topicId}",method = RequestMethod.GET)
     public String topicEdit(@PathVariable("topicId") Integer topicId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return "redirect:/member/login";
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_TOPIC_EDIT+"/"+topicId);
+        if(StringUtils.isNotEmpty(judgeLoginJump)){
+            return judgeLoginJump;
         }
         GroupTopic groupTopic = groupTopicService.findById(topicId,loginMember);
         if(groupTopic == null){
