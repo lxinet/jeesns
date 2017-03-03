@@ -58,7 +58,7 @@ public class GroupController extends BaseController {
     public String apply(){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return "redirect:"+request.getContextPath()+"/member/login";
+            return "redirect:/member/login";
         }
         return INDEX_FTL_PATH + "apply";
     }
@@ -142,7 +142,7 @@ public class GroupController extends BaseController {
     public String edit(@PathVariable("groupId") Integer groupId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return "redirect:"+request.getContextPath()+"/member/login";
+            return "redirect:/member/login";
         }
         Group group = groupService.findById(groupId);
         if(group == null){
@@ -219,7 +219,7 @@ public class GroupController extends BaseController {
     public String post(@PathVariable("groupId") Integer groupId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return "redirect:../../member/login";
+            return "redirect:/member/login";
         }
         Group group = groupService.findById(groupId);
         if(group == null){
@@ -250,7 +250,7 @@ public class GroupController extends BaseController {
     public String topicEdit(@PathVariable("topicId") Integer topicId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return "redirect:"+request.getContextPath()+"/member/login";
+            return "redirect:/member/login";
         }
         GroupTopic groupTopic = groupTopicService.findById(topicId,loginMember);
         if(groupTopic == null){

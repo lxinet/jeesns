@@ -70,7 +70,7 @@ public class ArticleController extends BaseController {
         model.addAttribute("cateList",cateList);
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return "redirect:"+request.getContextPath()+"/member/login";
+            return "redirect:/member/login";
         }
         return INDEX_FTL_PATH + "add";
     }
@@ -97,7 +97,7 @@ public class ArticleController extends BaseController {
     public String edit(@PathVariable("id") int id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return "redirect:"+request.getContextPath()+"/member/login";
+            return "redirect:/member/login";
         }
         Article article = articleService.findById(id,loginMember);
         if(article.getMemberId().intValue() != loginMember.getId().intValue()){

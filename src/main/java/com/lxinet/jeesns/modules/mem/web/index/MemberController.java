@@ -91,7 +91,7 @@ public class MemberController extends BaseController {
     public String active(){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return "redirect:"+request.getContextPath() + "/member/login";
+            return "redirect:/member/login";
         }
         return MEMBER_FTL_PATH + "/active";
     }
@@ -218,7 +218,7 @@ public class MemberController extends BaseController {
     @Clear
     public String logout(){
         MemberUtil.setLoginMember(request,null);
-        return "redirect:"+request.getContextPath()+"/member/login";
+        return "redirect:/member/login";
     }
 
     /**
