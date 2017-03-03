@@ -66,12 +66,7 @@ var jeesns = {
                         window.location.href=res.url;
                     },3000);
                 }else if(res.code==3){
-                    jeesnsDialog.successTips(res.message);
-                    // var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                    // parent.layer.close(index);
-                    setTimeout(function(){
-                        parent.window.location.reload();
-                    },3000);
+                    window.location.href=res.url;
                 }else if(res.code==-1){
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.errorTips(res.message);
@@ -215,6 +210,8 @@ var jeesns = {
                     setTimeout(function(){
                         window.location.href=res.url;
                     },2000);
+                }else if(res.code==3){
+                    window.location.href=res.url;
                 }else{
                     jeesnsDialog.tips(res.message);
                 }

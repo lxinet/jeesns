@@ -238,7 +238,8 @@ h5 {
 }
 
 .navbar-top-links {
-  padding-top:30px
+  padding-top:30px;
+  padding-right: 20px;
 }
 .navbar-top-links li {
   display: inline-block;

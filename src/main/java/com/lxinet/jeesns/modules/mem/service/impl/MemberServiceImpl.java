@@ -71,7 +71,7 @@ public class MemberServiceImpl implements IMemberService {
             findMember = this.findById(findMember.getId());
             MemberUtil.setLoginMember(request,findMember);
             actionLogService.save(findMember.getCurrLoginIp(),findMember.getId(),ActionUtil.MEMBER_LOGIN);
-            return new ResponseModel(2,"登录成功",request.getServletContext().getContextPath()+"/member/");
+            return new ResponseModel(3,"登录成功",request.getServletContext().getContextPath()+"/member/");
         }
         actionLogService.save(IpUtils.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
         return new ResponseModel(-1,"用户名或密码错误");

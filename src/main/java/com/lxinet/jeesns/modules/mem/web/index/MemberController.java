@@ -15,10 +15,7 @@ import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -43,20 +40,34 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     @Clear
-    public String login(){
+    public String login(Model model,@RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember != null){
+            return "redirect:/member/";
+        }
+        model.addAttribute("redirectUrl",redirectUrl);
         return MEMBER_FTL_PATH + "/login";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     @Clear
-    public ResponseModel<Member> login(Member member){
-        return memberService.login(member,request);
+    public ResponseModel<Member> login(Member member,@RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
+        ResponseModel responseModel = memberService.login(member,request);
+        if (StringUtils.isNotEmpty(redirectUrl) && responseModel.getCode() >= 0){
+            responseModel.setCode(3);
+            responseModel.setUrl(redirectUrl);
+        }
+        return responseModel;
     }
 
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     @Clear
     public String register(){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember != null){
+            return "redirect:/member/";
+        }
         return MEMBER_FTL_PATH + "/register";
     }
 
