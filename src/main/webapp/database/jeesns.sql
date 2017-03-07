@@ -214,7 +214,7 @@ CREATE TABLE `tbl_weibo` (
   `favor` int(11) DEFAULT '0' COMMENT '赞',
   `status` tinyint(11) DEFAULT '0' COMMENT '0未审核，1已审核，-1审核不通过',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `tbl_weibo_comment` (
