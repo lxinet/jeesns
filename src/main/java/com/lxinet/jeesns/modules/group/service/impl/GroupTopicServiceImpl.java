@@ -120,11 +120,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             e.printStackTrace();
         }
         if(archiveService.update(member,archive)){
-            //更新栏目
-            if(findGroupTopic.getGroupId().intValue() != groupTopic.getGroupId().intValue()){
-                findGroupTopic.setGroupId(groupTopic.getGroupId());
-                groupTopicDao.update(findGroupTopic);
-            }
+            //更新
+            groupTopicDao.update(findGroupTopic);
             return new ResponseModel(0,"更新成功");
         }
         return new ResponseModel(-1,"更新失败");
