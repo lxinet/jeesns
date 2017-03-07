@@ -36,6 +36,14 @@ JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企�
 7. 部署项目。将项目部署到Tomcat7或以上版本，启动Tomcat。
 8. 访问系统。前台地址：[http://localhost:8080/](http://localhost:8080/)；用户名：admin，密码：jeesns，登录成功之后，在右上角展开有个'管理'，点击即可进入后台管理。
 
+## 部署详细说明
+1. [JDK安装说明](https://my.oschina.net/zchuanzhao/blog/853387)
+2. [Maven安装说明](https://my.oschina.net/zchuanzhao/blog/853392)
+3. [JEESNS使用Maven打包介绍](https://my.oschina.net/zchuanzhao/blog/853393)
+4. [JEESNS导入数据库说明](https://my.oschina.net/zchuanzhao/blog/853394)
+5. [Eclipse导入JEESNS项目和部署说明](https://my.oschina.net/zchuanzhao/blog/853397)
+
+
 ## 相关网站
 官方网站：[http://www.jeesns.cn](http://www.jeesns.cn/)
 
