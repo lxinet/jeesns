@@ -134,9 +134,7 @@ public class ArticleServiceImpl implements IArticleService {
                 findArticle.setStatus(1);
             }
             //更新栏目
-            if(findArticle.getCateId().intValue() != article.getCateId().intValue()){
-                findArticle.setCateId(article.getCateId());
-            }
+            findArticle.setCateId(article.getCateId());
             articleDao.update(findArticle);
             return new ResponseModel(0,"更新成功");
         }
