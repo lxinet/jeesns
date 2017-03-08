@@ -13,7 +13,7 @@ public class WeiboUtil {
         // 不存在Emoji则直接返回内容
         String regEmoji="[\\s\\S]*:[\\s\\S]*:[\\s\\S]*";
         if(weibo.getContent().matches(regEmoji)){
-            weibo.setContent(Emoji.replace(weibo.getContent()));
+            weibo.setContent(EmojiUtil.replace(weibo.getContent()));
         }
         String regAt = "[\\s\\S]*@[\\s\\S]*";
         if(weibo.getContent().matches(regAt)){

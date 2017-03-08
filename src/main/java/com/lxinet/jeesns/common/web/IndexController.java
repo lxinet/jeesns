@@ -4,7 +4,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.service.IArchiveService;
 import com.lxinet.jeesns.core.utils.Const;
-import com.lxinet.jeesns.core.utils.Emoji;
+import com.lxinet.jeesns.core.utils.EmojiUtil;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
@@ -128,7 +128,7 @@ public class IndexController extends BaseController{
     @RequestMapping(value="/emoji/emojiJsonData.json",method = RequestMethod.GET)
     @ResponseBody
     public Object emojiJsonData(){
-        return Emoji.emojiJson();
+        return EmojiUtil.emojiJson();
     }
 
     @RequestMapping(value="/404",method = RequestMethod.GET)

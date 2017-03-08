@@ -4,7 +4,6 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.core.web.BaseController;
-import com.lxinet.jeesns.core.utils.ResponseHandler;
 import com.lxinet.jeesns.modules.cms.entity.ArticleCate;
 import com.lxinet.jeesns.modules.cms.service.IArticleCateService;
 import org.apache.commons.lang.StringUtils;
@@ -13,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import java.util.List;
 

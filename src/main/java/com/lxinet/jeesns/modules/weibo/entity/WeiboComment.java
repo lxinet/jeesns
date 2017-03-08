@@ -3,7 +3,7 @@ package com.lxinet.jeesns.modules.weibo.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.core.entity.BaseEntity;
 import com.lxinet.jeesns.core.utils.AtUtil;
-import com.lxinet.jeesns.core.utils.Emoji;
+import com.lxinet.jeesns.core.utils.EmojiUtil;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 
 import java.util.Date;
@@ -98,7 +98,7 @@ public class WeiboComment extends BaseEntity {
         // 不存在Emoji则直接返回内容
         String regEmoji=".*:.*:.*";
         if(content.matches(regEmoji)){
-            content = Emoji.replace(content);
+            content = EmojiUtil.replace(content);
         }
         String regAt = ".*@.*";
         if(content.matches(regAt)){
