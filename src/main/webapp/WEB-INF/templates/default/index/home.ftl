@@ -251,7 +251,12 @@
                                                 <strong>
                                                     <a href="${base}/u/${weibo.member.id}" target="_blank">${weibo.member.name}</a></strong><br/>
                                                 <div class="mg-t-10 mg-b-10">
-                                                ${weibo.content}
+                                                    <p>${weibo.content}</p>
+                                                    <p>
+                                                        <#list weibo.pictures as picture>
+                                                            <img src="${base}${picture.thumbnailPath}"/>
+                                                        </#list>
+                                                    </p>
                                                 </div>
                                                 <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
                                                 (<#if weibo.isFavor==0>

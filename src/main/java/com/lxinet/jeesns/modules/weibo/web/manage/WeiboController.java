@@ -38,6 +38,6 @@ public class WeiboController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("id") int id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return weiboService.delete(loginMember,id);
+        return weiboService.delete(request, loginMember,id);
     }
 }
