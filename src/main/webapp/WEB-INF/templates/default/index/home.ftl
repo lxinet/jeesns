@@ -11,6 +11,7 @@
     <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${base}/res/common/css/jeesns.css">
     <link rel="stylesheet" href="${base}/res/common/css/jeesns-skin.css">
+    <link href="${base}/res/plugins/gallery/css/blueimp-gallery.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${base}/res/common/js/html5shiv.min.js"></script>
     <script src="${base}/res/common/js/respond.min.js"></script>
@@ -23,6 +24,7 @@
     <script src="${base}/res/common/js/extendPagination.js"></script>
     <script src="${base}/res/modules/mem.js"></script>
     <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
+    <script src="${base}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -252,11 +254,20 @@
                                                     <a href="${base}/u/${weibo.member.id}" target="_blank">${weibo.member.name}</a></strong><br/>
                                                 <div class="mg-t-10 mg-b-10">
                                                     <p>${weibo.content}</p>
-                                                    <p>
+                                                    <div class="lightBoxGallery">
                                                         <#list weibo.pictures as picture>
-                                                            <img src="${base}${picture.thumbnailPath}"/>
+                                                            <a href="${base}${picture.path}" title="${weibo.member.name}" data-gallery=""><img src="${base}${picture.thumbnailPath}"/></a>
                                                         </#list>
-                                                    </p>
+                                                        <div id="blueimp-gallery" class="blueimp-gallery">
+                                                            <div class="slides"></div>
+                                                            <h3 class="title"></h3>
+                                                            <a class="prev">‹</a>
+                                                            <a class="next">›</a>
+                                                            <a class="close">×</a>
+                                                            <a class="play-pause"></a>
+                                                            <ol class="indicator"></ol>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
                                                 (<#if weibo.isFavor==0>

@@ -6,6 +6,7 @@ import com.lxinet.jeesns.core.service.IPictureService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ImageUtil;
 import com.lxinet.jeesns.core.utils.MemberUtil;
+import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
@@ -42,13 +43,22 @@ public class UploadController extends BaseController {
 	}
 
 
-
+	/**
+	 * 微博图片上传
+	 * @param file
+	 * @return
+	 */
 	@RequestMapping("/weiboUploadImage")
 	@ResponseBody
 	public Object weiboUploadImage(@RequestParam(value = "file", required = false) MultipartFile file) {
 		return uploadImage(file, 3);
 	}
 
+	/**
+	 * 普通图片上传
+	 * @param file
+	 * @return
+	 */
 	@RequestMapping("/uploadImage")
 	@ResponseBody
 	public Object indexUploadImage(@RequestParam(value = "file", required = false) MultipartFile file) {
@@ -56,9 +66,20 @@ public class UploadController extends BaseController {
 	}
 
 	/**
+	 * 缩略图上传
+	 * @param file
+	 * @return
+	 */
+	@RequestMapping("/thumbnailUploadImage")
+	@ResponseBody
+	public Object thumbnailUploadImage(@RequestParam(value = "file", required = false) MultipartFile file) {
+		return uploadImage(file, 11);
+	}
+
+	/**
 	 * 保存图片
 	 * @param file
-	 * @param type 0是普通图片，1是文章图片，2是群组帖子图片，3是微博图片
+	 * @param type 0是普通图片，1是文章图片，2是群组帖子图片，3是微博图片，11是缩略图
 	 * @return
 	 */
 	private Object uploadImage(MultipartFile file, int type) {
@@ -96,6 +117,10 @@ public class UploadController extends BaseController {
 				picture.setMd5(DigestUtils.md5Hex(new FileInputStream(targetFile)));
 				//生成缩略图
 				String thumbnailName = new ImageUtil().thumbnailImage(targetFile);
+				//如果缩略图生成失败，则用原图做缩略图
+				if(StringUtils.isEmpty(thumbnailName)){
+					thumbnailName = newFileName;
+				}
 				picture.setPath(path + newFileName);
 				picture.setThumbnailPath(path + thumbnailName);
 				picture.setType(type);
@@ -105,6 +130,12 @@ public class UploadController extends BaseController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(type == 11){
+			//生成缩略图
+			String thumbnailName = new ImageUtil().thumbnailImage(targetFile);
+			//删除原文件
+			targetFile.delete();
+			url = path + thumbnailName;
 		}else {
 			url = path + newFileName;
 		}
