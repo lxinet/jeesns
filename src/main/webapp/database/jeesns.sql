@@ -249,7 +249,7 @@ CREATE TABLE `tbl_picture` (
   `md5` VARCHAR(32) NOT NULL,
   `width` INT(11) DEFAULT '0',
   `height` INT(11) DEFAULT '0',
-  PRIMARY KEY (id)
+  PRIMARY KEY (picture_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ##数据
