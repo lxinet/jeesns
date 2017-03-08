@@ -4,26 +4,18 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
-import com.lxinet.jeesns.core.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.core.service.ICommonService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.core.utils.MemberUtil;
-import com.lxinet.jeesns.core.utils.ResponseHandler;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -109,7 +101,7 @@ public class IndexController extends BaseController {
     @ResponseBody
     public Object login(Member member){
         if(member == null){
-            return ResponseHandler.returnJson(-2);
+            return new ResponseModel(-1,"参数错误");
         }
         if(StringUtils.isEmpty(member.getName())){
             return new ResponseModel(-1,"用户名不能为空");

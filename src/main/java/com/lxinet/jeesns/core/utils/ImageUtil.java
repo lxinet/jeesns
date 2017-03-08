@@ -63,23 +63,18 @@ public class ImageUtil {
                 // 将图片保存在原目录并加上前缀
                 thumbPath = p.substring(0, p.lastIndexOf(File.separator)) + File.separator + fileName;
                 ImageIO.write(bi, suffix, new File(thumbPath));
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return fileName;
     }
 
-    private String thumbnailImage(String imagePath, int w, int h, String prevfix, boolean force) {
-        File imgFile = new File(imagePath);
-        return thumbnailImage(imgFile, w, h, prevfix, force);
+    private String thumbnailImage(File imgFile, int w, int h, boolean force) {
+        return thumbnailImage(imgFile, w, h, DEFAULT_PREVFIX, force);
     }
 
-    private String thumbnailImage(String imagePath, int w, int h, boolean force) {
-        return thumbnailImage(imagePath, w, h, DEFAULT_PREVFIX, force);
-    }
-
-    public String thumbnailImage(String imagePath) {
-        return thumbnailImage(imagePath, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_FORCE);
+    public String thumbnailImage(File imgFile) {
+        return thumbnailImage(imgFile, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_FORCE);
     }
 }

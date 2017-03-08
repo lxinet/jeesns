@@ -2,15 +2,11 @@ package com.lxinet.jeesns.modules.mem.service.impl;
 
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
-import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
-import com.lxinet.jeesns.modules.group.dao.IGroupTopicDao;
 import com.lxinet.jeesns.modules.group.service.IGroupFansService;
-import com.lxinet.jeesns.modules.group.service.IGroupService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.dao.IMemberDao;
-import com.lxinet.jeesns.modules.mem.dao.IMemberFansDao;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.entity.ValidateCode;
 import com.lxinet.jeesns.modules.mem.service.IMemberFansService;
@@ -18,7 +14,6 @@ import com.lxinet.jeesns.modules.mem.service.IMemberService;
 import com.lxinet.jeesns.modules.mem.service.IValidateCodeService;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
-import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,34 +55,34 @@ public class MemberServiceImpl implements IMemberService {
             return new ResponseModel(-1,"登录功能已关闭");
         }
         String password = member.getPassword();
-        member.setPassword(Md5.getMD5Code(member.getPassword()));
+        member.setPassword(Md5Util.getMD5Code(member.getPassword()));
         Member findMember = memberDao.login(member);
         if(findMember != null){
             if(findMember.getStatus() == -1){
                 return new ResponseModel(-1,"该账户已被禁用");
             }
             //登录成功更新状态
-            memberDao.loginSuccess(findMember.getId(),IpUtils.getIpAddress(request));
+            memberDao.loginSuccess(findMember.getId(), IpUtil.getIpAddress(request));
             findMember = this.findById(findMember.getId());
             MemberUtil.setLoginMember(request,findMember);
             actionLogService.save(findMember.getCurrLoginIp(),findMember.getId(),ActionUtil.MEMBER_LOGIN);
             return new ResponseModel(3,"登录成功",request.getServletContext().getContextPath()+"/member/");
         }
-        actionLogService.save(IpUtils.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
+        actionLogService.save(IpUtil.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
         return new ResponseModel(-1,"用户名或密码错误");
     }
 
     @Override
     public Member manageLogin(Member member,HttpServletRequest request) {
         String password = member.getPassword();
-        member.setPassword(Md5.getMD5Code(member.getPassword()));
+        member.setPassword(Md5Util.getMD5Code(member.getPassword()));
         Member findMember = memberDao.manageLogin(member);
         if(findMember != null){
             //登录成功更新状态
-            memberDao.loginSuccess(findMember.getId(),IpUtils.getIpAddress(request));
+            memberDao.loginSuccess(findMember.getId(), IpUtil.getIpAddress(request));
             findMember = this.findById(findMember.getId());
         }else {
-            actionLogService.save(IpUtils.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
+            actionLogService.save(IpUtil.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
         }
         return findMember;
     }
@@ -105,8 +100,8 @@ public class MemberServiceImpl implements IMemberService {
         if(memberDao.findByEmail(member.getEmail()) != null){
             return new ResponseModel(-1,"该邮箱已被注册");
         }
-        member.setRegip(IpUtils.getIpAddress(request));
-        member.setPassword(Md5.getMD5Code(member.getPassword()));
+        member.setRegip(IpUtil.getIpAddress(request));
+        member.setPassword(Md5Util.getMD5Code(member.getPassword()));
         member.setAvatar(Const.DEFAULT_AVATAR);
         if(memberDao.register(member) == 1){
             actionLogService.save(member.getRegip(),member.getId(),ActionUtil.MEMBER_REG);
@@ -169,7 +164,7 @@ public class MemberServiceImpl implements IMemberService {
         if(password.length() < 6){
             return new ResponseModel(-1,"密码不能少于6个字符");
         }
-        password = Md5.getMD5Code(password);
+        password = Md5Util.getMD5Code(password);
         if(memberDao.changepwd(id,password) == 1){
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(),ActionUtil.CHANGE_PWD);
             return new ResponseModel(3,"密码修改成功");
@@ -192,7 +187,7 @@ public class MemberServiceImpl implements IMemberService {
         if(newPassword.length() < 6){
             return new ResponseModel(-1,"密码不能少于6个字符");
         }
-        oldPassword = Md5.getMD5Code(oldPassword);
+        oldPassword = Md5Util.getMD5Code(oldPassword);
         Member member = memberDao.findById(loginMember.getId());
         if(!oldPassword.equals(member.getPassword())){
             return new ResponseModel(-1,"旧密码错误");
@@ -289,7 +284,7 @@ public class MemberServiceImpl implements IMemberService {
         String randomCode = RandomCodeUtil.randomCode6();
         ValidateCode validateCode = new ValidateCode(loginMember.getEmail(),randomCode,2);
         if(validateCodeService.save(validateCode)){
-            if(EmailSenderUtils.activeMember(loginMember.getEmail(),randomCode)){
+            if(EmailSenderUtil.activeMember(loginMember.getEmail(),randomCode)){
                 return new ResponseModel(0,"邮件发送成功");
             }
         }
@@ -337,7 +332,7 @@ public class MemberServiceImpl implements IMemberService {
         String randomCode = RandomCodeUtil.uuid();
         ValidateCode validateCode = new ValidateCode(email,randomCode,1);
         if(validateCodeService.save(validateCode)){
-            if(EmailSenderUtils.forgetpwd(email,randomCode)){
+            if(EmailSenderUtil.forgetpwd(email,randomCode)){
                 return new ResponseModel(0,"邮件发送成功");
             }
         }
@@ -355,10 +350,10 @@ public class MemberServiceImpl implements IMemberService {
         if(validateCode == null){
             return new ResponseModel(-1,"验证码错误");
         }
-        password = Md5.getMD5Code(password);
+        password = Md5Util.getMD5Code(password);
         if(memberDao.changepwd(member.getId(),password) == 1){
             validateCodeService.used(validateCode.getId());
-            actionLogService.save(IpUtils.getIpAddress(request),member.getId(),ActionUtil.FIND_PWD);
+            actionLogService.save(IpUtil.getIpAddress(request),member.getId(),ActionUtil.FIND_PWD);
             return new ResponseModel(2,"密码重置成功",request.getContextPath()+"/member/login");
         }
         return new ResponseModel(-1,"密码重置失败");

@@ -20,7 +20,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -96,14 +95,14 @@ public class UploadController extends BaseController {
 				picture.setHeight(sourceImg.getHeight());
 				picture.setMd5(DigestUtils.md5Hex(new FileInputStream(targetFile)));
 				//生成缩略图
-				String thumbnailName = new ImageUtil().thumbnailImage(savePath + newFileName);
+				String thumbnailName = new ImageUtil().thumbnailImage(targetFile);
 				picture.setPath(path + newFileName);
 				picture.setThumbnailPath(path + thumbnailName);
 				picture.setType(type);
 				picture.setForeignId(0);
 				pictureService.save(picture);
 				url = String.valueOf(picture.getPictureId());
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else {
