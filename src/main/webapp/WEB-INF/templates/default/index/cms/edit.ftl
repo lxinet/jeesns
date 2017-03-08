@@ -34,7 +34,7 @@
             initialFrameHeight: 300
         });
         var basePath = "${base}";
-        var uploadServer = "${managePath}/uploadImage";
+        var uploadServer = "${managePath}/thumbnailUploadImage";
     </script>
     <script src="${base}/res/plugins/webuploader/upload.js"></script>
 </head>

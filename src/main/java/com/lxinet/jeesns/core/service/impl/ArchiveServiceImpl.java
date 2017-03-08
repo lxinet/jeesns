@@ -6,6 +6,7 @@ import com.lxinet.jeesns.core.entity.Archive;
 import com.lxinet.jeesns.core.service.IArchiveFavorService;
 import com.lxinet.jeesns.core.service.IArchiveService;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
+import com.lxinet.jeesns.core.utils.ImageUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
@@ -15,6 +16,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import java.io.File;
 
 /**
  * Created by zchuanzhao on 2016/10/14.
