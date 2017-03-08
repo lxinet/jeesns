@@ -7,7 +7,7 @@
   <delete id="delete">
     delete from tbl_picture where foreign_id=#{id}
   </delete>
-  <insert id="save" useGeneratedKeys="true" keyProperty="id">
+  <insert id="save" useGeneratedKeys="true" keyProperty="pictureId">
     insert into tbl_picture (create_time, type, foreign_id, path, thumbnail_path, md5, width, height)
     values (now(), #{type}, #{foreignId}, #{path}, #{thumbnailPath}, #{md5}, #{width}, #{height})
   </insert>
