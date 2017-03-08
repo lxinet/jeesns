@@ -121,6 +121,7 @@ public class IndexController extends BaseController{
         return archiveService.favor(loginMember,archiveId);
     }
 
+
     /**
      * 获取Emoji数据
      * @return

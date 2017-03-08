@@ -148,7 +148,7 @@
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                            <strong>${actionLog.member.name}</strong>${actionLog.action.log}：<br/>
+                                            <strong><a href="${base}/u/${actionLog.member.id}">${actionLog.member.name}</a> </strong>${actionLog.action.log}：<br/>
                                             <#if actionLog.type==1>
                                                 <a href="${base}/article/detail/${actionLog.foreignId}"
                                                    target="_blank">${actionLog.remark}</a>

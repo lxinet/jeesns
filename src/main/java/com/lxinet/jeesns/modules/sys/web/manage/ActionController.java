@@ -1,4 +1,4 @@
-package com.lxinet.jeesns.modules.sys.web;
+package com.lxinet.jeesns.modules.sys.web.manage;
 
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
