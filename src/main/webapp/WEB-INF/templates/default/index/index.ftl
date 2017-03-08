@@ -164,7 +164,11 @@
                                         <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i
                                                 class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
                                     </#if>
-                                        <a href="${base}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
+                                        <a href="${base}/weibo/detail/${weibo.id}">
+                                            <#if weibo.type==1>
+                                                <i class="fa fa-image"></i>
+                                            </#if>
+                                            评论:${weibo.commentCount}</a>)
                                     </div>
                                 </div>
                             </#list>

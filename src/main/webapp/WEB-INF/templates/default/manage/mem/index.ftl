@@ -74,7 +74,7 @@
                                 <#list model.data as member>
                                 <tr>
                                     <td>${member.id}</td>
-                                    <td>${member.name}</td>
+                                    <td>${(member.name || member.email)?string(member.name,member.email)}</td>
                                     <td>${member.email}</td>
                                     <td>${member.phone}</td>
                                     <td>${member.loginCount}</td>

@@ -2,11 +2,11 @@ package com.lxinet.jeesns.modules.weibo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.core.entity.BaseEntity;
-import com.lxinet.jeesns.core.utils.AtUtil;
-import com.lxinet.jeesns.core.utils.Emoji;
+import com.lxinet.jeesns.core.entity.Picture;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -23,6 +23,7 @@ public class Weibo extends BaseEntity {
     private Integer commentCount;
     //是否已点赞，0未点赞，1已点赞
     private Integer isFavor;
+    private List<Picture> pictures;
 
     public Integer getId() {
         return id;
@@ -102,5 +103,13 @@ public class Weibo extends BaseEntity {
 
     public void setIsFavor(Integer isFavor) {
         this.isFavor = isFavor;
+    }
+
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
     }
 }

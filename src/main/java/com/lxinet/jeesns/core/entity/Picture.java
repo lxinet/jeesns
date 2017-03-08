@@ -6,21 +6,22 @@ import java.util.Date;
  * Created by zchuanzhao on 2017/3/1.
  */
 public class Picture extends BaseEntity {
-    private Integer id;
+    private Integer pictureId;
     private Date createTime;
     private Integer type;
+    private Integer foreignId;
     private String path;
-    private String narrowPath;
+    private String thumbnailPath;
     private String md5;
     private Integer width;
     private Integer height;
 
-    public Integer getId() {
-        return id;
+    public Integer getPictureId() {
+        return pictureId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPictureId(Integer pictureId) {
+        this.pictureId = pictureId;
     }
 
     public Date getCreateTime() {
@@ -39,6 +40,14 @@ public class Picture extends BaseEntity {
         this.type = type;
     }
 
+    public Integer getForeignId() {
+        return foreignId;
+    }
+
+    public void setForeignId(Integer foreignId) {
+        this.foreignId = foreignId;
+    }
+
     public String getPath() {
         return path;
     }
@@ -47,12 +56,12 @@ public class Picture extends BaseEntity {
         this.path = path;
     }
 
-    public String getNarrowPath() {
-        return narrowPath;
+    public String getThumbnailPath() {
+        return thumbnailPath;
     }
 
-    public void setNarrowPath(String narrowPath) {
-        this.narrowPath = narrowPath;
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
     }
 
     public String getMd5() {

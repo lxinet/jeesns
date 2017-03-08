@@ -12,6 +12,7 @@
     <link href="${base}/res/common/css/jeesns.css" rel="stylesheet">
     <link href="${base}/res/common/css/jeesns-skin.css" rel="stylesheet">
     <link href="${base}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
+    <link href="${base}/res/plugins/webuploader/webuploader.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${base}/res/common/js/html5shiv.min.js"></script>
     <script src="${base}/res/common/js/respond.min.js"></script>
@@ -26,7 +27,11 @@
     <script src="${base}/res/plugins/emoji/js/underscore-min.js"></script>
     <script src="${base}/res/plugins/emoji/js/editor.js"></script>
     <script src="${base}/res/plugins/emoji/js/emojis.js"></script>
-
+    <script src="${base}/res/plugins/webuploader/webuploader.min.js"></script>
+    <script type="text/javascript">
+        var basePath = "${base}";
+    </script>
+    <script src="${base}/res/plugins/webuploader/weiboUpload.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -37,15 +42,58 @@
             <div class="col-sm-8">
                 <div class="ibox-content">
                     <form class="form-horizontal m-t jeesns_form" action="${base}/weibo/publish" method="post">
-                        <p><textarea cols="3" class="form-control area" name="content" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea></p>
+                        <p>
+                            <textarea cols="5" class="form-control area" name="content" id="weibo-content"
+                                     maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
+                            <input type="hidden" name="pictures" id="weibo-pictures">
+                        </p>
                         <div class="row emoji-container" id="emoji">
                             <i class="fa fa-smile-o emoji-tbtn"></i>
                             <span class="pull-right mg-r-15">
                                  <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>
                                 <input type="submit" value="发布" class="btn btn-primary">
                             </span>
+                            <a href="javascript:void(0)" class="weibo-picture"><i class="fa fa-image"></i></a>
                         </div>
                     </form>
+                    <div class="weibo-picture-area" style="display: none;">
+                        <div id="weiboUploader">
+                            <div class="queueList">
+                                <div id="dndArea" class="placeholder">
+                                    <div id="filePicker" class="webuploader-container">
+                                        <div class="webuploader-pick">选择图片</div>
+                                        <div id="rt_rt_1bah3ovvi6on19tej9785o1tam1"
+                                             style="width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;">
+                                            <input type="file" name="file" class="webuploader-element-invisible"
+                                                   multiple="multiple" accept="image/*">
+                                            <label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
+                                        </div>
+                                    </div>
+                                    <p>或将照片拖到这里，最多可选9张</p>
+                                </div>
+                                <ul class="filelist"></ul>
+                            </div>
+                            <div class="statusBar" style="display:none;">
+                                <div class="progress" style="display: none;">
+                                    <span class="text">0%</span>
+                                    <span class="percentage" style="width: 0%;"></span>
+                                </div>
+                                <div class="info">共0张（0B），已上传0张</div>
+                                <div class="btns">
+                                    <div id="filePicker2" class="webuploader-container">
+                                        <div class="webuploader-pick">继续添加</div>
+                                        <div id="rt_rt_1bah3ovvs1r4u1i88td912et1d006"
+                                             style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;">
+                                            <input type="file" name="file" class="webuploader-element-invisible"
+                                                   multiple="multiple" accept="image/*"><label
+                                                style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
+                                        </div>
+                                    </div>
+                                    <div class="uploadBtn state-pedding">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -61,16 +109,24 @@
                                     </a>
                                     <div class="media-body ">
                                         <strong>
-                                            <a href="${base}/u/${weibo.member.id}" target="_blank">${weibo.member.name}</a></strong><br/>
+                                            <a href="${base}/u/${weibo.member.id}"
+                                               target="_blank">${weibo.member.name}</a></strong><br/>
                                         <div class="mg-t-10 mg-b-10">
-                                            ${weibo.content}
+                                            <p>${weibo.content}</p>
+                                            <p>
+                                                <#list weibo.pictures as picture>
+                                                    <img src="${base}${picture.thumbnailPath}"/>
+                                                </#list>
+                                            </p>
                                         </div>
                                         <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
                                         (<#if weibo.isFavor==0>
-                                            <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
-                                        <#else>
-                                            <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
-                                        </#if>
+                                        <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i
+                                                class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                    <#else>
+                                        <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i
+                                                class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
+                                    </#if>
                                         <a href="${base}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
                                     </div>
                                 </div>
@@ -101,17 +157,24 @@
                                         <img alt="image" class="img-circle" src="${base}${weibo.member.avatar!''}">
                                     </a>
                                     <div class="media-body ">
-                                        <strong><a href="${base}/u/${weibo.member.id}" target="_blank" class="pull-left">${weibo.member.name}</a></strong><br/>
+                                        <strong><a href="${base}/u/${weibo.member.id}" target="_blank"
+                                                   class="pull-left">${weibo.member.name}</a></strong><br/>
                                         <div class="mg-t-10 mg-b-10">
-                                            ${weibo.content}
+                                        ${weibo.content}
                                         </div>
                                         <#if weibo.isFavor==0>
-                                            <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                            <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i
+                                                    class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
                                         <#else>
-                                            <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                            <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i
+                                                    class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
                                         </#if>
                                         <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                        (<a href="${base}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
+                                        (<a href="${base}/weibo/detail/${weibo.id}">
+                                        <#if weibo.type==1>
+                                            <i class="fa fa-image"></i>
+                                        </#if>
+                                        评论:${weibo.commentCount}</a>)
                                     </div>
                                 </div>
                             </#list>
@@ -128,13 +191,22 @@
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");
         $(".weibo-favor").click(function () {
-            weibo.favor($(this),"${base}")
+            weibo.favor($(this), "${base}")
         });
         $('#emoji').emoji({
-            insertAfter: function(item){
-                $('#weibo-content').insertContent(':'+item.name+':')
+            insertAfter: function (item) {
+                $('#weibo-content').insertContent(':' + item.name + ':')
             }
-        },"${base}");
+        }, "${base}");
+        $(".weibo-picture").click(function () {
+            var weiboPictureArea = $(".weibo-picture-area");
+            if(weiboPictureArea.is(':hidden')){
+                weiboPictureArea.show();
+                $.getScript("${base}/res/plugins/webuploader/weiboUpload.js");
+            }else{
+                weiboPictureArea.hide();
+            }
+        });
     });
 </script>
 </body>

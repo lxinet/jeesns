@@ -3,6 +3,7 @@ package com.lxinet.jeesns.modules.weibo.service.impl;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
+import com.lxinet.jeesns.core.service.IPictureService;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.entity.Config;
@@ -36,6 +37,8 @@ public class WeiboServiceImpl implements IWeiboService {
     private IWeiboFavorService weiboFavorService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IPictureService pictureService;
 
     @Override
     public Weibo findById(int id,int memberId) {
@@ -45,7 +48,8 @@ public class WeiboServiceImpl implements IWeiboService {
     }
 
     @Override
-    public ResponseModel save(Member loginMember, String content) {
+    @Transactional
+    public ResponseModel save(Member loginMember, String content, String pictures) {
         Map<String,String> config = configService.getConfigToMap();
         if("0".equals(config.get(ConfigUtil.WEIBO_POST))){
             return new ResponseModel(-1,"微博已关闭");
@@ -58,10 +62,17 @@ public class WeiboServiceImpl implements IWeiboService {
         }
         Weibo weibo = new Weibo();
         weibo.setMemberId(loginMember.getId());
-        weibo.setType(0);
         weibo.setContent(content);
         weibo.setStatus(1);
+        if(StringUtils.isEmpty(pictures)){
+            //普通文本
+            weibo.setType(0);
+        }else {
+            //图片
+            weibo.setType(1);
+        }
         if(weiboDao.save(weibo) == 1){
+            pictureService.update(weibo.getId(),pictures);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.POST_WEIBO,"", ActionLogType.WEIBO.getValue(),weibo.getId());
             return new ResponseModel(1,"发布成功");
         }
@@ -84,19 +95,20 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Transactional
     @Override
-    public ResponseModel delete(Member loginMember, int id) {
+    public ResponseModel delete(HttpServletRequest request, Member loginMember, int id) {
         Weibo weibo = this.findById(id,loginMember.getId());
         if(weibo == null){
             return new ResponseModel(-1,"微博不存在");
         }
         weiboDao.delete(id);
+        pictureService.delete(request, id);
         actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO, "ID："+weibo.getId()+"，内容："+weibo.getContent());
         return new ResponseModel(1,"操作成功");
     }
 
     @Transactional
     @Override
-    public ResponseModel userDelete(Member loginMember, int id) {
+    public ResponseModel userDelete(HttpServletRequest request, Member loginMember, int id) {
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
@@ -107,7 +119,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if(loginMember.getId().intValue() != weibo.getMember().getId().intValue()){
             return new ResponseModel(-1,"没有权限");
         }
-        return this.delete(loginMember,id);
+        return this.delete(request, loginMember,id);
     }
 
     @Override

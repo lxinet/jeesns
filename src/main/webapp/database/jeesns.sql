@@ -239,7 +239,18 @@ CREATE TABLE `tbl_weibo_favor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
+CREATE TABLE `tbl_picture` (
+  `picture_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `type` INT(11) NOT NULL COMMENT '1是文章图片，2是群组帖子图片，3是微博图片',
+  `foreign_id` INT(11) COMMENT '外键ID',
+  `path` VARCHAR(255) NOT NULL COMMENT '图片路径',
+  `thumbnail_path` VARCHAR(255) COMMENT '缩小的图片路径',
+  `md5` VARCHAR(32) NOT NULL,
+  `width` INT(11) DEFAULT '0',
+  `height` INT(11) DEFAULT '0',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ##数据
 INSERT INTO `tbl_config` (`jkey`, `jvalue`, `description`)

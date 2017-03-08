@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.modules.weibo.dao.IWeiboDao">
-  <select id="listByPage" resultType="Weibo">
-    select a.id,a.create_time,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',
+
+  <resultMap id="weiboResult" type="Weibo">
+    <collection property="pictures" javaType="ArrayList" column="weibo_id" ofType="Picture" select="selectPicturesByWeibo"/>
+  </resultMap>
+
+  <select id="listByPage" resultMap="weiboResult">
+    select a.id,a.id as weibo_id,a.create_time,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',
     a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount,
     (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor from tbl_weibo a left join
     tbl_member b on a.member_id = b.id
@@ -16,8 +21,8 @@
     </where>
     order by a.id DESC
   </select>
-  <select id="findById" resultType="Weibo">
-    select a.id,a.create_time,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',b.introduce as 'member.introduce',
+  <select id="findById" resultMap="weiboResult">
+    select a.id,a.id as weibo_id,a.create_time,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',b.introduce as 'member.introduce',
     a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) commentCount,
     (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=#{id} AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
     from tbl_weibo a left join
@@ -45,4 +50,8 @@
   <update id="favor">
     update tbl_weibo set favor = favor + #{num} where id = #{id}
   </update>
+
+  <select id="selectPicturesByWeibo" resultType="Picture">
+    SELECT path,thumbnail_path FROM tbl_picture WHERE type=3 and foreign_id = #{weibo_id}
+  </select>
 </mapper>

@@ -61,7 +61,12 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        ${weibo.content}
+                        <p>${weibo.content}</p>
+                        <p>
+                        <#list weibo.pictures as picture>
+                            <img src="${base}${picture.thumbnailPath}"/>
+                        </#list>
+                        </p>
                         <div class="text-right">
                         <#if weibo.isFavor==0>
                             <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>

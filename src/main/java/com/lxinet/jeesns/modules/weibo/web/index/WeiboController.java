@@ -31,13 +31,12 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseModel publish(String content){
-
+    public ResponseModel publish(String content,String pictures){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        return weiboService.save(loginMember,content);
+        return weiboService.save(loginMember,content, pictures);
     }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
@@ -68,7 +67,7 @@ public class WeiboController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = weiboService.userDelete(loginMember,weiboId);
+        ResponseModel responseModel = weiboService.userDelete(request, loginMember,weiboId);
         if(responseModel.getCode() >= 0){
             responseModel.setCode(2);
             responseModel.setUrl(request.getContextPath() + "/weibo/list");

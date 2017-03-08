@@ -15,13 +15,13 @@ public interface IWeiboService {
 
     Weibo findById(int id,int memberId);
 
-    ResponseModel save(Member loginMember, String content);
+    ResponseModel save(Member loginMember, String content,String pictures);
 
     ResponseModel<Weibo> listByPage(Page page, int memberId,int loginMemberId,String key);
 
-    ResponseModel delete(Member loginMember, int id);
+    ResponseModel delete(HttpServletRequest request, Member loginMember, int id);
 
-    ResponseModel userDelete(Member loginMember, int id);
+    ResponseModel userDelete(HttpServletRequest request, Member loginMember, int id);
 
     List<Weibo> hotList(int loginMemberId);
 
