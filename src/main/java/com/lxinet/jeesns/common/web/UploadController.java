@@ -65,7 +65,7 @@ public class UploadController extends BaseController {
 	private Object uploadImage(MultipartFile file, int type) {
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
-		if(suffix == null || (!".png".equals(suffix) && !".jpg".equals(suffix) && !".gif".equals(suffix))) {
+		if(suffix == null || (!".png".equals(suffix) && !".jpg".equals(suffix) && !".gif".equals(suffix) && !".jpeg".equals(suffix) && !".bmp".equals(suffix))) {
 			return new ResponseModel(-1,"格式不支持");
 		}
 		String newFileName = UUID.randomUUID() + suffix;

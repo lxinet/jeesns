@@ -71,7 +71,7 @@ jQuery(function() {
 
         accept: {
             title: 'Images',
-            extensions: 'gif,jpg,jpeg,bmp,png',
+            extensions: 'gif,jpg,bmp,png,jpeg',
             mimeTypes: 'image/*'
         },
 
@@ -323,9 +323,7 @@ jQuery(function() {
             case 'finish':
                 stats = weiboUploader.getStats();
                 if ( stats.successNum ) {
-                    console.log(stats.successNum+"===========");
-
-                    alert( '上传成功' );
+                    $upload.hide();
                 } else {
                     // 没有成功的图片，重设
                     state = 'done';
@@ -392,7 +390,7 @@ jQuery(function() {
     });
 
     weiboUploader.onError = function( code ) {
-        alert( 'Eroor: ' + code );
+        jeesnsDialog.errorTips( 'Eroor: ' + code );
     };
 
     weiboUploader.on( 'uploadSuccess', function( file , response) {
@@ -405,6 +403,8 @@ jQuery(function() {
                 weiboPictures += ","+json.url;
             }
             $("#weibo-pictures").val(weiboPictures);
+        }else {
+            jeesnsDialog.errorTips(json.message);
         }
     });
 
