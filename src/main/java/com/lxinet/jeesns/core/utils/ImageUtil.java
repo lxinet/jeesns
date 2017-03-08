@@ -62,7 +62,6 @@ public class ImageUtil {
                 String p = imgFile.getPath();
                 // 将图片保存在原目录并加上前缀
                 thumbPath = p.substring(0, p.lastIndexOf(File.separator)) + File.separator + fileName;
-                System.out.println(fileName);
                 ImageIO.write(bi, suffix, new File(thumbPath));
             } catch (IOException e) {
                 e.printStackTrace();
