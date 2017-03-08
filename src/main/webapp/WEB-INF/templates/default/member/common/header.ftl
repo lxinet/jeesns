@@ -24,6 +24,9 @@
                             <li>
                                 <a aria-expanded="false" role="button" href="${base}/group/"> ${GROUP_ALIAS}</a>
                             </li>
+                            <li>
+                                <a aria-expanded="false" role="button" href="${base}/action/list"> 动态</a>
+                            </li>
                         </ul>
                         <ul class="nav navbar-top-links navbar-right">
                             <div class="header-action-btn">
