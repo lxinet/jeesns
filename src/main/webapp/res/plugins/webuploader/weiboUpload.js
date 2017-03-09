@@ -72,7 +72,7 @@ jQuery(function() {
         accept: {
             title: 'Images',
             extensions: 'gif,jpg,bmp,png,jpeg',
-            mimeTypes: 'image/*'
+            mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
         },
 
         disableGlobalDnd: true,
