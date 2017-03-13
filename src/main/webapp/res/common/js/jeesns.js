@@ -44,7 +44,8 @@ var jeesns = {
                 // form.find('.jeesns-submit').attr("disabled","disabled");
                 index = jeesnsDialog.loading();
             },
-            error:function(){
+            error:function(res){
+                console.log("---："+res)
                 jeesnsDialog.close(index);
                 $(":submit").removeAttr("disabled");
                 // form.find('.jeesns-submit').removeAttr("disabled");
@@ -52,6 +53,7 @@ var jeesns = {
             },
             success:function(res){
                 jeesnsDialog.close(index);
+                console.log("======:"+res);
                 if(res.code==0){
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.successTips(res.message);
@@ -66,7 +68,7 @@ var jeesns = {
                         window.location.href=res.url;
                     },3000);
                 }else if(res.code==3){
-                    window.location.href=res.url;
+                    parent.window.location.href=parent.window.location.href;
                 }else if(res.code==-1){
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.errorTips(res.message);
@@ -211,7 +213,7 @@ var jeesns = {
                         window.location.href=res.url;
                     },2000);
                 }else if(res.code==3){
-                    window.location.href=res.url;
+                    parent.window.location.href=parent.window.location.href;
                 }else{
                     jeesnsDialog.tips(res.message);
                 }
