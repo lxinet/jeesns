@@ -178,7 +178,7 @@
                                                     class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
                                         <#else>
                                             <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i
-                                                    class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
+                                                    class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
                                         </#if>
                                         <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
                                         (<a href="${base}/weibo/detail/${weibo.id}">
