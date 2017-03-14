@@ -138,6 +138,56 @@ public class MemberServiceImpl implements IMemberService {
         return model;
     }
 
+    @Override
+    public ResponseModel<Member> managerList(Page page, String key) {
+        if (StringUtils.isNotBlank(key)){
+            key = "%"+key.trim()+"%";
+        }
+        List<Member> list = memberDao.managerList(page, key);
+        ResponseModel model = new ResponseModel(0,page);
+        model.setData(list);
+        return model;
+    }
+
+    @Override
+    public ResponseModel managerAdd(Member loginMember, String name) {
+        int isAdmin = 1;
+        Member findMember = this.findByName(name);
+        if(findMember == null){
+            return new ResponseModel(-1,"会员["+name+"]不存在");
+        }
+        //为了旧系统升级使用
+        if(findMember.getId() == 1 && findMember.getIsAdmin() == 1){
+            isAdmin = 2;
+        }
+        if(isAdmin == 1 && loginMember.getId().intValue() == findMember.getId().intValue()){
+            return new ResponseModel(-1,"不能操作自己的账号");
+        }
+        if(findMember.getIsAdmin() > 0){
+            return new ResponseModel(-1,"会员["+name+"]已经是管理员，无需再授权");
+        }
+        //管理员只能对授权为普通管理员
+        memberDao.managerAddAndCancel(isAdmin,findMember.getId());
+        if(isAdmin == 2){
+            loginMember.setIsAdmin(isAdmin);
+        }
+        return new ResponseModel(3,"操作成功");
+    }
+
+    @Override
+    public ResponseModel managerCancel(Member loginMember, int id) {
+        Member findMember = this.findById(id);
+        if(loginMember.getId().intValue() == findMember.getId().intValue()){
+            return new ResponseModel(-1,"不能操作自己的账号");
+        }
+        if(findMember == null){
+            return new ResponseModel(-1,"会员不存在");
+        }
+        memberDao.managerAddAndCancel(0,findMember.getId());
+        return new ResponseModel(1,"操作成功");
+    }
+
+
     /**
      * 会员启用、禁用操作
      * @param id

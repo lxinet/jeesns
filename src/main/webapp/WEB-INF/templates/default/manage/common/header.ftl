@@ -57,9 +57,18 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="${managePath}/config/edit"><i class="fa fa-circle-o"></i>系统设置</a></li>
-                    <li><a href="${managePath}/config/action/list"><i class="fa fa-circle-o"></i>动态类型</a></li>
-                    <li><a href="${managePath}/config/action/actionLogList"><i class="fa fa-circle-o"></i>会员日志</a></li>
-                    <li><a href="${managePath}/config/action/memberActionLog"><i class="fa fa-circle-o"></i>会员动态</a></li>
+                    <li><a href="${managePath}/config/managerList"><i class="fa fa-circle-o"></i>管理员列表</a></li>
+                </ul>
+            </li>
+            <li class="treeview" module="action">
+                <a href="#">
+                    <i class="fa fa-cog"></i> <span>动态管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${managePath}/action/list"><i class="fa fa-circle-o"></i>动态类型</a></li>
+                    <li><a href="${managePath}/action/actionLogList"><i class="fa fa-circle-o"></i>会员日志</a></li>
+                    <li><a href="${managePath}/action/memberActionLog"><i class="fa fa-circle-o"></i>会员动态</a></li>
                 </ul>
             </li>
             <li class="treeview" module="cms">

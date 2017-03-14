@@ -50,7 +50,7 @@
                             <#if loginUser?? && loginUser.id==article.memberId>
                                 <a href="${base}/article/edit/${article.id}">编辑</a>
                             </#if>
-                            <#if loginUser?? && loginUser.isAdmin==1>
+                            <#if loginUser?? && loginUser.isAdmin &gt; 0>
                             <a href="${base}/article/delete/${article.id}" confirm="确定要删除文章吗？" target="_jeesnsLink">删除</a>
                             </#if>
                         </div>

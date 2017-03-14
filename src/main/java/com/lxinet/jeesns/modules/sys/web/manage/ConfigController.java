@@ -2,17 +2,21 @@ package com.lxinet.jeesns.modules.sys.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.web.BaseController;
+import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.mem.service.IMemberService;
 import com.lxinet.jeesns.modules.sys.entity.Config;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +32,8 @@ public class ConfigController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/config/";
     @Resource
     private IConfigService configService;
+    @Resource
+    private IMemberService memberService;
 
     @RequestMapping("edit")
     public String edit(Model model){
@@ -107,4 +113,74 @@ public class ConfigController extends BaseController {
         return configService.update(params);
     }
 
+
+
+
+
+    /**
+     * 管理员列表
+     * @param key
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "managerList",method = RequestMethod.GET)
+    public String managerList(String key,Model model) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getIsAdmin() == 1){
+            return errorModel(model, "没有权限");
+        }
+        Page page = new Page(request);
+        ResponseModel responseModel = memberService.managerList(page,key);
+        model.addAttribute("model",responseModel);
+        model.addAttribute("key",key);
+        return MANAGE_FTL_PATH + "managerList";
+    }
+
+    /**
+     * 授权管理员
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "managerAdd",method = RequestMethod.GET)
+    public String managerAdd(Model model) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getIsAdmin() == 1){
+            return errorModel(model, "没有权限");
+        }
+        return MANAGE_FTL_PATH + "managerAdd";
+    }
+
+    /**
+     * 授权管理员
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "managerAdd",method = RequestMethod.POST)
+    @ResponseBody
+    public Object managerAdd(String name) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getId() != 1 && loginMember.getIsAdmin() == 1){
+            return new ResponseModel(-1,"没有权限");
+        }
+        //管理员授权，只能授权普通管理员
+        return memberService.managerAdd(loginMember, name);
+    }
+
+    /**
+     * 取消管理员
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "managerCancel/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object managerCancel(@PathVariable("id") Integer id) {
+        if(id == null){
+            return new ResponseModel(-1,"参数错误");
+        }
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getIsAdmin() == 1){
+            return new ResponseModel(-1,"没有权限");
+        }
+        return memberService.managerCancel(loginMember, id);
+    }
 }

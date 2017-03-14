@@ -45,13 +45,12 @@
                                         <li><a href="${base}/member/message">私信
                                             ${(unReadMessageNum > 0)?string("(<span class='text-red'>"+unReadMessageNum+"</span>)","")}
                                         </a></li>
-                                        <li><a href="${base}/member/editInfo">设置</a>
-                                        </li>
-                                        <li><a href="${managePath}/index" target="_blank">管理</a>
-                                        </li>
+                                        <li><a href="${base}/member/editInfo">设置</a></li>
+                                        <#if loginUser?? && loginUser.isAdmin &gt; 0>
+                                            <li><a href="${managePath}/index" target="_blank">管理</a></li>
+                                        </#if>
                                         <li class="divider"></li>
-                                        <li><a href="${base}/member/logout">退出</a>
-                                        </li>
+                                        <li><a href="${base}/member/logout">退出</a></li>
                                     </ul>
                                     <script>
                                         $(function () {

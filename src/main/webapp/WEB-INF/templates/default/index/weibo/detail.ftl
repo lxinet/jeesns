@@ -51,7 +51,7 @@
                             <small>发布于 ${weibo.createTime?string("yyyy-MM-dd HH:mm:ss")}</small>
                         </h5>
                         <div class="ibox-tools">
-                            <#if loginUser?? && loginUser.id == weibo.member.id>
+                            <#if loginUser?? && (loginUser.id == weibo.member.id || loginUser.isAdmin &gt; 0)>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
                                 <i class="fa fa-wrench"></i>
                             </a>
