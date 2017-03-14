@@ -93,7 +93,6 @@ public class UploadController extends BaseController {
 		String ymd = sdf.format(new Date());
 		String path = Const.UPLOAD_PATH + "/images/"+ymd+"/";
 		String savePath = request.getServletContext().getRealPath(path);
-
 		File baseFile = new File(savePath);
 		File targetFile = new File(baseFile, newFileName);
 

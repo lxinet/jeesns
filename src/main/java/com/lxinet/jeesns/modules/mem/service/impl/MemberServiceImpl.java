@@ -163,7 +163,7 @@ public class MemberServiceImpl implements IMemberService {
         if(isAdmin == 1 && loginMember.getId().intValue() == findMember.getId().intValue()){
             return new ResponseModel(-1,"不能操作自己的账号");
         }
-        if(findMember.getIsAdmin() > 0){
+        if(isAdmin != 2 && findMember.getIsAdmin() > 0){
             return new ResponseModel(-1,"会员["+name+"]已经是管理员，无需再授权");
         }
         //管理员只能对授权为普通管理员
