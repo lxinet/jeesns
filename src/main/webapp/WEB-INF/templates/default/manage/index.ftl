@@ -162,10 +162,45 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
-                                                   href="#v08">v0.8</a><code class="pull-right">2017.2.17</code>
+                                                   href="#v08">v1.0</a><code class="pull-right">2017.3.14</code>
                                             </h5>
                                         </div>
                                         <div id="v08" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>增加后台管理员授权与取消功能</li>
+                                                        <li>增加私信模块</li>
+                                                        <li>解决在微博页面，左侧微博点赞过后，左侧展示列表小手会变黑，但是右侧热门出小手依然是白色</li>
+                                                        <li>修复后台添加栏目、文章成功后，提示页面找不到问题</li>
+                                                        <li>增加后台登录页面</li>
+                                                        <li>优化选择图片速度慢的问题</li>
+                                                        <li>增加动态功能</li>
+                                                        <li>优化微博图片展示、优化文章、帖子上传缩略图功能</li>
+                                                        <li>微博增加发布图片功能</li>
+                                                        <li>修复编辑文章和帖子失败问题</li>
+                                                        <li>增加会员登录后自动跳转到前操作页面</li>
+                                                        <li>修复项目如果部署到子目录下，退出或跳到登录页面出现404问题</li>
+                                                        <li>解决微博内容换行后加入emoji表情无效问题</li>
+                                                        <li>界面优化、修复手机访问无法点击问题</li>
+                                                        <li>修复后台修改会员密码页面样式问题</li>
+                                                        <li>修复偶尔用户权限判断错误问题</li>
+                                                        <li>优化会员主页、增加查看粉丝、关注、文章、群贴、微博、关注的群组功能</li>
+                                                        <li>优化分页查询功能，解决部分分页出现异常情况</li>
+                                                        <li>增加404、500异常页面处理</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v08">v0.8</a><code class="pull-right">2017.2.17</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v08" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
