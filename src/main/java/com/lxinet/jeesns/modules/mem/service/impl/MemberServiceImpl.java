@@ -447,16 +447,19 @@ public class MemberServiceImpl implements IMemberService {
     @Override
     public ResponseModel<Member> listContactMembers(Page page, Integer memberId) {
         List<Member> memberIdList = this.listContactMemberIds(page,memberId);
-        List<Integer> idList = new ArrayList<>();
-        String idString = "";
-        for (Member member : memberIdList){
-            idList.add(member.getId());
-            idString += member.getId() + ",";
+        List<Member> list = new ArrayList<>();
+        if(memberIdList.size() > 0){
+            List<Integer> idList = new ArrayList<>();
+            String idString = "";
+            for (Member member : memberIdList){
+                idList.add(member.getId());
+                idString += member.getId() + ",";
+            }
+            if (idString.length() > 0){
+                idString = idString.substring(0,idString.length()-1);
+            }
+            list = memberDao.listContactMembers(memberId, idList, idString);
         }
-        if (idString.length() > 0){
-            idString = idString.substring(0,idString.length()-1);
-        }
-        List<Member> list = memberDao.listContactMembers(memberId, idList, idString);
         ResponseModel model = new ResponseModel(0, page);
         model.setData(list);
         return model;
