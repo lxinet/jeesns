@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by zchuanzhao on 16/9/29.
@@ -137,5 +138,22 @@ public interface IMemberService {
      * @return
      */
     ResponseModel home(Member loginMember, Page page, Integer memberId,String type);
+
+    /**
+     * 获取私信中的联系人列表
+     * @param page
+     * @param memberId
+     * @return
+     */
+    List<Member> listContactMemberIds(Page page, Integer memberId);
+
+    /**
+     * 获取私信中的联系人列表
+     * @param page
+     * @param memberId
+     * @return
+     */
+    ResponseModel<Member> listContactMembers(Page page, Integer memberId);
+
 
 }

@@ -1,7 +1,9 @@
 package com.lxinet.jeesns.modules.sys.web.manage;
 
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
+import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.sys.entity.Action;
@@ -20,6 +22,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/${managePath}/config/action/")
+@Before(AdminLoginInterceptor.class)
 public class ActionController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/config/";
     @Resource

@@ -42,6 +42,7 @@ h5 {
 .mg-r-15{margin-right: 15px}
 .float-right{float: right;}
 .float-left{float: left;}
+.text-red{color: red;}
 .bottom-line{
   border-bottom: solid 1px #eee;
 }
@@ -3343,20 +3344,140 @@ del {
 }
 
 
+@media (max-width: 992px) {
+  .chat-users,
+  .chat-statistic {
+    margin-left: 0;
+  }
+}
+.message-input {
+  height: 90px !important;
+}
+.chat-avatar {
+  white: 36px;
+  height: 36px;
+  float: left;
+  margin-right: 10px;
+}
+.chat-user-name {
+  padding: 10px;
+}
+.chat-user {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e7eaec;
+}
+.chat-user a {
+  color: inherit;
+}
+.chat-view {
+  z-index: 20012;
+}
+.chat-users,
+.chat-statistic {
+  margin-left: 10px;
+  margin-right: -10px;
+}
+@media (max-width: 992px) {
+  .chat-users,
+  .chat-statistic {
+    margin-left: 0;
+  }
+}
+.chat-view .ibox-content {
+  padding: 0;
+}
+.chat-message {
+  padding: 10px 20px;
+}
+.message-avatar {
+  height: 48px;
+  width: 48px;
+  border: 1px solid #e7eaec;
+  border-radius: 4px;
+  margin-top: 1px;
+}
+.chat-discussion .chat-message.left .message-avatar {
+  float: left;
+  margin-right: 10px;
+}
+.chat-discussion .chat-message.right .message-avatar {
+  float: right;
+  margin-left: 10px;
+}
+.message {
+  background-color: #fff;
+  border: 1px solid #e7eaec;
+  text-align: left;
+  display: block;
+  padding: 10px 20px;
+  position: relative;
+  border-radius: 4px;
+}
+.chat-discussion .chat-message.left .message-date {
+  float: right;
+}
+.chat-discussion .chat-message.right .message-date {
+  float: left;
+}
+.chat-discussion .chat-message.left .message {
+  text-align: left;
+  margin-left: 55px;
+}
+.chat-discussion .chat-message.right .message {
+  text-align: right;
+  margin-right: 55px;
+}
+.message-date {
+  font-size: 10px;
+  color: #888888;
+}
+.message-content {
+  display: block;
+}
+.chat-discussion {
+  background: #e9eeee;
+  padding: 15px;
+  height: 420px;
+  overflow-y: auto;
+  margin-right: 10px;
+}
+.send-message-area {
+  margin-right: 10px;
+}
+.chat-discussion .no-message{
+  width:100%;
+  margin-top:100px;
+  text-align:center;
+  font-size:30px;
+}
+.chat-users {
+  overflow-y: auto;
+  height: 530px;
+}
+.chat-users .load-more,.chat-discussion .chat-load-more{
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+.chat-message-form .form-group {
+  margin-bottom: 0;
+}
+
+
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
-  width: 3px;
+  width: 2px;
 }
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
-  webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
-  border-radius: 3px;
+  webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0);
+  border-radius: 2px;
 }
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-  border-radius: 3px;
+  border-radius: 2px;
   background: rgba(0,0,0,0.1);
-  -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+  -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(255,0,0,0.4);

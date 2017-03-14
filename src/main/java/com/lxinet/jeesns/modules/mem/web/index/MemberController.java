@@ -9,10 +9,12 @@ import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
+import com.lxinet.jeesns.modules.mem.service.IMessageService;
 import com.lxinet.jeesns.modules.sys.entity.ActionLog;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,8 @@ public class MemberController extends BaseController {
     private IConfigService configService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IMessageService messageService;
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     @Clear
@@ -256,5 +260,102 @@ public class MemberController extends BaseController {
     public Object isFollowed(@PathVariable(value = "followWhoId") Integer followWhoId){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.isFollowed(loginMember,followWhoId);
+    }
+
+
+    /**
+     * 获取该登录会员的收件信息
+     * @param memberId
+     * @return
+     */
+    @RequestMapping(value = "/message",method = RequestMethod.GET)
+    public String message(@RequestParam(value = "mid",required = false,defaultValue = "-1") Integer memberId,Model model){
+        Page page = new Page(request);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        Integer loginMemberId = -1;
+        if(loginMember != null){
+            loginMemberId = loginMember.getId();
+        }
+        //获取联系人
+//        ResponseModel contactMembers = messageService.listContactMembers(page, loginMemberId);
+//        获取联系人
+//        ResponseModel contactMembers = messageService.listContactMembers(page, memberId, loginMemberId);
+//        model.addAttribute("model", contactMembers);
+        return MEMBER_FTL_PATH + "message";
+    }
+
+    /**
+     * 获取联系人
+     * @return
+     */
+    @RequestMapping(value = "/listContactMembers",method = RequestMethod.GET)
+    @ResponseBody
+    public Object listContactMembers(){
+        Page page = new Page(request);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        //获取联系人
+        ResponseModel contactMembers = memberService.listContactMembers(page, loginMember.getId());
+        return contactMembers;
+    }
+
+    /**
+     * 获取聊天记录
+     * @param memberId
+     * @return
+     */
+    @RequestMapping(value = "/messageRecords/{memberId}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object messageRecords(@PathVariable("memberId") Integer memberId){
+        Page page = new Page(request);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        //获取聊天记录
+        ResponseModel messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
+        return messageRecords;
+    }
+
+    /**
+     * 发送信息窗口
+     * @param memberId
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/sendMessageBox",method = RequestMethod.GET)
+    public String sendMessageBox(@RequestParam(value = "mid") Integer memberId,Model model){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return ErrorUtil.error(model, -1008, Const.INDEX_ERROR_FTL_PATH);
+        }
+        if(memberId == null){
+            return ErrorUtil.error(model, -1000, Const.INDEX_ERROR_FTL_PATH);
+        }
+        Member findMember= memberService.findById(memberId);
+        if(findMember == null){
+            return ErrorUtil.error(model, -1005, Const.INDEX_ERROR_FTL_PATH);
+        }
+        model.addAttribute("member", findMember);
+        return MEMBER_FTL_PATH + "sendMessageBox";
+    }
+
+    /**
+     * 发送信息
+     * @param content
+     * @param memberId
+     * @return
+     */
+    @RequestMapping(value = "/sendMessage",method = RequestMethod.POST)
+    @ResponseBody
+    public Object sendMessage(String content,Integer memberId){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        if(memberId == null){
+            return new ResponseModel(-1,"请选择发送对象");
+        }
+        Member findMember= memberService.findById(memberId);
+        if(findMember == null){
+            return new ResponseModel(-1,"会员不存在");
+        }
+        return messageService.save(loginMember.getId(), memberId, content);
     }
 }

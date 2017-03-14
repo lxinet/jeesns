@@ -3,6 +3,7 @@ package com.lxinet.jeesns.modules.mem.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.core.entity.BaseEntity;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 会员实体类
@@ -107,6 +108,9 @@ public class Member extends BaseEntity {
 
 	//粉丝数
 	private Integer fans;
+
+	//私信列表
+	private List<Message> messages;
 
 
 	public Integer getId() {
@@ -380,5 +384,13 @@ public class Member extends BaseEntity {
 
 	public void setFans(Integer fans) {
 		this.fans = fans;
+	}
+
+	public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 }

@@ -252,6 +252,18 @@ CREATE TABLE `tbl_picture` (
   PRIMARY KEY (picture_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE `tbl_message` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `from_member_id` INT(11) DEFAULT '0',
+  `to_member_id` INT(11) DEFAULT '0',
+  `content` TEXT,
+  `url` VARCHAR(255),
+  `isread` INT(1) DEFAULT '0' COMMENT '是否已读，0未读，1已读',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 ##数据
 INSERT INTO `tbl_config` (`jkey`, `jvalue`, `description`)
 VALUES

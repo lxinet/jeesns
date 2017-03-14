@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.modules.sys.web.manage;
 
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.modules.sys.entity.Config;
@@ -21,6 +23,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/${managePath}/config/")
+@Before(AdminLoginInterceptor.class)
 public class ConfigController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/config/";
     @Resource

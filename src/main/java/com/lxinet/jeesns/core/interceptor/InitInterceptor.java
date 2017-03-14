@@ -3,9 +3,11 @@ package com.lxinet.jeesns.core.interceptor;
 import com.lxinet.jeesns.core.annotation.After;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
+import com.lxinet.jeesns.core.service.ICommonService;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.mem.service.IMemberService;
+import com.lxinet.jeesns.modules.mem.service.IMessageService;
 import com.lxinet.jeesns.modules.sys.entity.Config;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.sys.service.impl.ConfigServiceImpl;
@@ -36,9 +38,12 @@ public class InitInterceptor implements HandlerInterceptor {
         httpServletRequest.setAttribute("jeesnsConfig",jeesnsConfig);
         String managePath = Const.PROJECT_PATH + "/" + jeesnsConfig.getManagePath();
         httpServletRequest.setAttribute("managePath",managePath);
-        ConfigServiceImpl configService = SpringContextHolder.getBean("configService");
+        IConfigService configService = SpringContextHolder.getBean("configService");
+        IMessageService messageService = SpringContextHolder.getBean("messageService");
         Member loginUser = MemberUtil.getLoginMember(httpServletRequest);
         httpServletRequest.setAttribute("loginUser",loginUser);
+        //会员未读私信数量
+        Integer unReadMessageNum = 0;
         if (loginUser != null) {
             if(loginUser.getIsActive() == 0){
                 Map<String,String> configMap = configService.getConfigToMap();
@@ -51,7 +56,9 @@ public class InitInterceptor implements HandlerInterceptor {
                     }
                 }
             }
+            unReadMessageNum = messageService.countUnreadNum(loginUser.getId());
         }
+        httpServletRequest.setAttribute("unReadMessageNum",unReadMessageNum);
         List<Config> configList = configService.allList();
         for (Config config : configList) {
             httpServletRequest.setAttribute(config.getJkey().toUpperCase(),config.getJvalue());

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.modules.mem.dao.IMemberDao">
+    <resultMap id="memberWithMessageResult" type="Member">
+        <collection property="messages" javaType="ArrayList" column="{from_member_id=from_member_id,to_member_id=to_member_id}" ofType="Message" select="selectUnreadMessagesByMember"/>
+    </resultMap>
     <select id="login" parameterType="Member" resultType="Member">
         select
         id,group_id,name,email,phone,sex,avatar,is_admin,status,is_active
@@ -11,7 +14,7 @@
         select
         id,group_id,name,email,phone,sex,avatar,is_admin,is_active
         from tbl_member
-        where name = #{name} and password = #{password} and is_admin=1
+        where (name = #{name} or email = #{name}) and password = #{password} and is_admin=1
     </select>
     <select id="listByPage" resultType="Member">
         select
@@ -79,4 +82,28 @@
     <update id="fans">
         update tbl_member set fans=(select COUNT(*) FROM tbl_member_fans where follow_who=#{id}) where id = #{id}
     </update>
+    <!-- 获取私信中的联系人ID列表 -->
+    <select id="listContactMemberIds" resultType="Member">
+        select distinct(member_id) as id from
+        (
+        (
+        select id,to_member_id as member_id  from tbl_message where from_member_id = #{memberId}
+        union
+        select id,from_member_id as member_id from tbl_message where to_member_id = #{memberId}
+        order by id desc
+        ) as b
+        )
+    </select>
+    <!-- 获取私信中的联系人列表 -->
+    <select id="listContactMembers" resultMap="memberWithMessageResult">
+        select id,id as from_member_id, #{memberId} as to_member_id, name,avatar from tbl_member where id in
+        <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY FIND_IN_SET(id,#{idString})
+    </select>
+    <!-- 获取会员未读的私信列表 -->
+    <select id="selectUnreadMessagesByMember" resultType="Message">
+        SELECT * FROM tbl_message WHERE isread = 0 and from_member_id = #{from_member_id} AND to_member_id = #{to_member_id}
+    </select>
 </mapper>

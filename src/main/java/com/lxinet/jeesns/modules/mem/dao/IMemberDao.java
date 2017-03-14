@@ -3,6 +3,7 @@ package com.lxinet.jeesns.modules.mem.dao;
 import com.lxinet.jeesns.core.dao.IBaseDao;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.mem.entity.Message;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -86,4 +87,23 @@ public interface IMemberDao extends IBaseDao<Member> {
      * @return
      */
     int fans(@Param("id") Integer id);
+
+
+    /**
+     * 获取私信中的联系人ID列表
+     * @param page
+     * @param memberId
+     * @return
+     */
+    List<Member> listContactMemberIds(@Param("page") Page page, @Param("memberId") Integer memberId);
+
+
+    /**
+     * 获取私信中的联系人列表
+     * @param memberId
+     * @param idList
+     * @param idString
+     * @return
+     */
+    List<Member> listContactMembers(@Param("memberId") Integer memberId, @Param("idList") List<Integer> idList,@Param("idString") String idString);
 }

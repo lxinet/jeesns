@@ -75,7 +75,7 @@
                                         <div class="col-sm-8">
                                                     <textarea id="introduce" name="introduce" class="form-control"
                                                               type="text" data-type="require"
-                                                              cols="3">${loginUser.introduce!''}</textarea>
+                                                              cols="5">${loginUser.introduce!''}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
