@@ -6,22 +6,12 @@ import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
-import com.lxinet.jeesns.modules.cms.entity.ArticleCate;
-import com.lxinet.jeesns.modules.cms.entity.Article;
-import com.lxinet.jeesns.modules.cms.service.IArticleCateService;
-import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.group.service.IGroupService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import javax.validation.Valid;
-import javax.ws.rs.GET;
-import java.util.List;
 
 /**
  * Created by zchuanzhao on 16/12/23.

@@ -14,13 +14,10 @@ import com.lxinet.jeesns.modules.sys.entity.ActionLog;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.Map;
 
 /**
