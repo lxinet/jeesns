@@ -59,13 +59,13 @@
                             </a>
                         </#if>
                         <div class="ibox-tools">
-                        <#if loginUser?? && ((loginUser.isAdmin == 1) || (loginUser.id == groupTopic.memberId) || isPermission==1)>
+                        <#if loginUser?? && ((loginUser.isAdmin &gt; 0) || (loginUser.id == groupTopic.memberId) || isPermission==1)>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
                                 <i class="fa fa-wrench"></i>
                             </a>
                         </#if>
                             <ul class="dropdown-menu dropdown-user">
-                            <#if loginUser?? && loginUser.isAdmin == 1>
+                            <#if loginUser?? && loginUser.isAdmin &gt; 0>
                                 <#if groupTopic.isTop = 0>
                                     <li><a href="${base}/group/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
                                     <li><a href="${base}/group/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>

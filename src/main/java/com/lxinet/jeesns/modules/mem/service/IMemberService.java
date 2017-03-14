@@ -38,6 +38,28 @@ public interface IMemberService {
     ResponseModel<Member> listByPage(Page page, String key);
 
     /**
+     * 管理员列表
+     * @param page
+     * @param key
+     * @return
+     */
+    ResponseModel<Member> managerList(Page page, String key);
+
+    /**
+     * 管理员授权
+     * @param name
+     * @return
+     */
+    ResponseModel managerAdd(Member loginMember, String name);
+
+    /**
+     * 管理员取消
+     * @param id
+     * @return
+     */
+    ResponseModel managerCancel(Member loginMember, int id);
+
+    /**
      * 会员启用、禁用操作
      * @param id
      * @return

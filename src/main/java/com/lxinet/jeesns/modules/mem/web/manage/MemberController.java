@@ -39,6 +39,7 @@ public class MemberController extends BaseController {
         return MANAGE_FTL_PATH + "index";
     }
 
+
     /**
      * 会员启用、禁用操作
      */

@@ -21,7 +21,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/14.
  */
 @Controller
-@RequestMapping("/${managePath}/config/action/")
+@RequestMapping("/${managePath}/action/")
 @Before(AdminLoginInterceptor.class)
 public class ActionController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/config/";

@@ -20,6 +20,24 @@ public interface IMemberDao extends IBaseDao<Member> {
 
     List<Member> listByPage(@Param("page") Page page, @Param("key") String key);
 
+    /**
+     * 管理员列表
+     * @param page
+     * @param key
+     * @return
+     */
+    List<Member> managerList(@Param("page") Page page, @Param("key") String key);
+
+
+    /**
+     * 管理员授权与取消
+     * @param isAdmin
+     * @param id
+     * @return
+     */
+    int managerAddAndCancel(@Param("isAdmin") Integer isAdmin, @Param("id") Integer id);
+
+
     int register(Member member);
 
     /**

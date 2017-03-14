@@ -116,7 +116,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if(weibo == null){
             return new ResponseModel(-1,"微博不存在");
         }
-        if(loginMember.getId().intValue() != weibo.getMember().getId().intValue()){
+        if(loginMember.getIsAdmin() == 0 && (loginMember.getId().intValue() != weibo.getMember().getId().intValue())){
             return new ResponseModel(-1,"没有权限");
         }
         return this.delete(request, loginMember,id);

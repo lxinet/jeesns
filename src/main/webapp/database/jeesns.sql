@@ -177,7 +177,7 @@ CREATE TABLE `tbl_member` (
   `contact_email` varchar(32) DEFAULT '' COMMENT '联系邮箱',
   `website` varchar(50) DEFAULT '' COMMENT '个人网站',
   `introduce` varchar(255) DEFAULT '' COMMENT '个人介绍',
-  `is_admin` int(11) DEFAULT '0' COMMENT '是否管理员，0不是，1是',
+  `is_admin` int(11) DEFAULT '0' COMMENT '是否管理员，0不是，1是普通管理员，2是超级管理员',
   `follows` INT(11) DEFAULT '0' comment '关注会员数量',
   `fans` INT(11) DEFAULT '0' comment '粉丝数量',
   PRIMARY KEY (`id`)
@@ -291,7 +291,7 @@ VALUES
 
 INSERT INTO `tbl_member` (`id`, `group_id`, `name`, `email`, `phone`, `password`, `sex`, `avatar`, `create_time`, `regip`, `login_count`, `curr_login_time`, `curr_login_ip`, `last_login_time`, `last_login_ip`, `update_time`, `money`, `score`, `is_active`, `status`, `birthday`, `addprovince`, `addcity`, `addarea`, `address`, `qq`, `wechat`, `contact_phone`, `contact_email`, `website`, `introduce`, `is_admin`)
 VALUES
-  (1,0,'admin','admin@jeesns.cn','13800138000','56b0436e6dd61a1f5f6a636cdf790eee','女','/res/common/images/default-avatar.png',now(),'',0,now(),'127.0.0.1',now(),'127.0.0.1',NULL,0.00,0,1,0,'1971-12-20','','','','','8888888','admin','13800138000','admin@jeesns.cn','www.jeesns.cn','',1);
+  (1,0,'admin','admin@jeesns.cn','13800138000','56b0436e6dd61a1f5f6a636cdf790eee','女','/res/common/images/default-avatar.png',now(),'',0,now(),'127.0.0.1',now(),'127.0.0.1',NULL,0.00,0,1,0,'1971-12-20','','','','','8888888','admin','13800138000','admin@jeesns.cn','www.jeesns.cn','',2);
 
 
 INSERT INTO tbl_action(id, create_time, name, log, status, update_time) VALUES

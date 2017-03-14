@@ -26,6 +26,22 @@
         </where>
         order by a.id DESC
     </select>
+    <select id="managerList" resultType="Member">
+        select
+        a.id, a.name, a.phone, a.email, a.create_time, a.login_count, a.status,a.is_admin from tbl_member a
+        <where>
+            AND is_admin>0
+            <if test="key != null and key != ''">
+                and (a.name LIKE #{key} or a.phone like #{key} or email like #{key})
+            </if>
+        </where>
+        order by a.id DESC
+    </select>
+    <!--管理员授权与取消-->
+    <update id="managerAddAndCancel">
+        update tbl_member set is_admin = #{isAdmin} where id = #{id};
+    </update>
+
     <select id="findById" parameterType="java.lang.Integer" resultType="Member">
         select * from tbl_member where id = #{id}
     </select>

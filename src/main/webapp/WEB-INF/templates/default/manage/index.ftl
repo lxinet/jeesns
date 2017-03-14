@@ -19,6 +19,7 @@
     <script src="${base}/res/common/js/bootstrap.min.js"></script>
     <script src="${base}/res/plugins/layer/layer.js"></script>
     <script src="${base}/res/manage/js/app.js"></script>
+    <script src="${base}/res/common/js/jeesns.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -30,6 +31,11 @@
                     <div class="alert alert-info alert-dismissible">
                         感谢您使用JEESNS，JEESNS正在不断完善中，可以向我们提出宝贵的建议或意见，JEESNS的成长需要大家的支持。
                     </div>
+                    <#if loginUser.id == 1 && loginUser.isAdmin == 1>
+                    <div class="alert alert-error alert-dismissible">
+                        系统已升级，请升级管理员权限，否则无关进入管理员管理界面，<a href="javascript:void(0)" class="managerAddBtn">马上升级</a>
+                    </div>
+                    </#if>
                 </div>
             </div>
             <div class="row">
@@ -207,6 +213,25 @@
         $.getJSON("http://www.jeesns.cn/newVersion?callback=?", function(result){
             $(".lastSystemVersion").html(result.LAST_SYSTEM_VERSION);
             $(".lastSystemUpdateTime").html(result.LAST_SYSTEM_UPDATE_TIME);
+        });
+
+        $(".managerAddBtn").click(function () {
+            $.ajax({
+                url: "${managePath}/config/managerAdd/",
+                type: "post",
+                data: {
+                    name : "${loginUser.name}"
+                },
+                cache: false,
+                dataType: "json",
+                timeout: 5000,
+                error: function () {
+                    jeesnsDialog.errorTips("请求失败")
+                },
+                success: function (res) {
+                    jeesnsDialog.alert(res.message);
+                }
+            });
         });
     });
 </script>
