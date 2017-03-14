@@ -87,9 +87,9 @@
         select distinct(member_id) as id from
         (
         (
-        select id,to_member_id as member_id  from tbl_message where from_member_id = #{memberId}
+        (select id,to_member_id as member_id  from tbl_message where from_member_id = #{memberId})
         union
-        select id,from_member_id as member_id from tbl_message where to_member_id = #{memberId}
+        (select id,from_member_id as member_id from tbl_message where to_member_id = #{memberId})
         order by id desc
         ) as b
         )
