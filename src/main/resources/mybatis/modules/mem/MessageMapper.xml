@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.modules.mem.dao.IMessageDao">
+  <select id="listByPage" resultType="Message">
+    select a.id,a.create_time,a.content,a.url,a.isread,
+    a.from_member_id as 'fromMember.id',b.name as 'fromMember.name',b.avatar as 'fromMember.avatar',
+    a.to_member_id as 'toMember.id',c.name as 'toMember.name',c.avatar as 'toMember.avatar'
+    from tbl_message as a LEFT JOIN tbl_member as b ON a.from_member_id = b.id
+    LEFT JOIN tbl_member as c ON a.to_member_id = c.id
+    <where>
+      <if test="fromMemberId &gt; -1">
+        AND a.from_member_id = #{fromMemberId}
+      </if>
+      <if test="toMemberId &gt; -1">
+        AND a.to_member_id = #{toMemberId}
+      </if>
+    </where>
+    ORDER BY a.id DESC
+  </select>
+  <select id="messageRecords" resultType="Message">
+    select a.id,a.create_time,a.content,a.url,a.isread,
+    a.from_member_id as 'fromMember.id',b.name as 'fromMember.name',b.avatar as 'fromMember.avatar',
+    a.to_member_id as 'toMember.id',c.name as 'toMember.name',c.avatar as 'toMember.avatar'
+    from tbl_message as a LEFT JOIN tbl_member as b ON a.from_member_id = b.id
+    LEFT JOIN tbl_member as c ON a.to_member_id = c.id
+    WHERE (a.from_member_id = #{fromMemberId} AND a.to_member_id = #{toMemberId})
+    OR (a.from_member_id = #{toMemberId} AND a.to_member_id = #{fromMemberId})
+    ORDER BY a.id DESC
+  </select>
+  <select id="countUnreadNum" resultType="Integer">
+    SELECT COUNT(*) num FROM tbl_message WHERE isread = 0 AND to_member_id = #{memberId}
+  </select>
+  <delete id="delete">
+    delete from tbl_message where id = #{id}
+  </delete>
+  <delete id="deleteByMember">
+    delete from tbl_message where from_member_id = #{id} OR to_member_id = #{id}
+  </delete>
+  <delete id="clearMessageByMember">
+    delete from tbl_message where (from_member_id = #{fromMemberId} AND to_member_id = #{toMemberId})
+    OR (from_member_id = #{toMemberId} AND to_member_id = #{fromMemberId})
+  </delete>
+  <insert id="save" parameterType="Message">
+    insert into tbl_message (create_time,from_member_id,to_member_id,content,url,isread)
+    values (now(),#{fromMemberId},#{toMemberId},#{content},#{url},0)
+  </insert>
+  <update id="setRead">
+    update tbl_message SET isread = 1 WHERE isread = 0 AND from_member_id = #{fromMemberId} AND to_member_id = #{toMemberId}
+  </update>
+</mapper>

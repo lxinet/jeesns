@@ -36,10 +36,15 @@
                             <#else>
                                 <div class="btn-group nav-username">
                                     <img src="${base}${loginUser.avatar}" class="img-circle" width="25px" height="25px" style="margin-top: 1px;margin-right:5px;"/>
-                                    <a class="header-action-link" href="javascript:void(0)">${loginUser.name}</a>
+                                    <a class="header-action-link" href="javascript:void(0)">
+                                    ${loginUser.name}
+                                        <#if unReadMessageNum &gt; 0><i class="fa fa-comment-o text-red"></i></#if>
+                                    </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="${base}/member/">个人中心</a>
-                                        </li>
+                                        <li><a href="${base}/member/">个人中心</a></li>
+                                        <li><a href="${base}/member/message">私信
+                                            ${(unReadMessageNum > 0)?string("(<span class='text-red'>"+unReadMessageNum+"</span>)","")}
+                                        </a></li>
                                         <li><a href="${base}/member/editInfo">设置</a>
                                         </li>
                                         <li><a href="${managePath}/index" target="_blank">管理</a>

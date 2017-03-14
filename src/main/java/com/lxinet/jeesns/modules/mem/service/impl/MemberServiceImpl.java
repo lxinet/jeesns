@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -429,4 +430,36 @@ public class MemberServiceImpl implements IMemberService {
         }
         return new ResponseModel(-1);
     }
+
+    @Override
+    public List<Member> listContactMemberIds(Page page, Integer memberId) {
+        List<Member> list = memberDao.listContactMemberIds(page, memberId);
+        return list;
+    }
+
+
+    /**
+     * 获取私信中的联系人列表
+     * @param page
+     * @param memberId
+     * @return
+     */
+    @Override
+    public ResponseModel<Member> listContactMembers(Page page, Integer memberId) {
+        List<Member> memberIdList = this.listContactMemberIds(page,memberId);
+        List<Integer> idList = new ArrayList<>();
+        String idString = "";
+        for (Member member : memberIdList){
+            idList.add(member.getId());
+            idString += member.getId() + ",";
+        }
+        if (idString.length() > 0){
+            idString = idString.substring(0,idString.length()-1);
+        }
+        List<Member> list = memberDao.listContactMembers(memberId, idList, idString);
+        ResponseModel model = new ResponseModel(0, page);
+        model.setData(list);
+        return model;
+    }
+
 }

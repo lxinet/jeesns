@@ -84,6 +84,13 @@
                     <div class="col-sm-2">
                         <div class="float-e-margins">
                             <div class="feed-activity-list">
+                                <a href="${base}/member/message">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            私信
+                                        </div>
+                                    </div>
+                                </a>
                                 <a href="${base}/u/${loginUser.id}">
                                     <div class="feed-element">
                                         <div class="media-body">
