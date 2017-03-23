@@ -53,11 +53,12 @@ public class ArticleController extends BaseController {
     public String detail(@PathVariable("id") Integer id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         Article article = articleService.findById(id,loginMember);
-        if(article != null){
-            archiveService.updateViewCount(article.getArchiveId());
-        }else {
-            return "/index/common/error";
+        //文章不存在或者访问未审核的文章，跳到错误页面，提示文章不存在
+        if(article == null || article.getStatus() == 0){
+            return ErrorUtil.error(model,-1009,Const.INDEX_ERROR_FTL_PATH);
         }
+        //更新文章访问次数
+        archiveService.updateViewCount(article.getArchiveId());
         model.addAttribute("article",article);
         return INDEX_FTL_PATH + "/detail";
     }
