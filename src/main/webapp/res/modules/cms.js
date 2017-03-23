@@ -13,8 +13,8 @@ var cms = {
                 var data = json.data;
                 var html = "";
                 for(var i=0;i<data.length;i++){
-                    html += "<div class='social-feed-box'><div class='social-avatar'><a href='' class='pull-left'><img src='"+base+data[i].member.avatar+"'>";
-                    html += "</a><div class='media-body'><a href=''>"+data[i].member.name+"</a><small class='text-muted'>"+data[i].createTime+"</small></div></div><div class='social-body'><p>"+data[i].content+"</p></div></div>";
+                    html += "<div class='social-feed-box'><div class='social-avatar'><a href='"+base+"/u/"+data[i].member.id+"' class='pull-left' target='_blank'><img src='"+base+data[i].member.avatar+"'>";
+                    html += "</a><div class='media-body'><a href='"+base+"/u/"+data[i].member.id+"' target='_blank'>"+data[i].member.name+"</a><small class='text-muted'>"+data[i].createTime+"</small></div></div><div class='social-body'><p>"+data[i].content+"</p></div></div>";
                 }
                 pageNo = json.page.pageNo;
                 if(json.page.totalPage<=pageNo){
