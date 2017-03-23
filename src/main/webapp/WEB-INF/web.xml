@@ -10,6 +10,10 @@
  		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring-mybatis.xml</param-value>
  	</context-param>
+	<context-param>
+		<param-name>defaultHtmlEscape</param-name>
+		<param-value>true</param-value>
+	</context-param>
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -22,6 +26,15 @@
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>XssSqlFilter</filter-name>
+		<filter-class>com.lxinet.jeesns.core.filter.XssFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>XssSqlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
