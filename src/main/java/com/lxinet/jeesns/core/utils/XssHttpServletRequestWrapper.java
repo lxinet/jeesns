@@ -38,9 +38,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return cleanXSS(value);
     }
     private String cleanXSS(String value) {
-        value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        value = value.replaceAll("<style>", "&lt;style&gt;").replaceAll("</style>", "&lt;&#47;style&gt;");
+        value = value.replaceAll("<script>", "&lt;script&gt;").replaceAll("</script>", "&lt;&#47;script&gt;");
         value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
-        value = value.replaceAll("'", "&#39;");
         value = value.replaceAll("eval\\((.*)\\)", "");
         value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
         return value;
