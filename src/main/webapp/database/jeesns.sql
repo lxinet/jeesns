@@ -184,6 +184,16 @@ CREATE TABLE `tbl_member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `tbl_member_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `follow_who` int(11) DEFAULT '0',
+  `who_follow` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `follow_who` (`follow_who`,`who_follow`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `tbl_memgroup` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `isadmin` int(1) DEFAULT '0' COMMENT '是否是管理组，0不是，1是',
@@ -304,9 +314,56 @@ INSERT INTO tbl_action(id, create_time, name, log, status, update_time) VALUES
   (3002,now(),'删除微博评论','删除了微博评论',0,now()),
   (3003,now(),'删除群组','删除了群组',0,now()),
   (3004,now(),'删除群组帖子','删除了帖子',0,now()),
-  (3005,now(),'删除群组帖子评论','删除了帖子评论',0,now()),
+  (3005,now(),'删除群组帖子评论','删除了帖子评论',0,now()),t
   (3006,now(),'删除文章','删除文章',0,now()),
   (3007,now(),'删除文章评论','删除了文章评论',0,now()),
   (10001,now(),'发布微博','发布了微博',0,now()),
   (10002,now(),'群组发帖','发布了群组帖子',0,now()),
   (10003,now(),'发布文章','发布了文章',0,now());
+
+
+##积分规则表
+CREATE TABLE `tbl_score_rule` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `name` VARCHAR(30) DEFAULT '0' COMMENT '规则名称',
+  `score` INT(11) DEFAULT '0' COMMENT '变化积分',
+  `remark` VARCHAR(255) COMMENT '说明',
+  `type` VARCHAR(10) DEFAULT 'unlimite' COMMENT '奖励次数类型，day每天一次，week每周一次，month每月一次，year每年一次，one只有一次，unlimite不限次数',
+  `status` INT(11) DEFAULT '1' COMMENT '状态，0禁用，1启用',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+##积分明细表
+CREATE TABLE `tbl_score_detail` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `member_id` INT(11) DEFAULT '0' COMMENT '会员ID',
+  `score` INT(11) DEFAULT '0' COMMENT '变化积分',
+  `balance` INT(11) DEFAULT '0' COMMENT '账户剩余积分',
+  `remark` VARCHAR(255) COMMENT '说明',
+  `foreign_id` INT(11) DEFAULT '0' COMMENT '外键ID',
+  `score_rule_id` INT(11) DEFAULT '0' COMMENT '积分规则ID',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO tbl_score_rule(create_time,update_time,name,score,remark,type,status) VALUES
+  (now(),now(),'注册奖励',100,'注册奖励','one',1),
+  (now(),now(),'邮箱认证',1,'邮箱认证奖励积分，只有一次','one',1),
+  (now(),now(),'每天登陆奖励',1,'每天登陆奖励积分，一天仅限一次','day',1),
+  (now(),now(),'文章投稿',1,'文章投稿奖励积分，如需审核，审核之后奖励','unlimite',1),
+  (now(),now(),'文章评论',1,'评论文章奖励积分','unlimite',1),
+  (now(),now(),'文章收到喜欢',1,'文章收到喜欢，作者奖励积分','unlimite',1),
+  (now(),now(),'发布微博',1,'发布微博奖励积分','unlimite',1),
+  (now(),now(),'评论微博',1,'评论微博奖励积分','unlimite',1),
+  (now(),now(),'微博收到点赞',1,'微博收到点赞，作者奖励积分','unlimite',1),
+  (now(),now(),'申请群组',-10,'申请群组扣除/奖励积分，如需要扣除积分，请填写负数','unlimite',1),
+  (now(),now(),'群组发帖',1,'群组发帖奖励积分，如需审核，审核之后奖励','unlimite',1),
+  (now(),now(),'群组帖子评论',1,'群组帖子评论奖励积分','unlimite',1),
+  (now(),now(),'群组帖子收到喜欢',1,'群组帖子收到喜欢奖励积分','unlimite',1);
+
+
+
+
