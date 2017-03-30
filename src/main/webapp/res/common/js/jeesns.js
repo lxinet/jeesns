@@ -45,7 +45,6 @@ var jeesns = {
                 index = jeesnsDialog.loading();
             },
             error:function(res){
-                console.log("---："+res)
                 jeesnsDialog.close(index);
                 $(":submit").removeAttr("disabled");
                 // form.find('.jeesns-submit').removeAttr("disabled");
@@ -53,16 +52,17 @@ var jeesns = {
             },
             success:function(res){
                 jeesnsDialog.close(index);
-                console.log("======:"+res);
                 if(res.code==0){
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.successTips(res.message);
                 }else if(res.code==1){
+                    jeesnsDialog.loading();
                     jeesnsDialog.successTips(res.message);
                     setTimeout(function(){
                         window.location.href=window.location.href;
                     },3000);
                 }else if(res.code==2){
+                    jeesnsDialog.loading();
                     jeesnsDialog.successTips(res.message);
                     setTimeout(function(){
                         window.location.href=res.url;
@@ -203,15 +203,17 @@ var jeesns = {
                 }else if(res.code == -1){
                     jeesnsDialog.errorTips(res.message)
                 }else if(res.code==1){
+                    jeesnsDialog.loading();
                     jeesnsDialog.successTips(res.message);
                     setTimeout(function(){
                         window.location.href=window.location.href;
-                    },2000);
+                    },3000);
                 }else if(res.code==2){
+                    jeesnsDialog.loading();
                     jeesnsDialog.successTips(res.message);
                     setTimeout(function(){
                         window.location.href=res.url;
-                    },2000);
+                    },3000);
                 }else if(res.code==3){
                     parent.window.location.href=parent.window.location.href;
                 }else{
