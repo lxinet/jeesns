@@ -9,6 +9,7 @@ import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.entity.Config;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import com.lxinet.jeesns.modules.weibo.dao.IWeiboDao;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboCommentService;
@@ -39,6 +40,8 @@ public class WeiboServiceImpl implements IWeiboService {
     private IActionLogService actionLogService;
     @Resource
     private IPictureService pictureService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public Weibo findById(int id,int memberId) {
@@ -74,6 +77,8 @@ public class WeiboServiceImpl implements IWeiboService {
         if(weiboDao.save(weibo) == 1){
             pictureService.update(weibo.getId(),pictures);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.POST_WEIBO,"", ActionLogType.WEIBO.getValue(),weibo.getId());
+            //发布微博奖励
+            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.RELEASE_WEIBO, weibo.getId());
             return new ResponseModel(1,"发布成功");
         }
         return new ResponseModel(-1,"发布失败");
@@ -101,6 +106,8 @@ public class WeiboServiceImpl implements IWeiboService {
             return new ResponseModel(-1,"微博不存在");
         }
         weiboDao.delete(id);
+        //扣除积分
+        scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.RELEASE_WEIBO,id);
         pictureService.delete(request, id);
         actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO, "ID："+weibo.getId()+"，内容："+weibo.getContent());
         return new ResponseModel(1,"操作成功");
@@ -142,11 +149,15 @@ public class WeiboServiceImpl implements IWeiboService {
             weiboFavorService.save(weiboId,loginMember.getId());
             message = "点赞成功";
             responseModel = new ResponseModel(0,message);
+            //发布微博奖励
+            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP, weiboId);
         }else {
             //减少
             int num = weiboDao.favor(weiboId,-1);
             weiboFavorService.delete(weiboId,loginMember.getId());
             message = "取消赞成功";
+            //扣除积分
+            scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP,weiboId);
             responseModel = new ResponseModel(1,message);
         }
         Weibo findWeibo = this.findById(weiboId,loginMember.getId());

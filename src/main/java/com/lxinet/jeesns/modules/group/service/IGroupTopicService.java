@@ -30,4 +30,6 @@ public interface IGroupTopicService {
     ResponseModel top(Member member,int id,int top);
 
     ResponseModel essence(Member member,int id,int essence);
+
+    ResponseModel favor(Member loginMember, int id);
 }

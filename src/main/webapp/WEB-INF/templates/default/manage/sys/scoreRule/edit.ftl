@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>修改动态类型 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>修改积分规则 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -28,19 +28,31 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form method="post" action="${managePath}/action/update" class="jeesns_form">
+                <form method="post" action="${managePath}/sys/scoreRule/update" class="jeesns_form">
                     <div class="box-body">
-                        <input type="hidden" class="form-control" name="id" value="${action.id}">
+                        <input type="hidden" class="form-control" name="id" value="${scoreRule.id}">
                         <div class="form-group">
                             <label class="col-sm-1 control-label">名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="名称" data-type="require" value="${action.name}" disabled>
+                                <input type="text" class="form-control" value="${scoreRule.name}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-1 control-label">描述</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" rows="3" name="log">${action.log}</textarea>
+                                <textarea class="form-control" rows="3" disabled>${scoreRule.remark}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">变动积分</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="score" name="score" placeholder="变动积分" data-type="require" value="${scoreRule.score}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">周期</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" value='<#if scoreRule.type=="day">一天一次<#elseif scoreRule.type=="week">一周一次<#elseif scoreRule.type=="month">一月一次<#elseif scoreRule.type=="year">一年一次<#elseif scoreRule.type=="one">一次<#elseif scoreRule.type=="unlimite">不限</#if>' disabled>
                             </div>
                         </div>
                         <div class="form-group">

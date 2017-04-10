@@ -172,17 +172,17 @@ h5 {
 }
 
 
-.member-banner .right .follows,.member-banner .right .fans{
+.member-banner .right .follows,.member-banner .right .fans,.member-banner .right .score{
   font-size: 16px;
   display: inline-block;
   margin-left: 30px;
   text-align: center;
   color: #666;
 }
-.member-banner .right .follows span,.member-banner .right .fans span{
+.member-banner .right .follows span,.member-banner .right .fans span,.member-banner .right .score span{
   color: #fff;
 }
-.member-banner .right .follows a,.member-banner .right .fans a{
+.member-banner .right .follows a,.member-banner .right .fans a,.member-banner .right .score a{
   font-size: 36px;
   font-weight: 600;
   display: block;

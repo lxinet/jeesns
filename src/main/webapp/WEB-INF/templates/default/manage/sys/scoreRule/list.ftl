@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会员动态类型 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>积分规则 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -31,11 +31,11 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                会员动态类型
+                积分规则
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${managePath}/index"><i class="fa fa-dashboard"></i> 主页</a></li>
-                <li class="active">会员动态类型</li>
+                <li class="active">积分规则</li>
             </ol>
         </section>
         <section class="content">
@@ -50,6 +50,8 @@
                                     <th>#</th>
                                     <th>名称</th>
                                     <th>描述</th>
+                                    <th>变动积分</th>
+                                    <th>周期</th>
                                     <th>添加时间</th>
                                     <th>更新时间</th>
                                     <th>状态</th>
@@ -57,26 +59,42 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <#list list as action>
+                                <#list list as scoreRule>
                                 <tr>
-                                    <td>${action.id}</td>
-                                    <td>${action.name}</td>
-                                    <td>${action.log}</td>
-                                    <td>${action.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                    <td>${action.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td>${scoreRule.id}</td>
+                                    <td>${scoreRule.name}</td>
+                                    <td>${scoreRule.remark}</td>
+                                    <td>${scoreRule.score}</td>
                                     <td>
-                                        <#if action.status=1>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/action/isenable/${action.id}">
+                                        <#if scoreRule.type=="day">
+                                            一天一次
+                                        <#elseif scoreRule.type=="week">
+                                            一周一次
+                                        <#elseif scoreRule.type=="month">
+                                            一月一次
+                                        <#elseif scoreRule.type=="year">
+                                            一年一次
+                                        <#elseif scoreRule.type=="one">
+                                            一次
+                                        <#elseif scoreRule.type=="unlimite">
+                                            不限
+                                        </#if>
+                                    </td>
+                                    <td>${scoreRule.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td>${scoreRule.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td>
+                                        <#if scoreRule.status=0>
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/sys/scoreRule/enabled/${scoreRule.id}">
                                                 <span class="label label-danger">禁用</span>
                                             </a>
                                         <#else>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/action/isenable/${action.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/sys/scoreRule/enabled/${scoreRule.id}">
                                                 <span class="label label-success">启用</span>
                                             </a>
                                         </#if>
                                     </td>
                                     <td>
-                                        <a href="${managePath}/action/edit/${action.id}" target="_jeesnsOpen" title="编辑动态类型" height="350px">
+                                        <a href="${managePath}/sys/scoreRule/edit/${scoreRule.id}" target="_jeesnsOpen" title="编辑积分规则" height="480px">
                                             <span class="label label-warning"><i class="fa fa-edit green"></i></span>
                                         </a>
                                     </td>

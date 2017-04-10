@@ -26,4 +26,6 @@ public interface IArticleService {
     void updateViewCount(int id);
 
     ResponseModel audit(int id);
+
+    ResponseModel favor(Member loginMember, int articleId);
 }

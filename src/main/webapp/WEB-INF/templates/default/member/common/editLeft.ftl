@@ -35,6 +35,10 @@
                     <span>粉丝</span>
                     <a href="${base}/u/${loginUser.id}/home/fans">${loginUser.fans}</a>
                 </div>
+                <div class="follows">
+                    <span>积分</span>
+                    <a href="${base}/member/scoreDetail/list">${loginUser.score}</a>
+                </div>
                 <div class="login-info">
                     加入时间:${loginUser.createTime?string('yyyy-MM-dd')}
                     最近登录:<#if loginUser.currLoginTime??>${loginUser.currLoginTime?string('yyyy-MM-dd')}<#else>未登陆过</#if>

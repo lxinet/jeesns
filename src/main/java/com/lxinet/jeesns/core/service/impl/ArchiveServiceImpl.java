@@ -7,8 +7,10 @@ import com.lxinet.jeesns.core.service.IArchiveFavorService;
 import com.lxinet.jeesns.core.service.IArchiveService;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.ImageUtil;
+import com.lxinet.jeesns.core.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,6 +29,8 @@ public class ArchiveServiceImpl implements IArchiveService {
     private IArchiveDao archiveDao;
     @Resource
     private IArchiveFavorService archiveFavorService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public Archive findByArchiveId(int id) {

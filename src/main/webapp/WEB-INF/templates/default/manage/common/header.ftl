@@ -56,8 +56,9 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/config/edit"><i class="fa fa-circle-o"></i>系统设置</a></li>
-                    <li><a href="${managePath}/config/managerList"><i class="fa fa-circle-o"></i>管理员列表</a></li>
+                    <li><a href="${managePath}/config/edit" module="config"><i class="fa fa-circle-o"></i>系统设置</a></li>
+                    <li><a href="${managePath}/config/managerList" module="config"><i class="fa fa-circle-o"></i>管理员列表</a></li>
+                    <li><a href="${managePath}/sys/scoreRule/list" module="config"><i class="fa fa-circle-o"></i>积分规则</a></li>
                 </ul>
             </li>
             <li class="treeview" module="action">
@@ -66,9 +67,9 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/action/list"><i class="fa fa-circle-o"></i>动态类型</a></li>
-                    <li><a href="${managePath}/action/actionLogList"><i class="fa fa-circle-o"></i>会员日志</a></li>
-                    <li><a href="${managePath}/action/memberActionLog"><i class="fa fa-circle-o"></i>会员动态</a></li>
+                    <li><a href="${managePath}/action/list" module="action"><i class="fa fa-circle-o"></i>动态类型</a></li>
+                    <li><a href="${managePath}/action/actionLogList" module="action"><i class="fa fa-circle-o"></i>会员日志</a></li>
+                    <li><a href="${managePath}/action/memberActionLog" module="action"><i class="fa fa-circle-o"></i>会员动态</a></li>
                 </ul>
             </li>
             <li class="treeview" module="cms">
@@ -77,8 +78,8 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/cms/articleCate/list"><i class="fa fa-circle-o"></i>栏目管理</a></li>
-                    <li><a href="${managePath}/cms/index"><i class="fa fa-circle-o"></i>文章管理</a></li>
+                    <li><a href="${managePath}/cms/articleCate/list" module="cms"><i class="fa fa-circle-o"></i>栏目管理</a></li>
+                    <li><a href="${managePath}/cms/index" module="cms"><i class="fa fa-circle-o"></i>文章管理</a></li>
                 </ul>
             </li>
             <li class="treeview" module="mem">
@@ -87,7 +88,7 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/mem/index"><i class="fa fa-circle-o"></i>会员列表</a></li>
+                    <li><a href="${managePath}/mem/index" module="mem"><i class="fa fa-circle-o"></i>会员列表</a></li>
                 </ul>
             </li>
             <li class="treeview" module="group">
@@ -96,7 +97,7 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/group/index"><i class="fa fa-circle-o"></i>群组列表</a></li>
+                    <li><a href="${managePath}/group/index" module="group"><i class="fa fa-circle-o"></i>群组列表</a></li>
                 </ul>
             </li>
             <li class="treeview" module="weibo">
@@ -105,7 +106,7 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/weibo/index"><i class="fa fa-circle-o"></i>微博列表</a></li>
+                    <li><a href="${managePath}/weibo/index" module="weibo"><i class="fa fa-circle-o"></i>微博列表</a></li>
                 </ul>
             </li>
         </ul>
@@ -117,7 +118,7 @@
         $(".treeview").each(function(){
             var _this = $(this);
             var module = _this.attr("module");
-            if(uri.indexOf("/"+module+"/") > -1){
+            if(uri.indexOf(module) > -1){
                 _this.addClass("active");
             }else {
                 _this.removeClass("active");
@@ -125,7 +126,7 @@
         });
         $(".treeview-menu li").each(function(){
             var _this = $(this);
-            if(uri == _this.find("a").attr("href")){
+            if(uri == _this.find("a").attr("module")){
                 _this.addClass("active");
             }else {
                 _this.removeClass("active");

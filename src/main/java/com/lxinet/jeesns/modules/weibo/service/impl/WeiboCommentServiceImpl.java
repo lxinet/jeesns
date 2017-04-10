@@ -3,10 +3,7 @@ package com.lxinet.jeesns.modules.weibo.service.impl;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
-import com.lxinet.jeesns.core.utils.ActionLogType;
-import com.lxinet.jeesns.core.utils.ActionUtil;
-import com.lxinet.jeesns.core.utils.StringUtils;
-import com.lxinet.jeesns.core.utils.WeiboCommentUtil;
+import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.cms.dao.IArticleCommentDao;
 import com.lxinet.jeesns.modules.cms.dao.IArticleDao;
 import com.lxinet.jeesns.modules.cms.entity.Article;
@@ -15,6 +12,7 @@ import com.lxinet.jeesns.modules.cms.service.IArticleCommentService;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import com.lxinet.jeesns.modules.weibo.dao.IWeiboCommentDao;
 import com.lxinet.jeesns.modules.weibo.entity.Weibo;
 import com.lxinet.jeesns.modules.weibo.entity.WeiboComment;
@@ -38,6 +36,8 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     private IWeiboService weiboService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public WeiboComment findById(int id) {
@@ -64,6 +64,8 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
         weiboComment.setContent(content);
         int result = weiboCommentDao.save(weiboComment);
         if(result == 1){
+            //微博评论奖励
+            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.COMMENT_WEIBO, weiboComment.getId());
             return new ResponseModel(1,"评论成功");
         }else {
             return new ResponseModel(-1,"评论失败");

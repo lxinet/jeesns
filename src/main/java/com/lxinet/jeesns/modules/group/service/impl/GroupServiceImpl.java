@@ -13,6 +13,7 @@ import com.lxinet.jeesns.modules.mem.service.IMemberService;
 import com.lxinet.jeesns.modules.sys.entity.ActionLog;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,8 @@ public class GroupServiceImpl implements IGroupService {
     private IConfigService configService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public ResponseModel listByPage(int status,Page page, String key) {
@@ -128,6 +131,8 @@ public class GroupServiceImpl implements IGroupService {
         if(groupDao.save(group) == 1){
             //创建者默认关注群组
             groupFansService.save(loginMember,group.getId());
+            //申请群组奖励、扣款
+            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.APPLY_GROUP, group.getId());
             return new ResponseModel(1,"申请成功，请等待审核");
         }
         return new ResponseModel(-1,"操作失败，请重试");

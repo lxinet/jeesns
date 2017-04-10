@@ -86,6 +86,9 @@ public class MemberController extends BaseController {
         if(member.getName().length() < 6){
             return new ResponseModel(-1,"用户名长度最少6位");
         }
+        if(!StringUtils.checkNickname(member.getName())){
+            return new ResponseModel(-1,"用户名只能由中文、字母、数字、下划线(_)或者短横线(-)组成");
+        }
         if(!StringUtils.isEmail(member.getEmail())){
             return new ResponseModel(-1,"邮箱格式错误");
         }

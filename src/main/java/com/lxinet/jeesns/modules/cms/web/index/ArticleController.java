@@ -11,6 +11,7 @@ import com.lxinet.jeesns.modules.cms.service.IArticleCateService;
 import com.lxinet.jeesns.modules.cms.service.IArticleCommentService;
 import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -173,4 +174,22 @@ public class ArticleController extends BaseController {
         return responseModel;
     }
 
+
+    /**
+     * 文章、喜欢
+     * @param id
+     * @return
+     */
+    @RequestMapping(value="/favor/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object favor(@PathVariable("id") Integer id){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        if(id == null) {
+            return new ResponseModel(-1, "非法操作");
+        }
+        return articleService.favor(loginMember,id);
+    }
 }

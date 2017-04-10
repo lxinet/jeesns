@@ -103,24 +103,6 @@ public class IndexController extends BaseController{
         return callback + "(" + jsonObject.toString() + ")";
     }
 
-    /**
-     * 文档、喜欢
-     * @param archiveId
-     * @return
-     */
-    @RequestMapping(value="/archive/favor/{archiveId}",method = RequestMethod.GET)
-    @ResponseBody
-    public Object favor(@PathVariable("archiveId") Integer archiveId){
-        Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
-        }
-        if(archiveId == null) {
-            return new ResponseModel(-1, "非法操作");
-        }
-        return archiveService.favor(loginMember,archiveId);
-    }
-
 
     /**
      * 获取Emoji数据

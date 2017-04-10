@@ -25,7 +25,6 @@
         var articleId = ${article.id};
     </script>
     <script src="${base}/res/modules/cms.js"></script>
-    <script src="${base}/res/modules/archive.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -55,11 +54,11 @@
                             </#if>
                         </div>
                         <#if article.isFavor == 0>
-                            <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${article.archiveId}">
+                            <a class="btn btn-danger btn-rounded btn-outline article-favor" href="javascript:void(0)" article-id="${article.id}">
                                 <i class="fa fa-heart-o"></i> 喜欢 ${article.favor}
                             </a>
                         <#else>
-                            <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${article.archiveId}">
+                            <a class="btn btn-danger btn-rounded article-favor" href="javascript:void(0)" article-id="${article.id}">
                                 <i class="fa fa-heart"></i> 喜欢 ${article.favor}
                             </a>
                         </#if>
@@ -99,8 +98,8 @@
             pageNo ++;
             cms.commentList(articleId,pageNo);
         });
-        $(".archive-favor").click(function () {
-            archive.favor($(this),"${base}")
+        $(".article-favor").click(function () {
+            cms.favor($(this),"${base}")
         });
     });
 </script>
