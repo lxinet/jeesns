@@ -5,10 +5,7 @@ import com.lxinet.jeesns.core.entity.Archive;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.service.IArchiveService;
-import com.lxinet.jeesns.core.utils.ActionLogType;
-import com.lxinet.jeesns.core.utils.ActionUtil;
-import com.lxinet.jeesns.core.utils.ConfigUtil;
-import com.lxinet.jeesns.core.utils.StringUtils;
+import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.modules.cms.dao.IArticleDao;
 import com.lxinet.jeesns.modules.cms.entity.Article;
 import com.lxinet.jeesns.modules.cms.service.IArticleCommentService;
@@ -16,6 +13,7 @@ import com.lxinet.jeesns.modules.cms.service.IArticleService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -37,6 +35,8 @@ public class ArticleServiceImpl implements IArticleService {
     private IArticleCommentService articleCommentService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public Article findById(int id) {
@@ -79,6 +79,10 @@ public class ArticleServiceImpl implements IArticleService {
             article.setArchiveId(archive.getArchiveId());
             int result = articleDao.save(article);
             if(result == 1){
+                if(article.getStatus() == 1){
+                    //投稿审核通过奖励
+                    scoreRuleService.scoreRuleBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
+                }
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_ARTICLE,"", ActionLogType.ARTICLE.getValue(),article.getId());
                 return new ResponseModel(0,"文章发布成功");
             }
@@ -105,10 +109,35 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public ResponseModel audit(int id) {
         if(articleDao.audit(id) == 1){
+            Article article = this.findById(id);
+            if(article != null){
+                //说明此次操作是审核通过
+                if(article.getStatus() == 1){
+                    //投稿审核通过奖励
+                    scoreRuleService.scoreRuleBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
+                }
+            }
             return new ResponseModel(1,"操作成功");
         }else {
             return new ResponseModel(-1,"操作时候");
         }
+    }
+
+    @Override
+    public ResponseModel favor(Member loginMember, int articleId) {
+        Article article = this.findById(articleId);
+        if(article != null){
+            ResponseModel responseModel = archiveService.favor(loginMember,article.getArchiveId());
+            if(responseModel.getCode() == 0){
+                //文章收到喜欢
+                scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
+            }else if(responseModel.getCode() == 1){
+                //取消喜欢，扣除积分
+                scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
+            }
+            return responseModel;
+        }
+        return new ResponseModel(-1,"文章不存在");
     }
 
     @Override
@@ -150,6 +179,8 @@ public class ArticleServiceImpl implements IArticleService {
         }
         int result = articleDao.delete(id);
         if(result == 1){
+            //扣除积分
+            scoreRuleService.scoreRuleCancelBonus(member.getId(),ScoreRuleConsts.ARTICLE_SUBMISSIONS,id);
             archiveService.delete(article.getArchiveId());
             articleCommentService.deleteByArticle(id);
             actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.DELETE_ARTICLE,"ID："+article.getId()+"，标题："+article.getTitle());

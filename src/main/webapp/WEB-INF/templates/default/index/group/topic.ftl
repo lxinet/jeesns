@@ -25,7 +25,6 @@
         var groupTopicId = ${groupTopic.id};
     </script>
     <script src="${base}/res/modules/group.js"></script>
-    <script src="${base}/res/modules/archive.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -50,11 +49,11 @@
                         </div>
                         <div class="content"><p>${groupTopic.content}</p></div>
                         <#if groupTopic.isFavor == 0>
-                            <a class="btn btn-danger btn-rounded btn-outline archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                            <a class="btn btn-danger btn-rounded btn-outline topic-favor" href="javascript:void(0)" topic-id="${groupTopic.id}">
                                 <i class="fa fa-heart-o"></i> 喜欢 ${groupTopic.favor}
                             </a>
                         <#else>
-                            <a class="btn btn-danger btn-rounded archive-favor" href="javascript:void(0)" archive-id="${groupTopic.archiveId}">
+                            <a class="btn btn-danger btn-rounded topic-favor" href="javascript:void(0)" topic-id="${groupTopic.id}">
                                 <i class="fa fa-heart"></i> 喜欢 ${groupTopic.favor}
                             </a>
                         </#if>
@@ -127,8 +126,8 @@
             pageNo ++;
             group.commentList(groupTopicId,pageNo);
         });
-        $(".archive-favor").click(function () {
-            archive.favor($(this),"${base}")
+        $(".topic-favor").click(function () {
+            group.favor($(this),"${base}")
         });
     });
 </script>

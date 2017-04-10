@@ -441,4 +441,21 @@ public class GroupController extends BaseController {
     }
 
 
+    /**
+     * 帖子、喜欢
+     * @param id
+     * @return
+     */
+    @RequestMapping(value="/topic/favor/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object favor(@PathVariable("id") Integer id){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        if(id == null) {
+            return new ResponseModel(-1, "非法操作");
+        }
+        return groupTopicService.favor(loginMember,id);
+    }
 }

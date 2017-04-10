@@ -340,6 +340,7 @@ CREATE TABLE `tbl_score_detail` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11) DEFAULT '0' COMMENT '会员ID',
+  `type` INT(11) DEFAULT '0' COMMENT '类型，0是普通积分增加，1是奖励，2是撤销奖励'
   `score` INT(11) DEFAULT '0' COMMENT '变化积分',
   `balance` INT(11) DEFAULT '0' COMMENT '账户剩余积分',
   `remark` VARCHAR(255) COMMENT '说明',

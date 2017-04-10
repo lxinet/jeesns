@@ -177,5 +177,12 @@ public interface IMemberService {
      */
     ResponseModel<Member> listContactMembers(Page page, Integer memberId);
 
+    /**
+     * 更新会员积分
+     * @param score
+     * @param memberId
+     * @return
+     */
+    boolean updateScore(Integer score, Integer memberId);
 
 }

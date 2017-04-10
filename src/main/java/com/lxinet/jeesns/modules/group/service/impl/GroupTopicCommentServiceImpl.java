@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.utils.ActionUtil;
+import com.lxinet.jeesns.core.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.group.dao.IGroupTopicCommentDao;
 import com.lxinet.jeesns.modules.group.entity.GroupTopic;
@@ -12,6 +13,7 @@ import com.lxinet.jeesns.modules.group.service.IGroupTopicCommentService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -27,6 +29,8 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
     private IGroupTopicService groupTopicService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public GroupTopicComment findById(int id) {
@@ -48,6 +52,8 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
         groupTopicComment.setContent(content);
         int result = groupTopicCommentDao.save(groupTopicComment);
         if(result == 1){
+            //群组帖子评论奖励
+            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_COMMENTS, groupTopicComment.getId());
             return new ResponseModel(1,"评论成功");
         }else {
             return new ResponseModel(-1,"评论失败");
@@ -75,6 +81,8 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
         }
         int result = groupTopicCommentDao.delete(id);
         if(result == 1){
+            //扣除积分
+            scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_COMMENTS,id);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP_TOPIC_COMMENT,"ID："+groupTopicComment.getId()+"，内容："+groupTopicComment.getContent());
             return new ResponseModel(1,"删除成功");
         }

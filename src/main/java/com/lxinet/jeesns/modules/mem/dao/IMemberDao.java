@@ -124,4 +124,13 @@ public interface IMemberDao extends IBaseDao<Member> {
      * @return
      */
     List<Member> listContactMembers(@Param("memberId") Integer memberId, @Param("idList") List<Integer> idList,@Param("idString") String idString);
+
+
+    /**
+     * 更新会员积分
+     * @param score
+     * @param id
+     * @return
+     */
+    int updateScore(@Param("score") Integer score, @Param("id") Integer id);
 }

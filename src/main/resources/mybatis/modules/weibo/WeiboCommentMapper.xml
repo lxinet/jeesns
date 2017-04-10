@@ -21,7 +21,7 @@
   <delete id="deleteByWeibo" parameterType="java.lang.Integer">
     delete from tbl_weibo_comment where weibo_id = #{weiboId}
   </delete>
-  <insert id="save" parameterType="WeiboComment">
+  <insert id="save" parameterType="WeiboComment" keyProperty="id" useGeneratedKeys="true">
     insert into tbl_weibo_comment (weibo_id,member_id,content,create_time)
     values (#{weiboId}, #{memberId}, #{content}, now())
   </insert>

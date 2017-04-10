@@ -270,7 +270,6 @@ public class Archive extends BaseEntity {
             Object value = getMethod.invoke(object, new Object[]{});
             //调用set方法将这个值复制到新的对象中去
             setMethod.invoke(objectCopy, new Object[]{value});
-
         }
         return (Archive) objectCopy;
     }

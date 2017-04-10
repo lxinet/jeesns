@@ -14,6 +14,7 @@ import com.lxinet.jeesns.modules.mem.service.IMemberService;
 import com.lxinet.jeesns.modules.mem.service.IValidateCodeService;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
 import com.lxinet.jeesns.modules.sys.service.IConfigService;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,8 @@ public class MemberServiceImpl implements IMemberService {
     private IGroupFansService groupFansService;
     @Resource
     private IWeiboService weiboService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public ResponseModel login(Member member, HttpServletRequest request) {
@@ -67,6 +70,8 @@ public class MemberServiceImpl implements IMemberService {
             findMember = this.findById(findMember.getId());
             MemberUtil.setLoginMember(request,findMember);
             actionLogService.save(findMember.getCurrLoginIp(),findMember.getId(),ActionUtil.MEMBER_LOGIN);
+            //登录奖励
+            scoreRuleService.scoreRuleBonus(findMember.getId(),ScoreRuleConsts.LOGIN);
             return new ResponseModel(3,"登录成功",request.getServletContext().getContextPath()+"/member/");
         }
         actionLogService.save(IpUtil.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
@@ -106,6 +111,8 @@ public class MemberServiceImpl implements IMemberService {
         member.setAvatar(Const.DEFAULT_AVATAR);
         if(memberDao.register(member) == 1){
             actionLogService.save(member.getRegip(),member.getId(),ActionUtil.MEMBER_REG);
+            //注册奖励
+            scoreRuleService.scoreRuleBonus(member.getId(),ScoreRuleConsts.REG_INIT);
             return new ResponseModel(2,"注册成功",request.getServletContext().getContextPath()+"/member/login");
         }
         return new ResponseModel(-1,"注册失败");
@@ -281,6 +288,9 @@ public class MemberServiceImpl implements IMemberService {
      */
     @Override
     public ResponseModel editBaseInfo(Member member,String name,String sex,String introduce) {
+        if(!StringUtils.checkNickname(member.getName())){
+            return new ResponseModel(-1,"昵称只能由中文、字母、数字、下划线(_)或者短横线(-)组成");
+        }
         if (name != null && !name.equals(member.getName())){
             if(this.findByName(name) != null){
                 return new ResponseModel(-1,"昵称已被占用，请更换一个");
@@ -359,6 +369,8 @@ public class MemberServiceImpl implements IMemberService {
                 if(memberDao.active(loginMember.getId()) == 1){
                     loginMember.setIsActive(1);
                     MemberUtil.setLoginMember(request,loginMember);
+                    //邮箱认证奖励
+                    scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.EMAIL_AUTHENTICATION);
                     return new ResponseModel(2,"激活成功，正在进入会员中心...",request.getContextPath()+"/member/");
                 }
             }
@@ -513,6 +525,17 @@ public class MemberServiceImpl implements IMemberService {
         ResponseModel model = new ResponseModel(0, page);
         model.setData(list);
         return model;
+    }
+
+    /**
+     * 更新会员积分
+     * @param score
+     * @param memberId
+     * @return
+     */
+    @Override
+    public boolean updateScore(Integer score, Integer memberId) {
+        return memberDao.updateScore(score,memberId) == 1;
     }
 
 }

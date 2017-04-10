@@ -7,6 +7,7 @@ import com.lxinet.jeesns.core.interceptor.PageInterceptor;
 import com.lxinet.jeesns.core.service.IArchiveService;
 import com.lxinet.jeesns.core.utils.ActionLogType;
 import com.lxinet.jeesns.core.utils.ActionUtil;
+import com.lxinet.jeesns.core.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.modules.group.dao.IGroupTopicDao;
 import com.lxinet.jeesns.modules.group.entity.Group;
@@ -17,6 +18,7 @@ import com.lxinet.jeesns.modules.group.service.IGroupTopicCommentService;
 import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.modules.mem.entity.Member;
 import com.lxinet.jeesns.modules.sys.service.IActionLogService;
+import com.lxinet.jeesns.modules.sys.service.IScoreRuleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -39,6 +41,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     private IArchiveService archiveService;
     @Resource
     private IActionLogService actionLogService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public GroupTopic findById(int id) {
@@ -83,6 +87,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             groupTopic.setArchiveId(archive.getArchiveId());
             int result = groupTopicDao.save(groupTopic);
             if(result == 1){
+                //群组发帖奖励
+                scoreRuleService.scoreRuleBonus(member.getId(), ScoreRuleConsts.GROUP_POST, groupTopic.getId());
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_GROUP_TOPIC,"", ActionLogType.GROUP_TOPIC.getValue(),groupTopic.getId());
                 return new ResponseModel(2,"帖子发布成功","../detail/"+groupTopic.getGroupId());
             }
@@ -134,6 +140,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         int result = groupTopicDao.delete(id);
         if(result == 1){
+            //扣除积分
+            scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_POST,id);
             archiveService.delete(groupTopic.getArchiveId());
             groupTopicCommentService.deleteByTopic(id);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP_TOPIC,"ID："+groupTopic.getId()+"，标题："+groupTopic.getTitle());
@@ -236,6 +244,13 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         return new ResponseModel(-1,"权限不足");
     }
 
+    /**
+     * 将帖子设置精华
+     * @param member
+     * @param id
+     * @param essence
+     * @return
+     */
     @Override
     public ResponseModel essence(Member member,int id, int essence) {
         if(member == null){
@@ -266,5 +281,24 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             }
         }
         return new ResponseModel(-1,"权限不足");
+    }
+
+
+    @Override
+    public ResponseModel favor(Member loginMember, int id) {
+        GroupTopic groupTopic = this.findById(id);
+        if(groupTopic != null){
+            ResponseModel responseModel = archiveService.favor(loginMember,groupTopic.getArchiveId());
+            if(responseModel.getCode() == 0){
+                //帖子收到喜欢
+                scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
+            }else if(responseModel.getCode() == 1){
+                //帖子取消喜欢
+                //扣除积分
+                scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
+            }
+            return responseModel;
+        }
+        return new ResponseModel(-1,"帖子不存在");
     }
 }

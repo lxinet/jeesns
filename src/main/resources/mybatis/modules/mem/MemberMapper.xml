@@ -8,7 +8,7 @@
     <!-- 会员登录 -->
     <select id="login" parameterType="Member" resultType="Member">
         select
-        id,group_id,name,email,phone,sex,avatar,is_admin,status,is_active
+        id,group_id,name,email,phone,sex,avatar,is_admin,status,is_active,score
         from tbl_member
         where (name = #{name} or email = #{name}) and password = #{password}
     </select>

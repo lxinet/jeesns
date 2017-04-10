@@ -109,5 +109,17 @@ public class StringUtils {
         return matcher.matches();
     }
 
+    /**
+     * 判断昵称是否符合，只能中文、字母、数字、下划线(_)、短横线(-)
+     * @param str
+     * @return
+     */
+    public static boolean checkNickname(String str){
+        String regex = "^[a-zA-Z0-9_\\-\\u4e00-\\u9fa5]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+
 
 }
