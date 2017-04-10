@@ -162,10 +162,32 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
-                                                   href="#v08">v1.0</a><code class="pull-right">2017.3.14</code>
+                                                   href="#v101">v1.0.1</a><code class="pull-right">2017.4.10</code>
                                             </h5>
                                         </div>
-                                        <div id="v08" class="panel-collapse collapse in">
+                                        <div id="v101" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>增加会员积分功能</li>
+                                                        <li>XSS攻击处理</li>
+                                                        <li>增加判断，访问未审核的文章详情页面时，提示文章不存在</li>
+                                                        <li>修复在文章、帖子、微博评论中点击评论人的头像或者姓名不会调整到会员主页</li>
+                                                        <li>修复管理员admin账号在后台无法登录情况</li>
+                                                        <li>提交表单成功后，增加等待跳转时加载的图标</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v10">v1.0</a><code class="pull-right">2017.3.14</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v10" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
