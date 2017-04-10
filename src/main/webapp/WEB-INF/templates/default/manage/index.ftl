@@ -187,7 +187,7 @@
                                                    href="#v10">v1.0</a><code class="pull-right">2017.3.14</code>
                                             </h5>
                                         </div>
-                                        <div id="v10" class="panel-collapse collapse in">
+                                        <div id="v10" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
