@@ -85,7 +85,7 @@ public class UploadController extends BaseController {
 	private Object uploadImage(MultipartFile file, int type) {
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
-		if(suffix == null || (!".png".equals(suffix) && !".jpg".equals(suffix) && !".gif".equals(suffix) && !".jpeg".equals(suffix) && !".bmp".equals(suffix))) {
+		if(suffix == null || (!".png".equals(suffix.toLowerCase()) && !".jpg".equals(suffix.toLowerCase()) && !".gif".equals(suffix.toLowerCase()) && !".jpeg".equals(suffix.toLowerCase()) && !".bmp".equals(suffix.toLowerCase()))) {
 			return new ResponseModel(-1,"格式不支持");
 		}
 		String newFileName = UUID.randomUUID() + suffix;
@@ -115,7 +115,7 @@ public class UploadController extends BaseController {
 				picture.setHeight(sourceImg.getHeight());
 				picture.setMd5(DigestUtils.md5Hex(new FileInputStream(targetFile)));
 				//生成缩略图
-				String thumbnailName = new ImageUtil().thumbnailImage(targetFile);
+				String thumbnailName = new ImageUtil().dealImage(targetFile);
 				//如果缩略图生成失败，则用原图做缩略图
 				if(StringUtils.isEmpty(thumbnailName)){
 					thumbnailName = newFileName;
@@ -131,7 +131,7 @@ public class UploadController extends BaseController {
 			}
 		}else if(type == 11){
 			//生成缩略图
-			String thumbnailName = new ImageUtil().thumbnailImage(targetFile);
+			String thumbnailName = new ImageUtil().dealImage(targetFile);
 			//删除原文件
 			targetFile.delete();
 			url = path + thumbnailName;
