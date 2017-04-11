@@ -61,10 +61,14 @@ public class ImageUtil {
                     if ((width * 1.0) / w < (height * 1.0) / h) {
                         if (width > w) {
                             h = Integer.parseInt(new java.text.DecimalFormat("0").format(height * w / (width * 1.0)));
+                        }else {
+                            w = width;
                         }
                     } else {
                         if (height > h) {
                             w = Integer.parseInt(new java.text.DecimalFormat("0").format(width * h / (height * 1.0)));
+                        }else {
+                            h = height;
                         }
                     }
                 }
@@ -136,7 +140,7 @@ public class ImageUtil {
                 y = (height - h) / 2;
             }else {
                 y = 0;
-                h = width;
+                h = height;
             }
             /**
              *
