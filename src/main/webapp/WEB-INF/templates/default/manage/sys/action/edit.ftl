@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>授权管理员 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>修改动态类型 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -28,16 +28,25 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/config/managerAdd" method="post">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">会员用户名</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="name" name="name" data-type="require" alt="会员用户名" placeholder="请输入已注册的会员用户名">
+                <form method="post" action="${managePath}/sys/action/update" class="jeesns_form">
+                    <div class="box-body">
+                        <input type="hidden" class="form-control" name="id" value="${action.id}">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="名称" data-type="require" value="${action.name}" disabled>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-1 col-sm-10">
-                            <button type="submit" class="btn btn-info jeesns-submit">确定授权</button>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">描述</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" rows="3" name="log">${action.log}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-10">
+                                <button type="submit" class="btn btn-info jeesns-submit">保存</button>
+                            </div>
                         </div>
                     </div>
                 </form>

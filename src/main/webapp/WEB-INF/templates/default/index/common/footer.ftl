@@ -7,7 +7,8 @@
                         ${SITE_NAME}
                     </div>
                     <div class="text-center">
-                        <strong>Powered By <a href="http://www.jeesns.cn" target="_blank">JEESNS</a> Copyright &copy; 2012 - 2017</strong>.
+                        <strong>Powered By <a href="http://www.jeesns.cn" target="_blank">JEESNS</a> ${SITE_COPYRIGHT} ${SITE_ICP}</strong>
+                        ${SITE_TONGJI}
                     </div>
                 </div>
             </div>

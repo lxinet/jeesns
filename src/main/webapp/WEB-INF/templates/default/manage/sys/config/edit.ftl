@@ -56,7 +56,7 @@
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane active">
                         <div class="panel-body">
-                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/config/baseUpdate" method="post">
+                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/sys/config/baseUpdate" method="post">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">网站名称</label>
                                     <div class="col-sm-8">
@@ -123,6 +123,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-1 control-label">备案号</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="site_icp" name="site_icp" placeholder="备案号" value="${site_icp}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">版权说明</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="site_copyright" name="site_copyright" placeholder="版权说明" value="${site_copyright}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">统计代码</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" rows="3" name="site_tongji" alt="统计代码">${site_tongji}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <div class="col-sm-offset-1 col-sm-10">
                                         <button type="submit" class="btn btn-info jeesns-submit">保存</button>
                                     </div>
@@ -132,7 +150,7 @@
                     </div>
                     <div id="tab-2" class="tab-pane">
                         <div class="panel-body">
-                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/config/memberUpdate" method="post">
+                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/sys/config/memberUpdate" method="post">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">会员登录</label>
                                     <div class="col-sm-8">
@@ -170,7 +188,7 @@
                     </div>
                     <div id="tab-3" class="tab-pane">
                         <div class="panel-body">
-                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/config/cmsUpdate" method="post">
+                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/sys/config/cmsUpdate" method="post">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">文章投稿</label>
                                     <div class="col-sm-8">
@@ -199,7 +217,7 @@
                     </div>
                     <div id="tab-4" class="tab-pane">
                         <div class="panel-body">
-                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/config/weiboUpdate" method="post">
+                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/sys/config/weiboUpdate" method="post">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">微博别名</label>
                                     <div class="col-sm-8">
@@ -231,7 +249,7 @@
                     </div>
                     <div id="tab-5" class="tab-pane">
                         <div class="panel-body">
-                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/config/groupUpdate" method="post">
+                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/sys/config/groupUpdate" method="post">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">群组别名</label>
                                     <div class="col-sm-8">

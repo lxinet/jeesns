@@ -56,8 +56,8 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/config/edit" module="config"><i class="fa fa-circle-o"></i>系统设置</a></li>
-                    <li><a href="${managePath}/config/managerList" module="config"><i class="fa fa-circle-o"></i>管理员列表</a></li>
+                    <li><a href="${managePath}/sys/config/edit" module="config"><i class="fa fa-circle-o"></i>系统设置</a></li>
+                    <li><a href="${managePath}/sys/config/managerList" module="config"><i class="fa fa-circle-o"></i>管理员列表</a></li>
                     <li><a href="${managePath}/sys/scoreRule/list" module="config"><i class="fa fa-circle-o"></i>积分规则</a></li>
                 </ul>
             </li>
@@ -67,9 +67,9 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${managePath}/action/list" module="action"><i class="fa fa-circle-o"></i>动态类型</a></li>
-                    <li><a href="${managePath}/action/actionLogList" module="action"><i class="fa fa-circle-o"></i>会员日志</a></li>
-                    <li><a href="${managePath}/action/memberActionLog" module="action"><i class="fa fa-circle-o"></i>会员动态</a></li>
+                    <li><a href="${managePath}/sys/action/list" module="action"><i class="fa fa-circle-o"></i>动态类型</a></li>
+                    <li><a href="${managePath}/sys/action/actionLogList" module="action"><i class="fa fa-circle-o"></i>会员日志</a></li>
+                    <li><a href="${managePath}/sys/action/memberActionLog" module="action"><i class="fa fa-circle-o"></i>会员动态</a></li>
                 </ul>
             </li>
             <li class="treeview" module="cms">

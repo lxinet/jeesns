@@ -66,17 +66,17 @@
                                     <td>${action.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if action.status=1>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/action/isenable/${action.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/sys/action/isenable/${action.id}">
                                                 <span class="label label-danger">禁用</span>
                                             </a>
                                         <#else>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/action/isenable/${action.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/sys/action/isenable/${action.id}">
                                                 <span class="label label-success">启用</span>
                                             </a>
                                         </#if>
                                     </td>
                                     <td>
-                                        <a href="${managePath}/action/edit/${action.id}" target="_jeesnsOpen" title="编辑动态类型" height="350px">
+                                        <a href="${managePath}/sys/action/edit/${action.id}" target="_jeesnsOpen" title="编辑动态类型" height="350px">
                                             <span class="label label-warning"><i class="fa fa-edit green"></i></span>
                                         </a>
                                     </td>
