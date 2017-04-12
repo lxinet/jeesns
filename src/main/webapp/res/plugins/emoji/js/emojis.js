@@ -83,9 +83,9 @@
                 dataType: 'json',
                 cache:true,
                 success: function(data) {
-                    jsonData = data.data;
-                    emojiPath = data.path;
-
+                    var dataJson = eval('(' + data + ')');
+                    jsonData = dataJson.data;
+                    emojiPath = dataJson.path;
                     var options = $.extend({}, defaults, opt || {});
                     _this.hide = function() {
                         $(_this).find('.emoji-inner').hide()
@@ -122,21 +122,6 @@
     $.fn.emoji = function(opt, base) {
         basePath = base;
         getDataJson(opt,this);
-        // var options = $.extend({}, defaults, opt || {});
-        // this.hide = function() {
-        //     $(this).find('.emoji-inner').hide()
-        // }
-        //
-        // this.show = function() {
-        //     $(this).find('.emoji-inner').show()
-        // }
-        //
-        // return this.each(function() {
-        //     render_nav(this, options);
-        //     render_emoji(this, options);
-        //     switchitem(this, options);
-        //     togglew(this, options)
-        // })
         return "";
 
     }
