@@ -21,10 +21,10 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/14.
  */
 @Controller
-@RequestMapping("/${managePath}/action/")
+@RequestMapping("/${managePath}/sys/action/")
 @Before(AdminLoginInterceptor.class)
 public class ActionController extends BaseController {
-    private static final String MANAGE_FTL_PATH = "/manage/config/";
+    private static final String MANAGE_FTL_PATH = "/manage/sys/action/";
     @Resource
     private IActionService actionService;
     @Resource
@@ -34,14 +34,14 @@ public class ActionController extends BaseController {
     public String actionList(Model model){
         List<Action> list = actionService.list();
         model.addAttribute("list",list);
-        return MANAGE_FTL_PATH + "actionList";
+        return MANAGE_FTL_PATH + "list";
     }
 
     @RequestMapping("edit/{id}")
     public String find(@PathVariable("id") Integer id, Model model){
         Action action = actionService.findById(id);
         model.addAttribute("action",action);
-        return MANAGE_FTL_PATH + "actionEdit";
+        return MANAGE_FTL_PATH + "edit";
     }
 
     @RequestMapping(value = "update",method = RequestMethod.POST)

@@ -24,7 +24,7 @@ CREATE TABLE `tbl_score_detail` (
   `score_rule_id` INT(11) DEFAULT '0' COMMENT '积分规则ID',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6e47fd0326365727a8e2ed62d5935c88";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
 
 INSERT INTO tbl_score_rule(create_time,update_time,name,score,remark,type,status) VALUES
   (now(),now(),'注册奖励',100,'注册奖励','one',1),
@@ -40,3 +40,11 @@ INSERT INTO tbl_score_rule(create_time,update_time,name,score,remark,type,status
   (now(),now(),'群组发帖',1,'群组发帖奖励积分，如需审核，审核之后奖励','unlimite',1),
   (now(),now(),'群组帖子评论',1,'群组帖子评论奖励积分','unlimite',1),
   (now(),now(),'群组帖子收到喜欢',1,'群组帖子收到喜欢奖励积分','unlimite',1);
+
+##修改jvalue字段长度为500
+ALTER TABLE tbl_config MODIFY jvalue varchar(500) DEFAULT '';
+INSERT INTO `tbl_config` (`jkey`, `jvalue`, `description`)
+VALUES
+  ('site_icp','闽ICP备12013573号','备案号'),
+  ('site_copyright','Copyright © 2012 - 2017.','版权说明'),
+  ('site_tongji','<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6e47fd0326365727a8e2ed62d5935c88";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>','统计代码');

@@ -26,10 +26,10 @@ import java.util.Map;
  * Created by zchuanzhao on 2017/1/3.
  */
 @Controller
-@RequestMapping("/${managePath}/config/")
+@RequestMapping("/${managePath}/sys/config/")
 @Before(AdminLoginInterceptor.class)
 public class ConfigController extends BaseController {
-    private static final String MANAGE_FTL_PATH = "/manage/config/";
+    private static final String MANAGE_FTL_PATH = "/manage/sys/config/";
     @Resource
     private IConfigService configService;
     @Resource
@@ -47,7 +47,8 @@ public class ConfigController extends BaseController {
     @RequestMapping(value = "baseUpdate",method = RequestMethod.POST)
     @ResponseBody
     public Object baseUpdate(String site_name,String site_seo_title,String site_domain,String site_keys,String site_description,
-            String site_logo,String site_send_email_account,String site_send_email_password,String site_send_email_smtp){
+                            String site_logo,String site_send_email_account,String site_send_email_password,
+                             String site_send_email_smtp,String site_icp,String site_copyright,String site_tongji){
         Map<String,String> params = new HashMap<>();
         params.put("site_name",site_name);
         params.put("site_seo_title",site_seo_title);
@@ -59,6 +60,10 @@ public class ConfigController extends BaseController {
         }
         params.put("site_send_email_account",site_send_email_account);
         params.put("site_send_email_smtp",site_send_email_smtp);
+        params.put("site_icp",site_icp);
+        params.put("site_copyright",site_copyright);
+        site_tongji = site_tongji.replace("&lt;","<").replace("&gt;",">").replace("&#47;","/");
+        params.put("site_tongji",site_tongji);
         if(StringUtils.isNotEmpty(site_send_email_password)){
             params.put("site_send_email_password",site_send_email_password);
         }

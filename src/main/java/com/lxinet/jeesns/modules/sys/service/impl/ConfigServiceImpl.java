@@ -38,7 +38,12 @@ public class ConfigServiceImpl implements IConfigService {
     @Override
     public ResponseModel update(Map<String, String> params) {
         for(Map.Entry entry : params.entrySet()){
-            configDao.update((String)entry.getKey(),(String)entry.getValue());
+            if(((String)entry.getValue()).length() > 500){
+                System.out.println(entry.getValue());
+                return new ResponseModel(-1,"只能输入255个字符");
+            }else {
+                configDao.update((String)entry.getKey(),(String)entry.getValue());
+            }
         }
         return new ResponseModel(0,"操作成功");
     }
