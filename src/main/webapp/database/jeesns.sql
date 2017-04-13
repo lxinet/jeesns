@@ -296,7 +296,7 @@ VALUES
   ('site_seo_title','又一个JEESNS社区','SEO标题'),
   ('site_icp','闽ICP备12013573号','备案号'),
   ('site_copyright','Copyright © 2012 - 2017.','版权说明'),
-  ('site_tongji','<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6e47fd0326365727a8e2ed62d5935c88";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>','统计代码'),
+  ('site_tongji','<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6e79d941db914e4195f4a839b06f2567";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>','统计代码'),
   ('weibo_alias','微博','微博别名'),
   ('weibo_post','1','微博发布，0不可以发布，1可以发布'),
   ('weibo_post_maxcontent','140','微博内容字数');

@@ -47,4 +47,4 @@ INSERT INTO `tbl_config` (`jkey`, `jvalue`, `description`)
 VALUES
   ('site_icp','闽ICP备12013573号','备案号'),
   ('site_copyright','Copyright © 2012 - 2017.','版权说明'),
-  ('site_tongji','<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6e47fd0326365727a8e2ed62d5935c88";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>','统计代码');
+  ('site_tongji','<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6e79d941db914e4195f4a839b06f2567";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>','统计代码');
