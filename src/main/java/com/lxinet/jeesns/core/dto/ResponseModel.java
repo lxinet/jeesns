@@ -2,10 +2,12 @@ package com.lxinet.jeesns.core.dto;
 
 import com.lxinet.jeesns.core.entity.Page;
 
+import java.io.Serializable;
+
 /**
  * Created by zchuanzhao on 2016/10/16.
  */
-public class ResponseModel<T> {
+public class ResponseModel<T> implements Serializable{
 
     //-2参数错误，-1操作失败，0操作成功，1成功刷新当前页，2成功并跳转到url，3成功并刷新iframe的父界面
     private int code;

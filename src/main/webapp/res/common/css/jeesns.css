@@ -32,6 +32,21 @@ h5 {
   font-weight: 600;
 }
 
+.search-form {
+  margin-top: 10px;
+}
+.search-result h3 {
+  margin-bottom: 0;
+  color: #1E0FBE;
+}
+.search-result .search-link {
+  color: #006621;
+}
+.search-result p {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
 .pd-l-20{padding-left: 20px}
 .mg-t-10{margin-top: 10px}
 .mg-b-10{margin-bottom: 10px}
