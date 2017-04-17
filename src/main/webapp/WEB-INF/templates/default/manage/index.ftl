@@ -162,10 +162,33 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v102">v1.0.2</a><code class="pull-right">2017.4.17</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v102" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>优化微博、文章、帖子图片裁剪功能</li>
+                                                        <li>优化配置文件</li>
+                                                        <li>XSS攻击处理优化</li>
+                                                        <li>系统设置增加统计代码、版权说明、备案号</li>
+                                                        <li>修复群组发帖缩略图上传失败问题</li>
+                                                        <li>修复多次运行积分规则SQL导致ID不一致问题</li>
+                                                        <li>修复Emoji偶尔抽风不能用问题</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v101">v1.0.1</a><code class="pull-right">2017.4.10</code>
                                             </h5>
                                         </div>
-                                        <div id="v101" class="panel-collapse collapse in">
+                                        <div id="v101" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
