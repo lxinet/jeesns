@@ -32,4 +32,5 @@ public interface IScoreDetailService {
      */
     ScoreDetail findByForeignAndRule(int memberId, int scoreRuleId, int forgignId);
 
+    void cancel(int scoreDetailId);
 }

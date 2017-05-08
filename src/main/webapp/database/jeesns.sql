@@ -349,6 +349,7 @@ CREATE TABLE `tbl_score_detail` (
   `remark` VARCHAR(255) COMMENT '说明',
   `foreign_id` INT(11) DEFAULT '0' COMMENT '外键ID',
   `score_rule_id` INT(11) DEFAULT '0' COMMENT '积分规则ID',
+  `status` INT(11) DEFAULT '1' COMMENT '状态，1是成功，0是取消',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

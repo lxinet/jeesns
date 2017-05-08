@@ -31,4 +31,6 @@ public interface IScoreDetailDao extends IBaseDao<ScoreDetail> {
      * @return
      */
     ScoreDetail findByForeignAndRule(@Param("memberId") Integer memberId, @Param("scoreRuleId") Integer scoreRuleId, @Param("foreignId") Integer foreignId);
+
+    void cancel(@Param("id") Integer id);
 }

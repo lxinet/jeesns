@@ -106,10 +106,11 @@ public class ScoreRuleServiceImpl implements IScoreRuleService {
     public void scoreRuleCancelBonus(int memberId, int scoreRuleId, int foreignId) {
         ScoreDetail scoreDetail = scoreDetailService.findByForeignAndRule(memberId, scoreRuleId, foreignId);
         if(scoreDetail != null){
+            scoreDetailService.cancel(scoreDetail.getId());
             //扣除积分
             memberService.updateScore(-scoreDetail.getScore(), memberId);
             ScoreDetail scoreDetailCancel = new ScoreDetail();
-            scoreDetail.setType(2);
+            scoreDetailCancel.setType(2);
             scoreDetailCancel.setMemberId(memberId);
             scoreDetailCancel.setForeignId(foreignId);
             scoreDetailCancel.setScore(-scoreDetail.getScore());
