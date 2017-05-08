@@ -1,0 +1,1 @@
+ALTER TABLE tbl_score_detail ADD COLUMN `status` INT(11) DEFAULT '1' COMMENT '状态，1是成功，0是取消';

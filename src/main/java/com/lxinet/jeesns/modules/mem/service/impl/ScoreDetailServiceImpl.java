@@ -64,4 +64,9 @@ public class ScoreDetailServiceImpl implements IScoreDetailService {
     public ScoreDetail findByForeignAndRule(int memberId, int scoreRuleId, int forgignId) {
         return scoreDetailDao.findByForeignAndRule(memberId,scoreRuleId,forgignId);
     }
+
+    @Override
+    public void cancel(int scoreDetailId) {
+        scoreDetailDao.cancel(scoreDetailId);
+    }
 }

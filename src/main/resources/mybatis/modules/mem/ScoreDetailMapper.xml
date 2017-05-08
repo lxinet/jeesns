@@ -16,12 +16,12 @@
   </select>
 
   <select id="findByForeignAndRule" resultType="ScoreDetail">
-    select * from tbl_score_detail WHERE foreign_id != 0 and type = 1 and foreign_id = #{foreignId} and member_id = #{memberId} and score_rule_id = #{scoreRuleId}
+    select * from tbl_score_detail WHERE foreign_id != 0 and status=1 and type = 1 and foreign_id = #{foreignId} and member_id = #{memberId} and score_rule_id = #{scoreRuleId}
   </select>
 
   <!-- 是否能奖励，如果返回记录为0，表示可以奖励 -->
   <select id="canBonus" resultType="ScoreDetail">
-    select * from tbl_score_detail WHERE member_id=#{memberId} and score_rule_id=#{scoreRuleId}
+    select * from tbl_score_detail WHERE member_id=#{memberId} and score_rule_id=#{scoreRuleId} and status=1
     <choose>
       <!-- 只有一次奖励 -->
       <when test="type == 'one'">
@@ -45,5 +45,9 @@
   <insert id="save" parameterType="ScoreDetail">
     insert into tbl_score_detail(create_time,member_id,type,score,balance,remark,foreign_id,score_rule_id)
     values(now(),#{memberId},#{type},#{score},(SELECT score FROM tbl_member WHERE id=#{memberId}),#{remark},#{foreignId},#{scoreRuleId})
+  </insert>
+
+  <insert id="cancel">
+    UPDATE tbl_score_detail SET status=0 WHERE id=#{id}
   </insert>
 </mapper>
