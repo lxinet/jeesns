@@ -44,7 +44,7 @@
                         <#list model.data as group>
                             <div class="feed-element">
                                 <a href="${base}/group/detail/${group.id}" class="pull-left">
-                                    <img alt="image" class="img-circle" src="${group.logo}">
+                                    <img alt="image" class="img-circle" src="${base}${group.logo}">
                                 </a>
                                 <div class="media-body ">
                                     <h4><strong><a href="${base}/group/detail/${group.id}">${group.name}</a></strong></h4>
