@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.common.dao.IPictureDao">
+  <select id="find" resultType="Picture">
+    select * from tbl_picture where foreign_id=#{id}
+  </select>
+  <delete id="delete">
+    delete from tbl_picture where foreign_id=#{id}
+  </delete>
+  <insert id="save" useGeneratedKeys="true" keyProperty="pictureId">
+    insert into tbl_picture (create_time, type, foreign_id, path, thumbnail_path, md5, width, height)
+    values (now(), #{type}, #{foreignId}, #{path}, #{thumbnailPath}, #{md5}, #{width}, #{height})
+  </insert>
+  <update id="update">
+    UPDATE tbl_picture SET foreign_id=#{foreignId} WHERE picture_id in
+    <foreach item="item" index="index" collection="ids" open="("
+             separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+</mapper>
