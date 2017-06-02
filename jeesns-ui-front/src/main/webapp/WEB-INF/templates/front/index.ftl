@@ -7,24 +7,19 @@
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <link href="${basePath}/res/common/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${basePath}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${basePath}/res/common/css/jeesns.css">
-    <link rel="stylesheet" href="${basePath}/res/common/css/jeesns-skin.css">
+    <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
+    <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <link href="${basePath}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
     <script src="${basePath}/res/common/js/respond.min.js"></script>
     <![endif]-->
     <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
-    <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
+    <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
-    <script src="${basePath}/res/modules/weibo.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/underscore-min.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/editor.js"></script>
     <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
 </head>
 
