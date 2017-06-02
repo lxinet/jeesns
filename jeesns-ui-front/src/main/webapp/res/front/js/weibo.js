@@ -11,11 +11,11 @@ var weibo = {
                     jeesnsDialog.errorTips(res.message);
                 }else {
                     if(res.code == 0){
-                        _this.html("<i class='fa fa-thumbs-up'></i> "+res.data);
+                        _this.html("<i class='icon icon-thumbs-up'></i> "+res.data);
                         _this.removeClass("text-primary");
                         _this.addClass("text-success")
                     }else {
-                        _this.html("<i class='fa fa-thumbs-o-up'></i> "+res.data);
+                        _this.html("<i class='icon icon-thumbs-o-up'></i> "+res.data);
                         _this.removeClass("text-success");
                         _this.addClass("text-primary")
                     }
