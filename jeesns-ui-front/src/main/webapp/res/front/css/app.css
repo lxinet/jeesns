@@ -1,0 +1,312 @@
+a {
+    text-decoration: none !important;
+}
+.gray-bg {
+    background-color: #f3f3f4;
+}
+
+.white-bg {
+    background-color: #ffffff;
+}
+
+.main-text-color {
+    color: #0499e2;
+}
+
+.no-border{
+    border: none;
+}
+
+
+.p-r-10 {
+    padding-right: 10px;
+}
+
+.m-t-n4{
+    margin-top: -4px;
+}
+
+.navbar {
+    border-radius: 0px;
+    min-height: 90px;
+    padding-top: 23px;
+    border-color: #ffffff;
+}
+
+.navbar-toggle {
+    background-color: #0499e2;
+}
+
+.navbar-inverse {
+    background-color: #fff;
+    border-top: solid 1px #0499e2;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #333;
+    font-size: 18px;
+    margin: 0 15px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: #ffffff;
+    color: #0499e2;
+    border-bottom: solid 1px #0499e2;
+}
+
+.btn {
+    margin-bottom: 5px;
+    border-radius: 0px;
+}
+
+.panel {
+    border-radius: 0px;
+}
+
+.container {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.form-horizontal .form-group {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.comments-list .comment {
+    padding: 10px 10px;
+}
+
+.comment > .avatar, .comment > .content {
+    word-break: break-all;
+}
+
+.form-control {
+
+}
+
+.shadow {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+}
+
+.form-control,
+.single-line {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #e5e6e7;
+    border-radius: 0px !important;
+    -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .75);
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, .75);
+    color: inherit;
+    display: block;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+    font-size: 14px;
+}
+
+.form-control:focus,
+.single-line:focus {
+    border-color: #0499e2 !important;
+    -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .75);
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, .75);
+}
+
+.main-content {
+}
+
+.panel-heading {
+    border-bottom: 1px solid #0499e2;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 0 5px 15px;
+    margin-bottom: 5px;
+    background-color: #ffffff !important;
+    border-color: #0499e2 !important;
+}
+
+.article-list {
+    background-color: #ffffff;
+    padding: 15px !important;
+    margin-bottom: 10px;
+}
+
+.article-list:hover {
+    border-bottom: solid #0499e2 1px;
+    border-left: solid #0499e2 1px;
+}
+
+.article-hot-list ul {
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+.article-hot-list ul li {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.article-hot-list ul li a {
+    color: #333333;
+}
+
+.article-hot-list ul li a:hover {
+    color: #0499e2;
+    text-decoration-line: none;
+}
+
+.article-detail {
+    border-top: solid #0499e2 2px;
+    background-color: #ffffff;
+    padding: 15px !important;
+    margin-bottom: 10px;
+}
+
+.weibo-post-area {
+    padding-top: 20px;
+}
+
+.weibo-list {
+    background-color: #ffffff;
+    padding: 15px !important;
+    margin-bottom: 10px;
+}
+
+.weibo-detail {
+    border-top: solid #0499e2 2px;
+    background-color: #ffffff;
+    padding: 15px !important;
+    margin-bottom: 10px;
+}
+
+.weibo-detail .content {
+    text-align: center;
+    padding: 100px 0;
+}
+
+.weibo-author {
+    text-align: center;
+}
+
+.weibo-detail .avatar, .weibo-author .avatar {
+    width: 100%;
+}
+
+.weibo-detail .name, .weibo-author .name {
+    color: #c9c9c9;
+}
+
+.weibo-detail .avatar img, .weibo-author .avatar img {
+    width: 60px;
+    height: 60px;
+}
+
+.weibo-detail .info {
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.weibo-detail .info .left {
+    text-align: left;
+    float: left;
+    color: #c9c9c9;
+}
+
+.weibo-detail .info .right {
+    text-align: right;
+    float: right;
+}
+
+.weibo-author .info {
+
+}
+
+.group-list {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.group-list .group-detail {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.group-list .group-detail .group-logo {
+    width: 100px;
+    height: 100px;;
+    margin: 0 auto;
+}
+
+.group {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.group .group-logo {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+}
+
+.group .group-detail {
+    float: left;
+    width: calc(100% - 100px);
+    height: 100px;
+}
+
+.group .group-introduce {
+    margin-top: 5px;
+    padding-top: 10px;
+}
+
+.group .group-fans {
+    width: 60px;
+    height: 90px;
+    float: left;
+    margin: 5px 10px;
+}
+
+.group .group-fans-avatar {
+    width: 100%;
+    float: left;
+}
+
+.group .group-fans-name {
+    width: 100%;
+    float: left;
+}
+
+.group .group-detail p .text-right{
+    float: right;
+}
+
+.group-topic-list{
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.group-detail-fans .list{
+    width: 100%;
+    padding: 10px 0;
+    margin: 0 auto;
+    text-align: center;
+}
+.group-detail-fans .list .fan{
+    text-align: center;
+    width: 80px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+
+.footer {
+    height: 100px;
+    background-color: #2f2f2f;
+    color: #777;
+    padding-top: 30px;
+}

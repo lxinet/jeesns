@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.group.dao.IGroupDao">
+  <select id="findById" parameterType="java.lang.Integer" resultType="Group">
+    select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
+    a.can_post,a.status,a.topic_review,(select count(c.id) from tbl_group_topic as c where group_id=a.id and c.status=1) as topicCount,
+    (select count(*) from tbl_group_fans as d where group_id=a.id) as fansCount,
+    b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id where a.id = #{id}
+  </select>
+  <select id="listByPage" resultType="Group">
+    select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
+    a.can_post,a.status,a.topic_review,(select count(c.id) from tbl_group_topic as c where group_id=a.id and c.status=1) as topicCount,
+    (select count(*) from tbl_group_fans as d where group_id=a.id) as fansCount,
+    b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id
+    <where>
+      <if test="key != null and key != ''">
+        and a.name LIKE #{key}
+      </if>
+      <if test="status &gt; -1">
+        and a.status=#{status}
+      </if>
+    </where>
+    order by a.id DESC
+  </select>
+  <select id="listByFollow" resultType="Group">
+    select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
+    a.can_post,a.status,a.topic_review,(select count(c.id) from tbl_group_topic as c where group_id=a.id and c.status=1) as topicCount,
+    (select count(*) from tbl_group_fans as d where group_id=a.id) as fansCount,
+    b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id
+    WHERE a.status = 1 AND d.member_id = #{memberId}
+    order by a.id DESC
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_group
+    where id = #{id}
+  </delete>
+  <insert id="save" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_group(create_time,name,logo,creator,managers,tags,introduce,can_post,topic_review)
+    values(now(),#{name},#{logo},#{creator},#{managers},#{tags},#{introduce},#{canPost},#{topicReview})
+  </insert>
+  <update id="update" parameterType="Group">
+    update tbl_group
+    <set>
+      <if test="name != null">name = #{name},</if>
+      <if test="logo != null">logo = #{logo},</if>
+      <if test="tags != null">tags = #{tags},</if>
+      <if test="managers != null">managers = #{managers},</if>
+      <if test="introduce != null">introduce = #{introduce},</if>
+      <if test="canPost != null">can_post = #{canPost},</if>
+      <if test="topicReview != null">topic_review = #{topicReview},</if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="changeStatus">
+    update tbl_group set status=(CASE WHEN status=0 THEN 1 ELSE 0 END) where id = #{id}
+  </update>
+</mapper>
