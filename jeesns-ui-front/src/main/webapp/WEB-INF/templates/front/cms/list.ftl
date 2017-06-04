@@ -41,10 +41,15 @@
                             <div class="text">${article.description}</div>
                         </div>
                         <div class="item-footer">
-                            <a href="#" class="text-muted"><i class="icon-comments"></i> ${article.viewCount}</a> &nbsp; <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                            <span class="text-muted"><i class="icon-comments"></i> ${article.viewCount} &nbsp; <i class="icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
                         </div>
                     </div>
                     </#list>
+                        <ul class="pager pagination pagination-sm no-margin pull-right"
+                            url="/article/list?key="
+                            currentPage="${model.page.pageNo}"
+                            pageCount="${model.page.totalPage}">
+                        </ul>
                 </div>
             </div>
             <div class="col-md-4">
@@ -79,5 +84,10 @@
     </div>
 </div>
 <#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<script type="text/javascript">
+    $(function () {
+        $(".pagination").jeesns_page("jeesnsPageForm");
+    });
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.common.web;
 
 import com.lxinet.jeesns.common.service.IArchiveService;
+import com.lxinet.jeesns.common.utils.EmojiUtil;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.entity.Page;
 import com.lxinet.jeesns.core.utils.Const;
@@ -103,17 +104,15 @@ public class IndexController extends BaseController{
         jsonObject.put("LAST_SYSTEM_UPDATE_TIME", Const.LAST_SYSTEM_UPDATE_TIME);
         return callback + "(" + jsonObject.toString() + ")";
     }
-
-//
-//    /**
-//     * 获取Emoji数据
-//     * @return
-//     */
-//    @RequestMapping(value="/emoji/emojiJsonData.json",method = RequestMethod.GET)
-//    @ResponseBody
-//    public Object emojiJsonData(){
-//        return EmojiUtil.emojiJson();
-//    }
+    /**
+     * 获取Emoji数据
+     * @return
+     */
+    @RequestMapping(value="/emoji/emojiJsonData.json",method = RequestMethod.GET)
+    @ResponseBody
+    public Object emojiJsonData(){
+        return EmojiUtil.emojiJson();
+    }
 
     @RequestMapping(value="/404",method = RequestMethod.GET)
     public String jeesns404(){

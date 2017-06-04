@@ -34,16 +34,19 @@
                 <article class="article article-detail">
                     <header>
                         <h1 class="text-center">${article.title}</h1>
-                        <dl class="dl-inline">
+                        <span class="dl-inline">
                             <dt></dt>
-                            <dd>${article.createTime?string('yyyy-MM-dd HH:mm')}</dd>
-                            <dt></dt>
-                            <dd class="pull-right">
-                                <span class="label label-warning">${article.articleCate.name}</span>
-                                <span class="label label-info"><i class="icon-eye-open"></i> </span>
+                            <dd>
+                                <a href="${basePath}/article/list?cateid=${article.articleCate.id}">
+                                    <span class="label label-warning"><i class="icon icon-list-ul"></i> ${article.articleCate.name}</span>
+                                </a>
                                 <span class="label label-danger"><i class="icon-eye-open"></i> ${article.viewCount}</span>
                             </dd>
-                        </dl>
+                            <dt></dt>
+                            <dd class="pull-right">
+                                <i class="icon icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}
+                            </dd>
+                        </span>
                     </header>
                     <section class="content">
                         ${article.content}

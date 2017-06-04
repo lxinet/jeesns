@@ -1,4 +1,4 @@
-package com.lxinet.jeesns.weibo.utils;
+package com.lxinet.jeesns.common.utils;
 
 import com.lxinet.jeesns.core.utils.Const;
 import org.json.JSONArray;

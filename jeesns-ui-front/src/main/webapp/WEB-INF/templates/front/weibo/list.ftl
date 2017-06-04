@@ -24,6 +24,8 @@
     <script src="${basePath}/res/front/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script src="${basePath}/res/front/js/weibo.js"></script>
+    <script src="${basePath}/res/plugins/emoji/js/underscore-min.js"></script>
+    <script src="${basePath}/res/plugins/emoji/js/editor.js"></script>
     <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
     <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
@@ -37,7 +39,7 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-8 white-bg">
+            <div class="col-md-8 white-bg m-b-10">
                 <div class="weibo-post-area">
                     <form class="form-horizontal m-t jeesns_form" action="${basePath}/weibo/publish" method="post">
                         <p>
@@ -140,7 +142,13 @@
                         </div>
                     </div>
                 </#list>
+
                 </div>
+                <ul class="pager pagination pagination-sm no-margin pull-right"
+                    url="${basePath}/weibo/list"
+                    currentPage="${model.page.pageNo}"
+                    pageCount="${model.page.totalPage}">
+                </ul>
             </div>
             <div class="col-md-4">
                 <div class="panel">

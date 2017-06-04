@@ -36,7 +36,13 @@
                     </div>
                     <div class="group-info">
                         <h4><strong><a href="${basePath}/group/detail/${group.id}">${group.name}</a></strong></h4>
-                        <p class="text-muted">${group.introduce}</p>
+                        <p class="text-muted" title="${group.introduce}">
+                            <#if group.introduce?length &gt; 20>
+                                ${group.introduce?substring(0,20)}...
+                                <#else>
+                                ${group.introduce}
+                            </#if>
+                        </p>
                         <small class="text-muted">${group.topicCount}篇文章 · ${group.fansCount}人关注</small>
                     </div>
                 </div>
