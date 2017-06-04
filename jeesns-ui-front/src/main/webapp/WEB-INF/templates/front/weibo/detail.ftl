@@ -21,7 +21,6 @@
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/front/js/jeesns.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script>
         var base = "${basePath}";
@@ -142,6 +141,11 @@
         $(".weibo-favor").click(function () {
             weibo.favor($(this), "${basePath}")
         });
+        $('#emoji').emoji({
+            insertAfter: function(item){
+                $('#weibo-content').insertContent(':'+item.name+':')
+            }
+        },"${basePath}");
     });
 </script>
 </body>

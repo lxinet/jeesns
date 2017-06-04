@@ -3,7 +3,7 @@ package com.lxinet.jeesns.weibo.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.member.entity.Member;
 import com.lxinet.jeesns.weibo.utils.AtUtil;
-import com.lxinet.jeesns.weibo.utils.EmojiUtil;
+import com.lxinet.jeesns.common.utils.EmojiUtil;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.weibo.utils;
 
+import com.lxinet.jeesns.common.utils.EmojiUtil;
 import com.lxinet.jeesns.weibo.entity.Weibo;
 
 /**
