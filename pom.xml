@@ -13,20 +13,11 @@
     <modules>
         <module>jeesns-core</module>
         <module>jeesns-system</module>
-        <module>jeesns-system-web</module>
         <module>jeesns-member</module>
-        <module>jeesns-member-web</module>
-        <module>jeesns-common</module>
+        <module>jeesns-commons</module>
         <module>jeesns-cms</module>
-        <module>jeesns-cms-web</module>
         <module>jeesns-weibo</module>
-        <module>jeesns-weibo-web</module>
         <module>jeesns-group</module>
-        <module>jeesns-group-web</module>
-        <module>jeesns-ui</module>
-        <module>jeesns-ui-front</module>
-        <module>jeesns-ui-member</module>
-        <module>jeesns-ui-manage</module>
         <module>jeesns-web</module>
     </modules>
 </project>
