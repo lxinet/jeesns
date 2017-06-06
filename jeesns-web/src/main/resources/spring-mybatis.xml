@@ -36,13 +36,13 @@
 		<!-- 自动扫描Mapper.xml -->
 		<property name="mapperLocations" value="classpath*:mybatis/**/*.xml"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="typeAliasesPackage" value="com.lxinet.jeesns.core.entity,
-                                                com.lxinet.jeesns.cms.entity,
-                                                com.lxinet.jeesns.group.entity,
-                                                com.lxinet.jeesns.weibo.entity,
-                                                com.lxinet.jeesns.member.entity,
-                                                com.lxinet.jeesns.system.entity,
-                                                com.lxinet.jeesns.common.entity"/>
+        <property name="typeAliasesPackage" value="com.lxinet.jeesns.core.model,
+                                                com.lxinet.jeesns.cms.model,
+                                                com.lxinet.jeesns.group.model,
+                                                com.lxinet.jeesns.weibo.model,
+                                                com.lxinet.jeesns.member.model,
+                                                com.lxinet.jeesns.system.model,
+                                                com.lxinet.jeesns.commons.model"/>
     </bean>
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->

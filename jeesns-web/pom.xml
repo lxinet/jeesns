@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.lxinet</groupId>
-		<artifactId>jeesns_v1.2</artifactId>
+		<artifactId>jeesns</artifactId>
 		<version>1.2</version>
 	</parent>
 	<groupId>com.lxinet</groupId>
@@ -22,19 +22,24 @@
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-system</artifactId>
+			<artifactId>jeesns-member-commons</artifactId>
 			<version>1.2</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-member</artifactId>
+			<artifactId>jeesns-member-model</artifactId>
 			<version>1.2</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-cms</artifactId>
+			<artifactId>jeesns-commons</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lxinet</groupId>
+			<artifactId>jeesns-member-service</artifactId>
 			<version>1.2</version>
 			<scope>compile</scope>
 		</dependency>
@@ -69,34 +74,6 @@
 		<dependency>
 			<groupId>com.lxinet</groupId>
 			<artifactId>jeesns-group-web</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-ui</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-ui-front</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-ui-member</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-ui-manage</artifactId>
 			<version>1.2</version>
 			<type>war</type>
 			<scope>compile</scope>
@@ -140,22 +117,6 @@
 						<overlay>
 							<groupId>com.lxinet</groupId>
 							<artifactId>jeesns-group-web</artifactId>
-						</overlay>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-ui</artifactId>
-						</overlay>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-ui-front</artifactId>
-						</overlay>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-ui-member</artifactId>
-						</overlay>
-                        <overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-ui-manage</artifactId>
 						</overlay>
 					</overlays>
 				</configuration>

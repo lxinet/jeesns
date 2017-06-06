@@ -2,7 +2,7 @@ package com.lxinet.jeesns.core.interceptor;
 
 import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.core.utils.SpringContextHolder;
-import com.lxinet.jeesns.member.entity.Member;
+import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.member.service.IMemberService;
 import com.lxinet.jeesns.system.service.IConfigService;
 

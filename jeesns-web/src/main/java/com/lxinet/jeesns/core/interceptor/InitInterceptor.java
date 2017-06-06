@@ -4,12 +4,6 @@ import com.lxinet.jeesns.core.annotation.After;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
 import com.lxinet.jeesns.core.utils.*;
-import com.lxinet.jeesns.member.entity.Member;
-import com.lxinet.jeesns.member.service.IMessageService;
-import com.lxinet.jeesns.member.utils.MemberUtil;
-import com.lxinet.jeesns.system.entity.Config;
-import com.lxinet.jeesns.system.service.IConfigService;
-import com.lxinet.jeesns.system.utils.ConfigUtil;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +14,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 初始化监听器
@@ -34,26 +27,26 @@ public class InitInterceptor implements HandlerInterceptor {
             Const.PROJECT_PATH = request.getContextPath();
         }
 
-        IMessageService messageService = SpringContextHolder.getBean("messageService");
-        Member loginUser = MemberUtil.getLoginMember(request);
-        request.setAttribute("loginUser", loginUser);
+//        IMessageService messageService = SpringContextHolder.getBean("messageService");
+//        Member loginUser = MemberUtil.getLoginMember(request);
+//        request.setAttribute("loginUser", loginUser);
         //会员未读私信数量
-        Integer unReadMessageNum = 0;
-        if (loginUser != null) {
-            if (loginUser.getIsActive() == 0) {
-                String memberEmailValid = (String) request.getServletContext().getAttribute(ConfigUtil.MEMBER_EMAIL_VALID);
-                if (Integer.parseInt(memberEmailValid) == 1) {
-                    if (!(request.getServletPath().indexOf("member/active") != -1 || request.getServletPath().indexOf("member/logout") != -1 ||
-                            request.getServletPath().indexOf("member/sendEmailActiveValidCode") != -1 || request.getServletPath().indexOf("/res/") != -1 ||
-                            request.getServletPath().indexOf("/upload/") != -1)) {
-                        response.sendRedirect(request.getContextPath() + "/member/active");
-                        return false;
-                    }
-                }
-            }
-            unReadMessageNum = messageService.countUnreadNum(loginUser.getId());
-        }
-        request.setAttribute("unReadMessageNum", unReadMessageNum);
+//        Integer unReadMessageNum = 0;
+//        if (loginUser != null) {
+//            if (loginUser.getIsActive() == 0) {
+//                String memberEmailValid = (String) request.getServletContext().getAttribute(ConfigUtil.MEMBER_EMAIL_VALID);
+//                if (Integer.parseInt(memberEmailValid) == 1) {
+//                    if (!(request.getServletPath().indexOf("member/active") != -1 || request.getServletPath().indexOf("member/logout") != -1 ||
+//                            request.getServletPath().indexOf("member/sendEmailActiveValidCode") != -1 || request.getServletPath().indexOf("/res/") != -1 ||
+//                            request.getServletPath().indexOf("/upload/") != -1)) {
+//                        response.sendRedirect(request.getContextPath() + "/member/active");
+//                        return false;
+//                    }
+//                }
+//            }
+//            unReadMessageNum = messageService.countUnreadNum(loginUser.getId());
+//        }
+//        request.setAttribute("unReadMessageNum", unReadMessageNum);
 
         if (handler != null) {
             List<Annotation> annotationList = new ArrayList<>();
