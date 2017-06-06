@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.core.interceptor;
 
-import com.lxinet.jeesns.core.entity.Page;
+import com.lxinet.jeesns.core.model.Page;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;

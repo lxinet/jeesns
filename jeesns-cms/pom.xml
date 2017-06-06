@@ -3,52 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.lxinet</groupId>
-        <artifactId>jeesns</artifactId>
-        <version>1.2</version>
-    </parent>
     <groupId>com.lxinet</groupId>
     <artifactId>jeesns-cms</artifactId>
     <version>1.2</version>
     <name>jeesns-cms</name>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-core</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-system</artifactId>
-            <version>1.2</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-member</artifactId>
-            <version>1.2</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-common</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
+    <modules>
+        <module>jeesns-cms-model</module>
+        <module>jeesns-cms-dao</module>
+        <module>jeesns-cms-service</module>
+        <module>jeesns-cms-web</module>
+    </modules>
 
     <build>
-        <finalName>jeesns-member</finalName>
+        <finalName>jeesns-cms</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

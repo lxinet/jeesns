@@ -103,7 +103,7 @@ public class BaseController {
      */
     @ExceptionHandler
     public void execptionHandler(Exception e){
-
+        e.printStackTrace();
     }
 
 }

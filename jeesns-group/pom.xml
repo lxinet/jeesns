@@ -12,33 +12,14 @@
     <artifactId>jeesns-group</artifactId>
     <version>1.2</version>
     <name>jeesns-group</name>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-core</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-system</artifactId>
-            <version>1.2</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-member</artifactId>
-            <version>1.2</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-common</artifactId>
-            <version>1.2</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>jeesns-group-model</module>
+        <module>jeesns-group-dao</module>
+        <module>jeesns-group-service</module>
+        <module>jeesns-group-web</module>
+    </modules>
 
     <build>
         <finalName>jeesns-group</finalName>

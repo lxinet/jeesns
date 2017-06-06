@@ -11,7 +11,14 @@
     <groupId>com.lxinet</groupId>
     <artifactId>jeesns-system</artifactId>
     <version>1.2</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>jeesns-system-model</module>
+        <module>jeesns-system-dao</module>
+        <module>jeesns-system-service</module>
+        <module>jeesns-system-web</module>
+    </modules>
 
     <dependencies>
         <dependency>

@@ -12,33 +12,14 @@
     <artifactId>jeesns-weibo</artifactId>
     <version>1.2</version>
     <name>jeesns-weibo</name>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-core</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-system</artifactId>
-            <version>1.2</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-member</artifactId>
-            <version>1.2</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-common</artifactId>
-            <version>1.2</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>jeesns-weibo-model</module>
+        <module>jeesns-weibo-dao</module>
+        <module>jeesns-weibo-service</module>
+        <module>jeesns-weibo-web</module>
+    </modules>
 
     <build>
         <finalName>jeesns-weibo</finalName>
