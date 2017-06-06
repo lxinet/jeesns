@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.core.dto;
 
-import com.lxinet.jeesns.core.entity.Page;
+import com.lxinet.jeesns.core.model.Page;
 
 import java.io.Serializable;
 

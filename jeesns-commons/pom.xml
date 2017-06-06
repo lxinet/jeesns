@@ -9,28 +9,26 @@
         <version>1.2</version>
     </parent>
     <groupId>com.lxinet</groupId>
-    <artifactId>jeesns-member</artifactId>
+    <artifactId>jeesns-commons</artifactId>
     <version>1.2</version>
-    <packaging>pom</packaging>
-    <name>jeesns-member</name>
-
-    <modules>
-        <module>jeesns-member-model</module>
-        <module>jeesns-member-dao</module>
-        <module>jeesns-member-service</module>
-        <module>jeesns-member-web</module>
-    </modules>
+    <name>jeesns-commons</name>
 
     <dependencies>
         <dependency>
             <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-core</artifactId>
+            <artifactId>jeesns-member-model</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lxinet</groupId>
+            <artifactId>jeesns-system-service</artifactId>
             <version>1.2</version>
         </dependency>
     </dependencies>
 
+
     <build>
-        <finalName>jeesns-member</finalName>
+        <finalName>jeesns-commons</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
