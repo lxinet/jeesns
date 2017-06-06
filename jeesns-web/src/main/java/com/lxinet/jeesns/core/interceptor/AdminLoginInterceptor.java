@@ -3,7 +3,7 @@ package com.lxinet.jeesns.core.interceptor;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.core.utils.SpringContextHolder;
-import com.lxinet.jeesns.member.entity.Member;
+import com.lxinet.jeesns.member.model.Member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
