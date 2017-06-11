@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.lxinet</groupId>
+        <artifactId>jeesns-cms</artifactId>
+        <version>1.2</version>
+    </parent>
+    <groupId>com.lxinet</groupId>
+    <artifactId>jeesns-cms-dao</artifactId>
+    <version>1.2</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.lxinet</groupId>
+            <artifactId>jeesns-cms-model</artifactId>
+            <version>1.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>jeesns-cms-dao</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
