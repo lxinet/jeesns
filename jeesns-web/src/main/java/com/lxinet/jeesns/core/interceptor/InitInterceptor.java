@@ -23,10 +23,6 @@ public class InitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (StringUtils.isEmpty(Const.PROJECT_PATH)) {
-            Const.PROJECT_PATH = request.getContextPath();
-        }
-
 //        IMessageService messageService = SpringContextHolder.getBean("messageService");
 //        Member loginUser = MemberUtil.getLoginMember(request);
 //        request.setAttribute("loginUser", loginUser);

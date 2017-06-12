@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.system.model;
 
+import com.lxinet.jeesns.member.model.Member;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ public class ActionLog implements Serializable {
     private Integer id;
     private Date createTime;
     private Integer memberId;
-//    private Member member;
+    private Member member;
     private Integer actionId;
     private Action action;
     private String remark;
@@ -103,13 +104,13 @@ public class ActionLog implements Serializable {
         this.foreignId = foreignId;
     }
 
-//    public Member getMember() {
-//        return member;
-//    }
-//
-//    public void setMember(Member member) {
-//        this.member = member;
-//    }
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
     public Action getAction() {
         return action;

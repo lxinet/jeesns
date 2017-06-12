@@ -30,6 +30,11 @@
             <artifactId>jeesns-member-commons</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.lxinet</groupId>
+            <artifactId>jeesns-member-service</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -183,8 +183,8 @@
                                     <div class="box-footer clearfix">
                                         <ul class="pagination pagination-sm no-margin pull-right"
                                             url="${basePath}/member/"
-                                            currentPage="${actionLogentity.Page.pageNo}"
-                                            pageCount="${actionLogentity.Page.totalPage}">
+                                            currentPage="${actionLogModel.page.pageNo}"
+                                            pageCount="${actionLogModel.page.totalPage}">
                                         </ul>
                                     </div>
                                 </div>

@@ -26,6 +26,11 @@
             <artifactId>jeesns-core</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.lxinet</groupId>
+            <artifactId>jeesns-commons</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
 
     <build>

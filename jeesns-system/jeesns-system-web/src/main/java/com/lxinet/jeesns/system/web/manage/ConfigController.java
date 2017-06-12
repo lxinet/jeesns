@@ -1,11 +1,10 @@
 package com.lxinet.jeesns.system.web.manage;
 
+import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
-//import com.lxinet.jeesns.core.utils.MemberUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.web.BaseController;
-//import com.lxinet.jeesns.member.model.Member;
-//import com.lxinet.jeesns.member.service.IMemberService;
 import com.lxinet.jeesns.system.model.Config;
 import com.lxinet.jeesns.system.service.IConfigService;
 import org.springframework.stereotype.Controller;
@@ -23,12 +22,11 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/${managePath}/sys/config/")
+@Before(AdminLoginInterceptor.class)
 public class ConfigController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/sys/config/";
     @Resource
     private IConfigService configService;
-//    @Resource
-//    private IMemberService memberService;
 
     @RequestMapping("edit")
     public String edit(Model model){

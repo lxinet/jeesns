@@ -1,4 +1,4 @@
-package com.lxinet.jeesns.commons.web;
+package com.lxinet.jeesns.commons.web.front;
 
 import com.lxinet.jeesns.commons.model.Picture;
 import com.lxinet.jeesns.core.dto.ResponseModel;

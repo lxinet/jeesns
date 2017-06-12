@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.system.web.manage;
 
+import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.system.model.ScoreRule;
@@ -16,6 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/${managePath}/sys/scoreRule/")
+@Before(AdminLoginInterceptor.class)
 public class ScoreRuleController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/sys/scoreRule/";
     @Resource

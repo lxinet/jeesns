@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.group.web.front;
 
+import com.lxinet.jeesns.member.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.commons.service.IArchiveService;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
@@ -54,6 +56,7 @@ public class GroupController extends BaseController {
     }
 
     @RequestMapping(value = "/apply",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String apply(){
         String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_APPLY);
         if(StringUtils.isNotEmpty(judgeLoginJump)){
@@ -217,6 +220,7 @@ public class GroupController extends BaseController {
     }
 
     @RequestMapping(value = "/post/{groupId}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String post(@PathVariable("groupId") Integer groupId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_POST+"/"+groupId);
@@ -249,6 +253,7 @@ public class GroupController extends BaseController {
     }
 
     @RequestMapping(value = "/topicEdit/{topicId}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String topicEdit(@PathVariable("topicId") Integer topicId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_TOPIC_EDIT+"/"+topicId);
@@ -354,6 +359,7 @@ public class GroupController extends BaseController {
      * 未审核帖子列表
      */
     @RequestMapping(value = "/auditList/{groupId}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String auditList(@PathVariable("groupId") Integer groupId, Model model) {
         Page page = new Page(request);
         Group group = groupService.findById(groupId);

@@ -45,6 +45,21 @@
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
+			<artifactId>jeesns-cms-service</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lxinet</groupId>
+			<artifactId>jeesns-group-service</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lxinet</groupId>
+			<artifactId>jeesns-weibo-service</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lxinet</groupId>
 			<artifactId>jeesns-system-web</artifactId>
 			<version>1.2</version>
 			<type>war</type>

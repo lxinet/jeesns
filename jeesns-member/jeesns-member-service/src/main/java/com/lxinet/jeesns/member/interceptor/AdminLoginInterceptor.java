@@ -1,7 +1,8 @@
-package com.lxinet.jeesns.core.interceptor;
+package com.lxinet.jeesns.member.interceptor;
 
+import com.lxinet.jeesns.commons.utils.MemberUtil;
+import com.lxinet.jeesns.core.interceptor.JeesnsInterceptor;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.core.utils.SpringContextHolder;
 import com.lxinet.jeesns.member.model.Member;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ public class AdminLoginInterceptor implements JeesnsInterceptor {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/" + jeesnsConfig.getManagePath() + "/login");
             return false;
         }
+        httpServletRequest.setAttribute("loginUser", loginAdmin);
         return true;
     }
 }

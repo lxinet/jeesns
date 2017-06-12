@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-system-service</artifactId>
+            <artifactId>jeesns-member-dao</artifactId>
             <version>1.2</version>
         </dependency>
     </dependencies>
