@@ -47,14 +47,6 @@ public class MemberServiceImpl implements IMemberService {
     private IActionLogService actionLogService;
     @Resource
     private IMemberFansService memberFansService;
-//    @Resource
-//    private IArticleService articleService;
-//    @Resource
-//    private IGroupTopicService groupTopicService;
-//    @Resource
-//    private IGroupFansService groupFansService;
-//    @Resource
-//    private IWeiboService weiboService;
     @Resource
     private IScoreRuleService scoreRuleService;
 
@@ -466,38 +458,6 @@ public class MemberServiceImpl implements IMemberService {
         }else {
             return new ResponseModel(1,"已关注");
         }
-    }
-
-
-    /**
-     * 会员主页
-     * @param loginMember 登录会员
-     * @param page 分页信息
-     * @param memberId 被查看的会员ID
-     * @param type 类型
-     * @return
-     */
-    @Override
-    public ResponseModel home(Member loginMember, Page page, Integer memberId,String type) {
-        int loginMemberId = 0;
-        if(loginMember != null){
-            loginMemberId = loginMember.getId().intValue();
-        }
-//        if("article".equals(type)){
-//            return articleService.listByPage(page,"",0,1, memberId);
-//        } else if("groupTopic".equals(type)){
-//            return groupTopicService.listByPage(page,"",0,1, memberId);
-//        } else if("group".equals(type)){
-//            return groupFansService.listByMember(page, memberId);
-//        } else if("weibo".equals(type)){
-//            return weiboService.listByPage(page,memberId,loginMemberId,"");
-//        } else
-            if("follows".equals(type)){
-            return memberFansService.followsList(page,memberId);
-        } else if("fans".equals(type)){
-            return memberFansService.fansList(page,memberId);
-        }
-        return new ResponseModel(-1);
     }
 
     @Override

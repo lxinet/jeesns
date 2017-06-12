@@ -1,6 +1,8 @@
-package com.lxinet.jeesns.commons.manage.web;
+package com.lxinet.jeesns.commons.web.manage;
 
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.core.service.ICommonService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
@@ -30,6 +32,7 @@ public class IndexController extends BaseController {
     private ICommonService commonService;
 
     @RequestMapping("/index")
+    @Before(AdminLoginInterceptor.class)
     public String index(Model model){
         Properties props = System.getProperties();
         //java版本

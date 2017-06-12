@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.member.web.manage;
 
+import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.web.BaseController;
@@ -20,6 +22,7 @@ import javax.annotation.Resource;
  */
 @Controller("manageMemberController")
 @RequestMapping("/")
+@Before(AdminLoginInterceptor.class)
 public class MemberController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/mem/";
     @Resource

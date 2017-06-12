@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.cms.web.front;
 
+import com.lxinet.jeesns.member.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.commons.service.IArchiveService;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
@@ -69,6 +71,7 @@ public class ArticleController extends BaseController {
     }
 
     @RequestMapping(value="/add",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String add(Model model) {
         List<ArticleCate> cateList = articleCateService.list();
         model.addAttribute("cateList",cateList);
@@ -98,6 +101,7 @@ public class ArticleController extends BaseController {
     }
 
     @RequestMapping(value="/edit/{id}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String edit(@PathVariable("id") int id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.ARTICLE_EDIT+"/"+id);

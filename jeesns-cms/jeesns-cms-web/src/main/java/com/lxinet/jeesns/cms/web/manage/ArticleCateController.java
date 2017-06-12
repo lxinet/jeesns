@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.cms.web.manage;
 
+import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.cms.model.ArticleCate;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/")
+@Before(AdminLoginInterceptor.class)
 public class ArticleCateController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/cms/articleCate";
     @Resource

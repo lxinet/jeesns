@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.member.web.front;
 
+import com.lxinet.jeesns.member.interceptor.UserLoginInterceptor;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.web.BaseController;
@@ -19,6 +21,7 @@ import javax.annotation.Resource;
  */
 @Controller("scoreDetailFrontController")
 @RequestMapping("/member/scoreDetail")
+@Before(UserLoginInterceptor.class)
 public class ScoreDetailController extends BaseController {
     private static final String INDEX_FTL_PATH = "/member/scoreDetail/";
     @Resource

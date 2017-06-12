@@ -1,4 +1,4 @@
-package com.lxinet.jeesns.member.utils;
+package com.lxinet.jeesns.commons.utils;
 
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.StringUtils;

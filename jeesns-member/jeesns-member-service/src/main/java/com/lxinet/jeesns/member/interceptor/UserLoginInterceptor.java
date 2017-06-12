@@ -1,14 +1,14 @@
-package com.lxinet.jeesns.core.interceptor;
+package com.lxinet.jeesns.member.interceptor;
 
-import com.lxinet.jeesns.member.utils.MemberUtil;
+import com.lxinet.jeesns.commons.utils.MemberUtil;
+import com.lxinet.jeesns.core.interceptor.JeesnsInterceptor;
 import com.lxinet.jeesns.core.utils.SpringContextHolder;
 import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.member.service.IMemberService;
-import com.lxinet.jeesns.system.service.IConfigService;
+import com.lxinet.jeesns.system.utils.ConfigUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -25,9 +25,7 @@ public class UserLoginInterceptor implements JeesnsInterceptor {
             }else {
                 IMemberService memberService = SpringContextHolder.getBean("memberService");
                 Member findMember = memberService.findById(loginUser.getId());
-                IConfigService configService = SpringContextHolder.getBean("configService");
-                Map<String,String> config = configService.getConfigToMap();
-                if(1 == Integer.parseInt(config.get("member_email_valid"))){
+                if(1 == Integer.parseInt((String) httpServletRequest.getServletContext().getAttribute(ConfigUtil.MEMBER_EMAIL_VALID.toUpperCase()))){
                     if(findMember.getIsActive() == 0){
                         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/member/active");
                         return false;

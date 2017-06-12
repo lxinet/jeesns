@@ -22,6 +22,7 @@ public class InitListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
         try {
+            Const.PROJECT_PATH = sce.getServletContext().getContextPath();
             sce.getServletContext().setAttribute("basePath", Const.PROJECT_PATH);
             JeesnsConfig jeesnsConfig = SpringContextHolder.getBean("jeesnsConfig");
             sce.getServletContext().setAttribute("jeesnsConfig",jeesnsConfig);

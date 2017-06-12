@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.member.web.front;
 
+import com.lxinet.jeesns.member.interceptor.UserLoginInterceptor;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
@@ -160,6 +162,7 @@ public class MemberController extends BaseController {
 
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String index(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
@@ -171,8 +174,8 @@ public class MemberController extends BaseController {
 
 
     @RequestMapping(value = "/editInfo",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String editInfo(){
-
         return MEMBER_FTL_PATH + "editInfo";
     }
 
@@ -192,11 +195,13 @@ public class MemberController extends BaseController {
     }
 
     @RequestMapping(value = "/avatar",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String avatar(){
         return MEMBER_FTL_PATH + "avatar";
     }
 
     @RequestMapping(value = "/password",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String password(){
         return MEMBER_FTL_PATH + "password";
     }
@@ -218,6 +223,7 @@ public class MemberController extends BaseController {
     }
 
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String logout(){
         MemberUtil.setLoginMember(request,null);
         return "redirect:/member/login";
@@ -254,6 +260,7 @@ public class MemberController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/message",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String message(@RequestParam(value = "mid",required = false,defaultValue = "-1") Integer memberId,Model model){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
@@ -305,6 +312,7 @@ public class MemberController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/sendMessageBox",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String sendMessageBox(@RequestParam(value = "mid") Integer memberId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){

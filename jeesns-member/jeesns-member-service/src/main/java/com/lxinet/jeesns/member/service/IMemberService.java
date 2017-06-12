@@ -154,15 +154,6 @@ public interface IMemberService {
     ResponseModel isFollowed(Member loginMember, Integer followWhoId);
 
     /**
-     * 会员主页
-     * @param page
-     * @param memberId
-     * @param type
-     * @return
-     */
-    ResponseModel home(Member loginMember, Page page, Integer memberId, String type);
-
-    /**
      * 获取私信中的联系人列表
      * @param page
      * @param memberId
