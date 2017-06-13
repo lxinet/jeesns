@@ -3,6 +3,7 @@ package com.lxinet.jeesns.commons.web.front;
 import com.lxinet.jeesns.cms.service.IArticleService;
 import com.lxinet.jeesns.commons.service.IArchiveService;
 import com.lxinet.jeesns.commons.utils.EmojiUtil;
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
@@ -12,7 +13,6 @@ import com.lxinet.jeesns.group.service.IGroupFansService;
 import com.lxinet.jeesns.group.service.IGroupService;
 import com.lxinet.jeesns.group.service.IGroupTopicService;
 import com.lxinet.jeesns.member.service.IMemberFansService;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
 //import com.lxinet.jeesns.cms.service.IArticleService;
 import com.lxinet.jeesns.member.model.Member;
@@ -33,7 +33,6 @@ import javax.annotation.Resource;
 @Controller("indexController")
 @RequestMapping("/")
 public class IndexController extends BaseController{
-    private static final String FTL_PATH = "/front/";
     @Resource
     private IArticleService articleService;
     @Resource
@@ -85,7 +84,7 @@ public class IndexController extends BaseController{
         model.addAttribute("member",member);
         ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,id);
         model.addAttribute("actionLogModel",list);
-        return FTL_PATH + "u";
+        return jeesnsConfig.getFrontTemplate() + "/u";
     }
 
     @RequestMapping(value = "u/{id}/home/{type}",method = RequestMethod.GET)
@@ -116,7 +115,7 @@ public class IndexController extends BaseController{
             model.addAttribute("model", memberFansService.fansList(page,id));
         }
         model.addAttribute("type",type);
-        return FTL_PATH + "home";
+        return jeesnsConfig.getFrontTemplate() + "/home";
     }
 
 
@@ -140,12 +139,12 @@ public class IndexController extends BaseController{
 
     @RequestMapping(value="/404",method = RequestMethod.GET)
     public String jeesns404(){
-        return FTL_PATH + "/mybatis/common/404";
+        return jeesnsConfig.getFrontTemplate() + "/common/404";
     }
 
     @RequestMapping(value="/error",method = RequestMethod.GET)
     public String error(){
-        return FTL_PATH + "/mybatis/common/error";
+        return jeesnsConfig.getFrontTemplate() + "/common/error";
     }
 
 }

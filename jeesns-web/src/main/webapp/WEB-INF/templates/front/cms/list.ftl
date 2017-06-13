@@ -46,7 +46,7 @@
                     </div>
                     </#list>
                         <ul class="pager pagination pagination-sm no-margin pull-right"
-                            url="/article/list?key="
+                            url="${basePath}/article/list?key="
                             currentPage="${model.page.pageNo}"
                             pageCount="${model.page.totalPage}">
                         </ul>
