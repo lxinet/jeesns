@@ -92,9 +92,9 @@ public class WeiboServiceImpl implements IWeiboService {
             key = "%"+key.trim()+"%";
         }
         List<Weibo> list = weiboDao.listByPage(page, memberId,loginMemberId,key);
-        for (Weibo weibo : list){
+//        for (Weibo weibo : list){
 //            WeiboUtil.format(weibo);
-        }
+//        }
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
@@ -134,9 +134,9 @@ public class WeiboServiceImpl implements IWeiboService {
     @Override
     public List<Weibo> hotList(int loginMemberId) {
         List<Weibo> hotList = weiboDao.hotList(loginMemberId);
-        for (Weibo weibo : hotList){
+//        for (Weibo weibo : hotList){
 //            WeiboUtil.format(weibo);
-        }
+//        }
         return hotList;
     }
 

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.group.web.front;
 
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.member.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.commons.service.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
@@ -8,7 +9,6 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.group.service.IGroupService;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.group.model.Group;
 import com.lxinet.jeesns.group.model.GroupFans;
 import com.lxinet.jeesns.group.model.GroupTopic;

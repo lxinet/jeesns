@@ -1,11 +1,11 @@
 package com.lxinet.jeesns.weibo.web.front;
 
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.weibo.model.Weibo;

@@ -1,9 +1,9 @@
 package com.lxinet.jeesns.weibo.directive;
 
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.core.directive.BaseDirective;
 import com.lxinet.jeesns.core.handler.DirectiveHandler;
 import com.lxinet.jeesns.member.model.Member;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.weibo.model.Weibo;
 import com.lxinet.jeesns.weibo.service.IWeiboService;
 import freemarker.template.TemplateException;

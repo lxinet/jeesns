@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.member.web.front;
 
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.member.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
@@ -9,7 +10,6 @@ import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.member.service.IMemberService;
 import com.lxinet.jeesns.member.service.IMessageService;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.system.model.ActionLog;
 import com.lxinet.jeesns.system.service.IActionLogService;
 import com.lxinet.jeesns.system.service.IConfigService;

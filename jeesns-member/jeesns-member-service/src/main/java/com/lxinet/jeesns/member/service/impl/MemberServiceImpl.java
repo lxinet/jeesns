@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.member.service.impl;
 
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
@@ -10,7 +11,6 @@ import com.lxinet.jeesns.member.service.IMemberFansService;
 import com.lxinet.jeesns.member.service.IMemberService;
 import com.lxinet.jeesns.member.service.IValidateCodeService;
 import com.lxinet.jeesns.member.utils.EmailSendUtil;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 //import com.lxinet.jeesns.modules.cms.service.IArticleService;
 //import com.lxinet.jeesns.modules.group.service.IGroupFansService;
 //import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
