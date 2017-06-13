@@ -2,7 +2,6 @@ package com.lxinet.jeesns.weibo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.member.model.Member;
-import com.lxinet.jeesns.weibo.utils.AtUtil;
 import com.lxinet.jeesns.commons.utils.EmojiUtil;
 
 import java.io.Serializable;
@@ -101,9 +100,9 @@ public class WeiboComment implements Serializable {
             content = EmojiUtil.replace(content);
         }
         String regAt = ".*@.*";
-        if(content.matches(regAt)){
-            content = AtUtil.at(content);
-        }
+//        if(content.matches(regAt)){
+//            content = AtUtil.at(content);
+//        }
         this.content = content;
     }
 

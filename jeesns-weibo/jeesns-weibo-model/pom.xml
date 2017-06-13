@@ -20,11 +20,6 @@
         </dependency>
         <dependency>
             <groupId>com.lxinet</groupId>
-            <artifactId>jeesns-weibo-commons</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lxinet</groupId>
             <artifactId>jeesns-member-model</artifactId>
             <version>1.2</version>
         </dependency>

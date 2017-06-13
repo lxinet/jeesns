@@ -1,10 +1,10 @@
 package com.lxinet.jeesns.cms.web.manage;
 
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.member.utils.MemberUtil;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.cms.model.ArticleCate;
 import com.lxinet.jeesns.cms.model.Article;
