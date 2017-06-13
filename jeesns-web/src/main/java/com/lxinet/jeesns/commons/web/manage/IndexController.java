@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.service.ICommonService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.core.web.BaseController;
-import com.lxinet.jeesns.member.utils.MemberUtil;
+import com.lxinet.jeesns.commons.utils.MemberUtil;
 import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.member.service.IMemberService;
 import org.apache.commons.lang.StringUtils;
