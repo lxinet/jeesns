@@ -300,4 +300,9 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         return new ResponseModel(-1,"帖子不存在");
     }
+
+    @Override
+    public List<GroupTopic> listByCustom(int gid, String sort, int num, int day,int thumbnail) {
+        return groupTopicDao.listByCustom(gid,sort,num,day,thumbnail);
+    }
 }

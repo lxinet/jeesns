@@ -28,6 +28,75 @@ public class MemberController extends BaseController {
     @Resource
     private IMemberService memberService;
 
+
+    /**
+     * 管理员列表
+     * @param key
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "${managePath}/mem/manager/list",method = RequestMethod.GET)
+    public String managerList(String key,Model model) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getIsAdmin() == 1){
+            return errorModel(model, "没有权限");
+        }
+        Page page = new Page(request);
+        ResponseModel responseModel = memberService.managerList(page,key);
+        model.addAttribute("model",responseModel);
+        model.addAttribute("key",key);
+        return MANAGE_FTL_PATH + "manager/list";
+    }
+
+    /**
+     * 授权管理员
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "${managePath}/mem/manager/add",method = RequestMethod.GET)
+    public String managerAdd(Model model) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getIsAdmin() == 1){
+            return errorModel(model, "没有权限");
+        }
+        return MANAGE_FTL_PATH + "manager/add";
+    }
+
+    /**
+     * 授权管理员
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "${managePath}/mem/manager/add",method = RequestMethod.POST)
+    @ResponseBody
+    public Object managerAdd(String name) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getId() != 1 && loginMember.getIsAdmin() == 1){
+            return new ResponseModel(-1,"没有权限");
+        }
+        //管理员授权，只能授权普通管理员
+        return memberService.managerAdd(loginMember, name);
+    }
+
+    /**
+     * 取消管理员
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "${managePath}/mem/manager/cancel/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object managerCancel(@PathVariable("id") Integer id) {
+        if(id == null){
+            return new ResponseModel(-1,"参数错误");
+        }
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember.getIsAdmin() == 1){
+            return new ResponseModel(-1,"没有权限");
+        }
+        return memberService.managerCancel(loginMember, id);
+    }
+
+
     @RequestMapping("${managePath}/mem/index")
     public String index(String key,Model model) {
         Page page = new Page(request);

@@ -5,6 +5,8 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.group.model.Group;
 import com.lxinet.jeesns.member.model.Member;
 
+import java.util.List;
+
 
 /**
  * Created by zchuanzhao on 16/12/23.
@@ -24,4 +26,6 @@ public interface IGroupService {
     ResponseModel follow(Member loginMember, Integer groupId,int type);
 
     ResponseModel changeStatus(int id);
+
+    List<Group> listByCustom(int status, int num, String sort);
 }

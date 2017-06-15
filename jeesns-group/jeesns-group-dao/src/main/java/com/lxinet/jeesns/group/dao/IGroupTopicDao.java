@@ -33,4 +33,16 @@ public interface IGroupTopicDao extends IBaseDao<GroupTopic> {
      * @return
      */
     int essence(@Param("id") Integer id,@Param("essence") Integer essence);
+
+    /**
+     * 自定义条件查询
+     * @param gid 群组ID，0不限制
+     * @param sort 排序字段
+     * @param num 获取数量
+     * @param day 天，获取多少天之内的数据，0不限制
+     * @param thumbnail 缩略图 0不限制，1必须有缩略图
+     * @return
+     */
+    List<GroupTopic> listByCustom(@Param("gid") int gid,@Param("sort") String sort,@Param("num") int num,@Param("day") int day,@Param("thumbnail") int thumbnail);
+
 }

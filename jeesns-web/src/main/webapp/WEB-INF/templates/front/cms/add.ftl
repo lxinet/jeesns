@@ -21,7 +21,7 @@
     <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
     <script src="${basePath}/res/plugins/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
-        var basePath = "";
+        var basePath = "${basePath}";
         $(function () {
             CKEDITOR.replace('content');
         });

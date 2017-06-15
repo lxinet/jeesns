@@ -73,6 +73,8 @@
                 <entry key="xml_escape" value-ref="fmXmlEscape"/>
                 <entry key="cms_article_list" value-ref="articleDirective"/>
                 <entry key="wb_weibo_list" value-ref="weiboDirective"/>
+                <entry key="group_list" value-ref="groupDirective"/>
+                <entry key="group_topic_list" value-ref="groupTopicDirective"/>
             </map>
         </property>
     </bean>

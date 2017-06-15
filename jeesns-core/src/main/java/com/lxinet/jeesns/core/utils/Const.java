@@ -21,11 +21,11 @@ public class Const {
 	/**
 	 * SESSION中会员的key
      */
-	public static final String SESSION_MEMBER = "SESSION_MEMBER";
+	public static final String SESSION_MEMBER = "loginMember";
 	/**
 	 * SESSION中管理员的key
      */
-	public static final String SESSION_ADMIN = "SESSION_ADMIN";
+	public static final String SESSION_ADMIN = "LOGIN_ADMIN";
 
 	/**
 	 * 后台错误页面的ftl路径

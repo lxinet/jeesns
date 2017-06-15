@@ -85,6 +85,11 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
+    public List<Group> listByCustom(int status, int num, String sort) {
+        return groupDao.listByCustom(status,num,sort);
+    }
+
+    @Override
     public Group findById(int id) {
         return groupDao.findById(id);
     }

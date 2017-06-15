@@ -57,7 +57,6 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="${managePath}/sys/config/edit" module="config"><i class="fa fa-circle-o"></i>系统设置</a></li>
-                    <li><a href="${managePath}/sys/config/managerList" module="config"><i class="fa fa-circle-o"></i>管理员列表</a></li>
                     <li><a href="${managePath}/sys/scoreRule/list" module="config"><i class="fa fa-circle-o"></i>积分规则</a></li>
                 </ul>
             </li>
@@ -88,6 +87,7 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
+                    <li><a href="${managePath}/mem/manager/list" module="mem"><i class="fa fa-circle-o"></i>管理员列表</a></li>
                     <li><a href="${managePath}/mem/index" module="mem"><i class="fa fa-circle-o"></i>会员列表</a></li>
                 </ul>
             </li>

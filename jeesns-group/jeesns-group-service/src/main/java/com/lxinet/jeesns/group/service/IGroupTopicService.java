@@ -5,6 +5,8 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.group.model.GroupTopic;
 import com.lxinet.jeesns.member.model.Member;
 
+import java.util.List;
+
 
 /**
  * Created by zchuanzhao on 2016/12/26.
@@ -31,4 +33,6 @@ public interface IGroupTopicService {
     ResponseModel essence(Member member,int id,int essence);
 
     ResponseModel favor(Member loginMember, int id);
+
+    List<GroupTopic> listByCustom(int gid, String sort, int num, int day, int thumbnail);
 }
