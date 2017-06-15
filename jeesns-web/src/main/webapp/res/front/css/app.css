@@ -41,6 +41,10 @@ a {
     margin-bottom: 10px;
 }
 
+.text-align-center{
+    text-align: center;
+}
+
 .navbar {
     border-radius: 0px;
     min-height: 70px;
