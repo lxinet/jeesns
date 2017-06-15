@@ -46,7 +46,8 @@ public interface IArticleDao extends IBaseDao<Article> {
      * @param sort 排序字段
      * @param num 获取数量
      * @param day 天，获取多少天之内的数据，0不限制
+     * @param thumbnail 缩略图 0不限制，1必须有缩略图
      * @return
      */
-    List<Article> listByCustom(@Param("cid") int cid,@Param("sort") String sort,@Param("num") int num,@Param("day") int day);
+    List<Article> listByCustom(@Param("cid") int cid,@Param("sort") String sort,@Param("num") int num,@Param("day") int day,@Param("thumbnail") int thumbnail);
 }

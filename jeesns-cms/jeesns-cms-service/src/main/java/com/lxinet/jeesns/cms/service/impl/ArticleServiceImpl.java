@@ -144,8 +144,8 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public List<Article> listByCustom(int cid, String sort, int num, int day) {
-        return articleDao.listByCustom(cid,sort,num,day);
+    public List<Article> listByCustom(int cid, String sort, int num, int day,int thumbnail) {
+        return articleDao.listByCustom(cid,sort,num,day,thumbnail);
     }
 
     @Override

@@ -88,9 +88,9 @@ h5 {
 }
 
 .navbar-static-top {
-  background: #fff;
-  height: 90px;
-  border-top: solid 1px #0099cc;
+  background: #393D49;
+  height: 70px;
+  border-top: solid 1px #0499e2;
 }
 .fixed-nav #wrapper {
   margin-top: 0;
@@ -254,7 +254,7 @@ h5 {
 }
 
 .navbar-top-links {
-  padding-top:30px;
+  padding-top:20px;
   padding-right: 20px;
 }
 .navbar-top-links li {
@@ -276,8 +276,16 @@ h5 {
 }
 
 .navbar-nav li {
-  height: 90px;
-  padding-top: 20px;
+  height: 70px;
+  padding-top: 10px;
+}
+
+.navbar-nav li a {
+  color: #999;
+}
+.navbar-nav li a:hover {
+  background-color: #393D49;
+  color: #ffffff;
 }
 
 .dropdown-menu {

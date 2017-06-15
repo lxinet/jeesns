@@ -33,14 +33,18 @@ a {
     margin-top: -4px;
 }
 
+.m-t-10{
+    margin-top: 10px;
+}
+
 .m-b-10{
     margin-bottom: 10px;
 }
 
 .navbar {
     border-radius: 0px;
-    min-height: 90px;
-    padding-top: 23px;
+    min-height: 70px;
+    padding-top: 13px;
     border-color: #ffffff;
 }
 
@@ -49,20 +53,27 @@ a {
 }
 
 .navbar-inverse {
-    background-color: #fff;
+    background-color: #393D49;
+    border: 0;
     border-top: solid 1px #0499e2;
+    border-bottom: solid 2px #0499e2;
 }
 
 .navbar-inverse .navbar-nav > li > a {
-    color: #333;
+    color: #999;
     font-size: 18px;
     margin: 0 15px;
 }
 
+.navbar-inverse .navbar-nav-right > li > a {
+    color: #999;
+    font-size: 16px;
+    margin: 0 1px;
+}
+
 .navbar-inverse .navbar-nav > li > a:hover {
-    background-color: #ffffff;
-    color: #0499e2;
-    border-bottom: solid 1px #0499e2;
+    color: #ffffff;
+    background-color: #393D49;
 }
 
 .btn {
@@ -242,12 +253,23 @@ a {
     width: 100%;
     margin: 0 auto;
     padding: 20px 0;
+    background-color: hsla(0,0%,71%,.1);
+    transition: .2s ease;
+    height: 200px;
+    border-radius: 4px;
+    margin-top: 50px;
+    border: 1px solid #e6e6e6;
+}
+
+.group-list .group-detail:hover{
+    box-shadow:0 5px 20px rgba(0,0,0,.1)
 }
 
 .group-list .group-detail .group-logo {
     width: 100px;
     height: 100px;;
     margin: 0 auto;
+    margin-top: -70px;
 }
 
 .group {

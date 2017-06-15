@@ -31,7 +31,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>管理员(${model.page.totalCount})
-            <a href="${managePath}/sys/config/managerAdd" target="_jeesnsOpen" title="授权管理员">授权</a>
+            <a href="${managePath}/mem/manager/add" target="_jeesnsOpen" title="授权管理员">授权</a>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${managePath}/index"><i class="fa fa-dashboard"></i> 主页</a></li>
@@ -46,7 +46,7 @@
                             <h3 class="box-title">
                             </h3>
                             <div class="box-tools">
-                                <form method="get" action="${managePath}/sys/config/managerList">
+                                <form method="get" action="${managePath}/mem/manager/list">
                                     <div class="input-group input-group-sm" style="width: 350px;">
                                         <input type="text" name="key" class="form-control pull-right"
                                                placeholder="请输入关键词">
@@ -82,7 +82,7 @@
                                     <td>${member.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/sys/config/managerCancel/${member.id}" confirm="确定要取消管理员吗？">
+                                           href="${managePath}/mem/manager/cancel/${member.id}" confirm="确定要取消管理员吗？">
                                             <span class="label label-danger">取消管理员</span>
                                         </a>
                                     </td>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/sys/config/managerList?key=${key}"
+                                url="${managePath}/mem/manager/list?key=${key}"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>

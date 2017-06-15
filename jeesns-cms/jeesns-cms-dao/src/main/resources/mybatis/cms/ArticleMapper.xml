@@ -57,6 +57,9 @@
       <if test="day &gt; 0">
         DATEDIFF(now(),b.create_time) &lt;= #{day} AND DATEDIFF(now(),b.create_time) &gt;= 0
       </if>
+      <if test="thumbnail == 1">
+        b.thumbnail is not NULL
+      </if>
     </where>
     ORDER BY
     <choose>

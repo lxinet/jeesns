@@ -8,7 +8,7 @@
         <artifactId>jeesns-weibo</artifactId>
         <version>1.2</version>
     </parent>
-    <groupId>com.lxine</groupId>
+    <groupId>com.lxinet</groupId>
     <artifactId>jeesns-weibo-dao</artifactId>
     <version>1.2</version>
 

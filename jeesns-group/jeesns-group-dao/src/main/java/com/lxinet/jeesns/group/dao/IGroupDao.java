@@ -25,4 +25,6 @@ public interface IGroupDao extends IBaseDao<Group> {
      */
     Integer changeStatus(@Param("id") Integer id);
 
+    List<Group> listByCustom(@Param("status") int status, @Param("num") int num, @Param("sort") String sort);
+
 }

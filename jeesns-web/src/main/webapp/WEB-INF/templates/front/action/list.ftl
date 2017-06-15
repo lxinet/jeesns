@@ -7,10 +7,8 @@
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <link href="${basePath}/res/common/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${basePath}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${basePath}/res/common/css/jeesns.css">
-    <link rel="stylesheet" href="${basePath}/res/common/css/jeesns-skin.css">
+    <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
+    <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
     <script src="${basePath}/res/common/js/respond.min.js"></script>
@@ -26,62 +24,51 @@
 </head>
 
 <body class="gray-bg">
-<#include "/member/common/header.ftl"/>
-<div class="wrapper wrapper-content">
-    <div class="container">
+<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<div class="container">
+    <div class="main-content">
         <div class="row">
-            <div class="ibox">
-                <div class="ibox-content float-left">
-                    <div class="col-sm-12">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>动态</h5>
-                            </div>
+            <div class="col-md-12 white-bg m-b-10">
+                <div class="items">
+                <#list model.data as actionLog>
+                    <div class="comment">
+                        <a href="${basePath}/u/${actionLog.member.id}" class="avatar" target="_blank">
+                            <img src="${basePath}${actionLog.member.avatar!''}" class="icon-camera-retro icon-2x">
+                        </a>
+                        <div class="content">
+                            <div class="pull-right text-muted">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</div>
                             <div>
-                                <div class="feed-activity-list">
-                                <#list model.data as actionLog>
-                                    <div class="feed-element">
-                                        <a href="${basePath}/u/${actionLog.member.id}" class="pull-left">
-                                            <img alt="image" class="img-circle"
-                                                 src="${basePath}${actionLog.member.avatar!''}">
-                                        </a>
-                                        <div class="media-body ">
-                                            <strong><a href="${basePath}/u/${actionLog.member.id}">${actionLog.member.name}</a> </strong>于${actionLog.createTime?string('yyyy-MM-dd HH:mm')}${actionLog.action.log}：<br/>
-                                            <#if actionLog.type==1>
-                                                <a href="${basePath}/article/detail/${actionLog.foreignId}"
-                                                   target="_blank">${actionLog.remark}</a>
-                                            <#elseif actionLog.type==2>
-                                                <p>${actionLog.remark}</p>
-                                                <a href="${basePath}/weibo/detail/${actionLog.foreignId}"
-                                                   target="_blank">查看</a>
-                                            <#elseif actionLog.type==4>
-                                                <a href="${basePath}/group/topic/${actionLog.foreignId}"
-                                                   target="_blank">${actionLog.remark}</a>
-                                            </#if>
-                                            <br>
-                                            <div class="actions">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </#list>
-                                    <div class="box-footer clearfix">
-                                        <ul class="pagination pagination-sm no-margin pull-right"
-                                            url="${basePath}/action/list"
-                                            currentPage="${model.page.pageNo}"
-                                            pageCount="${model.page.totalPage}">
-                                        </ul>
-                                    </div>
-                                </div>
+                                <a href="${basePath}/u/${actionLog.member.id}" target="_blank">
+                                    <strong><a href="${basePath}/u/${actionLog.member.id}">${actionLog.member.name}</a> </strong>于${actionLog.createTime?string('yyyy-MM-dd HH:mm')}${actionLog.action.log}：<br/>
+                                </a>
+                            </div>
+                            <div class="text">
+                                <#if actionLog.type==1>
+                                    <a href="${basePath}/article/detail/${actionLog.foreignId}"
+                                       target="_blank">${actionLog.remark}</a>
+                                <#elseif actionLog.type==2>
+                                    <p>${actionLog.remark}</p>
+                                    <a href="${basePath}/weibo/detail/${actionLog.foreignId}"
+                                       target="_blank">查看</a>
+                                <#elseif actionLog.type==4>
+                                    <a href="${basePath}/group/topic/${actionLog.foreignId}"
+                                       target="_blank">${actionLog.remark}</a>
+                                </#if>
                             </div>
                         </div>
                     </div>
-
+                </#list>
                 </div>
+                <ul class="pager pagination pagination-sm no-margin pull-right"
+                    url="${basePath}/action/list"
+                    currentPage="${model.page.pageNo}"
+                    pageCount="${model.page.totalPage}">
+                </ul>
             </div>
         </div>
     </div>
 </div>
-<#include "/member/common/footer.ftl"/>
+<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");

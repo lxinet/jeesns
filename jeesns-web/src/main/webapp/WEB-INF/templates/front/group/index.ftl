@@ -27,11 +27,11 @@
     <div class="main-content">
         <div class="row white-bg group-list">
         <#list model.data as group>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="group-detail">
                     <div class="group-logo">
                         <a href="${basePath}/group/detail/${group.id}">
-                            <img alt="image" class="img-circle" src="${basePath}${group.logo}" width="100px" height="100px">
+                            <img alt="image" class="img-rounded" src="${basePath}${group.logo}" width="100px" height="100px">
                         </a>
                     </div>
                     <div class="group-info">

@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${SITE_NAME} - ${SITE_SEO_TITLE} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
@@ -9,7 +10,6 @@
     <meta name="author" content="JEESNS"/>
     <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
     <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
-    <link href="${basePath}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
     <script src="${basePath}/res/common/js/respond.min.js"></script>
@@ -20,153 +20,118 @@
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
 </head>
-
 <body class="gray-bg">
 <#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
-<div class="wrapper wrapper-content blog">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-lg-8">
-                <div class="ibox ibox-content">
-                    <h3>最新文章</h3>
-                <#list articleModel.data as article>
-                    <div class="ibox-content col-sm-12 bottom-line">
-                        <div class="col-sm-10">
-                            <#if article.thumbnail??>
-                                <div class="small m-b-xs">
-                                    <span class="text-muted">&nbsp;</span>
-                                </div>
-                            </#if>
-                            <h3>
-                                <a href="${basePath}/article/detail/${article.id}" class="btn-link" target="_blank">
-                                ${article.title}
-                                </a>
-                            </h3>
+<div class="container">
+    <div id="myNiceCarousel" class="carousel slide" data-ride="carousel">
+        <!-- 圆点指示器 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myNiceCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myNiceCarousel" data-slide-to="1"></li>
+            <li data-target="#myNiceCarousel" data-slide-to="2"></li>
+        </ol>
 
-                            <div class="small m-b-xs">
-                                <span class="text-muted"><i
-                                        class="fa fa-clock-o"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
-                                <i class="fa fa-heart"> </i> ${article.favor}</span>
-                                <i class="fa fa-eye"> </i> ${article.viewCount} 浏览</span>
-                            </div>
-                        </div>
-                        <#if article.thumbnail??>
-                            <div class="col-sm-2">
-                                <div class="list-thumbnail float-right">
-                                    <a href="${basePath}/article/detail/${article.id}" class="btn-link" target="_blank">
-                                        <img alt="${article.title}" class="m-t-xs img-responsive list-thumbnail"
-                                             src="${article.thumbnail}">
-                                    </a>
-                                </div>
-                            </div>
-                        </#if>
-                    </div>
-                </#list>
-                    <div class="box-footer clearfix"></div>
-                </div>
-                <div class="ibox ibox-content">
-                    <h3>推荐${GROUP_ALIAS}</h3>
-                    <div class="feed-activity-list">
-                    <#list groupModel.data as group>
-                        <div class="feed-element">
-                            <a href="${basePath}/group/detail/${group.id}" class="pull-left">
-                                <img alt="image" class="img-circle" src="${group.logo}">
-                            </a>
-                            <div class="media-body ">
-                                <h4><strong><a href="${basePath}/group/detail/${group.id}">${group.name}</a></strong></h4>
-                                <p>${group.introduce}</p>
-                                <small class="text-muted">${group.topicCount}篇文章 · ${group.fansCount}人关注</small>
-                            </div>
-                        </div>
-                    </#list>
-                    </div>
-                </div>
-                <div class="ibox ibox-content">
-                    <h3>最新帖子</h3>
-                <#list groupTopicModel.data as article>
-                    <div class="ibox-content col-sm-12 bottom-line">
-                        <div class="col-sm-10">
-                            <#if article.thumbnail??>
-                                <div class="small m-b-xs">
-                                    <span class="text-muted">&nbsp;</span>
-                                </div>
-                            </#if>
-                            <h3>
-                                <a href="${basePath}/group/topic/${article.id}" class="btn-link" target="_blank">
-                                ${article.title}
-                                </a>
-                            </h3>
-
-                            <div class="small m-b-xs">
-                                <span class="text-muted"><i
-                                        class="fa fa-clock-o"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}&nbsp;&nbsp;
-                                <i class="fa fa-heart"> </i> ${article.favor}</span>
-                                <i class="fa fa-eye"> </i> ${article.viewCount} 浏览</span>
-                            </div>
-                        </div>
-                        <#if article.thumbnail??>
-                            <div class="col-sm-2">
-                                <div class="list-thumbnail float-right">
-                                    <a href="${basePath}/group/topic/${article.id}" class="btn-link" target="_blank">
-                                        <img alt="${article.title}" class="m-t-xs img-responsive list-thumbnail"
-                                             src="${article.thumbnail}">
-                                    </a>
-                                </div>
-                            </div>
-                        </#if>
-                    </div>
-                </#list>
-                    <div class="box-footer clearfix"></div>
+        <!-- 轮播项目 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img alt="First slide" src="http://zui.sexy/docs/img/slide1.jpg">
+                <div class="carousel-caption">
+                    <h3>我是第一张幻灯片</h3>
+                    <p>:)</p>
                 </div>
             </div>
-            <div class="col-sm-12 col-lg-4">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>${WEIBO_ALIAS}</h5>
+            <div class="item">
+                <img alt="Second slide" src="http://zui.sexy/docs/img/slide2.jpg">
+                <div class="carousel-caption">
+                    <h3>我是第二张幻灯片</h3>
+                    <p>0.0</p>
+                </div>
+            </div>
+            <div class="item">
+                <img alt="Third slide" src="http://zui.sexy/docs/img/slide3.jpg">
+                <div class="carousel-caption">
+                    <h3>我是第三张幻灯片</h3>
+                    <p>最后一张咯~</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content m-t-10">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel group-topic-list no-border">
+                    <div class="panel-heading">
+                        推荐阅读
+                        <span class="pull-right">
+                            <a class="btn btn-primary m-t-n4" href="${basePath}/cms/list">阅读更多</a>
+                        </span>
                     </div>
-                    <div class="ibox-content">
-                        <form class="form-horizontal m-t jeesns_form" action="${basePath}/weibo/publish" method="post">
-                            <p><textarea cols="3" class="form-control" name="content" id="weibo-content"
-                                         maxlength="${WEIBO_POST_MAXCONTENT}"></textarea></p>
-                            <div class="row emoji-container" id="emoji">
-                                <i class="fa fa-smile-o emoji-tbtn"></i>
-                                <span class="pull-right mg-r-15">
-                                 <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>
-                                <input type="submit" value="发布" class="btn btn-primary">
-                            </span>
-                            </div>
-                        </form>
-                        <div>
-                            <div class="feed-activity-list">
-                            <#list weiboModel.data as weibo>
-                                <div class="feed-element">
-                                    <a href="${basePath}/u/${weibo.member.id}" target="_blank" class="pull-left">
-                                        <img alt="image" class="img-circle" src="${basePath}${weibo.member.avatar!''}">
-                                    </a>
-                                    <div class="media-body ">
-                                        <strong><a href="${basePath}/u/${weibo.member.id}" target="_blank"
-                                                   class="pull-left">${weibo.member.name}</a></strong><br/>
-                                        <div class="mg-t-10 mg-b-10">
-                                        ${weibo.content}
+                    <div class="panel-body">
+                        <div class="items">
+                        <@cms_article_list cid=0 num=8 thumbnail=1; article>
+                            <#list articleList as article>
+                                <div class="col-md-3">
+                                    <div class="item">
+                                        <div class="item-content">
+                                            <div class="media"><img src="${basePath}${article.thumbnail}" alt="${article.title}"></div>
+                                            <h4><a href="${basePath}/article/detail/${article.id}">${article.title}</a></h4>
                                         </div>
-                                        <small>${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                        (<#if weibo.isFavor==0>
-                                        <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i
-                                                class="fa fa-thumbs-o-up"></i> ${weibo.favor}</a>
-                                    <#else>
-                                        <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i
-                                                class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
-                                    </#if>
-                                        <a href="${basePath}/weibo/detail/${weibo.id}">
-                                            <#if weibo.type==1>
-                                                <i class="fa fa-image"></i>
-                                            </#if>
-                                            评论:${weibo.commentCount}</a>)
+                                        <div class="item-footer">
+                                            <a href="#" class="text-muted"><i class="icon-comments"></i> ${article.viewCount}</a> &nbsp; <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </#list>
+                        </@cms_article_list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel group-topic-list no-border">
+                    <div class="panel-heading">
+                        最新帖子
+                        <span class="pull-right">
+                            <a class="btn btn-primary m-t-n4" href="${basePath}/cms/list">阅读更多</a>
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="items">
+                            <div class="col-md-4">
+                                <div class="article-hot-list">
+                                    <ul>
+                                    <@group_topic_list cid=0 num=20 day=30; groupTopic>
+                                        <#list groupTopicList as groupTopic>
+                                            <li><i class="main-text-color"></i> <a href="${basePath}/group/topic/${groupTopic.id}">${groupTopic.title}</a></li>
+                                        </#list>
+                                    </@group_topic_list>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8 group-list">
+                            <@group_list status=1 num=6; group>
+                                <#list groupList as group>
+                                    <div class="col-md-4">
+                                        <div class="group-detail">
+                                            <div class="group-logo">
+                                                <a href="${basePaht}/group/detail/${group.id}">
+                                                    <img alt="image" class="img-rounded" src="${basePath}${group.logo}" width="100px" height="100px">
+                                                </a>
+                                            </div>
+                                            <div class="group-info">
+                                                <h4><strong><a href="${basePaht}/group/detail/${group.id}">${group.name}</a></strong></h4>
+                                                <p class="text-muted" title="22">
+                                                    22
+                                                </p>
+                                                <small class="text-muted">${group.topicCount}篇文章 · ${group.fansCount}人关注</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </#list>
+                            </@group_list>
                             </div>
                         </div>
                     </div>
@@ -175,19 +140,10 @@
         </div>
     </div>
 </div>
-
 <#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");
-        $(".weibo-favor").click(function () {
-            weibo.favor($(this), "${basePath}")
-        });
-        $('#emoji').emoji({
-            insertAfter: function (item) {
-                $('#weibo-content').insertContent(':' + item.name + ':')
-            }
-        }, "${basePath}");
     });
 </script>
 </body>
