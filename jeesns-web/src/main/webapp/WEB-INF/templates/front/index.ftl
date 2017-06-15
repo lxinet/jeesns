@@ -24,35 +24,35 @@
 <body class="gray-bg">
 <#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
 <div class="container">
-    <div id="myNiceCarousel" class="carousel slide" data-ride="carousel">
+    <div id="banner" class="carousel slide" data-ride="carousel">
         <!-- 圆点指示器 -->
         <ol class="carousel-indicators">
-            <li data-target="#myNiceCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myNiceCarousel" data-slide-to="1"></li>
-            <li data-target="#myNiceCarousel" data-slide-to="2"></li>
+            <li data-target="#banner" data-slide-to="0" class="active"></li>
+            <li data-target="#banner" data-slide-to="1"></li>
+            <li data-target="#banner" data-slide-to="2"></li>
         </ol>
 
         <!-- 轮播项目 -->
         <div class="carousel-inner">
             <div class="item active">
-                <img alt="First slide" src="http://zui.sexy/docs/img/slide1.jpg">
+                <img alt="First slide" src="${basePath}/res/front/images/banner1.png">
                 <div class="carousel-caption">
-                    <h3>我是第一张幻灯片</h3>
-                    <p>:)</p>
+                    <h3></h3>
+                    <p></p>
                 </div>
             </div>
             <div class="item">
-                <img alt="Second slide" src="http://zui.sexy/docs/img/slide2.jpg">
+                <img alt="Second slide" src="${basePath}/res/front/images/banner2.png">
                 <div class="carousel-caption">
-                    <h3>我是第二张幻灯片</h3>
-                    <p>0.0</p>
+                    <h3></h3>
+                    <p></p>
                 </div>
             </div>
             <div class="item">
-                <img alt="Third slide" src="http://zui.sexy/docs/img/slide3.jpg">
+                <img alt="Third slide" src="${basePath}/res/front/images/banner3.png">
                 <div class="carousel-caption">
-                    <h3>我是第三张幻灯片</h3>
-                    <p>最后一张咯~</p>
+                    <h3></h3>
+                    <p></p>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
                     <div class="panel-heading">
                         推荐阅读
                         <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${basePath}/cms/list">阅读更多</a>
+                            <a class="btn btn-primary m-t-n4" href="${basePath}/article/list">阅读更多</a>
                         </span>
                     </div>
                     <div class="panel-body">
@@ -73,13 +73,13 @@
                         <@cms_article_list cid=0 num=8 thumbnail=1; article>
                             <#list articleList as article>
                                 <div class="col-md-3">
-                                    <div class="item">
+                                    <div class="item text-align-center">
                                         <div class="item-content">
                                             <div class="media"><img src="${basePath}${article.thumbnail}" alt="${article.title}"></div>
                                             <h4><a href="${basePath}/article/detail/${article.id}">${article.title}</a></h4>
                                         </div>
                                         <div class="item-footer">
-                                            <a href="#" class="text-muted"><i class="icon-comments"></i> ${article.viewCount}</a> &nbsp; <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                            <a href="${basePath}/article/detail/${article.id}" class="text-muted"><i class="icon-comments"></i> ${article.viewCount}</a> &nbsp; <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                     <div class="panel-heading">
                         最新帖子
                         <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${basePath}/cms/list">阅读更多</a>
+                            <a class="btn btn-primary m-t-n4" href="${basePath}/group/">阅读更多</a>
                         </span>
                     </div>
                     <div class="panel-body">
@@ -103,7 +103,7 @@
                             <div class="col-md-4">
                                 <div class="article-hot-list">
                                     <ul>
-                                    <@group_topic_list cid=0 num=20 day=30; groupTopic>
+                                    <@group_topic_list cid=0 num=15 day=30; groupTopic>
                                         <#list groupTopicList as groupTopic>
                                             <li><i class="main-text-color"></i> <a href="${basePath}/group/topic/${groupTopic.id}">${groupTopic.title}</a></li>
                                         </#list>
@@ -111,10 +111,43 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-8 group-list">
-                            <@group_list status=1 num=6; group>
+                            <div class="col-md-8">
+                                <div class="items">
+                                <@group_topic_list gid=0 num=6 thumbnail=1; groupTopic>
+                                    <#list groupTopicList as groupTopic>
+                                        <div class="col-md-3">
+                                            <div class="item text-align-center">
+                                                <div class="item-content">
+                                                    <div class="media"><img src="${basePath}${groupTopic.thumbnail}" alt="${groupTopic.title}"></div>
+                                                    <h4><a href="${basePath}/article/detail/${groupTopic.id}">${groupTopic.title}</a></h4>
+                                                </div>
+                                                <div class="item-footer">
+                                                    <a href="${basePath}/article/detail/${groupTopic.id}" class="text-muted"><i class="icon-comments"></i> ${groupTopic.viewCount}</a> &nbsp; <span class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#list>
+                                </@group_topic_list>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel group-topic-list no-border">
+                    <div class="panel-heading">
+                        推荐群组
+                        <span class="pull-right">
+                            <a class="btn btn-primary m-t-n4" href="${basePath}/group/">查看更多</a>
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="items">
+                            <div class="col-md-12 group-list">
+                            <@group_list status=1 num=8; group>
                                 <#list groupList as group>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="group-detail">
                                             <div class="group-logo">
                                                 <a href="${basePaht}/group/detail/${group.id}">
