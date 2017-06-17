@@ -29,7 +29,7 @@
     <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row">
@@ -75,13 +75,13 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">内容</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor" cols="80" id="content" name="content" rows="3"></textarea>
+                            <textarea class="ckeditor" cols="80" id="content" name="content" rows="5"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-1 col-sm-10">
                             <button type="submit" class="btn btn-info jeesns-submit">保存</button>
-                            <a href="/article/list" class="btn btn-default jeesns-submit">取消</a>
+                            <a href="${basePath}/article/list" class="btn btn-default jeesns-submit">取消</a>
                         </div>
                     </div>
                 </form>
@@ -89,6 +89,6 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 </body>
 </html>

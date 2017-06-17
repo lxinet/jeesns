@@ -26,7 +26,7 @@
     <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row">
@@ -76,7 +76,7 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script>
     $(function () {
         $('#inputmanagers').tags();

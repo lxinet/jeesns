@@ -20,11 +20,11 @@
     <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script src="${basePath}/res/modules/mem.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
+    <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
 </head>
 
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row">
@@ -42,7 +42,7 @@
                                     <strong><a href="${basePath}/u/${actionLog.member.id}">${actionLog.member.name}</a> </strong>于${actionLog.createTime?string('yyyy-MM-dd HH:mm')}${actionLog.action.log}：<br/>
                                 </a>
                             </div>
-                            <div class="text">
+                            <div class="text emoji-render-content">
                                 <#if actionLog.type==1>
                                     <a href="${basePath}/article/detail/${actionLog.foreignId}"
                                        target="_blank">${actionLog.remark}</a>
@@ -68,9 +68,10 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
+        emoji();
         $(".pagination").jeesns_page("jeesnsPageForm");
     });
 </script>

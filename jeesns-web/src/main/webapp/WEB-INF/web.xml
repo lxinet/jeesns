@@ -42,6 +42,9 @@
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>com.lxinet.jeesns.core.listener.InitListener</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>springmvc</servlet-name>

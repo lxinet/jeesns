@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row">
@@ -82,7 +82,7 @@
                                         </p>
                                         <p>
                                             <a href="#" class="text-muted"><i
-                                                    class="icon-comments"></i> ${topic.viewCount}</a> &nbsp;
+                                                    class="icon-eye-open"></i> ${topic.viewCount}</a> &nbsp;
                                             <span class="text-muted">${topic.createTime?string('yyyy-MM-dd HH:mm')}</span>
                                         </p>
                                     </div>
@@ -125,7 +125,7 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");

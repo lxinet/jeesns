@@ -10,7 +10,6 @@
     <meta name="author" content="JEESNS"/>
     <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
     <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
-    <link href="${basePath}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
     <link href="${basePath}/res/plugins/gallery/css/blueimp-gallery.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
@@ -21,6 +20,7 @@
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script>
         var base = "${basePath}";
@@ -29,7 +29,7 @@
     <script src="${basePath}/res/front/js/weibo.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row">
@@ -42,7 +42,7 @@
                         <div class="name">
                         ${weibo.member.name}
                         </div>
-                        ${weibo.content}
+                        <div class="emoji-render-content">${weibo.content}</div>
                         <div class="lightBoxGallery">
                         <#list weibo.pictures as picture>
                             <a href="${basePath}${picture.path}" title="${weibo.member.name}" data-gallery=""><img
@@ -129,9 +129,10 @@
     </div>
 
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script>
     $(document).ready(function () {
+        emoji()
         var pageNo = 1;
         weibo.commentList(weiboId, pageNo);
         $("#moreComment").click(function () {
@@ -141,11 +142,6 @@
         $(".weibo-favor").click(function () {
             weibo.favor($(this), "${basePath}")
         });
-        $('#emoji').emoji({
-            insertAfter: function(item){
-                $('#weibo-content').insertContent(':'+item.name+':')
-            }
-        },"${basePath}");
     });
 </script>
 </body>

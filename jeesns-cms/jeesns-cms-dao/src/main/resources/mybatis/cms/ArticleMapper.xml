@@ -51,14 +51,15 @@
     LEFT JOIN tbl_article_cate as c ON a.cate_id = c.id
     LEFT JOIN tbl_member as d ON b.member_id = d.id
     <where>
+      AND a.status = 1
       <if test="cid &gt; 0">
-        a.cate_id = #{cid}
+      AND a.cate_id = #{cid}
       </if>
       <if test="day &gt; 0">
-        DATEDIFF(now(),b.create_time) &lt;= #{day} AND DATEDIFF(now(),b.create_time) &gt;= 0
+      AND DATEDIFF(now(),b.create_time) &lt;= #{day} AND DATEDIFF(now(),b.create_time) &gt;= 0
       </if>
       <if test="thumbnail == 1">
-        b.thumbnail is not NULL
+      AND b.thumbnail is not NULL
       </if>
     </where>
     ORDER BY

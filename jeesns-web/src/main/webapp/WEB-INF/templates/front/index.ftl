@@ -22,17 +22,14 @@
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div id="banner" class="carousel slide" data-ride="carousel">
-        <!-- 圆点指示器 -->
         <ol class="carousel-indicators">
             <li data-target="#banner" data-slide-to="0" class="active"></li>
             <li data-target="#banner" data-slide-to="1"></li>
             <li data-target="#banner" data-slide-to="2"></li>
         </ol>
-
-        <!-- 轮播项目 -->
         <div class="carousel-inner">
             <div class="item active">
                 <img alt="First slide" src="${basePath}/res/front/images/banner1.png">
@@ -70,13 +67,23 @@
                     </div>
                     <div class="panel-body">
                         <div class="items">
-                        <@cms_article_list cid=0 num=8 thumbnail=1; article>
+                        <@cms_article_list cid=0 num=16 thumbnail=1; article>
                             <#list articleList as article>
                                 <div class="col-md-3">
-                                    <div class="item text-align-center">
+                                    <div class="item index-article">
                                         <div class="item-content">
-                                            <div class="media"><img src="${basePath}${article.thumbnail}" alt="${article.title}"></div>
-                                            <h4><a href="${basePath}/article/detail/${article.id}">${article.title}</a></h4>
+                                            <div class="media">
+                                                <a href="${basePath}/article/detail/${article.id}">
+                                                    <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="150px" width="100%">
+                                                </a>
+                                            </div>
+                                            <h4><a href="${basePath}/article/detail/${article.id}">
+                                                <#if article.title?length &gt; 18>
+                                                ${article.title?substring(0,18)}...
+                                                <#else>
+                                                ${article.title}
+                                                </#if>
+                                            </a></h4>
                                         </div>
                                         <div class="item-footer">
                                             <a href="${basePath}/article/detail/${article.id}" class="text-muted"><i class="icon-comments"></i> ${article.viewCount}</a> &nbsp; <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
@@ -103,9 +110,15 @@
                             <div class="col-md-4">
                                 <div class="article-hot-list">
                                     <ul>
-                                    <@group_topic_list cid=0 num=15 day=30; groupTopic>
+                                    <@group_topic_list cid=0 num=15 day=100; groupTopic>
                                         <#list groupTopicList as groupTopic>
-                                            <li><i class="main-text-color"></i> <a href="${basePath}/group/topic/${groupTopic.id}">${groupTopic.title}</a></li>
+                                            <li><i class="main-text-color"></i> <a href="${basePath}/group/topic/${groupTopic.id}">
+                                                <#if groupTopic.title?length &gt; 18>
+                                                ${groupTopic.title?substring(0,18)}...
+                                                <#else>
+                                                ${groupTopic.title}
+                                                </#if>
+                                            </a></li>
                                         </#list>
                                     </@group_topic_list>
                                     </ul>
@@ -115,10 +128,14 @@
                                 <div class="items">
                                 <@group_topic_list gid=0 num=6 thumbnail=1; groupTopic>
                                     <#list groupTopicList as groupTopic>
-                                        <div class="col-md-3">
-                                            <div class="item text-align-center">
+                                        <div class="col-md-4">
+                                            <div class="item index-article">
                                                 <div class="item-content">
-                                                    <div class="media"><img src="${basePath}${groupTopic.thumbnail}" alt="${groupTopic.title}"></div>
+                                                    <div class="media">
+                                                        <a href="${basePath}/article/detail/${groupTopic.id}">
+                                                            <img src="${basePath}${groupTopic.thumbnail}" alt="${groupTopic.title}" height="150px" width="100%">
+                                                        </a>
+                                                    </div>
                                                     <h4><a href="${basePath}/article/detail/${groupTopic.id}">${groupTopic.title}</a></h4>
                                                 </div>
                                                 <div class="item-footer">
@@ -156,8 +173,12 @@
                                             </div>
                                             <div class="group-info">
                                                 <h4><strong><a href="${basePaht}/group/detail/${group.id}">${group.name}</a></strong></h4>
-                                                <p class="text-muted" title="22">
-                                                    22
+                                                <p class="text-muted">
+                                                    <#if group.introduce?length &gt; 50>
+                                                    ${group.introduce?substring(0,50)}...
+                                                    <#else>
+                                                    ${group.introduce}
+                                                    </#if>
                                                 </p>
                                                 <small class="text-muted">${group.topicCount}篇文章 · ${group.fansCount}人关注</small>
                                             </div>
@@ -173,7 +194,7 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");

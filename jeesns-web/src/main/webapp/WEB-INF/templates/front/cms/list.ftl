@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row">
@@ -36,7 +36,11 @@
                         </div>
                         <div class="item-content">
                             <#if article.thumbnail??>
-                                <div class="media pull-left"><img src="${basePath}${article.thumbnail}" alt="${article.title}"></div>
+                                <div class="media pull-left">
+                                    <a href="${basePath}/article/detail/${article.id}">
+                                        <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="100px" width="150px">
+                                    </a>
+                                </div>
                             </#if>
                             <div class="text">${article.description}</div>
                         </div>
@@ -83,7 +87,7 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");
