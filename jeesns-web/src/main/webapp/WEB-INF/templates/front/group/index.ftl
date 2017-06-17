@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row white-bg group-list">
@@ -37,8 +37,8 @@
                     <div class="group-info">
                         <h4><strong><a href="${basePath}/group/detail/${group.id}">${group.name}</a></strong></h4>
                         <p class="text-muted" title="${group.introduce}">
-                            <#if group.introduce?length &gt; 20>
-                                ${group.introduce?substring(0,20)}...
+                            <#if group.introduce?length &gt; 50>
+                                ${group.introduce?substring(0,50)}...
                                 <#else>
                                 ${group.introduce}
                             </#if>
@@ -51,6 +51,6 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 </body>
 </html>

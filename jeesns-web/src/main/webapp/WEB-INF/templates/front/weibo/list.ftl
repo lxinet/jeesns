@@ -27,6 +27,7 @@
     <script src="${basePath}/res/plugins/emoji/js/underscore-min.js"></script>
     <script src="${basePath}/res/plugins/emoji/js/editor.js"></script>
     <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
+    <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
     <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script type="text/javascript">
@@ -35,7 +36,7 @@
     <script src="${basePath}/res/plugins/webuploader/weiboUpload.js"></script>
 </head>
 <body class="gray-bg">
-<#include "/${jeesnsConfig.frontTemplate}/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
     <div class="main-content">
         <div class="row">
@@ -43,7 +44,7 @@
                 <div class="items weibo-post-area">
                     <form class="form-horizontal m-t jeesns_form" action="${basePath}/weibo/publish" method="post">
                         <p>
-                            <textarea cols="5" class="form-control area" name="content" id="weibo-content"
+                            <textarea cols="5" class="form-control area emoji-render-input" name="content" id="weibo-content"
                                       maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
                             <input type="hidden" name="pictures" id="weibo-pictures">
                         </p>
@@ -96,7 +97,7 @@
                     </div>
                 </div>
                 <hr>
-                <div class="items">
+                <div class="items" id="data-list">
                 <#list model.data as weibo>
                     <div class="comment">
                         <a href="${basePath}/u/${weibo.member.id}" class="avatar" target="_blank">
@@ -110,7 +111,7 @@
                                 </a>
                             </div>
                             <div class="text">
-                                <p>${weibo.content}</p>
+                                <div class="emoji-render-content">${weibo.content}</div>
                                 <div class="lightBoxGallery">
                                     <#list weibo.pictures as picture>
                                         <a href="${basePath}${picture.path}" title="${weibo.member.name}"
@@ -172,7 +173,7 @@
                                             </a>
                                         </div>
                                         <div class="text">
-                                            <p>${weibo.content}</p>
+                                            <div class="emoji-render-content">${weibo.content}</div>
                                         </div>
                                         <div class="actions">
                                             (<#if weibo.isFavor==0>
@@ -199,9 +200,10 @@
         </div>
     </div>
 </div>
-<#include "/${jeesnsConfig.frontTemplate}/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
+        emoji();
         $(".pagination").jeesns_page("jeesnsPageForm");
         $(".weibo-favor").click(function () {
             weibo.favor($(this), "${basePath}")

@@ -52,14 +52,15 @@
     from tbl_group_topic as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id
     LEFT JOIN tbl_group as c ON a.group_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id
     <where>
+      AND a.status = 1
       <if test="gid &gt; 0">
-        a.group_id = #{gid}
+      AND  a.group_id = #{gid}
       </if>
       <if test="day &gt; 0">
-        DATEDIFF(now(),b.create_time) &lt;= #{day} AND DATEDIFF(now(),b.create_time) &gt;= 0
+      AND  DATEDIFF(now(),b.create_time) &lt;= #{day} AND DATEDIFF(now(),b.create_time) &gt;= 0
       </if>
       <if test="thumbnail == 1">
-        b.thumbnail is not NULL
+      AND b.thumbnail is not NULL
       </if>
     </where>
     ORDER BY

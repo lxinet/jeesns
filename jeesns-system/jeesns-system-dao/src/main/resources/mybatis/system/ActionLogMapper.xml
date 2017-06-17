@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.system.dao.IActionLogDao">
+    <resultMap id="ResultMap" type="ActionLog">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="member_id" jdbcType="INTEGER" property="memberId" />
+        <result column="action_id" jdbcType="INTEGER" property="actionId" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="type" jdbcType="TINYINT" property="type" />
+        <result column="foreign_id" jdbcType="INTEGER" property="foreignId" />
+        <result column="action_ip" jdbcType="VARCHAR" property="actionIp" />
+    </resultMap>
+
     <select id="listByPage" resultType="ActionLog">
         SELECT a.id,a.create_time,a.member_id,a.member_id as 'member.id',a.action_id,a.action_id as 'action.id',a.remark,a.type,
          a.foreign_id,a.action_ip,b.name as 'member.name',c.name as 'action.name',c.log as 'action.log' FROM tbl_action_log as a
