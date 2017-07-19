@@ -13,6 +13,7 @@ import com.lxinet.jeesns.group.service.IGroupService;
 import com.lxinet.jeesns.group.service.IGroupTopicCommentService;
 import com.lxinet.jeesns.group.service.IGroupTopicService;
 import com.lxinet.jeesns.member.model.Member;
+import com.lxinet.jeesns.member.service.IScoreDetailService;
 import com.lxinet.jeesns.system.service.IActionLogService;
 import com.lxinet.jeesns.system.service.IScoreRuleService;
 import com.lxinet.jeesns.system.utils.ActionLogType;
@@ -41,7 +42,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Resource
     private IActionLogService actionLogService;
     @Resource
-    private IScoreRuleService scoreRuleService;
+    private IScoreDetailService scoreDetailService;
 
     @Override
     public GroupTopic findById(int id) {
@@ -87,7 +88,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             int result = groupTopicDao.save(groupTopic);
             if(result == 1){
                 //群组发帖奖励
-                scoreRuleService.scoreRuleBonus(member.getId(), ScoreRuleConsts.GROUP_POST, groupTopic.getId());
+                scoreDetailService.scoreBonus(member.getId(), ScoreRuleConsts.GROUP_POST, groupTopic.getId());
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_GROUP_TOPIC,"", ActionLogType.GROUP_TOPIC.getValue(),groupTopic.getId());
                 return new ResponseModel(2,"帖子发布成功","../detail/"+groupTopic.getGroupId());
             }
@@ -140,7 +141,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         int result = groupTopicDao.delete(id);
         if(result == 1){
             //扣除积分
-            scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_POST,id);
+            scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_POST,id);
             archiveService.delete(groupTopic.getArchiveId());
             groupTopicCommentService.deleteByTopic(id);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP_TOPIC,"ID："+groupTopic.getId()+"，标题："+groupTopic.getTitle());
@@ -172,7 +173,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 isManager = true;
             }
         }
-        if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() == 1 ||
+        if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() > 0 ||
                 isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
             return this.delete(loginMember,id);
         }
@@ -200,7 +201,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 isManager = true;
             }
         }
-        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() == 1 ||
+        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() > 0 ||
                 isManager || member.getId().intValue() == group.getCreator().intValue()){
             if(groupTopicDao.audit(id) == 1){
                 return new ResponseModel(1,"审核成功");
@@ -232,7 +233,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 isManager = true;
             }
         }
-        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() == 1 ||
+        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() > 0 ||
                 isManager || member.getId().intValue() == group.getCreator().intValue()){
             if(groupTopicDao.top(id,top) == 1){
                 return new ResponseModel(1,"操作成功");
@@ -271,7 +272,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 isManager = true;
             }
         }
-        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() == 1 ||
+        if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() > 0 ||
                 isManager || member.getId().intValue() == group.getCreator().intValue()){
             if(groupTopicDao.essence(id,essence) == 1){
                 return new ResponseModel(1,"操作成功");
@@ -290,11 +291,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             ResponseModel responseModel = archiveService.favor(loginMember,groupTopic.getArchiveId());
             if(responseModel.getCode() == 0){
                 //帖子收到喜欢
-                scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
+                scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
             }else if(responseModel.getCode() == 1){
                 //帖子取消喜欢
                 //扣除积分
-                scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
+                scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
             }
             return responseModel;
         }

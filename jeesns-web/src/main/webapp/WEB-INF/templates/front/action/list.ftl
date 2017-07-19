@@ -21,6 +21,7 @@
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script src="${basePath}/res/modules/mem.js"></script>
     <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
+    <script src="${basePath}/res/common/js/jquery.timeago.js"></script>
 </head>
 
 <body class="gray-bg">
@@ -36,7 +37,7 @@
                             <img src="${basePath}${actionLog.member.avatar!''}" class="icon-camera-retro icon-2x">
                         </a>
                         <div class="content">
-                            <div class="pull-right text-muted">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</div>
+                            <div class="pull-right text-muted timeago" datetime="${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}"></div>
                             <div>
                                 <a href="${basePath}/u/${actionLog.member.id}" target="_blank">
                                     <strong><a href="${basePath}/u/${actionLog.member.id}">${actionLog.member.name}</a> </strong>于${actionLog.createTime?string('yyyy-MM-dd HH:mm')}${actionLog.action.log}：<br/>
@@ -71,7 +72,6 @@
 <#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
-        emoji();
         $(".pagination").jeesns_page("jeesnsPageForm");
     });
 </script>

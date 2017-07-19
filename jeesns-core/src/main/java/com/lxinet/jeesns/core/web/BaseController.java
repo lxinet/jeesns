@@ -1,7 +1,11 @@
 package com.lxinet.jeesns.core.web;
 
+import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.exception.ParamExceptiom;
+import com.lxinet.jeesns.core.model.MemberToken;
+import com.lxinet.jeesns.core.service.IMemberTokenService;
 import com.lxinet.jeesns.core.utils.Const;
+import com.lxinet.jeesns.core.utils.StringUtils;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -21,6 +25,22 @@ public class BaseController {
     protected HttpServletRequest request;
     @Resource
     protected HttpServletResponse response;
+    @Resource
+    protected IMemberTokenService memberTokenService;
+
+    protected ResponseModel<MemberToken> validMemberToken(){
+        ResponseModel model = new ResponseModel(-1,"非法操作");
+        String token = getParam("token");
+        if (StringUtils.isNotEmpty(token)){
+            MemberToken memberToken = memberTokenService.getByToken(token);
+            if (memberToken != null){
+                model.setData(memberToken);
+                model.setCode(0);
+                model.setMessage("");
+            }
+        }
+        return model;
+    }
 
     protected String getParam(String name){
         return request.getParameter(name);

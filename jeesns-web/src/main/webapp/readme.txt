@@ -63,6 +63,6 @@
     managePath=manage
 
  4、重启Tomcat。
-  后台登录地址：http://域名/manage/login
+  后台登录地址：http://域名/manage/
   后台用户名：admin
   密码：jeesns

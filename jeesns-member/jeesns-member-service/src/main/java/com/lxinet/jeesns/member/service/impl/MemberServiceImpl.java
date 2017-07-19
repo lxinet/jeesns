@@ -7,17 +7,10 @@ import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.member.dao.IMemberDao;
 import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.member.model.ValidateCode;
-import com.lxinet.jeesns.member.service.IMemberFansService;
-import com.lxinet.jeesns.member.service.IMemberService;
-import com.lxinet.jeesns.member.service.IValidateCodeService;
+import com.lxinet.jeesns.member.service.*;
 import com.lxinet.jeesns.member.utils.EmailSendUtil;
-//import com.lxinet.jeesns.modules.cms.service.IArticleService;
-//import com.lxinet.jeesns.modules.group.service.IGroupFansService;
-//import com.lxinet.jeesns.modules.group.service.IGroupTopicService;
 import com.lxinet.jeesns.system.service.IActionLogService;
 import com.lxinet.jeesns.system.service.IConfigService;
-import com.lxinet.jeesns.system.service.IScoreRuleService;
-//import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
 import com.lxinet.jeesns.system.utils.ActionUtil;
 import com.lxinet.jeesns.system.utils.ConfigUtil;
 import com.lxinet.jeesns.system.utils.ScoreRuleConsts;
@@ -48,7 +41,7 @@ public class MemberServiceImpl implements IMemberService {
     @Resource
     private IMemberFansService memberFansService;
     @Resource
-    private IScoreRuleService scoreRuleService;
+    private IScoreDetailService scoreDetailService;
 
     @Override
     public ResponseModel login(Member member, HttpServletRequest request) {
@@ -69,10 +62,10 @@ public class MemberServiceImpl implements IMemberService {
             MemberUtil.setLoginMember(request,findMember);
             actionLogService.save(findMember.getCurrLoginIp(),findMember.getId(), ActionUtil.MEMBER_LOGIN);
             //登录奖励
-            scoreRuleService.scoreRuleBonus(findMember.getId(), ScoreRuleConsts.LOGIN);
+            scoreDetailService.scoreBonus(findMember.getId(), ScoreRuleConsts.LOGIN);
             return new ResponseModel(3,"登录成功",request.getServletContext().getContextPath()+"/member/");
         }
-        actionLogService.save(IpUtil.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
+        actionLogService.save(IpUtil.getIpAddress(request),null,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
         return new ResponseModel(-1,"用户名或密码错误");
     }
 
@@ -86,7 +79,7 @@ public class MemberServiceImpl implements IMemberService {
             memberDao.loginSuccess(findMember.getId(), IpUtil.getIpAddress(request));
             findMember = this.findById(findMember.getId());
         }else {
-            actionLogService.save(IpUtil.getIpAddress(request),0,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
+            actionLogService.save(IpUtil.getIpAddress(request),null,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
         }
         return findMember;
     }
@@ -110,7 +103,7 @@ public class MemberServiceImpl implements IMemberService {
         if(memberDao.register(member) == 1){
             actionLogService.save(member.getRegip(),member.getId(),ActionUtil.MEMBER_REG);
             //注册奖励
-            scoreRuleService.scoreRuleBonus(member.getId(),ScoreRuleConsts.REG_INIT);
+            scoreDetailService.scoreBonus(member.getId(),ScoreRuleConsts.REG_INIT);
             return new ResponseModel(2,"注册成功",request.getServletContext().getContextPath()+"/member/login");
         }
         return new ResponseModel(-1,"注册失败");
@@ -368,7 +361,7 @@ public class MemberServiceImpl implements IMemberService {
                     loginMember.setIsActive(1);
                     MemberUtil.setLoginMember(request,loginMember);
                     //邮箱认证奖励
-                    scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.EMAIL_AUTHENTICATION);
+                    scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.EMAIL_AUTHENTICATION);
                     return new ResponseModel(2,"激活成功，正在进入会员中心...",request.getContextPath()+"/member/");
                 }
             }

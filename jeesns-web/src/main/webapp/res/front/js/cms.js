@@ -17,7 +17,7 @@ var cms = {
                         "<div class=\"pull-right text-muted\">"+data[i].createTime+"</div><div>" +
                         "<a href=\""+base+"/u/"+data[i].member.id+"\"><strong>"+data[i].member.name+"</strong></a></div>" +
                         "<div class=\"text\">"+data[i].content+"</div>" +
-                        "<div class=\"actions\"><a href=\"##\">回复</a><a href=\"##\">删除</a></div></div></div>";
+                        "</div></div>";
                 }
                 pageNo = json.page.pageNo;
                 if(json.page.totalPage<=pageNo){

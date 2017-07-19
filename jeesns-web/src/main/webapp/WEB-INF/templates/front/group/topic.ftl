@@ -37,9 +37,20 @@
                         <dl class="dl-inline">
                             <dt></dt>
                             <dd>${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</dd>
+                            <span class="label label-danger"><i class="icon-eye-open"></i> ${groupTopic.viewCount}</span>
                             <dt></dt>
                             <dd class="pull-right">
-                                <span class="label label-danger"><i class="icon-eye-open"></i> ${groupTopic.viewCount}</span>
+                            <#if loginUser?? && (loginUser.id == groupTopic.memberId || loginUser.isAdmin &gt; 0)>
+                                <div class="dropdown dropdown-hover">
+                                    <button class="btn" type="button" data-toggle="dropdown">操作 <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <#if loginUser.id == groupTopic.memberId>
+                                            <li><a href="${basePath}/group/topicEdit/${groupTopic.id}">编辑</a></li>
+                                        </#if>
+                                        <li><a href="${basePath}/group/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink">删除</a></li>
+                                    </ul>
+                                </div>
+                            </#if>
                             </dd>
                         </dl>
                     </header>

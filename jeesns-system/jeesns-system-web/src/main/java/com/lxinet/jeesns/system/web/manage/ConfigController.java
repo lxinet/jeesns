@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.system.web.manage;
 
+import com.lxinet.jeesns.core.model.MemberToken;
 import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
@@ -7,6 +8,7 @@ import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.system.model.Config;
 import com.lxinet.jeesns.system.service.IConfigService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,19 +24,23 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/${managePath}/sys/config/")
-@Before(AdminLoginInterceptor.class)
 public class ConfigController extends BaseController {
-    private static final String MANAGE_FTL_PATH = "/manage/sys/config/";
     @Resource
     private IConfigService configService;
 
-    @RequestMapping("edit")
-    public String edit(Model model){
-        List<Config> configList = configService.allList();
-        for (Config config:configList) {
-            model.addAttribute(config.getJkey(),config.getJvalue());
+    @RequestMapping("info")
+    @ResponseBody
+    public Object info(){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
         }
-        return MANAGE_FTL_PATH + "edit";
+        List<Config> configList = configService.allList();
+        Map<String,String> configMap = new HashMap<>();
+        for (Config config:configList) {
+            configMap.put(config.getJkey(),config.getJvalue());
+        }
+        return configMap;
     }
 
     @RequestMapping(value = "baseUpdate",method = RequestMethod.POST)
@@ -42,6 +48,10 @@ public class ConfigController extends BaseController {
     public Object baseUpdate(String site_name,String site_seo_title,String site_domain,String site_keys,String site_description,
                             String site_logo,String site_send_email_account,String site_send_email_password,
                              String site_send_email_smtp,String site_icp,String site_copyright,String site_tongji){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         Map<String,String> params = new HashMap<>();
         params.put("site_name",site_name);
         params.put("site_seo_title",site_seo_title);
@@ -66,6 +76,10 @@ public class ConfigController extends BaseController {
     @RequestMapping(value = "memberUpdate",method = RequestMethod.POST)
     @ResponseBody
     public Object memberUpdate(String member_login_open,String member_register_open,String member_email_valid){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         Map<String,String> params = new HashMap<>();
         params.put("member_login_open",member_login_open);
         params.put("member_register_open",member_register_open);
@@ -76,6 +90,10 @@ public class ConfigController extends BaseController {
     @RequestMapping(value = "cmsUpdate",method = RequestMethod.POST)
     @ResponseBody
     public Object cmsUpdate(String cms_post,String cms_post_review){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         Map<String,String> params = new HashMap<>();
         params.put("cms_post",cms_post);
         params.put("cms_post_review",cms_post_review);
@@ -85,6 +103,10 @@ public class ConfigController extends BaseController {
     @RequestMapping(value = "groupUpdate",method = RequestMethod.POST)
     @ResponseBody
     public Object groupUpdate(String group_apply,String group_apply_review,String group_alias){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         Map<String,String> params = new HashMap<>();
         if(StringUtils.isEmpty(group_alias)){
             group_alias = "群组";
@@ -98,6 +120,10 @@ public class ConfigController extends BaseController {
     @RequestMapping(value = "weiboUpdate",method = RequestMethod.POST)
     @ResponseBody
     public Object weiboUpdate(String weibo_post,String weibo_post_maxcontent,String weibo_alias){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         if(Integer.parseInt(weibo_post_maxcontent) > 500){
             return new ResponseModel(-1,"微博最大字数不能超过500");
         }

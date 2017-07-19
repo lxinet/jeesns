@@ -26,12 +26,18 @@
 <div class="container">
     <div class="main-content">
         <div class="row white-bg group-list">
+            <div class="panel-heading" style="margin-bottom: 30px">
+                ${GROUP_ALIAS}
+                <span class="pull-right">
+                    <a class="btn btn-primary m-t-n4" href="${basePath}/group/apply">申请</a>
+                </span>
+            </div>
         <#list model.data as group>
             <div class="col-md-3">
                 <div class="group-detail">
                     <div class="group-logo">
                         <a href="${basePath}/group/detail/${group.id}">
-                            <img alt="image" class="img-rounded" src="${basePath}${group.logo}" width="100px" height="100px">
+                            <img class="img-rounded" src="${basePath}${group.logo}" width="100px" height="100px">
                         </a>
                     </div>
                     <div class="group-info">
@@ -49,8 +55,18 @@
             </div>
         </#list>
         </div>
+        <ul class="pager pagination pagination-sm no-margin pull-right"
+            url="${basePath}/group/index"
+            currentPage="${model.page.pageNo}"
+            pageCount="${model.page.totalPage}">
+        </ul>
     </div>
 </div>
 <#include "/${frontTemplate}/common/footer.ftl"/>
+<script type="text/javascript">
+    $(function () {
+        $(".pagination").jeesns_page("jeesnsPageForm");
+    });
+</script>
 </body>
 </html>

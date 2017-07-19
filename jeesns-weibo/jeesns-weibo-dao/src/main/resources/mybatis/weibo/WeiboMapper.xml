@@ -31,8 +31,6 @@
     where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_weibo_favor where weibo_id = #{id};
-    delete from tbl_weibo_comment where weibo_id = #{id};
     delete from tbl_action_log where type=2 and foreign_id = #{id};
     delete from tbl_weibo where id = #{id}
   </delete>

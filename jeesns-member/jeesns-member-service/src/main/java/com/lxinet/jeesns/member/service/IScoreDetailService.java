@@ -33,4 +33,10 @@ public interface IScoreDetailService {
     ScoreDetail findByForeignAndRule(int memberId, int scoreRuleId, int forgignId);
 
     void cancel(int scoreDetailId);
+
+    void scoreBonus(int memberId, int scoreRuleId);
+
+    void scoreBonus(int memberId, int scoreRuleId, int foreignId);
+
+    void scoreCancelBonus(int memberId, int scoreRuleId, int foreignId);
 }

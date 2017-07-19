@@ -17,10 +17,4 @@ public interface IScoreRuleService {
 
     ResponseModel enabled(int id);
 
-    void scoreRuleBonus(int memberId, int scoreRuleId);
-
-    void scoreRuleBonus(int memberId, int scoreRuleId, int foreignId);
-
-    void scoreRuleCancelBonus(int memberId, int scoreRuleId, int foreignId);
-
 }

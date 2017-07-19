@@ -5,8 +5,7 @@
     select * from tbl_group_fans where group_id=#{groupId} and member_id=#{memberId}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_group_fans
-    where group_id=#{groupId} and member_id=#{memberId}
+    delete from tbl_group_fans where group_id=#{groupId} and member_id=#{memberId}
   </delete>
   <insert id="save" parameterType="GroupFans">
     insert into tbl_group_fans(create_time,group_id,member_id)

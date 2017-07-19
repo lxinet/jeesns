@@ -31,8 +31,7 @@
     order by a.id DESC
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_group
-    where id = #{id}
+    delete from tbl_group where id = #{id}
   </delete>
   <insert id="save" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
     insert into tbl_group(create_time,name,logo,creator,managers,tags,introduce,can_post,topic_review)

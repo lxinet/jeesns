@@ -1,15 +1,13 @@
 package com.lxinet.jeesns.cms.web.manage;
 
-import com.lxinet.jeesns.member.interceptor.AdminLoginInterceptor;
-import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.model.MemberToken;
 import com.lxinet.jeesns.core.web.BaseController;
 import com.lxinet.jeesns.cms.model.ArticleCate;
 import com.lxinet.jeesns.cms.service.IArticleCateService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
@@ -20,27 +18,29 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/")
-@Before(AdminLoginInterceptor.class)
 public class ArticleCateController extends BaseController {
-    private static final String MANAGE_FTL_PATH = "/manage/cms/articleCate";
     @Resource
     private IArticleCateService articleCateService;
 
     @RequestMapping("${managePath}/cms/articleCate/list")
-    public String list(Model model){
+    @ResponseBody
+    public Object list(){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         List<ArticleCate> list = articleCateService.list();
-        model.addAttribute("list",list);
-        return MANAGE_FTL_PATH + "/list";
+        return list;
     }
 
-    @RequestMapping("${managePath}/cms/articleCate/add")
-    public String add(Model model){
-        return MANAGE_FTL_PATH + "/add";
-    }
 
     @RequestMapping("${managePath}/cms/articleCate/save")
     @ResponseBody
     public Object save(ArticleCate articleCate){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         if(articleCate == null){
             return new ResponseModel(-2);
         }
@@ -63,16 +63,24 @@ public class ArticleCateController extends BaseController {
         return new ResponseModel(3,"保存成功");
     }
 
-    @RequestMapping("${managePath}/cms/articleCate/edit/{id}")
-    public String edit(@PathVariable("id") int id, Model model){
+    @RequestMapping("${managePath}/cms/articleCate/info")
+    @ResponseBody
+    public Object info(@Param("id") int id){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         ArticleCate articleCate = articleCateService.findById(id);
-        model.addAttribute("articleCate",articleCate);
-        return MANAGE_FTL_PATH + "/edit";
+        return articleCate;
     }
 
     @RequestMapping("${managePath}/cms/articleCate/update")
     @ResponseBody
     public Object update(ArticleCate articleCate){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         if(articleCate == null){
             return new ResponseModel(-2);
         }
@@ -109,9 +117,13 @@ public class ArticleCateController extends BaseController {
     }
 
 
-    @RequestMapping("${managePath}/cms/articleCate/delete/{id}")
+    @RequestMapping("${managePath}/cms/articleCate/delete")
     @ResponseBody
-    public Object delete(@PathVariable("id") int id){
+    public Object delete(@Param("id") int id){
+        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
+        if (validMemberTokenModel.getCode() == -1){
+            return validMemberTokenModel;
+        }
         ResponseModel response = articleCateService.delete(id);
         return response;
     }

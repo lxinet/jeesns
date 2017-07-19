@@ -1,12 +1,12 @@
 "use strict";
-function emoji() {
+$(function () {
     var emoji = new EmojiConvertor();
     $(".emoji-render-content").each(function(){
         var content = $(this).html();
         content = emoji.replace_colons(content);
         $(this).html(content);
     });
-}
+})
 ;(function() {
 
 	var root = this;

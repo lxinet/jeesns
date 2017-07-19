@@ -38,18 +38,32 @@
                             <dt></dt>
                             <dd>
                                 <a href="${basePath}/article/list?cateid=${article.articleCate.id}">
-                                    <span class="label label-warning"><i class="icon icon-list-ul"></i> ${article.articleCate.name}</span>
+                                    <span class="label label-warning"><i
+                                            class="icon icon-list-ul"></i> ${article.articleCate.name}</span>
                                 </a>
-                                <span class="label label-danger"><i class="icon-eye-open"></i> ${article.viewCount}</span>
+                                <span class="label label-danger"><i
+                                        class="icon-eye-open"></i> ${article.viewCount}</span>
+                                <i class="icon icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}
                             </dd>
                             <dt></dt>
                             <dd class="pull-right">
-                                <i class="icon icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}
+                            <#if loginUser?? && (loginUser.id == article.memberId || loginUser.isAdmin &gt; 0)>
+                                <div class="dropdown dropdown-hover">
+                                    <button class="btn" type="button" data-toggle="dropdown">操作 <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <#if loginUser.id == article.memberId>
+                                            <li><a href="${basePath}/article/edit/${article.id}">编辑</a></li>
+                                        </#if>
+                                        <li><a href="${basePath}/article/delete/${article.id}" confirm="确定要删除文章吗？" target="_jeesnsLink">删除</a></li>
+
+                                    </ul>
+                                </div>
+                            </#if>
                             </dd>
                         </span>
                     </header>
                     <section class="content">
-                        ${article.content}
+                    ${article.content}
                     </section>
                 </article>
 
@@ -57,12 +71,15 @@
                     <div class="panel-heading">文章评论</div>
                     <header>
                         <div class="reply-form">
-                            <form class="form-horizontal jeesns_form" action="${basePath}/article/comment/${article.id}" method="post">
+                            <form class="form-horizontal jeesns_form" action="${basePath}/article/comment/${article.id}"
+                                  method="post">
                                 <div class="form-group">
-                                    <textarea name="content" class="form-control new-comment-text" rows="2" placeholder="撰写评论..."></textarea>
+                                    <textarea name="content" class="form-control new-comment-text" rows="2"
+                                              placeholder="撰写评论..."></textarea>
                                 </div>
                                 <div class="form-group comment-user">
-                                    <input type="submit" value="评论" class="pull-right btn btn-primary mg-t-10 jeesns-submit">
+                                    <input type="submit" value="评论"
+                                           class="pull-right btn btn-primary mg-t-10 jeesns-submit">
                                 </div>
                             </form>
                         </div>
@@ -70,7 +87,9 @@
                     <section class="comments-list" id="commentList">
 
                     </section>
-                    <button class="btn btn-primary btn-block m" id="moreComment" style="display: none"><i class="fa fa-arrow-down"></i> 加载更多</button>
+                    <button class="btn btn-primary btn-block m" id="moreComment" style="display: none"><i
+                            class="fa fa-arrow-down"></i> 加载更多
+                    </button>
                 </div>
             </div>
             <div class="col-md-4">
@@ -80,9 +99,10 @@
                     </div>
                     <div class="panel-body">
                         <a href="${basePath}/article/list" class="btn btn-primary">全部</a>
-                        <#list articleCateList as articleCate>
-                            <a href="${basePath}/article/list?cid=${articleCate.id}" class="btn btn-primary">${articleCate.name}</a>
-                        </#list>
+                    <#list articleCateList as articleCate>
+                        <a href="${basePath}/article/list?cid=${articleCate.id}"
+                           class="btn btn-primary">${articleCate.name}</a>
+                    </#list>
                     </div>
                 </div>
                 <div class="panel">
@@ -93,7 +113,8 @@
                         <ul>
                         <@cms_article_list cid=0 sort='id' num=10; article>
                             <#list articleList as article>
-                                <li><i class="icon-hand-right main-text-color"></i> <a href="${basePath}/article/detail/${article.id}">${article.title}</a></li>
+                                <li><i class="icon-hand-right main-text-color"></i> <a
+                                        href="${basePath}/article/detail/${article.id}">${article.title}</a></li>
                             </#list>
                         </@cms_article_list>
                         </ul>
@@ -107,7 +128,8 @@
                         <ul>
                         <@cms_article_list cid=0 sort='view-count' num=10 day=30; article>
                             <#list articleList as article>
-                                <li><i class="icon-hand-right main-text-color"></i> <a href="${basePath}/article/detail/${article.id}">${article.title}</a></li>
+                                <li><i class="icon-hand-right main-text-color"></i> <a
+                                        href="${basePath}/article/detail/${article.id}">${article.title}</a></li>
                             </#list>
                         </@cms_article_list>
                         </ul>
@@ -122,13 +144,13 @@
 <script>
     $(document).ready(function () {
         var pageNo = 1;
-        cms.commentList(articleId,pageNo);
+        cms.commentList(articleId, pageNo);
         $("#moreComment").click(function () {
-            pageNo ++;
-            cms.commentList(articleId,pageNo);
+            pageNo++;
+            cms.commentList(articleId, pageNo);
         });
         $(".article-favor").click(function () {
-            cms.favor($(this),"${basePath}")
+            cms.favor($(this), "${basePath}")
         });
     });
 </script>
