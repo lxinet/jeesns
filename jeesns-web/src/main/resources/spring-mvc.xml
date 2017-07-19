@@ -102,12 +102,17 @@
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
     <mvc:resources location="/res/" mapping="/res/**"/>
+    <mvc:resources location="/manager/" mapping="/manager/**"/>
     <mvc:interceptors>
         <!-- 配置全局拦截器 -->
         <bean class="com.lxinet.jeesns.core.interceptor.InitInterceptor"/>
     </mvc:interceptors>
 
     <mvc:annotation-driven validator="validator"/>
+
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+    </mvc:cors>
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>

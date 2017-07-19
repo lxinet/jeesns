@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.system.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.member.model.Member;
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
  */
 public class ActionLog implements Serializable {
     private Integer id;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     private Integer memberId;
     private Member member;

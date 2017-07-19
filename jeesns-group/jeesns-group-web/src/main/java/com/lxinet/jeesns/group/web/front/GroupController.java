@@ -126,6 +126,7 @@ public class GroupController extends BaseController {
         Page groupFansPage = new Page(1,20);
         List<GroupFans> groupFansList = (List<GroupFans>) groupFansService.listByPage(groupFansPage,groupId).getData();
         model.addAttribute("groupFansList",groupFansList);
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/detail";
     }
 
@@ -171,6 +172,7 @@ public class GroupController extends BaseController {
             }
         }
         model.addAttribute("managerNames",newManagerNames);
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/edit";
     }
 
@@ -209,13 +211,12 @@ public class GroupController extends BaseController {
                     isManager = true;
                 }
             }
-            if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() == 1 ||
+            if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() > 0 ||
                     isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
                 model.addAttribute("isPermission",1);
             }
         }
-
-
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/topic";
     }
 
@@ -268,6 +269,7 @@ public class GroupController extends BaseController {
             return ErrorUtil.error(model,-1001, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("groupTopic",groupTopic);
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/topicEdit";
     }
 
@@ -394,6 +396,7 @@ public class GroupController extends BaseController {
             }
         }
         model.addAttribute("managerList",managerList);
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/auditList";
     }
 

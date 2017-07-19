@@ -28,6 +28,7 @@
     <script src="${basePath}/res/plugins/emoji/js/editor.js"></script>
     <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
     <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
+    <script src="${basePath}/res/common/js/jquery.timeago.js"></script>
     <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script type="text/javascript">
@@ -104,7 +105,7 @@
                             <img src="${basePath}${weibo.member.avatar!''}" class="icon-camera-retro icon-2x">
                         </a>
                         <div class="content">
-                            <div class="pull-right text-muted">${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</div>
+                            <div class="pull-right text-muted timeago" datetime="${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}"></div>
                             <div>
                                 <a href="${basePath}/u/${weibo.member.id}" target="_blank">
                                     <strong>${weibo.member.name}</strong>
@@ -166,7 +167,7 @@
                                              class="icon-camera-retro icon-2x">
                                     </a>
                                     <div class="content">
-                                        <div class="pull-right text-muted">${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}</div>
+                                        <div class="pull-right text-muted timeago" datetime="${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}"></div>
                                         <div>
                                             <a href="${basePath}/u/${weibo.member.id}" target="_blank">
                                                 <strong>${weibo.member.name}</strong>
@@ -203,7 +204,6 @@
 <#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
-        emoji();
         $(".pagination").jeesns_page("jeesnsPageForm");
         $(".weibo-favor").click(function () {
             weibo.favor($(this), "${basePath}")

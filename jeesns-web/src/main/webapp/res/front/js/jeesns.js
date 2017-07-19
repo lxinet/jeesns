@@ -245,6 +245,7 @@ var jeesnsDialog = {
     confirm : function(msg,confirmFun) {
         parent.layer.confirm(msg, function(){
             confirmFun();
+            jeesnsDialog.closeAll();
         }, function(){
 
         });

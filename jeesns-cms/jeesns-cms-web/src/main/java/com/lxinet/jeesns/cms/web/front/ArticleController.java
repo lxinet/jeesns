@@ -67,6 +67,7 @@ public class ArticleController extends BaseController {
         model.addAttribute("article",article);
         List<ArticleCate> articleCateList = articleCateService.list();
         model.addAttribute("articleCateList",articleCateList);
+        model.addAttribute("loginUser",loginMember);
         return jeesnsConfig.getFrontTemplate() + "/cms/detail";
     }
 
@@ -115,6 +116,7 @@ public class ArticleController extends BaseController {
         model.addAttribute("article",article);
         List<ArticleCate> cateList = articleCateService.list();
         model.addAttribute("cateList",cateList);
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/cms/edit";
     }
 

@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-md-12 article-detail">
                 <form class="form-horizontal jeesns_form" role="form" action="${basePath}/article/update"
-                      method="post">
+                      method="post" onsubmit="ckUpdate();">
                     <input type="hidden" class="form-control" name="id" value="${article.id}">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">栏目</label>
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">内容</label>
                         <div class="col-sm-10">
-                            <script type="text/plain" id="jeesns-editor" name="content" height="300px">${article.content}</script>
+                            <textarea class="ckeditor" cols="80" id="content" name="content" rows="5">${article.content}</textarea>
                         </div>
                     </div>
                     <div class="form-group">

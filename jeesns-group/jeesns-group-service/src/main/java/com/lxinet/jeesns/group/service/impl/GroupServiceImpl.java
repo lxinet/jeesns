@@ -9,6 +9,7 @@ import com.lxinet.jeesns.group.dao.IGroupDao;
 import com.lxinet.jeesns.group.service.IGroupFansService;
 import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.member.service.IMemberService;
+import com.lxinet.jeesns.member.service.IScoreDetailService;
 import com.lxinet.jeesns.system.service.IActionLogService;
 import com.lxinet.jeesns.system.service.IConfigService;
 import com.lxinet.jeesns.system.service.IScoreRuleService;
@@ -38,7 +39,7 @@ public class GroupServiceImpl implements IGroupService {
     @Resource
     private IActionLogService actionLogService;
     @Resource
-    private IScoreRuleService scoreRuleService;
+    private IScoreDetailService scoreDetailService;
 
     @Override
     public ResponseModel listByPage(int status, Page page, String key) {
@@ -99,7 +100,7 @@ public class GroupServiceImpl implements IGroupService {
     public ResponseModel save(Member loginMember,Group group) {
         Map<String,String> config = configService.getConfigToMap();
         group.setCreator(loginMember.getId());
-        if(loginMember.getIsAdmin() == 1){
+        if(loginMember.getIsAdmin() > 0){
             group.setStatus(1);
         }else {
             if("0".equals(config.get(ConfigUtil.GROUP_APPLY))){
@@ -122,7 +123,7 @@ public class GroupServiceImpl implements IGroupService {
             //创建者默认关注群组
             groupFansService.save(loginMember,group.getId());
             //申请群组奖励、扣款
-            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.APPLY_GROUP, group.getId());
+            scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.APPLY_GROUP, group.getId());
             return new ResponseModel(1,"申请成功，请等待审核");
         }
         return new ResponseModel(-1,"操作失败，请重试");

@@ -10,6 +10,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.member.model.Member;
+import com.lxinet.jeesns.member.service.IScoreDetailService;
 import com.lxinet.jeesns.system.service.IActionLogService;
 import com.lxinet.jeesns.system.service.IConfigService;
 import com.lxinet.jeesns.system.service.IScoreRuleService;
@@ -39,7 +40,7 @@ public class ArticleServiceImpl implements IArticleService {
     @Resource
     private IActionLogService actionLogService;
     @Resource
-    private IScoreRuleService scoreRuleService;
+    private IScoreDetailService scoreDetailService;
 
     @Override
     public Article findById(int id) {
@@ -84,7 +85,7 @@ public class ArticleServiceImpl implements IArticleService {
             if(result == 1){
                 if(article.getStatus() == 1){
                     //投稿审核通过奖励
-                    scoreRuleService.scoreRuleBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
+                    scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
                 }
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_ARTICLE,"", ActionLogType.ARTICLE.getValue(),article.getId());
                 return new ResponseModel(0,"文章发布成功");
@@ -117,7 +118,7 @@ public class ArticleServiceImpl implements IArticleService {
                 //说明此次操作是审核通过
                 if(article.getStatus() == 1){
                     //投稿审核通过奖励
-                    scoreRuleService.scoreRuleBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
+                    scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
                 }
             }
             return new ResponseModel(1,"操作成功");
@@ -133,10 +134,10 @@ public class ArticleServiceImpl implements IArticleService {
             ResponseModel responseModel = archiveService.favor(loginMember,article.getArchiveId());
             if(responseModel.getCode() == 0){
                 //文章收到喜欢
-                scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
+                scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
             }else if(responseModel.getCode() == 1){
                 //取消喜欢，扣除积分
-                scoreRuleService.scoreRuleCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
+                scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
             }
             return responseModel;
         }
@@ -188,7 +189,7 @@ public class ArticleServiceImpl implements IArticleService {
         int result = articleDao.delete(id);
         if(result == 1){
             //扣除积分
-            scoreRuleService.scoreRuleCancelBonus(member.getId(),ScoreRuleConsts.ARTICLE_SUBMISSIONS,id);
+            scoreDetailService.scoreCancelBonus(member.getId(),ScoreRuleConsts.ARTICLE_SUBMISSIONS,id);
             archiveService.delete(article.getArchiveId());
             articleCommentService.deleteByArticle(id);
             actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.DELETE_ARTICLE,"ID："+article.getId()+"，标题："+article.getTitle());

@@ -9,6 +9,7 @@ import com.lxinet.jeesns.cms.model.ArticleComment;
 import com.lxinet.jeesns.cms.service.IArticleCommentService;
 import com.lxinet.jeesns.cms.service.IArticleService;
 import com.lxinet.jeesns.member.model.Member;
+import com.lxinet.jeesns.member.service.IScoreDetailService;
 import com.lxinet.jeesns.system.service.IActionLogService;
 import com.lxinet.jeesns.system.service.IScoreRuleService;
 import com.lxinet.jeesns.system.utils.ActionUtil;
@@ -31,7 +32,7 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     @Resource
     private IActionLogService actionLogService;
     @Resource
-    private IScoreRuleService scoreRuleService;
+    private IScoreDetailService scoreDetailService;
 
     @Override
     public ArticleComment findById(int id) {
@@ -54,7 +55,7 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
         int result = articleCommentDao.save(articleComment);
         if(result == 1){
             //文章评论奖励
-            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,articleComment.getId());
+            scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,articleComment.getId());
             return new ResponseModel(1,"评论成功");
         }else {
             return new ResponseModel(-1,"评论失败");
@@ -84,7 +85,7 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
         int result = articleCommentDao.delete(id);
         if(result == 1){
             //扣除积分
-            scoreRuleService.scoreRuleCancelBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,id);
+            scoreDetailService.scoreCancelBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,id);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_ARTICLE_COMMENT,"ID："+articleComment.getId()+"，内容："+articleComment.getContent());
             return new ResponseModel(1,"删除成功");
         }

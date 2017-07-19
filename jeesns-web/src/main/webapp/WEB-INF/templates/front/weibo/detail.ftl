@@ -21,6 +21,7 @@
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/front/js/jeesns.js"></script>
     <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
+    <script src="${basePath}/res/common/js/jquery.timeago.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script>
         var base = "${basePath}";
@@ -61,7 +62,7 @@
                     </section>
                     <hr>
                     <div class="info">
-                        <div class="left">${weibo.createTime?string("yyyy-MM-dd HH:mm:ss")}</div>
+                        <div class="left timeago" datetime="${weibo.createTime?string("yyyy-MM-dd HH:mm:ss")}"></div>
                         <div class="right">
                         <#if weibo.isFavor==0>
                             <a class="text-primary weibo-favor" weibo-id="${weibo.id}"><i
@@ -132,7 +133,6 @@
 <#include "/${frontTemplate}/common/footer.ftl"/>
 <script>
     $(document).ready(function () {
-        emoji()
         var pageNo = 1;
         weibo.commentList(weiboId, pageNo);
         $("#moreComment").click(function () {

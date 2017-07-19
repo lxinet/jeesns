@@ -14,7 +14,6 @@ import com.lxinet.jeesns.weibo.service.IWeiboService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -50,6 +49,7 @@ public class WeiboController extends BaseController {
         model.addAttribute("model",responseModel);
         List<Weibo> hotList = weiboService.hotList(loginMemberId);
         model.addAttribute("hotList",hotList);
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/weibo/list";
     }
 
@@ -62,6 +62,7 @@ public class WeiboController extends BaseController {
             return ErrorUtil.error(model,1007, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("weibo",weibo);
+        model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/weibo/detail";
     }
 

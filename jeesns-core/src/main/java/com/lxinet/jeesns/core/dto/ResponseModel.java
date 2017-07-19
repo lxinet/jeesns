@@ -41,6 +41,12 @@ public class ResponseModel<T> implements Serializable{
         this.message = message;
     }
 
+    public ResponseModel(int code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
     public ResponseModel(int code, String message, String url) {
         this.code = code;
         this.message = message;

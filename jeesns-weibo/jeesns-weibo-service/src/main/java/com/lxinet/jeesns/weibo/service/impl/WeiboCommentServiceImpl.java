@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.member.model.Member;
+import com.lxinet.jeesns.member.service.IScoreDetailService;
 import com.lxinet.jeesns.system.service.IActionLogService;
 import com.lxinet.jeesns.system.service.IScoreRuleService;
 import com.lxinet.jeesns.weibo.dao.IWeiboCommentDao;
@@ -30,7 +31,7 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     @Resource
     private IActionLogService actionLogService;
     @Resource
-    private IScoreRuleService scoreRuleService;
+    private IScoreDetailService scoreDetailService;
 
     @Override
     public WeiboComment findById(int id) {
@@ -58,7 +59,7 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
         int result = weiboCommentDao.save(weiboComment);
         if(result == 1){
             //微博评论奖励
-            scoreRuleService.scoreRuleBonus(loginMember.getId(), ScoreRuleConsts.COMMENT_WEIBO, weiboComment.getId());
+            scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.COMMENT_WEIBO, weiboComment.getId());
             return new ResponseModel(1,"评论成功");
         }else {
             return new ResponseModel(-1,"评论失败");
