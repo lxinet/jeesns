@@ -139,7 +139,7 @@
                             </#if>
                                 <a href="${basePath}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
                                 <#if loginUser?? && loginUser.isAdmin &gt; 0>
-                                    <a href="${basePath}/weibo/delete/${weibo.id}" target="_jeesnsLink">删除</a>
+                                    <a href="${basePath}/weibo/delete/${weibo.id}" target="_jeesnsLink" confirm="确定要删除微博吗？">删除</a>
                                 </#if>
                             </div>
                         </div>
