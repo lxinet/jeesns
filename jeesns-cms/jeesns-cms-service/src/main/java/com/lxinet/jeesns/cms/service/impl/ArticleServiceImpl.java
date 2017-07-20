@@ -88,6 +88,9 @@ public class ArticleServiceImpl implements IArticleService {
                     scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
                 }
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_ARTICLE,"", ActionLogType.ARTICLE.getValue(),article.getId());
+                if (article.getStatus() == 0){
+                    return new ResponseModel(0,"文章发布成功，请等待审核");
+                }
                 return new ResponseModel(0,"文章发布成功");
             }
         }
