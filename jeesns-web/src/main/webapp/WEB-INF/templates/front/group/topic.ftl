@@ -94,7 +94,11 @@
                     <div class="group-detail">
                         <p>
                             <span>
-                                <strong>${groupTopic.group.name}</strong>
+                                <strong>
+                                <a href="${basePath}/group/${groupTopic.group.id}">
+                                    ${groupTopic.group.name}
+                                </a>
+                                </strong>
                             </span>
                             <span class="text-right">
                                 <#if isfollow == true>
