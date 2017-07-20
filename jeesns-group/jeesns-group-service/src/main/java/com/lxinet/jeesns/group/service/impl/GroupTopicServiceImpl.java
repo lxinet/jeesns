@@ -90,7 +90,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
                 //群组发帖奖励
                 scoreDetailService.scoreBonus(member.getId(), ScoreRuleConsts.GROUP_POST, groupTopic.getId());
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_GROUP_TOPIC,"", ActionLogType.GROUP_TOPIC.getValue(),groupTopic.getId());
-                return new ResponseModel(2,"帖子发布成功","../detail/"+groupTopic.getGroupId());
+                if (groupTopic.getStatus() == 0){
+                    return new ResponseModel(2,"帖子发布成功，请等待管理员审核通过","../detail/"+groupTopic.getGroupId());
+                }
+
+                return new ResponseModel(2,"帖子发布成功","../topic/"+groupTopic.getId());
             }
         }
         return new ResponseModel(-1,"帖子发布失败");
