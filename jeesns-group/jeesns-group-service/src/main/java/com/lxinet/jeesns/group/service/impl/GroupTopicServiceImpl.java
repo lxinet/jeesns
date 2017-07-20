@@ -15,13 +15,13 @@ import com.lxinet.jeesns.group.service.IGroupTopicService;
 import com.lxinet.jeesns.member.model.Member;
 import com.lxinet.jeesns.member.service.IScoreDetailService;
 import com.lxinet.jeesns.system.service.IActionLogService;
-import com.lxinet.jeesns.system.service.IScoreRuleService;
 import com.lxinet.jeesns.system.utils.ActionLogType;
 import com.lxinet.jeesns.system.utils.ActionUtil;
 import com.lxinet.jeesns.system.utils.ScoreRuleConsts;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -157,7 +157,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     @Transactional
-    public ResponseModel indexDelete(Member loginMember, int id) {
+    public ResponseModel indexDelete(HttpServletRequest request, Member loginMember, int id) {
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
@@ -179,7 +179,12 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() > 0 ||
                 isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
-            return this.delete(loginMember,id);
+            ResponseModel responseModel = this.delete(loginMember,id);
+            if(responseModel.getCode() > 0){
+                responseModel.setCode(2);
+                responseModel.setUrl(request.getContextPath() + "/group/detail/"+group.getId());
+            }
+            return responseModel;
         }
         return new ResponseModel(-1,"权限不足");
     }

@@ -349,11 +349,7 @@ public class GroupController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = groupTopicService.indexDelete(loginMember,id);
-        if(responseModel.getCode() > 0){
-            responseModel.setCode(2);
-            responseModel.setUrl(request.getContextPath() + "/group/");
-        }
+        ResponseModel responseModel = groupTopicService.indexDelete(request,loginMember,id);
         return responseModel;
     }
 
