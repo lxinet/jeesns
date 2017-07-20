@@ -96,7 +96,12 @@ public class ArticleController extends BaseController {
         ResponseModel responseModel = articleService.save(loginMember,article);
         if(responseModel.getCode() == 0){
             responseModel.setCode(2);
-            responseModel.setUrl(request.getContextPath()+"/article/detail/"+article.getId());
+            //文章需要审核就跳转到列表页面
+            if(article.getStatus() == 0){
+                responseModel.setUrl(request.getContextPath()+"/article/list");
+            }else {
+                responseModel.setUrl(request.getContextPath()+"/article/detail/"+article.getId());
+            }
         }
         return responseModel;
     }
