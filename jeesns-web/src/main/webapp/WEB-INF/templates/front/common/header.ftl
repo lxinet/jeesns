@@ -36,7 +36,7 @@
                             </a></li>
                             <li><a href="${basePath}/member/editInfo">设置</a></li>
                             <#if loginMember?? && loginMember.isAdmin &gt; 0>
-                                <li><a href="${managePath}/index" target="_blank">管理</a></li>
+                                <li><a href="${managePath}/" target="_blank">管理</a></li>
                             </#if>
                             <li class="divider"></li>
                             <li><a href="${basePath}/member/logout">退出</a></li>
