@@ -72,7 +72,7 @@
                                     class="icon icon-thumbs-up"></i> ${weibo.favor}</a>
                         </#if>
                         <#if loginUser?? && (loginUser.id == weibo.member.id || loginUser.isAdmin &gt; 0)>
-                            <a href="${basePath}/weibo/delete/${weibo.id}" target="_jeesnsLink">删除</a>
+                            <a href="${basePath}/weibo/delete/${weibo.id}" target="_jeesnsLink" confirm="确定要删除微博吗？">删除</a>
                         </#if>
                         </div>
                     </div>
