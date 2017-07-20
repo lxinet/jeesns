@@ -4,7 +4,7 @@ import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.group.model.GroupTopic;
 import com.lxinet.jeesns.member.model.Member;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -22,7 +22,7 @@ public interface IGroupTopicService {
 
     ResponseModel delete(Member loginMember,int id);
 
-    ResponseModel indexDelete(Member loginMember,int id);
+    ResponseModel indexDelete(HttpServletRequest request, Member loginMember, int id);
 
     ResponseModel listByPage(Page page, String key, int groupId, int status, int memberId);
 
