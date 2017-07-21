@@ -95,7 +95,7 @@
                         <p>
                             <span>
                                 <strong>
-                                <a href="${basePath}/group/${groupTopic.group.id}">
+                                <a href="${basePath}/group/detail/${groupTopic.group.id}">
                                     ${groupTopic.group.name}
                                 </a>
                                 </strong>
