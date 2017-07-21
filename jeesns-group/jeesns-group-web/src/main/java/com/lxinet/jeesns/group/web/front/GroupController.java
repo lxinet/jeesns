@@ -76,7 +76,7 @@ public class GroupController extends BaseController {
         Page page = new Page(request);
         Group group = groupService.findById(groupId);
         if(group == null){
-            return ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
         Member loginMember = MemberUtil.getLoginMember(request);
@@ -151,10 +151,10 @@ public class GroupController extends BaseController {
 
         Group group = groupService.findById(groupId);
         if(group == null){
-            return ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
         }
         if(group.getCreator().intValue() != loginMember.getId().intValue()){
-            return ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
         String managerIds = group.getManagers();
@@ -191,14 +191,14 @@ public class GroupController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         GroupTopic groupTopic = groupTopicService.findById(topicId,loginMember);
         if(groupTopic == null){
-            return ErrorUtil.error(model,-1004,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1004,Const.INDEX_ERROR_FTL_PATH);
         }
         archiveService.updateViewCount(groupTopic.getArchiveId());
         model.addAttribute("groupTopic",groupTopic);
 
         Group group = groupService.findById(groupTopic.getGroup().getId());
         if(group == null){
-            return ErrorUtil.error(model,-1000,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1000,Const.INDEX_ERROR_FTL_PATH);
         }
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
@@ -237,14 +237,14 @@ public class GroupController extends BaseController {
         }
         Group group = groupService.findById(groupId);
         if(group == null){
-            return ErrorUtil.error(model,-1002, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
         }
         GroupFans groupFans = groupFansService.findByMemberAndGroup(groupId,loginMember.getId());
         if(groupFans == null){
-            return ErrorUtil.error(model,-1003, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1003, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
         }
         if(group.getCanPost() == 0){
-            return ErrorUtil.error(model,-1006, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1006, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
         return jeesnsConfig.getFrontTemplate() + "/group/post";
@@ -270,10 +270,10 @@ public class GroupController extends BaseController {
         }
         GroupTopic groupTopic = groupTopicService.findById(topicId,loginMember);
         if(groupTopic == null){
-            return ErrorUtil.error(model,-1004, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1004, Const.INDEX_ERROR_FTL_PATH);
         }
         if(loginMember.getId().intValue() != groupTopic.getMember().getId().intValue()){
-            return ErrorUtil.error(model,-1001, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("groupTopic",groupTopic);
         model.addAttribute("loginUser", loginMember);
@@ -369,7 +369,7 @@ public class GroupController extends BaseController {
         Page page = new Page(request);
         Group group = groupService.findById(groupId);
         if(group == null){
-            return ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
         Member loginMember = MemberUtil.getLoginMember(request);
@@ -417,7 +417,7 @@ public class GroupController extends BaseController {
         Page page = new Page(request);
         Group group = groupService.findById(groupId);
         if(group == null){
-            return ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
         //获取群组粉丝列表,第一页，20条数据

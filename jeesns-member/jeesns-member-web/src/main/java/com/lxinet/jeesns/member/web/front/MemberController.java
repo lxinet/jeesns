@@ -31,14 +31,14 @@ public class MemberController extends BaseController {
     private static final String MEMBER_FTL_PATH = "/member/";
     @Resource
     private IMemberService memberService;
-//    @Resource
-//    private IWeiboService weiboService;
     @Resource
     private IConfigService configService;
     @Resource
     private IActionLogService actionLogService;
     @Resource
     private IMessageService messageService;
+    @Resource
+    private JeesnsConfig jeesnsConfig;
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(Model model,@RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
@@ -316,14 +316,14 @@ public class MemberController extends BaseController {
     public String sendMessageBox(@RequestParam(value = "mid") Integer memberId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return ErrorUtil.error(model, -1008, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1008, Const.INDEX_ERROR_FTL_PATH);
         }
         if(memberId == null){
-            return ErrorUtil.error(model, -1000, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1000, Const.INDEX_ERROR_FTL_PATH);
         }
         Member findMember= memberService.findById(memberId);
         if(findMember == null){
-            return ErrorUtil.error(model, -1005, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1005, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("member", findMember);
         return MEMBER_FTL_PATH + "sendMessageBox";

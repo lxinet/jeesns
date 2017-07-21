@@ -59,7 +59,7 @@ public class WeiboController extends BaseController {
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Weibo weibo = weiboService.findById(weiboId,loginMemberId);
         if(weibo == null){
-            return ErrorUtil.error(model,1007, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,1007, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("weibo",weibo);
         model.addAttribute("loginUser", loginMember);
