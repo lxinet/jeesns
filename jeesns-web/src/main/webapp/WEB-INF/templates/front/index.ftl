@@ -132,14 +132,14 @@
                                             <div class="item index-article">
                                                 <div class="item-content">
                                                     <div class="media">
-                                                        <a href="${basePath}/article/detail/${groupTopic.id}">
+                                                        <a href="${basePath}/group/topic/${groupTopic.id}">
                                                             <img src="${basePath}${groupTopic.thumbnail}" alt="${groupTopic.title}" height="150px" width="100%">
                                                         </a>
                                                     </div>
-                                                    <h4><a href="${basePath}/article/detail/${groupTopic.id}">${groupTopic.title}</a></h4>
+                                                    <h4><a href="${basePath}/group/topic/${groupTopic.id}">${groupTopic.title}</a></h4>
                                                 </div>
                                                 <div class="item-footer">
-                                                    <a href="${basePath}/article/detail/${groupTopic.id}" class="text-muted"><i class="icon-comments"></i> ${groupTopic.viewCount}</a> &nbsp; <span class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                                    <a href="${basePath}/group/topic/${groupTopic.id}" class="text-muted"><i class="icon-comments"></i> ${groupTopic.viewCount}</a> &nbsp; <span class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
                                                 </div>
                                             </div>
                                         </div>
