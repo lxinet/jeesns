@@ -4,9 +4,13 @@
 
 数据库：MYSQL
 
-开发框架：Spring MVC+Spring+Mybatis
+JAVA开发框架：Spring MVC+Spring+Mybatis
 
-模板引擎：Freemarker
+前台前端开发框架：ZUI+JQuery+Bootstrap
+
+后台前端开发框架：VUE+ElementUI
+
+前台模板引擎：Freemarker
 
 ## 简介
 JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河。数据库使用MYSQL，全部源代码开放，官方网址：[http://www.jeesns.cn](http://www.jeesns.cn/)。
