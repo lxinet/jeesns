@@ -216,6 +216,13 @@ public class GroupController extends BaseController {
                 model.addAttribute("isPermission",1);
             }
         }
+        //判断是否已关注该群组
+        GroupFans groupFans = groupFansService.findByMemberAndGroup(groupTopic.getGroup().getId(),loginMember.getId());
+        if(groupFans == null){
+            model.addAttribute("isfollow",false);
+        }else {
+            model.addAttribute("isfollow",true);
+        }
         model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/topic";
     }
