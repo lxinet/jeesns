@@ -78,10 +78,20 @@
                                     </div>
                                     <div class="text">
                                         <p>
-                                        <h4><a href="${basePath}/group/topic/${topic.id}">${topic.title}</a></h4>
+                                        <h4>
+                                            <a href="${basePath}/group/topic/${topic.id}">${topic.title}</a>
+                                        <#if topic.isTop==1>
+                                            <span class="label label-badge label-primary">置顶</span>
+                                        <#elseif topic.isTop==2>
+                                            <span class="label label-badge label-success">超级置顶</span>
+                                        </#if>
+                                        <#if topic.isEssence==1>
+                                            <span class="label label-badge label-danger">精华</span>
+                                        </#if>
+                                        </h4>
                                         </p>
                                         <p>
-                                            <a href="#" class="text-muted"><i
+                                            <a href="${basePath}/group/topic/${topic.id}" class="text-muted"><i
                                                     class="icon-eye-open"></i> ${topic.viewCount}</a> &nbsp;
                                             <span class="text-muted">${topic.createTime?string('yyyy-MM-dd HH:mm')}</span>
                                         </p>
