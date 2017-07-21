@@ -33,7 +33,17 @@
             <div class="col-md-8">
                 <article class="article article-detail">
                     <header>
-                        <h1 class="text-center">${groupTopic.title}</h1>
+                        <h1 class="text-center">
+                        ${groupTopic.title}
+                        <#if groupTopic.isTop==1>
+                            <span class="label label-badge label-primary">置顶</span>
+                        <#elseif groupTopic.isTop==2>
+                            <span class="label label-badge label-success">超级置顶</span>
+                        </#if>
+                        <#if groupTopic.isEssence==1>
+                            <span class="label label-badge label-danger">精华</span>
+                        </#if>
+                        </h1>
                         <dl class="dl-inline">
                             <dt></dt>
                             <dd>${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</dd>
