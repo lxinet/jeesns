@@ -60,7 +60,7 @@ public class ArticleController extends BaseController {
         Article article = articleService.findById(id,loginMember);
         //文章不存在或者访问未审核的文章，跳到错误页面，提示文章不存在
         if(article == null || article.getStatus() == 0){
-            return ErrorUtil.error(model,-1009,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1009,Const.INDEX_ERROR_FTL_PATH);
         }
         //更新文章访问次数
         archiveService.updateViewCount(article.getArchiveId());
@@ -116,7 +116,7 @@ public class ArticleController extends BaseController {
         }
         Article article = articleService.findById(id,loginMember);
         if(article.getMemberId().intValue() != loginMember.getId().intValue()){
-            return ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("article",article);
         List<ArticleCate> cateList = articleCateService.list();

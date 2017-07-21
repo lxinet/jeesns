@@ -79,7 +79,7 @@ public class IndexController extends BaseController{
         Page page = new Page(request);
         Member member = memberService.findById(id);
         if(member == null){
-            return ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("member",member);
         ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,id);
@@ -92,7 +92,7 @@ public class IndexController extends BaseController{
         Page page = new Page(request);
         Member member = memberService.findById(id);
         if(member == null){
-            return ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("member",member);
         Member loginMember = MemberUtil.getLoginMember(request);
