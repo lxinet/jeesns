@@ -83,6 +83,7 @@ JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企�
 3. [JEESNS使用Maven打包介绍](https://my.oschina.net/zchuanzhao/blog/853393)
 4. [JEESNS导入数据库说明](https://my.oschina.net/zchuanzhao/blog/853394)
 5. [Eclipse导入JEESNS项目和部署说明](https://my.oschina.net/zchuanzhao/blog/853397)
+6. [IDEA导入JEESNS1.2.0项目和部署教程](https://my.oschina.net/zchuanzhao/blog/1486494)
 
 
 ## 相关网站
