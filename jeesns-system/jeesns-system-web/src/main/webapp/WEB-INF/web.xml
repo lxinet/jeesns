@@ -8,7 +8,7 @@
     <display-name>jeesns</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-mybatis.xml</param-value>
+        <param-value>classpath*:spring-*.xml</param-value>
     </context-param>
     <context-param>
         <param-name>defaultHtmlEscape</param-name>
@@ -41,6 +41,9 @@
     </listener>
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.lxinet.jeesns.core.listener.InitListener</listener-class>
     </listener>
 
     <servlet>
@@ -80,5 +83,6 @@
 
     <welcome-file-list>
         <welcome-file>index</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>
