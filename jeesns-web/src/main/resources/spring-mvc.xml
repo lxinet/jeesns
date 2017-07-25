@@ -102,7 +102,7 @@
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
     <mvc:resources location="/res/" mapping="/res/**"/>
-    <mvc:resources location="/manager/" mapping="/manager/**"/>
+    <mvc:resources location="/manage/" mapping="/manage/**"/>
     <mvc:interceptors>
         <!-- 配置全局拦截器 -->
         <bean class="com.lxinet.jeesns.core.interceptor.InitInterceptor"/>
