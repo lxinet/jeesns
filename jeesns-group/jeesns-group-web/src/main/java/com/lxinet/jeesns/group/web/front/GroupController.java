@@ -202,6 +202,7 @@ public class GroupController extends BaseController {
         }
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
+        boolean isfollow = false;
         if(loginMember == null){
             model.addAttribute("isPermission",0);
         }else {
@@ -215,14 +216,13 @@ public class GroupController extends BaseController {
                     isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
                 model.addAttribute("isPermission",1);
             }
+            //判断是否已关注该群组
+            GroupFans groupFans = groupFansService.findByMemberAndGroup(groupTopic.getGroup().getId(),loginMember.getId());
+            if(groupFans != null){
+                isfollow = true;
+            }
         }
-        //判断是否已关注该群组
-        GroupFans groupFans = groupFansService.findByMemberAndGroup(groupTopic.getGroup().getId(),loginMember.getId());
-        if(groupFans == null){
-            model.addAttribute("isfollow",false);
-        }else {
-            model.addAttribute("isfollow",true);
-        }
+        model.addAttribute("isfollow",isfollow);
         model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/topic";
     }
