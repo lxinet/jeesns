@@ -119,6 +119,8 @@ public class GroupServiceImpl implements IGroupService {
         //设置管理员
         String managerIds = String.valueOf(loginMember.getId());
         group.setManagers(managerIds);
+        group.setCanPost(1);
+        group.setTopicReview(0);
         if(groupDao.save(group) == 1){
             //创建者默认关注群组
             groupFansService.save(loginMember,group.getId());
