@@ -63,7 +63,7 @@
                         </span>
                     </header>
                     <section class="content">
-                    ${article.content}
+                        ${article.content}
                     </section>
                 </article>
 
