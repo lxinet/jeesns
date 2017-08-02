@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <a href="${basePath}/article/add" class="btn btn-block btn-lg btn-info">发帖</a>
+                <a href="${basePath}/group/post/${groupTopic.group.id}" class="btn btn-block btn-lg btn-info">发帖</a>
                 <div class="group white-bg">
                     <div class="group-logo">
                         <img alt="${groupTopic.group.name}" src="${basePath}${groupTopic.group.logo}" width="80px"
