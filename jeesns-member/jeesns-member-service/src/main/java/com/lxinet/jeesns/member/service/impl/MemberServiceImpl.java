@@ -90,6 +90,7 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     @Override
+    @Transactional
     public ResponseModel register(Member member, HttpServletRequest request) {
         if(memberDao.findByName(member.getName()) != null){
             return new ResponseModel(-1,"该用户名已被注册");
