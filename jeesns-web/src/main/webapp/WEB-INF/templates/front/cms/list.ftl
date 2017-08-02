@@ -30,23 +30,23 @@
                 <div class="items">
                     <#list model.data as article>
                     <div class="item article-list shadow">
-                        <div class="item-heading">
-                            <a href="${basePath}/article/list?cateid=${article.articleCate.id}"><div class="pull-right label label-success">${article.articleCate.name}</div></a>
-                            <h4><a href="${basePath}/article/detail/${article.id}">${article.title}</a></h4>
-                        </div>
                         <div class="item-content">
                             <#if article.thumbnail??>
                                 <div class="media pull-left">
                                     <a href="${basePath}/article/detail/${article.id}">
-                                        <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="100px" width="150px">
+                                        <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="80px" width="120px">
                                     </a>
                                 </div>
                             </#if>
-                            <div class="text">${article.description}</div>
+                            <div class="text">
+                                <a href="${basePath}/article/list?cateid=${article.articleCate.id}"><div class="pull-right label label-success">${article.articleCate.name}</div></a>
+                                <h3><a href="${basePath}/article/detail/${article.id}">${article.title}</a></h3>
+                                <p>
+                                    <span class="text-muted"><i class="icon-comments"></i> ${article.viewCount} &nbsp; <i class="icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                </p>
+                            </div>
                         </div>
-                        <div class="item-footer">
-                            <span class="text-muted"><i class="icon-comments"></i> ${article.viewCount} &nbsp; <i class="icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
-                        </div>
+
                     </div>
                     </#list>
                         <ul class="pager pagination pagination-sm no-margin pull-right"
