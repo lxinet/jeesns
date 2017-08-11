@@ -52,9 +52,6 @@ public class ArticleController extends BaseController {
         }
         Member loginMember = memberService.findById(validMemberTokenModel.getData().getMemberId());
         ResponseModel responseModel = articleService.save(loginMember,article);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
-        }
         return responseModel;
     }
 
