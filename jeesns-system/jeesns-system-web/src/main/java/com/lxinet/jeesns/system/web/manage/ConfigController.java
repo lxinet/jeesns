@@ -70,7 +70,7 @@ public class ConfigController extends BaseController {
         if(StringUtils.isNotEmpty(site_send_email_password)){
             params.put("site_send_email_password",site_send_email_password);
         }
-        return configService.update(params);
+        return configService.update(params, request);
     }
 
     @RequestMapping(value = "memberUpdate",method = RequestMethod.POST)
@@ -84,7 +84,7 @@ public class ConfigController extends BaseController {
         params.put("member_login_open",member_login_open);
         params.put("member_register_open",member_register_open);
         params.put("member_email_valid",member_email_valid);
-        return configService.update(params);
+        return configService.update(params, request);
     }
 
     @RequestMapping(value = "cmsUpdate",method = RequestMethod.POST)
@@ -97,7 +97,7 @@ public class ConfigController extends BaseController {
         Map<String,String> params = new HashMap<>();
         params.put("cms_post",cms_post);
         params.put("cms_post_review",cms_post_review);
-        return configService.update(params);
+        return configService.update(params, request);
     }
 
     @RequestMapping(value = "groupUpdate",method = RequestMethod.POST)
@@ -114,7 +114,7 @@ public class ConfigController extends BaseController {
         params.put("group_alias",group_alias);
         params.put("group_apply",group_apply);
         params.put("group_apply_review",group_apply_review);
-        return configService.update(params);
+        return configService.update(params, request);
     }
 
     @RequestMapping(value = "weiboUpdate",method = RequestMethod.POST)
@@ -134,6 +134,6 @@ public class ConfigController extends BaseController {
         params.put("weibo_alias",weibo_alias);
         params.put("weibo_post",weibo_post);
         params.put("weibo_post_maxcontent",weibo_post_maxcontent);
-        return configService.update(params);
+        return configService.update(params, request);
     }
 }

@@ -3,6 +3,7 @@ package com.lxinet.jeesns.system.service;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.system.model.Config;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -16,5 +17,5 @@ public interface IConfigService {
 
     String getValue(String key);
 
-    ResponseModel update(Map<String,String> params);
+    ResponseModel update(Map<String,String> params, HttpServletRequest request);
 }
