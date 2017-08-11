@@ -69,6 +69,10 @@ a {
     margin: 0 15px;
 }
 
+.navbar-inverse .navbar-nav-right{
+    margin-top: 8px;
+}
+
 .navbar-inverse .navbar-nav-right > li > a {
     color: #999;
     font-size: 16px;
@@ -78,6 +82,11 @@ a {
 .navbar-inverse .navbar-nav > li > a:hover {
     color: #ffffff;
     background-color: #393D49;
+}
+
+.jeesns-logo {
+    padding: 0;
+    margin-top: -5px;
 }
 
 .btn {
