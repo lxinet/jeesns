@@ -52,6 +52,13 @@ h5 {
   margin-top: -7px;
 }
 
+.container>.navbar-header, .container-fluid>.navbar-header, .container>.navbar-collapse, .container-fluid>.navbar-collapse {
+    margin-right: 0px;
+    margin-left: -15px;
+    background-color: #3a3e49;
+    /*border-top: 1px solid #00aaee;*/
+}
+
 .pd-l-20{padding-left: 20px}
 .mg-t-10{margin-top: 10px}
 .mg-b-10{margin-bottom: 10px}
@@ -95,7 +102,7 @@ h5 {
 .navbar-static-top {
   background: #393D49;
   height: 70px;
-  border-top: solid 1px #0499e2;
+  /*border-top: solid 1px #0499e2;*/
 }
 .fixed-nav #wrapper {
   margin-top: 0;
@@ -281,7 +288,7 @@ h5 {
 }
 
 .navbar-nav li {
-  height: 70px;
+  height: 40px;
   padding-top: 10px;
 }
 
@@ -755,6 +762,8 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   color: #fff;
   padding: 6px 12px;
   font-size: 14px;
+    margin-top: 22px;
+    margin-right: -10px;
 }
 .top-navigation .navbar-nav .open .dropdown-menu > li > a,
 .top-navigation .navbar-nav .open .dropdown-menu .dropdown-header {
@@ -2964,6 +2973,7 @@ del {
   .navbar-header {
     display: inline;
     float: left;
+    width: 100%;
   }
   .sidebard-panel {
     z-index: 2;
