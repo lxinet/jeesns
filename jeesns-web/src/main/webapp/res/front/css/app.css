@@ -70,18 +70,21 @@ a {
 }
 
 .navbar-inverse .navbar-nav-right{
-    margin-top: 8px;
+    margin-top: 6px;
 }
-
 .navbar-inverse .navbar-nav-right > li > a {
-    color: #999;
-    font-size: 16px;
-    margin: 0 1px;
+    color: #428bca;
+    font-size: 14px;
+    margin: 5px 1px;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
     color: #ffffff;
     background-color: #393D49;
+}
+
+.m-navbar-header{
+    margin-right: 0!important;
 }
 
 .jeesns-logo {

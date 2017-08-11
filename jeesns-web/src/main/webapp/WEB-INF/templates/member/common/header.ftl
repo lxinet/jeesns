@@ -13,22 +13,22 @@
                     <div class="navbar-collapse collapse" id="navbar">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a aria-expanded="false" role="button" href="${basePath}/"> 首页</a>
+                                <a href="${basePath}/"> 首页</a>
                             </li>
                             <li>
-                                <a aria-expanded="false" role="button" href="${basePath}/article/list"> 文章</a>
+                                <a href="${basePath}/article/list"> 文章</a>
                             </li>
                             <li>
-                                <a aria-expanded="false" role="button" href="${basePath}/weibo/list"> ${WEIBO_ALIAS}</a>
+                                <a href="${basePath}/weibo/list"> ${WEIBO_ALIAS}</a>
                             </li>
                             <li>
-                                <a aria-expanded="false" role="button" href="${basePath}/group/"> ${GROUP_ALIAS}</a>
+                                <a href="${basePath}/group/"> ${GROUP_ALIAS}</a>
                             </li>
                             <li>
-                                <a aria-expanded="false" role="button" href="${basePath}/action/list"> 动态</a>
+                                <a href="${basePath}/action/list"> 动态</a>
                             </li>
                             <li>
-                                <a aria-expanded="false" role="button" href="http://www.lxinet.com/buy.html" target="_blank"> 商业授权</a>
+                                <a href="http://www.lxinet.com/buy.html" target="_blank"> 商业授权</a>
                             </li>
                         </ul>
                         <ul class="nav navbar-top-links navbar-right">
