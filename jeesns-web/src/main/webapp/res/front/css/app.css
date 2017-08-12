@@ -1,6 +1,7 @@
 a {
     text-decoration: none !important;
 }
+
 .gray-bg {
     background-color: #f3f3f4;
 }
@@ -99,11 +100,6 @@ a {
 
 .panel {
     border-radius: 0px;
-}
-
-.container {
-    padding-left: 0px;
-    padding-right: 0px;
 }
 
 .form-horizontal .form-group {
