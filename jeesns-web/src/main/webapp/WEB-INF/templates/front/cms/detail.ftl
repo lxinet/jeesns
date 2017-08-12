@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${article.title} - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>${article.title} - ${article.articleCate.name} - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -37,7 +37,7 @@
                         <span class="dl-inline">
                             <dt></dt>
                             <dd>
-                                <a href="${basePath}/article/list?cateid=${article.articleCate.id}">
+                                <a href="${basePath}/article/list?cid=${article.articleCate.id}">
                                     <span class="label label-warning"><i
                                             class="icon icon-list-ul"></i> ${article.articleCate.name}</span>
                                 </a>
