@@ -39,7 +39,7 @@
                                 </div>
                             </#if>
                             <div class="text">
-                                <a href="${basePath}/article/list?cateid=${article.articleCate.id}"><div class="pull-right label label-success">${article.articleCate.name}</div></a>
+                                <a href="${basePath}/article/list?cid=${article.articleCate.id}"><div class="pull-right label label-success">${article.articleCate.name}</div></a>
                                 <h3><a href="${basePath}/article/detail/${article.id}">${article.title}</a></h3>
                                 <p>
                                     <span class="text-muted"><i class="icon-comments"></i> ${article.viewCount} &nbsp; <i class="icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
