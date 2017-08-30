@@ -9,6 +9,6 @@
         <!--<setting name="logImpl" value="STDOUT_LOGGING" />-->
     </settings>
     <plugins>
-        <plugin interceptor="com.lxinet.jeesns.core.interceptor.PageInterceptor"></plugin>
+        <plugin interceptor="com.lxinet.jeesns.interceptor.PageInterceptor"></plugin>
     </plugins>
 </configuration>

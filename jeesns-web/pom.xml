@@ -22,69 +22,19 @@
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-member-model</artifactId>
+			<artifactId>jeesns-model</artifactId>
 			<version>1.2</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-commons</artifactId>
+			<artifactId>jeesns-common</artifactId>
 			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-member-service</artifactId>
+			<artifactId>jeesns-service</artifactId>
 			<version>1.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-cms-service</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-group-service</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-weibo-service</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-system-web</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-member-web</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-cms-web</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-weibo-web</artifactId>
-			<version>1.2</version>
-			<type>war</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-group-web</artifactId>
-			<version>1.2</version>
-			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -98,36 +48,6 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-				</configuration>
-			</plugin>
-			<!-- 合并多个war -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
-					<overlays>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-system-web</artifactId>
-						</overlay>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-member-web</artifactId>
-						</overlay>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-cms-web</artifactId>
-						</overlay>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-weibo-web</artifactId>
-						</overlay>
-						<overlay>
-							<groupId>com.lxinet</groupId>
-							<artifactId>jeesns-group-web</artifactId>
-						</overlay>
-					</overlays>
 				</configuration>
 			</plugin>
 		</plugins>

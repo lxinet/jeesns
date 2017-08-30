@@ -105,7 +105,7 @@
     <mvc:resources location="/manage/" mapping="/manage/**"/>
     <mvc:interceptors>
         <!-- 配置全局拦截器 -->
-        <bean class="com.lxinet.jeesns.core.interceptor.InitInterceptor"/>
+        <bean class="com.lxinet.jeesns.interceptor.InitInterceptor"/>
     </mvc:interceptors>
 
     <mvc:annotation-driven validator="validator"/>
