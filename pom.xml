@@ -12,12 +12,24 @@
 
     <modules>
         <module>jeesns-core</module>
-        <module>jeesns-system</module>
-        <module>jeesns-member</module>
-        <module>jeesns-commons</module>
-        <module>jeesns-cms</module>
-        <module>jeesns-weibo</module>
-        <module>jeesns-group</module>
+        <module>jeesns-common</module>
+        <module>jeesns-model</module>
+        <module>jeesns-dao</module>
+        <module>jeesns-service</module>
         <module>jeesns-web</module>
     </modules>
+
+    <build>
+        <finalName>jeesns-common</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

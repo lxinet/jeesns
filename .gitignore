@@ -4,3 +4,4 @@
 /overlays
 .DS_Store
 *.iml
+*.class
