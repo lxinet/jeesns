@@ -7,19 +7,19 @@
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <link href="${base}/res/common/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${base}/res/manage/css/AdminLTE.css" rel="stylesheet">
-    <link href="${base}/res/manage/css/skins/_all-skins.css" rel="stylesheet">
+    <link href="${basePath}/res/common/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/res/common/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${basePath}/res/manage/css/AdminLTE.css" rel="stylesheet">
+    <link href="${basePath}/res/manage/css/skins/_all-skins.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="${base}/res/common/js/html5shiv.min.js"></script>
-    <script src="${base}/res/common/js/respond.min.js"></script>
+    <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
+    <script src="${basePath}/res/common/js/respond.min.js"></script>
     <![endif]-->
-    <script src="${base}/res/common/js/jquery-2.1.1.min.js"></script>
-    <script src="${base}/res/common/js/bootstrap.min.js"></script>
-    <script src="${base}/res/plugins/layer/layer.js"></script>
-    <script src="${base}/res/manage/js/app.js"></script>
-    <script src="${base}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
+    <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
+    <script src="${basePath}/res/plugins/layer/layer.js"></script>
+    <script src="${basePath}/res/manage/js/app.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

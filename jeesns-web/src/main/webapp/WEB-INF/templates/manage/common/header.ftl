@@ -11,12 +11,12 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="${base}${loginUser.avatar}" class="user-image" alt="User Image">
+                        <img src="${basePath}${loginUser.avatar}" class="user-image" alt="User Image">
                         <span class="hidden-xs">${loginUser.name}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img src="${base}${loginUser.avatar}" class="img-circle" alt="User Image">
+                            <img src="${basePath}${loginUser.avatar}" class="img-circle" alt="User Image">
                             <p>
                                 ${loginUser.name}
                                 <small>${loginUser.email}</small>
@@ -24,10 +24,10 @@
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="${base}/member/editInfo" class="btn btn-default btn-flat" target="_blank">设置</a>
+                                <a href="${basePath}/member/editInfo" class="btn btn-default btn-flat" target="_blank">设置</a>
                             </div>
                             <div class="pull-right">
-                                <a href="${base}/member/logout" class="btn btn-default btn-flat">退出</a>
+                                <a href="${basePath}/member/logout" class="btn btn-default btn-flat">退出</a>
                             </div>
                         </li>
                     </ul>
@@ -40,11 +40,11 @@
     <section class="sidebar">
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="${base}${loginUser.avatar}" class="img-circle" alt="User Image">
+                <img src="${basePath}${loginUser.avatar}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>${loginUser.name}</p>
-                <a href="${base}/member/editInfo" target="_blank"><i class="fa fa-circle text-success"></i> 设置</a>
+                <a href="${basePath}/member/editInfo" target="_blank"><i class="fa fa-circle text-success"></i> 设置</a>
             </div>
         </div>
         <ul class="sidebar-menu">
