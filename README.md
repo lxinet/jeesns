@@ -27,6 +27,8 @@ JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企�
 - 如果您需要一个群组，那么您可以用JEESNS
 - 如果您需要因为某个话题来汇聚人群，那么您可以用JEESNS
 
+## 后台前端代码
+[https://github.com/zchuanzhao/jeesns-manage](https://github.com/zchuanzhao/jeesns-manage)
 
 ## 功能模块
 - 私信功能

@@ -1,15 +1,17 @@
 package com.lxinet.jeesns.web.manage;
 
-import com.lxinet.jeesns.model.member.MemberToken;
+import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.web.base.BaseController;
+import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.weibo.IWeiboService;
-import org.apache.ibatis.annotations.Param;
+import com.lxinet.jeesns.web.base.BaseController;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 
 /**
@@ -17,32 +19,25 @@ import javax.annotation.Resource;
  */
 @Controller("mamageWeiboController")
 @RequestMapping("/")
+@Before(AdminLoginInterceptor.class)
 public class WeiboController extends BaseController {
+    private static final String MANAGE_FTL_PATH = "/manage/weibo/";
     @Resource
     private IWeiboService weiboService;
-    @Resource
-    private IMemberService memberService;
 
-    @RequestMapping("${managePath}/weibo/list")
-    @ResponseBody
-    public Object list(@RequestParam(value = "key",required = false,defaultValue = "") String key) {
-        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
-        if (validMemberTokenModel.getCode() == -1){
-            return validMemberTokenModel;
-        }
+    @RequestMapping("${managePath}/weibo/index")
+    @Before(AdminLoginInterceptor.class)
+    public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Model model) {
         Page page = new Page(request);
         ResponseModel responseModel = weiboService.listByPage(page,0,0,key);
-        return responseModel;
+        model.addAttribute("model",responseModel);
+        return MANAGE_FTL_PATH + "index";
     }
 
-    @RequestMapping(value = "${managePath}/weibo/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "${managePath}/weibo/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@Param("id") int id) {
-        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
-        if (validMemberTokenModel.getCode() == -1){
-            return validMemberTokenModel;
-        }
-        Member loginMember = memberService.findById(validMemberTokenModel.getData().getMemberId());
+    public Object delete(@PathVariable("id") int id) {
+        Member loginMember = MemberUtil.getLoginMember(request);
         return weiboService.delete(request, loginMember,id);
     }
 }
