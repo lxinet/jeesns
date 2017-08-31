@@ -21,17 +21,13 @@
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
-    <script src="${basePath}/res/plugins/ueditor/ueditor.config.js"></script>
-    <script src="${basePath}/res/plugins/ueditor/ueditor.all.js"></script>
-    <script src="${basePath}/res/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/plugins/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
-        UE.delEditor('jeesns-editor');
-        UE.getEditor('jeesns-editor',{
-            serverUrl: '${basePath}/res/plugins/ueditor/jsp/controller.jsp',
-            initialFrameHeight:300
+        $(function () {
+            CKEDITOR.replace('content');
         });
         var basePath = "${basePath}";
         var uploadServer = "${managePath}/uploadImage";
@@ -43,7 +39,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/cms/article/save" method="post">
+                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/cms/article/save" method="post" onsubmit="ckUpdate();">
                     <div class="form-group">
                         <label for="lastname" class="col-sm-1 control-label">栏目</label>
                         <div class="col-sm-3">
@@ -84,7 +80,7 @@
                     <div class="form-group">
                         <label for="firstname" class="col-sm-1 control-label">内容</label>
                         <div class="col-sm-10">
-                            <script type="text/plain" id="jeesns-editor" name="content"></script>
+                            <textarea class="ckeditor" cols="80" id="content" name="content" rows="10"></textarea>
                         </div>
                     </div>
 
