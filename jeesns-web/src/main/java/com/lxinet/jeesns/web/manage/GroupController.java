@@ -1,13 +1,15 @@
 package com.lxinet.jeesns.web.manage;
 
-import com.lxinet.jeesns.model.member.MemberToken;
+import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.web.base.BaseController;
-import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.member.IMemberService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
@@ -16,43 +18,34 @@ import javax.annotation.Resource;
  */
 @Controller("manageGroupController")
 @RequestMapping("/")
-public class GroupController extends BaseController{
+@Before(AdminLoginInterceptor.class)
+public class GroupController extends BaseController {
+    private static final String MANAGE_FTL_PATH = "/manage/group/";
     @Resource
     private IGroupService groupService;
-    @Resource
-    private IMemberService memberService;
 
-    @RequestMapping(value = "${managePath}/group/list")
-    @ResponseBody
-    public Object list(@RequestParam(value = "status",required = false,defaultValue = "-1") Integer status, String key) {
-        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
-        if (validMemberTokenModel.getCode() == -1){
-            return validMemberTokenModel;
-        }
+    @RequestMapping(value = "${managePath}/group/index")
+    public String index(@RequestParam(value = "status",required = false,defaultValue = "-1") Integer status,
+                        String key,
+                        Model model) {
         Page page = new Page(request);
         ResponseModel responseModel = groupService.listByPage(status,page,key);
-        return responseModel;
+        model.addAttribute("model",responseModel);
+        model.addAttribute("key",key);
+        return MANAGE_FTL_PATH + "index";
     }
 
-    @RequestMapping(value = "${managePath}/group/delete",method = RequestMethod.GET)
+    @RequestMapping(value = "${managePath}/group/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@RequestParam("id") int id){
-        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
-        if (validMemberTokenModel.getCode() == -1){
-            return validMemberTokenModel;
-        }
-        Member loginMember = memberService.findById(validMemberTokenModel.getData().getMemberId());
+    public Object delete(@PathVariable("id") int id){
+        Member loginMember = MemberUtil.getLoginMember(request);
         ResponseModel response = groupService.delete(loginMember,id);
         return response;
     }
 
-    @RequestMapping(value = "${managePath}/group/changeStatus",method = RequestMethod.GET)
+    @RequestMapping(value = "${managePath}/group/changeStatus/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object changeStatus(@RequestParam("id") int id){
-        ResponseModel<MemberToken> validMemberTokenModel = validMemberToken();
-        if (validMemberTokenModel.getCode() == -1){
-            return validMemberTokenModel;
-        }
+    public Object changeStatus(@PathVariable("id") int id){
         ResponseModel response = groupService.changeStatus(id);
         return response;
     }
