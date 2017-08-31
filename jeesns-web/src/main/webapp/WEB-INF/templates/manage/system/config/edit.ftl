@@ -7,28 +7,28 @@
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <link href="${base}/res/common/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${base}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${base}/res/manage/css/AdminLTE.css" rel="stylesheet">
-    <link href="${base}/res/manage/css/skins/_all-skins.css" rel="stylesheet">
-    <link href="${base}/res/plugins/webuploader/webuploader.css" rel="stylesheet">
-    <link href="${base}/res/plugins/layer/skin/layer.css" rel="stylesheet">
+    <link href="${basePath}/res/common/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/res/common/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${basePath}/res/manage/css/AdminLTE.css" rel="stylesheet">
+    <link href="${basePath}/res/manage/css/skins/_all-skins.css" rel="stylesheet">
+    <link href="${basePath}/res/plugins/webuploader/webuploader.css" rel="stylesheet">
+    <link href="${basePath}/res/plugins/layer/skin/layer.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="${base}/res/common/js/html5shiv.js"></script>
-    <script src="${base}/res/common/js/respond.min.js"></script>
+    <script src="${basePath}/res/common/js/html5shiv.js"></script>
+    <script src="${basePath}/res/common/js/respond.min.js"></script>
     <![endif]-->
-    <script src="${base}/res/common/js/jquery-2.1.1.min.js"></script>
-    <script src="${base}/res/common/js/jquery.form.js"></script>
-    <script src="${base}/res/common/js/bootstrap.min.js"></script>
-    <script src="${base}/res/manage/js/app.js"></script>
-    <script src="${base}/res/plugins/webuploader/webuploader.min.js"></script>
-    <script src="${base}/res/plugins/layer/layer.js"></script>
-    <script src="${base}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
+    <script src="${basePath}/res/common/js/jquery.form.js"></script>
+    <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
+    <script src="${basePath}/res/manage/js/app.js"></script>
+    <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
+    <script src="${basePath}/res/plugins/layer/layer.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script type="text/javascript">
-        var basePath = "${base}";
+        var basePath = "${basePath}";
         var uploadServer = "${managePath}/uploadImage";
     </script>
-    <script src="${base}/res/plugins/webuploader/upload.js"></script>
+    <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -92,7 +92,7 @@
                                     <div class="col-sm-10">
                                         <div id="uploader" class="wu-example">
                                         <#if site_logo??>
-                                            <img src="${base}${site_logo}" height="80px"/>
+                                            <img src="${basePath}${site_logo}" height="80px"/>
                                         </#if>
                                             <!--用来存放文件信息-->
                                             <input type="hidden" id="thumbnail" name="site_logo">
