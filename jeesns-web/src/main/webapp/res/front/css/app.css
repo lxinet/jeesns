@@ -727,3 +727,16 @@ a {
     color: #777;
     padding-top: 30px;
 }
+
+.btn-article-favor {
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 18px;
+}
+
+.btn-article-unfavor {
+    color: inherit;
+    background-color: transparent;
+    transition: all .5s;
+    color: #ea644a;
+}

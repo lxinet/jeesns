@@ -65,6 +65,16 @@
                     <section class="content">
                         ${article.content}
                     </section>
+                    <div class="text-center">
+                    <#if article.isFavor == 0>
+                        <a class="btn btn-danger btn-article-favor btn-article-unfavor article-favor" href="javascript:void(0)" article-id="${article.id}">
+                            <i class="icon-heart-empty"></i> 喜欢 | ${article.favor}
+                        </a>
+                    <#else>
+                        <a class="btn btn-danger btn-article-favor article-favor" href="javascript:void(0)" article-id="${article.id}">
+                            <i class="icon-heart"></i> 喜欢 | ${article.favor}
+                        </a>
+                    </#if>
                 </article>
 
                 <div class="comments panel">
