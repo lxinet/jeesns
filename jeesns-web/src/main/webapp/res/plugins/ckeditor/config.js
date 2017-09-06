@@ -4,6 +4,9 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
+    config.language = 'zh-cn';
+    config.height = 300;
+    config.toolbarCanCollapse = true;
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
@@ -34,4 +37,9 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+
+    // 图片上传配置
+    config.filebrowserUploadUrl = basePath + '/ckeditorUpload/uploadImage';
+    config.filebrowserImageUploadUrl = basePath + '/ckeditorUpload/uploadImage';
+    config.filebrowserFlashUploadUrl = basePath + '/ckeditorUpload/uploadImage';
 };

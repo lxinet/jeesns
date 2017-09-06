@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
-import com.lxinet.jeesns.web.base.BaseController;
+import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.service.cms.IArticleCateService;

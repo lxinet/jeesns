@@ -13,7 +13,7 @@ import com.lxinet.jeesns.service.group.IGroupFansService;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.service.group.IGroupTopicService;
 import com.lxinet.jeesns.service.member.IMemberFansService;
-import com.lxinet.jeesns.web.base.BaseController;
+import com.lxinet.jeesns.web.common.BaseController;
 //import com.lxinet.jeesns.cms.service.IArticleService;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;

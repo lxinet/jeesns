@@ -1,4 +1,4 @@
-package com.lxinet.jeesns.web.base;
+package com.lxinet.jeesns.web.common;
 
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.exception.ParamExceptiom;

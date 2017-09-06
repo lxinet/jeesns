@@ -6,7 +6,7 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.web.base.BaseController;
+import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.service.weibo.IWeiboCommentService;

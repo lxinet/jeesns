@@ -7,7 +7,7 @@ import com.lxinet.jeesns.service.common.IPictureService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ImageUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
-import com.lxinet.jeesns.web.base.BaseController;
+import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
 import org.apache.commons.codec.digest.DigestUtils;

@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
-import com.lxinet.jeesns.web.base.BaseController;
+import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupFans;
