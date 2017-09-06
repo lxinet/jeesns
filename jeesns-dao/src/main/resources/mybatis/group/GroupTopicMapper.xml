@@ -23,7 +23,7 @@
     order by a.is_top DESC,a.id DESC
   </select>
   <select id="findById" parameterType="java.lang.Integer" resultType="GroupTopic">
-    select a.id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,b.*,c.name 'group.name',c.logo 'group.logo',b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar',
+    select a.id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,b.*,c.name 'group.name',c.logo 'group.logo',b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar',d.introduce as 'member.introduce',
     (CASE WHEN (SELECT id FROM tbl_archive_favor WHERE archive_id=b.archive_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
     from tbl_group_topic as a INNER JOIN tbl_archive as b ON a.archive_id = b.archive_id
     LEFT JOIN tbl_group as c ON a.group_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id

@@ -104,6 +104,29 @@
             </div>
             <div class="col-md-4">
                 <div class="panel">
+                    <div class="panel-body weibo-author">
+                        <div class="avatar">
+                            <a href="${basePath}/u/${article.member.id}" target="_blank">
+                                <img alt="image" class="img-circle mg-l-30" src="${basePath}${article.member.avatar}"/></a>
+                        </div>
+                        <div class="name">
+                            <a href="${basePath}/u/${article.member.id}"
+                               target="_blank">${article.member.name}</a>
+                        </div>
+                        <div class="info">
+                            <p>
+                                <a href="${basePath}/u/${article.member.id}/home/follows">${article.member.follows}
+                                    关注</a> /
+                                <a href="${basePath}/u/${article.member.id}/home/fans">${article.member.fans}
+                                    粉丝</a>
+                            </p>
+                            <p>
+                            ${article.member.introduce}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
                     <div class="panel-heading">
                         文章栏目
                     </div>
