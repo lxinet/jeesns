@@ -285,9 +285,12 @@ public class MemberController extends BaseController {
     public Object listContactMembers(){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
-        //获取联系人
-        ResponseModel contactMembers = memberService.listContactMembers(page, loginMember.getId());
-        return contactMembers;
+        if (loginMember != null){
+            //获取联系人
+            ResponseModel contactMembers = memberService.listContactMembers(page, loginMember.getId());
+            return contactMembers;
+        }
+        return null;
     }
 
     /**
@@ -300,9 +303,12 @@ public class MemberController extends BaseController {
     public Object messageRecords(@PathVariable("memberId") Integer memberId){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
-        //获取聊天记录
-        ResponseModel messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
-        return messageRecords;
+        if (loginMember != null){
+            //获取聊天记录
+            ResponseModel messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
+            return messageRecords;
+        }
+        return null;
     }
 
     /**

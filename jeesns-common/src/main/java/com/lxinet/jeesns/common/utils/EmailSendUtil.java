@@ -43,7 +43,7 @@ public class EmailSendUtil {
 				return false;
 			}
 			msg.setFrom(new InternetAddress(account));
-			msg.setFrom(new InternetAddress(sendnickname + " <" + email +">"));
+//			msg.setFrom(new InternetAddress(sendnickname + " <" + email +">"));
 			msg.setSubject(title);
 			msg.setRecipients(RecipientType.TO, InternetAddress.parse(email));// 多个收件人
 			msg.setContent(content, "text/html;charset=utf-8");// 文本/指定文本类型，字符集
