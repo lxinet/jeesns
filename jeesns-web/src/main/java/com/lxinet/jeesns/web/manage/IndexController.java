@@ -34,13 +34,7 @@ public class IndexController extends BaseController {
     @Resource
     private ICommonService commonService;
 
-    @RequestMapping("/")
-    public String defaultIndex(){
-        return"forward:index";
-    }
-
-
-    @RequestMapping("/index")
+    @RequestMapping(value = {"/", "/index"})
     public String index(Model model){
         Properties props = System.getProperties();
         //java版本
