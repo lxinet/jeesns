@@ -5,26 +5,26 @@ package com.lxinet.jeesns.common.utils;
  * Created by zchuanzhao on 2017/1/5.
  */
 public class ConfigUtil {
-    public static final String CMS_POST = "cms_post";
-    public static final String CMS_POST_REVIEW = "cms_post_review";
-    public static final String GROUP_ALIAS = "group_alias";
-    public static final String GROUP_APPLY = "group_apply";
-    public static final String GROUP_APPLY_REVIEW = "group_apply_review";
-    public static final String MEMBER_EMAIL_VALID = "member_email_valid";
-    public static final String MEMBER_LOGIN_OPEN = "member_login_open";
-    public static final String MEMBER_REGISTER_OPEN = "member_register_open";
-    public static final String SITE_DESCRIPTION = "site_description";
-    public static final String SITE_DOMAIN = "site_domain";
-    public static final String SITE_KEYS = "site_keys";
-    public static final String SITE_LOGO = "site_logo";
-    public static final String SITE_NAME = "site_name";
-    public static final String SITE_SEND_EMAIL_ACCOUNT = "site_send_email_account";
-    public static final String SITE_SEND_EMAIL_PASSWORD = "site_send_email_password";
-    public static final String SITE_SEND_EMAIL_SMTP = "site_send_email_smtp";
-    public static final String SITE_SEO_TITLE = "site_seo_title";
-    public static final String WEIBO_ALIAS = "weibo_alias";
-    public static final String WEIBO_POST = "weibo_post";
-    public static final String WEIBO_POST_MAXCONTENT = "weibo_post_maxcontent";
+    public static final String CMS_POST = "CMS_POST";
+    public static final String CMS_POST_REVIEW = "CMS_POST_REVIEW";
+    public static final String GROUP_ALIAS = "GROUP_ALIAS";
+    public static final String GROUP_APPLY = "GROUP_APPLY";
+    public static final String GROUP_APPLY_REVIEW = "GROUP_APPLY_REVIEW";
+    public static final String MEMBER_EMAIL_VALID = "MEMBER_EMAIL_VALID";
+    public static final String MEMBER_LOGIN_OPEN = "MEMBER_LOGIN_OPEN";
+    public static final String MEMBER_REGISTER_OPEN = "MEMBER_REGISTER_OPEN";
+    public static final String SITE_DESCRIPTION = "SITE_DESCRIPTION";
+    public static final String SITE_DOMAIN = "SITE_DOMAIN";
+    public static final String SITE_KEYS = "SITE_KEYS";
+    public static final String SITE_LOGO = "SITE_LOGO";
+    public static final String SITE_NAME = "SITE_NAME";
+    public static final String SITE_SEND_EMAIL_ACCOUNT = "SITE_SEND_EMAIL_ACCOUNT";
+    public static final String SITE_SEND_EMAIL_PASSWORD = "SITE_SEND_EMAIL_PASSWORD";
+    public static final String SITE_SEND_EMAIL_SMTP = "SITE_SEND_EMAIL_SMTP";
+    public static final String SITE_SEO_TITLE = "SITE_SEO_TITLE";
+    public static final String WEIBO_ALIAS = "WEIBO_ALIAS";
+    public static final String WEIBO_POST = "WEIBO_POST";
+    public static final String WEIBO_POST_MAXCONTENT = "WEIBO_POST_MAXCONTENT";
 
     private ConfigUtil(){
 
