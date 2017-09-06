@@ -37,8 +37,10 @@
                             <div class="item">
                                 <div class="item-content">
                                     <div class="media pull-left">
+                                        <a href="${basePath}/u/${topic.member.id}">
                                         <img src="${basePath}${topic.member.avatar}" class="img-circle"
                                              alt="${topic.member.name}" width="50px" height="50px">
+                                        </a>
                                     </div>
                                     <div class="text">
                                         <p>
@@ -67,12 +69,14 @@
             <div class="col-md-4">
                 <div class="group white-bg">
                     <div class="group-logo">
-                        <img alt="${group.name}" src="${basePath}${group.logo}" width="80px" height="80px"/>
+                        <a href="${basePath}/group/detail/${group.id}">
+                            <img alt="${group.name}" src="${basePath}${group.logo}" width="80px" height="80px"/>
+                        </a>
                     </div>
                     <div class="group-detail">
                         <p>
                             <span>
-                                <strong>${group.name}</strong>
+                                <a href="${basePath}/group/detail/${group.id}"><strong>${group.name}</strong></a>
                             </span>
                         </p>
                         <p><a href="${basePath}/u/${group.creatorMember.id}">${group.creatorMember.name}</a>
