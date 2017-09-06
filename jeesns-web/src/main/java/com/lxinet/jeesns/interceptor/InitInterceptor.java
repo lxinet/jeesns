@@ -34,7 +34,7 @@ public class InitInterceptor implements HandlerInterceptor {
         Integer unReadMessageNum = 0;
         if (loginUser != null) {
             if (loginUser.getIsActive() == 0) {
-                String memberEmailValid = (String) request.getServletContext().getAttribute(ConfigUtil.MEMBER_EMAIL_VALID);
+                String memberEmailValid = (String) request.getServletContext().getAttribute(ConfigUtil.MEMBER_EMAIL_VALID.toUpperCase());
                 if (Integer.parseInt(memberEmailValid) == 1) {
                     if (!(request.getServletPath().indexOf("member/active") != -1 || request.getServletPath().indexOf("member/logout") != -1 ||
                             request.getServletPath().indexOf("member/sendEmailActiveValidCode") != -1 || request.getServletPath().indexOf("/res/") != -1 ||
