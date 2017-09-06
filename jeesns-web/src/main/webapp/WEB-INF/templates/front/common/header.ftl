@@ -20,23 +20,23 @@
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <div class="nav navbar-nav navbar-nav-right">
-                <#if loginMember == null>
+                <#if loginUser == null>
                     <li><a href="${basePath}/member/login">登录</a></li>
                     <li><a href="${basePath}/member/register">注册</a></li>
                 <#else>
                     <div class="btn-group nav-username">
-                        <img src="${basePath}${loginMember.avatar}" class="img-circle" width="25px" height="25px" style="margin-top: 1px;margin-right:5px;"/>
+                        <img src="${basePath}${loginUser.avatar}" class="img-circle" width="25px" height="25px" style="margin-top: 1px;margin-right:5px;"/>
                         <a class="header-action-link" href="javascript:void(0)">
-                        ${loginMember.name}
-                            <#if unReadMessageNum &gt; 0><i class="fa fa-comment-o text-red"></i></#if>
+                        ${loginUser.name}
+                            <#if unReadMessageNum &gt; 0><i class="icon-comments"></i></#if>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="${basePath}/member/">个人中心</a></li>
                             <li><a href="${basePath}/member/message">私信
-                            ${(unReadMessageNum > 0)?string("(<span class='text-red'>"+unReadMessageNum+"</span>)","")}
+                            ${(unReadMessageNum > 0)?string("("+unReadMessageNum+")","")}
                             </a></li>
                             <li><a href="${basePath}/member/editInfo">设置</a></li>
-                            <#if loginMember?? && loginMember.isAdmin &gt; 0>
+                            <#if loginUser?? && loginUser.isAdmin &gt; 0>
                                 <li><a href="${managePath}/" target="_blank">管理</a></li>
                             </#if>
                             <li class="divider"></li>

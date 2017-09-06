@@ -41,12 +41,12 @@
                                     <img src="${basePath}${loginUser.avatar}" class="img-circle" width="25px" height="25px" style="margin-top: 1px;margin-right:5px;"/>
                                     <a class="header-action-link" href="javascript:void(0)">
                                     ${loginUser.name}
-                                        <#if unReadMessageNum &gt; 0><i class="fa fa-comment-o text-red"></i></#if>
+                                        <#if unReadMessageNum &gt; 0><i class="fa fa-comments"></i></#if>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="${basePath}/member/">个人中心</a></li>
                                         <li><a href="${basePath}/member/message">私信
-                                            ${(unReadMessageNum > 0)?string("(<span class='text-red'>"+unReadMessageNum+"</span>)","")}
+                                            ${(unReadMessageNum > 0)?string("("+unReadMessageNum+")","")}
                                         </a></li>
                                         <li><a href="${basePath}/member/editInfo">设置</a></li>
                                         <#if loginUser?? && loginUser.isAdmin &gt; 0>
