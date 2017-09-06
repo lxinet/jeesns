@@ -10,7 +10,7 @@ import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.common.ICommonService;
 import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.web.base.BaseController;
+import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +33,7 @@ public class IndexController extends BaseController {
     @Resource
     private ICommonService commonService;
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String index(Model model){
         Properties props = System.getProperties();
         //java版本
