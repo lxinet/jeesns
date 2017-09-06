@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -34,6 +35,12 @@ public class IndexController extends BaseController {
     private ICommonService commonService;
 
     @RequestMapping("/")
+    public String defaultIndex(){
+        return"forward:index";
+    }
+
+
+    @RequestMapping("/index")
     public String index(Model model){
         Properties props = System.getProperties();
         //java版本
