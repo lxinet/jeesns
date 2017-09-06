@@ -38,11 +38,11 @@ var group = {
                     jeesnsDialog.errorTips(res.message);
                 } else {
                     if (res.code == 0) {
-                        _this.html("<i class='fa fa-heart'></i> 喜欢 " + res.data);
-                        _this.removeClass("btn-outline")
+                        _this.html("<i class='icon-heart'></i> 喜欢 | " + res.data);
+                        _this.removeClass("btn-article-unfavor")
                     } else {
-                        _this.html("<i class='fa fa-heart-o'></i> 喜欢 " + res.data);
-                        _this.addClass("btn-outline");
+                        _this.html("<i class='icon-heart-empty'></i> 喜欢 | " + res.data);
+                        _this.addClass("btn-article-unfavor");
                     }
                 }
             }
