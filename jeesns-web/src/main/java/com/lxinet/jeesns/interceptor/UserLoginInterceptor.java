@@ -30,7 +30,6 @@ public class UserLoginInterceptor implements JeesnsInterceptor {
                         return false;
                     }
                 }
-                httpServletRequest.setAttribute("loginUser",findMember);
             }
         }catch (Exception e){
             e.printStackTrace();

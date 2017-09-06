@@ -54,7 +54,7 @@ public class IndexController extends BaseController{
     @Resource
     private IMemberFansService memberFansService;
 
-    @RequestMapping(value="index",method = RequestMethod.GET)
+    @RequestMapping(value={"/", "index"},method = RequestMethod.GET)
     public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Integer cateid,Model model) {
         Page page = new Page(request);
         if(cateid == null){
@@ -82,6 +82,8 @@ public class IndexController extends BaseController{
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("member",member);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        model.addAttribute("loginMember", loginMember);
         ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,id);
         model.addAttribute("actionLogModel",list);
         return jeesnsConfig.getFrontTemplate() + "/u";
@@ -95,8 +97,9 @@ public class IndexController extends BaseController{
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("member",member);
-        Member loginMember = MemberUtil.getLoginMember(request);
 
+        Member loginMember = MemberUtil.getLoginMember(request);
+        model.addAttribute("loginMember", loginMember);
         int loginMemberId = 0;
         if(loginMember != null){
             loginMemberId = loginMember.getId().intValue();
