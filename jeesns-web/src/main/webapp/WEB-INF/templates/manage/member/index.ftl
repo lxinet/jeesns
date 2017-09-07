@@ -44,7 +44,7 @@
                             <h3 class="box-title">
                             </h3>
                             <div class="box-tools">
-                                <form method="get" action="${managePath}/index">
+                                <form method="get" action="${managePath}/member/index">
                                     <div class="input-group input-group-sm" style="width: 350px;">
                                         <input type="text" name="key" class="form-control pull-right"
                                                placeholder="请输入关键词">
@@ -107,7 +107,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/index?key=${key}"
+                                url="${managePath}/member/index?key=${key}"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>
