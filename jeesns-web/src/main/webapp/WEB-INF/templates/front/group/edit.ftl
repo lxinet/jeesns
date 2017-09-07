@@ -22,6 +22,7 @@
     <script src="${basePath}/res/plugins/jquerytags/js/jquery.tags.js"></script>
     <script type="text/javascript">
         var basePath = "${basePath}";
+        var uploadServer = "${basePath}/uploadImage";
     </script>
     <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
 </head>
