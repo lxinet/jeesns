@@ -33,10 +33,6 @@ public class WeiboServiceImpl implements IWeiboService {
     @Resource
     private IWeiboDao weiboDao;
     @Resource
-    private IConfigService configService;
-    @Resource
-    private IWeiboCommentService weiboCommentService;
-    @Resource
     private IWeiboFavorService weiboFavorService;
     @Resource
     private IActionLogService actionLogService;
@@ -53,16 +49,15 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Override
     @Transactional
-    public ResponseModel save(Member loginMember, String content, String pictures) {
-        Map<String,String> config = configService.getConfigToMap();
-        if("0".equals(config.get(ConfigUtil.WEIBO_POST))){
+    public ResponseModel save(HttpServletRequest request, Member loginMember, String content, String pictures) {
+        if("0".equals(request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST.toUpperCase()))){
             return new ResponseModel(-1,"微博已关闭");
         }
         if(StringUtils.isEmpty(content)){
             return new ResponseModel(-1,"内容不能为空");
         }
-        if(content.length() > Integer.parseInt(config.get(ConfigUtil.WEIBO_POST_MAXCONTENT))){
-            return new ResponseModel(-1,"内容不能超过"+config.get(ConfigUtil.WEIBO_POST_MAXCONTENT)+"字");
+        if(content.length() > Integer.parseInt((String) request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase()))){
+            return new ResponseModel(-1,"内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
         }
         Weibo weibo = new Weibo();
         weibo.setMemberId(loginMember.getId());
@@ -130,9 +125,6 @@ public class WeiboServiceImpl implements IWeiboService {
     @Override
     public List<Weibo> hotList(int loginMemberId) {
         List<Weibo> hotList = weiboDao.hotList(loginMemberId);
-//        for (Weibo weibo : hotList){
-//            WeiboUtil.format(weibo);
-//        }
         return hotList;
     }
 

@@ -19,9 +19,9 @@ public class EmailSendUtil {
 	}
 
 	private static boolean sendMail(HttpServletRequest request, String email, String content,String title) {
-		final String account = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_SEND_EMAIL_ACCOUNT);
-		final String passWord = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_SEND_EMAIL_PASSWORD);
-		final String smtp = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_SEND_EMAIL_SMTP);
+		final String account = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_SEND_EMAIL_ACCOUNT.toUpperCase());
+		final String passWord = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_SEND_EMAIL_PASSWORD.toUpperCase());
+		final String smtp = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_SEND_EMAIL_SMTP.toUpperCase());
 		Properties props = new Properties();
 		props.setProperty("mail.smtp.auth", "true");
 		props.setProperty("mail.transport.protocol", "smtp");
