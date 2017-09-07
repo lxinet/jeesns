@@ -37,7 +37,7 @@ public class WeiboController extends BaseController {
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        return weiboService.save(loginMember,content, pictures);
+        return weiboService.save(request, loginMember,content, pictures);
     }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)

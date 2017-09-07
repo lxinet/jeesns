@@ -54,7 +54,7 @@ h5 {
 
 .container>.navbar-header, .container-fluid>.navbar-header, .container>.navbar-collapse, .container-fluid>.navbar-collapse {
     margin-right: 0px;
-    margin-left: -15px;
+    margin-left: 8px;
     background-color: #3a3e49;
     /*border-top: 1px solid #00aaee;*/
 }
@@ -227,7 +227,7 @@ h5 {
 
 .nav > li > a {
   color: #333;
-  padding: 14px 20px 16px 25px;
+  padding: 14px 20px 16px 35px;
   font-size: 18px;
 }
 
@@ -266,8 +266,8 @@ h5 {
 }
 
 .navbar-top-links {
-  padding-top:20px;
-  padding-right: 20px;
+  padding-top:24px;
+  padding-right: 0px;
 }
 .navbar-top-links li {
   display: inline-block;
@@ -279,7 +279,7 @@ h5 {
   margin-right: 0;
 }
 .navbar-top-links li a {
-  padding: 14px 10px;
+  padding: 14px 14px;
   min-height: 50px;
 }
 

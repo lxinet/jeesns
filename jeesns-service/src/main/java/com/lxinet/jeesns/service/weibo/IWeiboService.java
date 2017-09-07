@@ -15,7 +15,7 @@ public interface IWeiboService {
 
     Weibo findById(int id, int memberId);
 
-    ResponseModel save(Member loginMember, String content, String pictures);
+    ResponseModel save(HttpServletRequest request, Member loginMember, String content, String pictures);
 
     ResponseModel<Weibo> listByPage(Page page, int memberId, int loginMemberId, String key);
 
