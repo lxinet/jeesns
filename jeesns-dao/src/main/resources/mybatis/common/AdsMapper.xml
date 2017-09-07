@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.common.IAdsDao">
+   <select id="find" resultType="Ads">
+    select * from tbl_ads where id = #{id}
+  </select>
+  <select id="listByPage" resultType="Ads">
+    select *,(CASE WHEN type = 1 THEN '图片链接' WHEN type = 2 THEN '文字链接' WHEN type = 3 THEN '代码' END) AS typeName FROM tbl_ads  order by a.id DESC
+  </select>
+  <delete id="delete">
+    delete from tbl_ads where id = #{id}
+  </delete>
+    <insert id="save">
+    insert into tbl_ads (name,create_time,type,start_time,end_time,content,link,status)
+    values (#{name}, #{createTime}, #{type}, #{startTime}, #{endTime}, #{content}, #{link}, #{status})
+  </insert>
+</mapper>

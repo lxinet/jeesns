@@ -1,0 +1,26 @@
+package com.lxinet.jeesns.dao.common;
+
+import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.model.common.Ads;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+/**
+ * Created by MMF on 2017-09-07.
+ */
+public interface IAdsDao extends IBaseDao<Ads>{
+    /**
+     * 保存广告信息
+     * @param ads
+     * @return
+     */
+    int save(@Param("ads") Ads ads);
+
+    /**
+     * 分页查询广告信息
+     * @param page
+     * @return
+     */
+    List<Ads> listByPage(@Param("page") Page page);
+}
