@@ -35,15 +35,7 @@ public class EmailSendUtil {
 		Message msg = new MimeMessage(session);
 		session.setDebug(false);// 查看调试信息:true,不查看：false;
 		try {
-			String sendnickname;
-			try {
-				sendnickname = javax.mail.internet.MimeUtility.encodeText((String) request.getServletContext().getAttribute(ConfigUtil.SITE_NAME));
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				return false;
-			}
 			msg.setFrom(new InternetAddress(account));
-//			msg.setFrom(new InternetAddress(sendnickname + " <" + email +">"));
 			msg.setSubject(title);
 			msg.setRecipients(RecipientType.TO, InternetAddress.parse(email));// 多个收件人
 			msg.setContent(content, "text/html;charset=utf-8");// 文本/指定文本类型，字符集
@@ -77,10 +69,11 @@ public class EmailSendUtil {
 	 */
 	public static boolean forgetpwd(HttpServletRequest request, String email, String randomCode){
 		String siteName = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_NAME.toUpperCase());
+		String siteDomain = (String) request.getServletContext().getAttribute(ConfigUtil.SITE_DOMAIN.toUpperCase());
 		String title = siteName + "找回密码";
 		String content = "<h4>您好，" + email + "：</h4><p>请点击下面的链接来重置您的密码<br  />" +
-				"<a href='" + siteName+"member/resetpwd?email=" + email + "&token=" + randomCode + "' target='_blank'>" +
-				siteName + "member/resetPwd?email=" + email + "&token=" + randomCode + "</a><br  />" +
+				"<a href='" + siteDomain+"member/resetpwd?email=" + email + "&token=" + randomCode + "' target='_blank'>" +
+				siteDomain + "member/resetPwd?email=" + email + "&token=" + randomCode + "</a><br  />" +
 				"本链接30分钟内有效。<br />" +
 				"(如果点击链接无反应，请复制链接到浏览器里直接打开)<p>" ;
 		return sendMail(request, email, content, title);

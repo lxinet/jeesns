@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会员激活 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>重置密码 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -33,7 +33,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="ibox-content">
-                <h2 class="font-bold">忘记密码</h2>
+                <h2 class="font-bold">重置密码</h2>
                 <form class="m-t jeesns_form" action="${basePath}/member/resetpwd" method="post">
                     <input name="email" class="form-control" type="hidden" value="${email}">
                     <input name="token" class="form-control" type="hidden" value="${token}">
