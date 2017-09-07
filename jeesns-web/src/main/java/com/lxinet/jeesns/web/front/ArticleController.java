@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -44,6 +45,13 @@ public class ArticleController extends BaseController {
     @RequestMapping(value="/list",method = RequestMethod.GET)
     public String list(String key, @RequestParam(value = "cid",defaultValue = "0",required = false) Integer cid,
                        @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
+        if (StringUtils.isNotEmpty(key)){
+            try {
+                key = new String(key.getBytes("iso-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
         Page page = new Page(request);
         ResponseModel responseModel = articleService.listByPage(page,key,cid,1,memberId);
         model.addAttribute("model",responseModel);
