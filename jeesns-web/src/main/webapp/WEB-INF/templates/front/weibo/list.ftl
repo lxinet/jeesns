@@ -33,6 +33,7 @@
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script type="text/javascript">
         var basePath = "${basePath}";
+        var uploadServer = "${basePath}/uploadImage";
     </script>
     <script src="${basePath}/res/plugins/webuploader/weiboUpload.js"></script>
 </head>

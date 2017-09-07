@@ -22,6 +22,7 @@
     <script src="${basePath}/res/plugins/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         var basePath = "${basePath}";
+        var uploadServer = "${basePath}/uploadImage";
         $(function () {
             CKEDITOR.replace('content');
         });
