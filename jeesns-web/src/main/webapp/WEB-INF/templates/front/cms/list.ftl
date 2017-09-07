@@ -57,10 +57,20 @@
                 </div>
             </div>
             <div class="col-md-4 float-left">
-                <a href="${basePath}/article/add" class="btn btn-block btn-lg btn-info">发布文章</a>
+                <form action="${basePath}/article/list" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="key">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit"><i class="icon-search"></i></button>
+                        </span>
+                    </div>
+                </form>
                 <div class="panel">
                     <div class="panel-heading">
                         文章栏目
+                        <span class="pull-right">
+                            <a class="btn btn-primary m-t-n4" href="${basePath}/article/add">发布文章</a>
+                        </span>
                     </div>
                     <div class="panel-body">
                         <a href="${basePath}/article/list" class="btn btn-primary">全部</a>
