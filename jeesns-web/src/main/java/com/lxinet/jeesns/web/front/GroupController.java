@@ -237,14 +237,14 @@ public class GroupController extends BaseController {
         }
         Group group = groupService.findById(groupId);
         if(group == null){
-            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002, Const.INDEX_ERROR_FTL_PATH);
         }
         GroupFans groupFans = groupFansService.findByMemberAndGroup(groupId,loginMember.getId());
         if(groupFans == null){
-            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1003, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1003, Const.INDEX_ERROR_FTL_PATH);
         }
         if(group.getCanPost() == 0){
-            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1006, jeesnsConfig.getFrontTemplate() + Const.INDEX_ERROR_FTL_PATH);
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1006, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
         return jeesnsConfig.getFrontTemplate() + "/group/post";
