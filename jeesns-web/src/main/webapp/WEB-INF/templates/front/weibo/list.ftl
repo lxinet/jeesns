@@ -151,6 +151,9 @@
                 </ul>
             </div>
             <div class="col-md-4 float-left">
+                <@ads id=1>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
                 <div class="panel">
                     <div class="panel-heading">
                         热门微博

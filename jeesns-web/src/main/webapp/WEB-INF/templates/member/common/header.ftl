@@ -27,9 +27,6 @@
                             <li>
                                 <a href="${basePath}/action/list"> 动态</a>
                             </li>
-                            <li>
-                                <a href="http://www.lxinet.com/buy.html" target="_blank"> 商业授权</a>
-                            </li>
                         </ul>
                         <ul class="nav navbar-top-links navbar-right">
                             <div class="header-action-btn">

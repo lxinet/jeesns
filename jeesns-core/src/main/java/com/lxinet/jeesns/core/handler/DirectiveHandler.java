@@ -43,8 +43,9 @@ public class DirectiveHandler {
      */
     public void render() throws IOException, TemplateException {
         Map<String, TemplateModel> reduceMap = reduce();
-        if (null != templateDirectiveBody)
+        if (null != templateDirectiveBody) {
             templateDirectiveBody.render(environment.getOut());
+        }
         reduce(reduceMap);
     }
 

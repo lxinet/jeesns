@@ -49,6 +49,7 @@ public class AdsController extends BaseController{
         String endTimeStr = getParam("endDateTime");
         ads.setStartTime(DateFormatUtil.formatDateTime(startTimeStr));
         ads.setEndTime(DateFormatUtil.formatDateTime(endTimeStr));
+        ads.setContent(ads.getContent().replace("&lt;","<").replace("&gt;",">").replace("&#47;","/"));
         ResponseModel responseModel = adsService.save(ads);
         if(responseModel.getCode() == 0){
             responseModel.setCode(3);
@@ -74,6 +75,7 @@ public class AdsController extends BaseController{
         String endTimeStr = getParam("endDateTime");
         ads.setStartTime(DateFormatUtil.formatDateTime(startTimeStr));
         ads.setEndTime(DateFormatUtil.formatDateTime(endTimeStr));
+        ads.setContent(ads.getContent().replace("&lt;","<").replace("&gt;",">").replace("&#47;","/"));
         ResponseModel responseModel = adsService.update(ads);
         if(responseModel.getCode() == 0){
             responseModel.setCode(3);

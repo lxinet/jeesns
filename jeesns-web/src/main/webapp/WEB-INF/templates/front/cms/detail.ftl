@@ -62,6 +62,9 @@
                             </dd>
                         </span>
                     </header>
+                    <@ads id=2>
+                        <#include "/tp/ad.ftl"/>
+                    </@ads>
                     <section class="content">
                         ${article.content}
                     </section>
@@ -76,7 +79,9 @@
                         </a>
                     </#if>
                 </article>
-
+                <@ads id=2>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
                 <div class="comments panel">
                     <div class="panel-heading">文章评论</div>
                     <header>
@@ -138,6 +143,9 @@
                     </#list>
                     </div>
                 </div>
+                <@ads id=1>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
                 <div class="panel">
                     <div class="panel-heading">
                         最新文章
