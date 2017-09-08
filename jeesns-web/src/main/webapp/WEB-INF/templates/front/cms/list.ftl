@@ -79,6 +79,9 @@
                         </#list>
                     </div>
                 </div>
+                <@ads id=1>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
                 <div class="panel">
                     <div class="panel-heading">
                         热门文章

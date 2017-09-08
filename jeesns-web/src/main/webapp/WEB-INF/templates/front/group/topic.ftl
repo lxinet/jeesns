@@ -84,6 +84,9 @@
                             </dd>
                         </dl>
                     </header>
+                    <@ads id=2>
+                        <#include "/tp/ad.ftl"/>
+                    </@ads>
                     <section class="content">
                     ${groupTopic.content}
                     </section>
@@ -98,9 +101,10 @@
                         </a>
                     </#if>
                     </div>
-
                 </article>
-
+                <@ads id=2>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
                 <div class="comments panel">
                     <div class="panel-heading">帖子评论</div>
                     <header>
@@ -190,6 +194,9 @@
                     </div>
                 </div>
             </div>
+            <@ads id=1>
+                <#include "/tp/ad.ftl"/>
+            </@ads>
             <div class="col-md-4">
                 <div class="panel">
                     <div class="panel-heading">

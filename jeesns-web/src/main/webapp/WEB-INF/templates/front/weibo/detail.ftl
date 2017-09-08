@@ -74,7 +74,9 @@
                         </div>
                     </div>
                 </article>
-
+                <@ads id=2>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
                 <div class="comments panel">
                     <div class="panel-heading">评论(${weibo.commentCount})</div>
                     <header>
@@ -103,6 +105,9 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <@ads id=1>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
                 <div class="panel">
                     <div class="panel-body weibo-author">
                         <div class="avatar">
