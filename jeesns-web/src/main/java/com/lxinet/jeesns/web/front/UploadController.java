@@ -173,6 +173,9 @@ public class UploadController extends BaseController {
 			String oldAvatar = findMember.getAvatar();
 			findMember.setAvatar(filePath + fileName);
 			ResponseModel responseModel = memberService.updateAvatar(findMember,oldAvatar,request);
+			if (responseModel.getCode() == 0){
+				MemberUtil.setLoginMember(request, findMember);
+			}
 			result.put("success",responseModel.getCode() == 0);
 			result.put("msg",responseModel.getMessage());
 		}else {
