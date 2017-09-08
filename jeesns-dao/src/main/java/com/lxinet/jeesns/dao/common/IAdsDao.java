@@ -10,12 +10,6 @@ import java.util.List;
  * Created by MMF on 2017-09-07.
  */
 public interface IAdsDao extends IBaseDao<Ads>{
-    /**
-     * 保存广告信息
-     * @param ads
-     * @return
-     */
-    int save(@Param("ads") Ads ads);
 
     /**
      * 分页查询广告信息
@@ -23,4 +17,6 @@ public interface IAdsDao extends IBaseDao<Ads>{
      * @return
      */
     List<Ads> listByPage(@Param("page") Page page);
+
+    int enable(@Param("id") Integer id);
 }
