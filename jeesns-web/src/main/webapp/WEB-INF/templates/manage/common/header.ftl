@@ -101,6 +101,15 @@
                     <li><a href="${managePath}/weibo/index" module="weibo"><i class="fa fa-circle-o"></i>微博列表</a></li>
                 </ul>
             </li>
+            <li class="treeview" module="common">
+                <a href="#">
+                    <i class="fa fa-weibo"></i> <span>基础模块</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${managePath}/ads/list" module="common"><i class="fa fa-circle-o"></i>广告管理</a></li>
+                </ul>
+            </li>
         </ul>
     </section>
 </aside>

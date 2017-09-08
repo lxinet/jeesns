@@ -1,5 +1,8 @@
 package com.lxinet.jeesns.model.common;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -9,10 +12,16 @@ import java.util.Date;
 public class Ads {
     private Integer id;
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     private Integer type;
     private String typeName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
     private String content;
     private String link;

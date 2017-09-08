@@ -29,9 +29,9 @@ public class AdsServiceImpl implements IAdsService {
     @Override
     public ResponseModel save(Ads ads) {
         if (adsDao.save(ads) == 1) {
-            return new ResponseModel(1, "插入广告成功");
+            return new ResponseModel(0, "保存成功");
         }
-        return new ResponseModel(-1, "插入广告失败");
+        return new ResponseModel(-1, "保存失败");
     }
 
     @Override
@@ -44,27 +44,34 @@ public class AdsServiceImpl implements IAdsService {
 
     @Override
     public ResponseModel update(Ads ads) {
-        Ads findAds = this.findByID(ads.getId());
+        Ads findAds = this.findById(ads.getId());
         if (findAds == null){
-            return new ResponseModel(1, "广告不存在");
+            return new ResponseModel(-1, "广告不存在");
         }
-        ads.setCreateTime(findAds.getCreateTime());
         if (adsDao.update(ads) > 0) {
-            return new ResponseModel(1, "更新广告成功");
+            return new ResponseModel(0, "更新成功");
         }
-        return new ResponseModel(-1, "更新广告失败");
+        return new ResponseModel(-1, "更新失败");
     }
 
     @Override
     public ResponseModel delete(Integer id) {
         if (adsDao.delete(id) > 0) {
-            return new ResponseModel(1, "删除广告成功");
+            return new ResponseModel(1, "删除成功");
         }
-        return new ResponseModel(-1, "删除广告失败");
+        return new ResponseModel(-1, "删除失败");
     }
 
     @Override
-    public Ads findByID(Integer id) {
+    public Ads findById(Integer id) {
         return adsDao.findById(id);
+    }
+
+    @Override
+    public ResponseModel enable(Integer id) {
+        if (adsDao.enable(id) == 1){
+            return new ResponseModel(1, "操作成功");
+        }
+        return new ResponseModel(-1, "操作失败");
     }
 }

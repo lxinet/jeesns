@@ -25,6 +25,7 @@ public interface IAdsService {
 
     ResponseModel delete(Integer id);
 
-    Ads findByID(Integer id);
+    Ads findById(Integer id);
 
+    ResponseModel enable(Integer id);
 }
