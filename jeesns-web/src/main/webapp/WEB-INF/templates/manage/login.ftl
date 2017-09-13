@@ -56,6 +56,7 @@
     </div>
     <div class='disclaimer'>
         <p>欢迎登陆JEESNS后台管理系统</p>
+        <p>Powered By <a href="http://www.jeesns.cn" target="_blank">JEESNS</a> Copyright © 2012-2017</p>
     </div>
 </div>
 <div class='authent'>
@@ -116,9 +117,9 @@
             layer.msg("请输入您的密码！");
         } else {
             //认证中..
-            $('.login').addClass('test'); //倾斜特效
+            $('.login').addClass('tilt'); //倾斜特效
             setTimeout(function () {
-                $('.login').addClass('testtwo'); //平移特效
+                $('.login').addClass('tilttwo'); //平移特效
             }, 300);
             setTimeout(function () {
                 $('.authent').show().animate({right: -320}, {
@@ -152,11 +153,11 @@
                                 duration: 200,
                                 queue: false
                             }).addClass('visible');
-                            $('.login').removeClass('testtwo'); //平移特效
+                            $('.login').removeClass('tilttwo'); //平移特效
                         }, 2000);
                         setTimeout(function () {
                             $('.authent').hide();
-                            $('.login').removeClass('test');
+                            $('.login').removeClass('tilt');
                             if (data.code >= 0) {
                                 //登录成功
                                 $('.login div').fadeOut(100);
