@@ -10,6 +10,7 @@
     <link href="${basePath}/res/common/css/bootstrap.min.css" rel="stylesheet">
     <link href="${basePath}/res/common/css/font-awesome.min.css" rel="stylesheet">
     <link href="${basePath}/res/manage/css/AdminLTE.css" rel="stylesheet">
+    <link href="${basePath}/res/manage/css/effect.css" rel="stylesheet">
     <link href="${basePath}/res/manage/css/skins/_all-skins.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
@@ -21,7 +22,7 @@
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition sidebar-mini login">
 <div class="wrapper">
 <#include "/manage/common/header.ftl"/>
     <div class="content-wrapper">
