@@ -68,9 +68,9 @@
                                     <td>${ads.id}</td>
                                     <td>${ads.typeName}</td>
                                     <td>${ads.name}</td>
+                                    <td>${ads.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>${ads.startTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>${ads.endTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                    <td>${ads.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if ads.status=0>
                                         <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/ads/enable/${ads.id}" confirm="确定要启用广告吗？">
