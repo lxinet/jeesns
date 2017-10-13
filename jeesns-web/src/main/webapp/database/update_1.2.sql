@@ -11,3 +11,6 @@ CREATE TABLE `tbl_ads` (
   `status` INT(1) DEFAULT '0' COMMENT '状态，0禁用，1启用',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `tbl_group_topic_comment` ADD COLUMN `comment_id` INT;
+

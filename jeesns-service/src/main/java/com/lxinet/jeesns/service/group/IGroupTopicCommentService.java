@@ -13,7 +13,7 @@ public interface IGroupTopicCommentService {
 
     GroupTopicComment findById(int id);
 
-    ResponseModel save(Member loginMember, String content, Integer groupTopicId);
+    ResponseModel save(Member loginMember, String content, Integer groupTopicId,Integer commentId);
 
     ResponseModel delete(Member loginMember,int id);
 

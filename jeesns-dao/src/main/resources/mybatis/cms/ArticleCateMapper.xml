@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.cms.IArticleCateDao">
-  <select id="findById" parameterType="java.lang.Integer" resultType="ArticleCate">
+  <resultMap id="ArticleCateResult" type="ArticleCate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+
+  <select id="findById" parameterType="java.lang.Integer" resultMap="ArticleCateResult">
     select 
     id,fid,name,status,sort
     from tbl_article_cate
     where id = #{id}
   </select>
-  <select id="findListByFid" resultType="ArticleCate">
+  <select id="findListByFid" resultMap="ArticleCateResult">
     select
     id,fid,name,status,sort
     from tbl_article_cate
     where fid = #{fid}
   </select>
-  <select id="list" resultType="ArticleCate">
+  <select id="list" resultMap="ArticleCateResult">
     select
     id,fid,name,status,sort
     from tbl_article_cate
     ORDER BY sort desc,id DESC
   </select>
 
-  <select id="topList" resultType="ArticleCate">
+  <select id="topList" resultMap="ArticleCateResult">
     select
     id,fid,name,status,sort
     from tbl_article_cate
@@ -30,7 +38,7 @@
     ORDER BY id DESC
   </select>
 
-  <select id="sonList" resultType="ArticleCate">
+  <select id="sonList" resultMap="ArticleCateResult">
     select
     id,fid,name,status,sort
     from tbl_article_cate

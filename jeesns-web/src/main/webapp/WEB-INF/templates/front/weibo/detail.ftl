@@ -26,6 +26,7 @@
     <script>
         var base = "${basePath}";
         var weiboId = ${weibo.id};
+        var weiboPostMaxcontent = ${WEIBO_POST_MAXCONTENT};
     </script>
     <script src="${basePath}/res/front/js/weibo.js"></script>
 </head>
@@ -81,17 +82,13 @@
                     <div class="panel-heading">评论(${weibo.commentCount})</div>
                     <header>
                         <div class="reply-form">
-                            <form class="form-horizontal jeesns_form" action="${basePath}/weibo/comment/${weibo.id}"
-                                  method="post">
+                            <form class="form-horizontal jeesns_form" action="${basePath}/weibo/comment/${weibo.id}" method="post">
                                 <div class="form-group">
-                                    <textarea name="content" class="form-control new-comment-text" rows="2"
-                                              placeholder="撰写评论..." id="weibo-content"
-                                              maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
+                                    <textarea name="content" class="form-control new-comment-text" rows="2" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
                                 </div>
                                 <div class="form-group comment-user">
                                     <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>
-                                    <input type="submit" value="评论"
-                                           class="pull-right btn btn-primary mg-t-10 jeesns-submit">
+                                    <input type="submit" value="评论" class="pull-right btn btn-primary mg-t-10 jeesns-submit">
                                 </div>
                             </form>
                         </div>

@@ -24,6 +24,10 @@ public class GroupTopicComment implements Serializable {
 
     private String content;
 
+    private Integer commentId;
+
+    private GroupTopicComment groupTopicComment;
+
 
     public Integer getId() {
         return id;
@@ -80,5 +84,21 @@ public class GroupTopicComment implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public GroupTopicComment getGroupTopicComment() {
+        return groupTopicComment;
+    }
+
+    public void setGroupTopicComment(GroupTopicComment groupTopicComment) {
+        this.groupTopicComment = groupTopicComment;
     }
 }

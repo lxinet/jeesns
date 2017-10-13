@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.cms.IArticleCommentDao">
-  <select id="listByArticle" resultType="ArticleComment">
+  <resultMap id="ArticleCommentResult" type="ArticleComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+  </resultMap>
+
+  <select id="listByArticle" resultMap="ArticleCommentResult">
     select a.id,a.create_time,a.member_id as 'member.id',a.article_id as 'article.id',a.content,c.name as 'member.name',c.avatar as 'member.avatar'
     from tbl_article_comment as a left join tbl_article as b on a.article_id=b.id left join tbl_member as c on
     a.member_id=c.id
@@ -12,7 +19,7 @@
     </where>
     order by a.id DESC
   </select>
-  <select id="findById" parameterType="java.lang.Integer" resultType="ArticleComment">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="ArticleCommentResult">
    select * from tbl_article_comment where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">

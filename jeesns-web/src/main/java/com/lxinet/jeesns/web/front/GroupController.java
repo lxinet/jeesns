@@ -333,12 +333,12 @@ public class GroupController extends BaseController {
      */
     @RequestMapping(value="/comment/{groupTopicId}",method = RequestMethod.POST)
     @ResponseBody
-    public Object comment(@PathVariable("groupTopicId") Integer groupTopicId, String content){
+    public Object comment(@PathVariable("groupTopicId") Integer groupTopicId, String content,Integer groupTopicCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        return groupTopicCommentService.save(loginMember,content,groupTopicId);
+        return groupTopicCommentService.save(loginMember,content,groupTopicId,groupTopicCommentId);
     }
 
 

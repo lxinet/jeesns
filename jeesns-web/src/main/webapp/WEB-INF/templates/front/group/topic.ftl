@@ -112,12 +112,10 @@
                             <form class="form-horizontal jeesns_form"
                                   action="${basePath}/group/comment/${groupTopic.id}" method="post">
                                 <div class="form-group">
-                                    <textarea name="content" class="form-control new-comment-text" rows="2"
-                                              placeholder="撰写评论..."></textarea>
+                                    <textarea name="content" class="form-control new-comment-text" rows="2" placeholder="撰写评论..."></textarea>
                                 </div>
                                 <div class="form-group comment-user">
-                                    <input type="submit" value="评论"
-                                           class="pull-right btn btn-primary mg-t-10 jeesns-submit">
+                                    <input type="submit" value="评论" class="pull-right btn btn-primary mg-t-10 jeesns-submit">
                                 </div>
                             </form>
                         </div>

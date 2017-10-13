@@ -13,8 +13,17 @@ var group = {
                         "<img src=\""+base+data[i].member.avatar+"\" class=\"icon-4x\"></a><div class=\"content\">" +
                         "<div class=\"pull-right text-muted\">"+data[i].createTime+"</div><div>" +
                         "<a href=\""+base+"/u/"+data[i].member.id+"\"><strong>"+data[i].member.name+"</strong></a></div>" +
-                        "<div class=\"text\">"+data[i].content+"</div>" +
-                        "</div></div>";
+                        "<div class=\"text\">";
+                    var groupTopicComment = data[i].groupTopicComment;
+                    if (groupTopicComment != null){
+                        html += "<pre><code><p>引用“<a href='"+base+"/u/"+groupTopicComment.member.id+"'>"+groupTopicComment.member.name+"</a>”的评论</p>"+groupTopicComment.content+"</code></pre>";
+                    }
+                    html += data[i].content + "<div class='pull-right'><a href='javascript:group.commentReply("+data[i].id+")'>回复</a></div></div>" +
+                        "<form class=\"form-horizontal jeesns_form\" action=\""+base+"/group/comment/"+groupTopicId+"\" method=\"post\" id='comment-form-"+data[i].id+"' style='display: none;'>" +
+                        "<div class=\"form-group\"><input type='hidden' name='groupTopicCommentId' value='"+data[i].id+"'/>" +
+                        "<textarea name=\"content\" class=\"form-control group-comment-content\" rows=\"2\" id=\""+data[i].id+"\"></textarea></div>" +
+                        "<div class=\"form-group comment-user\">" +
+                        "<input type=\"submit\" value=\"回复\" class=\"pull-right btn btn-primary mg-t-10 jeesns-submit\"></div></form></div></div>";
                 }
                 pageNo = json.page.pageNo;
                 if(json.page.totalPage<=pageNo){
@@ -23,6 +32,8 @@ var group = {
                     $("#moreComment").show();
                 }
                 $("#commentList").append(html);
+                $('.jeesns_form').unbind();
+                jeesns.submitForm();
             }
         });
     },
@@ -47,5 +58,9 @@ var group = {
                 }
             }
         });
+    },
+    commentReply: function (id) {
+        $('#comment-form-'+id).toggle();
+        $('#'+id).focus();
     }
 }

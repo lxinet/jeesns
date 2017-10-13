@@ -175,6 +175,7 @@ CREATE TABLE `tbl_group_topic_comment` (
   `create_time` datetime DEFAULT NULL,
   `group_topic_id` int(11) DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
+  `comment_id` int(11) DEFAULT NULL,
   `content` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -228,7 +229,7 @@ CREATE TABLE `tbl_weibo_comment` (
   `create_time` datetime NOT NULL,
   `member_id` int(11) NOT NULL DEFAULT '0',
   `weibo_id` int(11) NOT NULL DEFAULT '0',
-  `comment_id` int(11) DEFAULT '0' COMMENT '评论的id',
+  `comment_id` int(11) COMMENT '评论的id',
   `content` varchar(1000) DEFAULT NULL,
   `status` int(11) DEFAULT '0' COMMENT '0正常，1禁用',
   PRIMARY KEY (`id`)
