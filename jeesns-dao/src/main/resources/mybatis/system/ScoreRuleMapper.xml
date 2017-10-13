@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.system.IScoreRuleDao">
-    <select id="allList" resultType="ScoreRule">
+    <resultMap id="ScoreRuleResult" type="ScoreRule">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+    </resultMap>
+
+    <select id="allList" resultMap="ScoreRuleResult">
         SELECT * FROM tbl_score_rule ORDER BY ID ASC
     </select>
-    <select id="findById" resultType="ScoreRule">
+    <select id="findById" resultMap="ScoreRuleResult">
         SELECT * FROM tbl_score_rule WHERE id=#{id}
     </select>
     <update id="update">

@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.common.IArchiveDao">
-  <select id="findByArchiveId" resultType="Archive">
+  <resultMap id="ArchiveResult" type="Archive">
+    <id column="archive_id" jdbcType="INTEGER" property="archiveId" />
+    <result column="post_type" jdbcType="INTEGER" property="postType" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="view_rank" jdbcType="INTEGER" property="viewRank" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="writer" jdbcType="VARCHAR" property="writer" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="pub_time" jdbcType="TIMESTAMP" property="pubTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail" />
+    <result column="last_reply" jdbcType="TIMESTAMP" property="lastReply" />
+    <result column="can_reply" jdbcType="INTEGER" property="canReply" />
+    <result column="good_num" jdbcType="INTEGER" property="goodNum" />
+    <result column="bad_num" jdbcType="INTEGER" property="badNum" />
+    <result column="check_admin" jdbcType="INTEGER" property="checkAdmin" />
+    <result column="favor" jdbcType="INTEGER" property="favor" />
+  </resultMap>
+
+  <select id="findByArchiveId" resultMap="ArchiveResult">
     select * from tbl_archive
     where archive_id = #{archiveId}
   </select>

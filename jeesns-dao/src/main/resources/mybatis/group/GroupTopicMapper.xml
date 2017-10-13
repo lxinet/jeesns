@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.group.IGroupTopicDao">
-  <select id="listByPage" resultType="GroupTopic">
+  <resultMap id="GroupTopicResult" type="GroupTopic">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="archive_id" jdbcType="INTEGER" property="archiveId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_essence" jdbcType="INTEGER" property="isEssence" />
+    <result column="is_top" jdbcType="INTEGER" property="isTop" />
+  </resultMap>
+
+  <select id="listByPage" resultMap="GroupTopicResult">
     select a.id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,b.*,c.name 'group.name',
     b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar'
     from tbl_group_topic as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id
@@ -22,7 +32,7 @@
     </where>
     order by a.is_top DESC,a.id DESC
   </select>
-  <select id="findById" parameterType="java.lang.Integer" resultType="GroupTopic">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="GroupTopicResult">
     select a.id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,b.*,c.name 'group.name',c.logo 'group.logo',b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar',d.introduce as 'member.introduce',
     (CASE WHEN (SELECT id FROM tbl_archive_favor WHERE archive_id=b.archive_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
     from tbl_group_topic as a INNER JOIN tbl_archive as b ON a.archive_id = b.archive_id
@@ -46,7 +56,7 @@
     UPDATE tbl_group_topic SET is_essence = #{essence} WHERE id = #{id}
   </update>
 
-  <select id="listByCustom" resultType="GroupTopic">
+  <select id="listByCustom" resultMap="GroupTopicResult">
     select a.id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,b.*,c.name 'group.name',
     b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar'
     from tbl_group_topic as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id

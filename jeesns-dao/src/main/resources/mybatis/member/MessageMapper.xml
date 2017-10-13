@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.member.IMessageDao">
-  <select id="listByPage" resultType="Message">
+  <resultMap id="MessageResult" type="Message">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="from_member_id" jdbcType="INTEGER" property="fromMemberId" />
+    <result column="to_member_id" jdbcType="INTEGER" property="toMemberId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="isread" jdbcType="INTEGER" property="isread" />
+  </resultMap>
+
+  <select id="listByPage" resultMap="MessageResult">
     select a.id,a.create_time,a.content,a.url,a.isread,
     a.from_member_id as 'fromMember.id',b.name as 'fromMember.name',b.avatar as 'fromMember.avatar',
     a.to_member_id as 'toMember.id',c.name as 'toMember.name',c.avatar as 'toMember.avatar'
@@ -17,7 +26,7 @@
     </where>
     ORDER BY a.id DESC
   </select>
-  <select id="messageRecords" resultType="Message">
+  <select id="messageRecords" resultMap="MessageResult">
     select a.id,a.create_time,a.content,a.url,a.isread,
     a.from_member_id as 'fromMember.id',b.name as 'fromMember.name',b.avatar as 'fromMember.avatar',
     a.to_member_id as 'toMember.id',c.name as 'toMember.name',c.avatar as 'toMember.avatar'

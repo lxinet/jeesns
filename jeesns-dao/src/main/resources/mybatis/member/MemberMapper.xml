@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.member.IMemberDao">
+    <resultMap id="RemberResult" type="Member">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="group_id" jdbcType="INTEGER" property="groupId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="regip" jdbcType="VARCHAR" property="regip" />
+        <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+        <result column="curr_login_time" jdbcType="TIMESTAMP" property="currLoginTime" />
+        <result column="curr_login_ip" jdbcType="VARCHAR" property="currLoginIp" />
+        <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="money" jdbcType="DOUBLE" property="money" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+        <result column="is_active" jdbcType="INTEGER" property="isActive" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+        <result column="addprovince" jdbcType="VARCHAR" property="addprovince" />
+        <result column="addcity" jdbcType="VARCHAR" property="addcity" />
+        <result column="addarea" jdbcType="VARCHAR" property="addarea" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="qq" jdbcType="VARCHAR" property="qq" />
+        <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+        <result column="contact_email" jdbcType="VARCHAR" property="contactEmail" />
+        <result column="website" jdbcType="VARCHAR" property="website" />
+        <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+        <result column="is_admin" jdbcType="INTEGER" property="isAdmin" />
+        <result column="follows" jdbcType="INTEGER" property="follows" />
+        <result column="fans" jdbcType="INTEGER" property="fans" />
+    </resultMap>
     <resultMap id="memberWithMessageResult" type="Member">
         <collection property="messages" javaType="ArrayList" column="{from_member_id=from_member_id,to_member_id=to_member_id}" ofType="Message" select="selectUnreadMessagesByMember"/>
     </resultMap>
 
     <!-- 会员登录 -->
-    <select id="login" parameterType="Member" resultType="Member">
+    <select id="login" parameterType="Member" resultMap="RemberResult">
         select
         id,group_id,name,email,phone,sex,avatar,is_admin,status,is_active,score
         from tbl_member
@@ -14,7 +50,7 @@
     </select>
 
     <!-- 管理员登录 -->
-    <select id="manageLogin" parameterType="Member" resultType="Member">
+    <select id="manageLogin" parameterType="Member" resultMap="RemberResult">
         select
         id,group_id,name,email,phone,sex,avatar,is_admin,is_active
         from tbl_member
@@ -22,7 +58,7 @@
     </select>
 
     <!-- 会员列表 -->
-    <select id="listByPage" resultType="Member">
+    <select id="listByPage" resultMap="RemberResult">
         select
         a.id, a.name, a.phone, a.email, a.create_time, a.login_count, a.status,a.is_admin from tbl_member a
         <where>
@@ -34,7 +70,7 @@
     </select>
 
     <!-- 管理员列表 -->
-    <select id="managerList" resultType="Member">
+    <select id="managerList" resultMap="RemberResult">
         select
         a.id, a.name, a.phone, a.email, a.create_time, a.login_count, a.status,a.is_admin from tbl_member a
         <where>
@@ -52,22 +88,22 @@
     </update>
 
     <!-- 根据ID查找 -->
-    <select id="findById" parameterType="java.lang.Integer" resultType="Member">
+    <select id="findById" parameterType="java.lang.Integer" resultMap="RemberResult">
         select * from tbl_member where id = #{id}
     </select>
 
     <!-- 根据昵称查找 -->
-    <select id="findByName" resultType="Member">
+    <select id="findByName" resultMap="RemberResult">
         select * from tbl_member where name = #{name}
     </select>
 
     <!-- 根据邮箱查找 -->
-    <select id="findByEmail" resultType="Member">
+    <select id="findByEmail" resultMap="RemberResult">
         select * from tbl_member where email = #{email}
     </select>
 
     <!-- 根据昵称和邮箱查找 -->
-    <select id="findByNameAndEmail" resultType="Member">
+    <select id="findByNameAndEmail" resultMap="RemberResult">
         select * from tbl_member where name = #{name} and email = #{email}
     </select>
 
@@ -142,7 +178,7 @@
     </update>
 
     <!-- 获取私信中的联系人ID列表 -->
-    <select id="listContactMemberIds" resultType="Member">
+    <select id="listContactMemberIds" resultMap="RemberResult">
         select distinct(member_id) as id from
         (
             (
