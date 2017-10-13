@@ -14,3 +14,14 @@ CREATE TABLE `tbl_ads` (
 
 ALTER TABLE `tbl_group_topic_comment` ADD COLUMN `comment_id` INT;
 
+CREATE TABLE `tbl_link` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `name` VARCHAR(100) COMMENT '网站名称',
+  `url` VARCHAR(255) COMMENT '网址',
+  `sort` INT(11) NOT NULL DEFAULT '0' COMMENT '排序，越大越靠前',
+  `recomment` INT(11) NOT NULL DEFAULT '0' COMMENT '推荐，0不推荐，1推荐',
+  `status` INT(1) DEFAULT '0' COMMENT '状态，0禁用，1启用',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

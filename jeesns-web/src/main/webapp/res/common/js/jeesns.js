@@ -27,8 +27,8 @@ var jeesns = {
         'email'      :    "格式不正确",
         'url'        :    "格式不正确",
         'currency'   :    /^\d+(\.\d+)?$/,
-        'number'     :    /^\d+$/,
-        'zip'        :    /^\d{6}$/,
+        'number'     :    "必须为正整数",
+        'zip'        :    "必须为6个数字",
         'integer'    :    "必须为整数",
         'double'     :    "必须为数字",
         'letter'     :    "必须为字母"
