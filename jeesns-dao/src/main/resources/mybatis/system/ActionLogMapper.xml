@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxinet.jeesns.dao.system.IActionLogDao">
-    <resultMap id="ResultMap" type="ActionLog">
+    <resultMap id="ActionLogResult" type="ActionLog">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="member_id" jdbcType="INTEGER" property="memberId" />
@@ -12,8 +12,8 @@
         <result column="action_ip" jdbcType="VARCHAR" property="actionIp" />
     </resultMap>
 
-    <select id="listByPage" resultType="ActionLog">
-        SELECT a.id,a.create_time,a.member_id,a.member_id as 'member.id',a.action_id,a.action_id as 'action.id',a.remark,a.type,
+    <select id="listByPage" resultMap="ActionLogResult">
+        SELECT a.id,a.create_time,a.member_id,a.member_id as 'member.id',a.action_id,a.action_id as 'action.actionId',a.remark,a.type,
          a.foreign_id,a.action_ip,b.name as 'member.name',c.name as 'action.name',c.log as 'action.log' FROM tbl_action_log as a
          left join tbl_member as b on a.member_id=b.id left join tbl_action as c on a.action_id=c.id
         <where>
@@ -24,8 +24,8 @@
         </where>
         ORDER BY a.id DESC
     </select>
-    <select id="memberActionLog" resultType="ActionLog">
-        SELECT a.id,a.create_time,a.member_id,a.member_id as 'member.id',a.action_id,a.action_id as 'action.id',a.type,
+    <select id="memberActionLog" resultMap="ActionLogResult">
+        SELECT a.id,a.create_time,a.member_id,a.member_id as 'member.id',a.action_id,a.action_id as 'action.actionId',a.type,
         a.foreign_id,a.action_ip,b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'action.name',c.log as 'action.log',
         (CASE
         WHEN a.type=2 THEN (select content from tbl_weibo WHERE id=a.foreign_id)
