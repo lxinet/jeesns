@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.model.common.Link;
 import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.common.utils.EmojiUtil;
@@ -9,6 +10,7 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
+import com.lxinet.jeesns.service.common.ILinkService;
 import com.lxinet.jeesns.service.group.IGroupFansService;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.service.group.IGroupTopicService;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -53,6 +56,8 @@ public class IndexController extends BaseController{
     private IGroupFansService groupFansService;
     @Resource
     private IMemberFansService memberFansService;
+    @Resource
+    private ILinkService linkService;
 
     @RequestMapping(value={"/", "index"},method = RequestMethod.GET)
     public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Integer cateid,Model model) {
@@ -65,12 +70,15 @@ public class IndexController extends BaseController{
         ResponseModel articleModel = articleService.listByPage(page,key,cateid,1,0);
         ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1,0);
         ResponseModel groupModel = groupService.listByPage(1,page,key);
+        ResponseModel linkModel = linkService.recommentList();
         page.setPageSize(50);
         ResponseModel weiboModel = weiboService.listByPage(page,0,loginMemberId,"");
         model.addAttribute("articleModel",articleModel);
         model.addAttribute("groupTopicModel",groupTopicModel);
         model.addAttribute("groupModel",groupModel);
         model.addAttribute("weiboModel",weiboModel);
+        model.addAttribute("linkModel",linkModel);
+
         return jeesnsConfig.getFrontTemplate() + "/index";
     }
 
@@ -150,4 +158,15 @@ public class IndexController extends BaseController{
         return jeesnsConfig.getFrontTemplate() + "/common/error";
     }
 
+    /**
+     * 友情链接
+     * @param model
+     * @return
+     */
+    @RequestMapping(value={"/link"},method = RequestMethod.GET)
+    public String link(Model model) {
+        ResponseModel linkModel = linkService.allList();
+        model.addAttribute("linkModel",linkModel);
+        return jeesnsConfig.getFrontTemplate() + "/link";
+    }
 }

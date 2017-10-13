@@ -108,6 +108,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="${managePath}/ads/list" module="common"><i class="fa fa-circle-o"></i>广告管理</a></li>
+                    <li><a href="${managePath}/link/list" module="common"><i class="fa fa-circle-o"></i>友情链接</a></li>
                 </ul>
             </li>
         </ul>

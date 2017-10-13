@@ -192,6 +192,23 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="panel group-topic-list no-border">
+                    <div class="panel-heading">
+                        友情链接
+                        <span class="pull-right">
+                            <a class="btn btn-primary m-t-n4" href="${basePath}/link">查看更多</a>
+                        </span>
+                    </div>
+                    <div class="panel-body friend-link">
+                        <ul>
+                        <#list linkModel.data as link>
+                            <li><a href="${link.url}" target="_blank">${link.name}</a></li>
+                        </#list>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

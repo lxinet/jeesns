@@ -1,3 +1,7 @@
+.main-content{
+    min-height: 600px;
+}
+
 a {
     text-decoration: none !important;
 }
@@ -739,4 +743,20 @@ a {
     background-color: transparent;
     transition: all .5s;
     color: #ea644a;
+}
+
+.friend-link ul li {
+    display:inline;
+    float:left;
+    margin-right:10px;
+    white-space:nowrap;
+    line-height:25px;
+}
+
+.friend-link ul li a{
+    color: #333333;
+}
+
+.friend-link ul li a:hover{
+    color: #0499e2;
 }
