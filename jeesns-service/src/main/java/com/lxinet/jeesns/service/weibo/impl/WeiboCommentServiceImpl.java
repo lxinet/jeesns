@@ -35,12 +35,11 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     @Override
     public WeiboComment findById(int id) {
         WeiboComment weiboComment = weiboCommentDao.findById(id);
-//        WeiboCommentUtil.format(weiboComment);
         return weiboComment;
     }
 
     @Override
-    public ResponseModel save(Member loginMember, String content, Integer weiboId) {
+    public ResponseModel save(Member loginMember, String content, Integer weiboId, Integer weiboCommentId) {
         Weibo weibo = weiboService.findById(weiboId,loginMember.getId());
         if(weibo == null){
             return new ResponseModel(-1,"微博不存在");
@@ -55,6 +54,7 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
         weiboComment.setMemberId(loginMember.getId());
         weiboComment.setWeiboId(weiboId);
         weiboComment.setContent(content);
+        weiboComment.setCommentId(weiboCommentId);
         int result = weiboCommentDao.save(weiboComment);
         if(result == 1){
             //微博评论奖励
@@ -68,9 +68,6 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     @Override
     public ResponseModel listByWeibo(Page page, int weiboId) {
         List<WeiboComment> list = weiboCommentDao.listByWeibo(page, weiboId);
-//        for (WeiboComment weiboComment : list){
-//            WeiboCommentUtil.format(weiboComment);
-//        }
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;

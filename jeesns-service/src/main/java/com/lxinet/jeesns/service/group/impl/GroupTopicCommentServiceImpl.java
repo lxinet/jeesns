@@ -37,7 +37,7 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
     }
 
     @Override
-    public ResponseModel save(Member loginMember, String content, Integer groupTopicId) {
+    public ResponseModel save(Member loginMember, String content, Integer groupTopicId,Integer commentId) {
         GroupTopic groupTopic = groupTopicService.findById(groupTopicId,loginMember);
         if(groupTopic == null){
             return new ResponseModel(-1,"帖子不存在");
@@ -49,6 +49,7 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
         groupTopicComment.setMemberId(loginMember.getId());
         groupTopicComment.setGroupTopicId(groupTopicId);
         groupTopicComment.setContent(content);
+        groupTopicComment.setCommentId(commentId);
         int result = groupTopicCommentDao.save(groupTopicComment);
         if(result == 1){
             //群组帖子评论奖励

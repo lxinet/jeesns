@@ -1,21 +1,21 @@
 var weibo = {
-    favor : function (_this,base) {
+    favor: function (_this, base) {
         var weiboId = _this.attr("weibo-id");
         $.ajax({
-            url: base+"/weibo/favor/"+weiboId,
+            url: base + "/weibo/favor/" + weiboId,
             type: "get",
             dataType: "json",
             timeout: 5000,
-            success:function(res){
-                if(res.code < 0){
+            success: function (res) {
+                if (res.code < 0) {
                     jeesnsDialog.errorTips(res.message);
-                }else {
-                    if(res.code == 0){
-                        _this.html("<i class='icon icon-thumbs-up'></i> "+res.data);
+                } else {
+                    if (res.code == 0) {
+                        _this.html("<i class='icon icon-thumbs-up'></i> " + res.data);
                         _this.removeClass("text-primary");
                         _this.addClass("text-success")
-                    }else {
-                        _this.html("<i class='icon icon-thumbs-o-up'></i> "+res.data);
+                    } else {
+                        _this.html("<i class='icon icon-thumbs-o-up'></i> " + res.data);
                         _this.removeClass("text-success");
                         _this.addClass("text-primary")
                     }
@@ -23,49 +23,72 @@ var weibo = {
             }
         });
     },
-    commentList : function (weiboId,pageNo) {
+    commentList: function (weiboId, pageNo) {
         $.ajax({
-            url : base+"/weibo/commentList/"+weiboId+".json?pageNo="+pageNo,
-            type : "get",
+            url: base + "/weibo/commentList/" + weiboId + ".json?pageNo=" + pageNo,
+            type: "get",
             dataType: "json",
-            success : function (json) {
+            success: function (json) {
                 var data = json.data;
                 var html = "";
-                for(var i=0;i<data.length;i++){
+                for (var i = 0; i < data.length; i++) {
                     html += "<div class=\"comment\">" +
-                        "<a href=\""+base+"/u/"+data[i].member.id+"\" class=\"avatar\">" +
-                        "<img src=\""+base+data[i].member.avatar+"\" class=\"icon-4x\"></a><div class=\"content\">" +
-                        "<div class=\"pull-right text-muted\">"+data[i].createTime+"</div><div>" +
-                        "<a href=\""+base+"/u/"+data[i].member.id+"\"><strong>"+data[i].member.name+"</strong></a></div>" +
-                        "<div class=\"text\">"+data[i].content+"</div>" +
-                        "</div></div>";
+                        "<a href=\"" + base + "/u/" + data[i].member.id + "\" class=\"avatar\">" +
+                        "<img src=\"" + base + data[i].member.avatar + "\" class=\"icon-4x\"></a><div class=\"content\">" +
+                        "<div class=\"pull-right text-muted\">" + data[i].createTime + "</div><div>" +
+                        "<a href=\"" + base + "/u/" + data[i].member.id + "\"><strong>" + data[i].member.name + "</strong></a></div>" +
+                        "<div class=\"text\">";
+                    var weiboComment = data[i].weiboComment;
+                    if (weiboComment != null){
+                        html += "<pre><code><p>引用“<a href='"+base+"/u/"+weiboComment.member.id+"'>"+weiboComment.member.name+"</a>”的评论</p>"+weiboComment.content+"</code></pre>";
+                    }
+                    html += data[i].content + "<div class='pull-right'><a href='javascript:weibo.commentReply("+data[i].id+")'>回复</a></div></div>" +
+                        "<form class=\"form-horizontal jeesns_form\" action=\""+base+"/weibo/comment/"+weiboId+"\" method=\"post\" id='comment-form-"+data[i].id+"' style='display: none;'>" +
+                        "<div class=\"form-group\"><input type='hidden' name='weiboCommentId' value='"+data[i].id+"'/>" +
+                        "<textarea name=\"content\" class=\"form-control weibo-comment-content\" rows=\"2\" id=\""+data[i].id+"\" maxlength=\""+weiboPostMaxcontent+"\"></textarea></div>" +
+                        "<div class=\"form-group comment-user\"><span class=\"mg-r-5 weibo-words-"+data[i].id+"\">0/"+weiboPostMaxcontent+"</span>" +
+                        "<input type=\"submit\" value=\"回复\" class=\"pull-right btn btn-primary mg-t-10 jeesns-submit\"></div></form></div></div>";
                 }
                 pageNo = json.page.pageNo;
-                if(json.page.totalPage<=pageNo){
+                if (json.page.totalPage <= pageNo) {
                     $("#moreComment").hide();
-                }else {
+                } else {
                     $("#moreComment").show();
                 }
                 $("#commentList").append(html);
+                $('.jeesns_form').unbind();
+                jeesns.submitForm();
+                $(".weibo-comment-content").bind('input propertychange focus blur', function () {
+                    var $this = $(this);
+                    var _val = $this.val();
+                    var _id = $this.attr("id");
+                    var maxlength = $this.attr("maxlength");
+                    $(".weibo-words-"+_id).text(_val.length + "/" + maxlength);
+                    if (_val.length > maxlength) {
+                        $this.val(inputBeforeContent);
+                    } else {
+                        inputBeforeContent = _val;
+                    }
+                });
             }
         });
     },
-    commentReply : function (name) {
-        $('.weibo-comment-textarea').append("@"+name+" ");
-        $('.weibo-comment-textarea').focus();
+    commentReply: function (id) {
+        $('#comment-form-'+id).toggle();
+        $('#'+id).focus();
     }
 }
 $(document).ready(function () {
     //输入前内容
     var inputBeforeContent = "";
-    $("#weibo-content").bind('input propertychange focus blur', function() {
+    $("#weibo-content").bind('input propertychange focus blur', function () {
         var $this = $(this);
         var _val = $this.val();
         var maxlength = $this.attr("maxlength");
-        $("#weibo-words").text(_val.length+"/"+maxlength);
+        $("#weibo-words").text(_val.length + "/" + maxlength);
         if (_val.length > maxlength) {
             $this.val(inputBeforeContent);
-        }else {
+        } else {
             inputBeforeContent = _val;
         }
     });

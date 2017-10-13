@@ -13,7 +13,7 @@ public interface IWeiboCommentService {
 
     WeiboComment findById(int id);
 
-    ResponseModel save(Member loginMember, String content, Integer articleId);
+    ResponseModel save(Member loginMember, String content, Integer weiboId, Integer weiboCommentId);
 
     ResponseModel delete(Member loginMember,int id);
 

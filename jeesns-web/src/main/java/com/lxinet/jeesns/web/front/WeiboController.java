@@ -14,6 +14,8 @@ import com.lxinet.jeesns.service.weibo.IWeiboService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -32,12 +34,19 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseModel publish(String content,String pictures){
+    public Object publish(String content,String pictures,RedirectAttributes attr){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        return weiboService.save(request, loginMember,content, pictures);
+        ResponseModel responseModel = weiboService.save(request, loginMember,content, pictures);
+        if (responseModel.getCode() >= 0){
+            attr.addAttribute("code",responseModel.getCode());
+            attr.addAttribute("message",responseModel.getMessage());
+            return "redirect:/list";
+        }else {
+            return responseModel;
+        }
     }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
@@ -81,12 +90,12 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value="/comment/{weiboId}",method = RequestMethod.POST)
     @ResponseBody
-    public Object comment(@PathVariable("weiboId") Integer weiboId, String content){
+    public Object comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        return weiboCommentService.save(loginMember,content,weiboId);
+        return weiboCommentService.save(loginMember,content,weiboId,weiboCommentId);
     }
 
     @RequestMapping(value="/commentList/{weiboId}.json",method = RequestMethod.GET)

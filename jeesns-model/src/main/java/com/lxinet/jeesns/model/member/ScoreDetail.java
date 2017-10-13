@@ -17,6 +17,7 @@ public class ScoreDetail implements Serializable {
     private String remark;
     private Integer foreignId;
     private Integer scoreRuleId;
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -96,5 +97,13 @@ public class ScoreDetail implements Serializable {
 
     public void setScoreRuleId(Integer scoreRuleId) {
         this.scoreRuleId = scoreRuleId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
