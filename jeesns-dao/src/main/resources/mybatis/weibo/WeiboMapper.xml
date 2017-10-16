@@ -12,17 +12,22 @@
     <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
     <result column="is_favor" jdbcType="INTEGER" property="isFavor" />
     <association property="member" column="member_id" javaType="Member">
-      <result column="id" property="id"/>
+      <result column="member_id" property="id"/>
       <result column="name" property="name"/>
       <result column="avatar" property="avatar"/>
     </association>
     <collection property="pictures" javaType="ArrayList" column="weibo_id" ofType="Picture" select="selectPicturesByWeibo"/>
   </resultMap>
 
-  <select id="listByPage" resultMap="WeiboResult">
-    select a.id,a.create_time,a.member_id,b.name,b.avatar,
+  <sql id="select_column">
+    a.id,a.create_time,a.member_id,b.name,b.avatar,
+    b.introduce as 'member.introduce',b.follows as 'member.follows', b.fans as 'member.fans',
     a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) comment_count,
     (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
+  </sql>
+
+  <select id="listByPage" resultMap="WeiboResult">
+    SELECT <include refid="select_column"/>
     from tbl_weibo a left join tbl_member b on a.member_id = b.id
     <where>
       <if test="key != null and key != ''">
@@ -35,10 +40,7 @@
     order by a.id DESC
   </select>
   <select id="findById" resultMap="WeiboResult">
-    select a.id,a.create_time,a.member_id,b.name,b.avatar,
-    b.introduce as 'member.introduce',b.follows as 'member.follows', b.fans as 'member.fans',
-    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) comment_count,
-    (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=#{id} AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
+    SELECT <include refid="select_column"/>
     from tbl_weibo a left join
     tbl_member b on a.member_id = b.id
     where a.id = #{id}
@@ -52,9 +54,8 @@
   </insert>
 
   <select id="hotList" resultMap="WeiboResult">
-    select a.id,a.create_time,a.member_id,
-    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) comment_count,
-    (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor from tbl_weibo a left join
+    SELECT <include refid="select_column"/>
+    from tbl_weibo a left join
     tbl_member b on a.member_id = b.id where date_sub(curdate(), INTERVAL 7 DAY) &lt;= date(a.create_time)
     order by comment_count DESC,a.id desc limit 0,20
   </select>
@@ -68,9 +69,8 @@
   </select>
 
   <select id="listByCustom" resultMap="WeiboResult">
-    select a.id,a.create_time,a.member_id,
-    a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) comment_count,
-    (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor from tbl_weibo a left join
+    SELECT <include refid="select_column"/>
+    from tbl_weibo a left join
     tbl_member b on a.member_id = b.id
     <where>
       <if test="day &gt; 0">
