@@ -3,10 +3,10 @@ package com.lxinet.jeesns.core.utils;
 public class Const {
 
 	public static final String SYSTEM_NAME = "JEESNS";
-	public static final String SYSTEM_VERSION = "1.2.0-RC1";
-	public static final String SYSTEM_UPDATE_TIME = "2017-07-19";
-	public static final String LAST_SYSTEM_VERSION = "1.2.0-RC1";
-	public static final String LAST_SYSTEM_UPDATE_TIME = "2017-07-19";
+	public static final String SYSTEM_VERSION = "1.2.0-RC3";
+	public static final String SYSTEM_UPDATE_TIME = "2017-10-16";
+	public static final String LAST_SYSTEM_VERSION = "1.2.0-RC3";
+	public static final String LAST_SYSTEM_UPDATE_TIME = "2017-10-16";
 
 	/**
 	 * 项目路径

@@ -3,7 +3,6 @@
 数据库：MYSQL
 JAVA开发框架：Spring MVC+Spring+Mybatis
 前台前端开发框架：ZUI+JQuery+Bootstrap
-后台前端开发框架：VUE+ElementUI
 前台模板引擎：Freemarker
 
 简介
