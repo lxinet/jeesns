@@ -157,6 +157,84 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v102">v1.2.0-RC3</a><code class="pull-right">2017.10.16</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v102" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复：后台审核文章时提示非法操作</li>
+                                                        <li>修复：后台修改系统信息时不会马上生效，需要重启Tomcat的问题</li>
+                                                        <li>修复：在前台文章列表，如果选择栏目，下一页之后，栏目会失效</li>
+                                                        <li>修复：富文本编辑器图片上传功能</li>
+                                                        <li>修复：新注册会员激活功能无法使用问题</li>
+                                                        <li>修复：邮件发送失败问题</li>
+                                                        <li>修复：重置密码问题</li>
+                                                        <li>修复：后台会员列表搜索和下一页异常</li>
+                                                        <li>修复：发帖跳转错误页面失败问题</li>
+                                                        <li>修复：修改头像不能马上生效问题</li>
+                                                        <li>修复：后台广告列表开始时间和添加时间显示错误</li>
+                                                        <li>优化：前台LOGO位置</li>
+                                                        <li>优化：首页和会员中心头部界面</li>
+                                                        <li>优化：审核帖子页面增加返回群组链接</li>
+                                                        <li>优化：删除微博列表下用管理员身份访问时的删除链接，需要删除微博直接进入到详情删除</li>
+                                                        <li>优化：删除富文本编辑器上传图片界面预览窗口的英文说明</li>
+                                                        <li>优化：文章列表页面</li>
+                                                        <li>优化：上传图片功能</li>
+                                                        <li>优化：管理后台登录页面修改</li>
+                                                        <li>增加：文章详情页面增加作者基本信息</li>
+                                                        <li>增加：新私信提醒功能</li>
+                                                        <li>增加：文章搜索功能</li>
+                                                        <li>增加：帖子加精、置顶功能</li>
+                                                        <li>增加：广告模块</li>
+                                                        <li>增加：友情链接模块</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v102">v1.2.0-RC2</a><code class="pull-right">2017.8.2</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v102" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复帖子页面头像不显示问题</li>
+                                                        <li>修复管理员在前台登录后，点击右上角的`管理`出现404问题</li>
+                                                        <li>在帖子详情页面不能显示群组logo</li>
+                                                        <li>点击首页帖子链接进入到文章详情问题</li>
+                                                        <li>出现异常时，跳转到异常页面，报错找不到error.ftl文件</li>
+                                                        <li>未登录情况下进入帖子页面出现异常</li>
+                                                        <li>修改配置静态资源文件所在目录</li>
+                                                        <li>刚申请的群组发帖出现异常</li>
+                                                        <li>在帖子页面，点击右边发帖，会进入发布文章页面</li>
+                                                        <li>优化文章投稿功能，如果文章需要审核，投稿成功后自动跳转到文章列表页面，避免投稿成功跳转到异常页面</li>
+                                                        <li>优化帖子发布，如果帖子需要审核，自动跳转到群组详情页面，如果不需要审核，自动跳转到帖子页面</li>
+                                                        <li>在微博列表、详情页面，管理员或者作者本人点击删除链接时，增加确认删除提示</li>
+                                                        <li>在帖子详情页面删除帖子后，自动跳到群组详情页面</li>
+                                                        <li>微博列表，热门微博删除的时候，没有先弹出提示</li>
+                                                        <li>在帖子详情页面群组名字增加链接</li>
+                                                        <li>在帖子详情页面增加判断是否已关注群组</li>
+                                                        <li>在帖子列表、帖子详情页面，增加置顶、精华标识</li>
+                                                        <li>统一系统配置</li>
+                                                        <li>去掉打印查询语句功能</li>
+                                                        <li>文章列表页面优化</li>
+                                                        <li>在群组审核帖子页面，增加审核、删除帖子功能</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v102">v1.0.2</a><code class="pull-right">2017.4.17</code>
                                             </h5>
                                         </div>
