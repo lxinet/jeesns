@@ -34,19 +34,12 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ResponseBody
-    public Object publish(String content,String pictures,RedirectAttributes attr){
+    public ResponseModel publish(String content,String pictures){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
             return new ResponseModel(-1,"请先登录");
         }
-        ResponseModel responseModel = weiboService.save(request, loginMember,content, pictures);
-        if (responseModel.getCode() >= 0){
-            attr.addAttribute("code",responseModel.getCode());
-            attr.addAttribute("message",responseModel.getMessage());
-            return "redirect:/list";
-        }else {
-            return responseModel;
-        }
+        return weiboService.save(request, loginMember,content, pictures);
     }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
