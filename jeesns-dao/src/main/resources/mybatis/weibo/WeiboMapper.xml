@@ -16,7 +16,7 @@
       <result column="name" property="name"/>
       <result column="avatar" property="avatar"/>
     </association>
-    <collection property="pictures" javaType="ArrayList" column="weibo_id" ofType="Picture" select="selectPicturesByWeibo"/>
+    <collection property="pictures" javaType="ArrayList" column="id" ofType="Picture" select="selectPicturesByWeibo"/>
   </resultMap>
 
   <sql id="select_column">
