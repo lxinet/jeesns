@@ -3,10 +3,13 @@ package com.lxinet.jeesns.service.group.impl;
 import com.lxinet.jeesns.common.utils.ActionLogType;
 import com.lxinet.jeesns.common.utils.ActionUtil;
 import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.core.consts.AppTag;
+import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.dao.group.IGroupTopicDao;
+import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupTopic;
@@ -16,6 +19,8 @@ import com.lxinet.jeesns.service.group.IGroupFansService;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.service.group.IGroupTopicCommentService;
 import com.lxinet.jeesns.service.group.IGroupTopicService;
+import com.lxinet.jeesns.service.member.IMemberService;
+import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import org.springframework.stereotype.Service;
@@ -43,16 +48,20 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     private IActionLogService actionLogService;
     @Resource
     private IScoreDetailService scoreDetailService;
+    @Resource
+    private IMessageService messageService;
+    @Resource
+    private IMemberService memberService;
 
     @Override
     public GroupTopic findById(int id) {
-        return groupTopicDao.findById(id,0);
+        return this.findById(id,null);
     }
 
     @Override
     public GroupTopic findById(int id,Member loginMember) {
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        return groupTopicDao.findById(id,loginMemberId);
+        return this.atFormat(groupTopicDao.findById(id,loginMemberId));
     }
 
     @Override
@@ -87,6 +96,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             groupTopic.setArchiveId(archive.getArchiveId());
             int result = groupTopicDao.save(groupTopic);
             if(result == 1){
+                //@会员处理并发送系统消息
+                messageService.atDeal(member.getId(),groupTopic.getContent(), AppTag.GROUP, MessageType.GROUP_TOPIC_REFER,groupTopic.getId());
                 //群组发帖奖励
                 scoreDetailService.scoreBonus(member.getId(), ScoreRuleConsts.GROUP_POST, groupTopic.getId());
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_GROUP_TOPIC,"", ActionLogType.GROUP_TOPIC.getValue(),groupTopic.getId());
@@ -301,6 +312,8 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             if(responseModel.getCode() == 0){
                 //帖子收到喜欢
                 scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
+                //点赞之后发送系统信息
+                messageService.diggDeal(loginMember.getId(),groupTopic.getMemberId(),AppTag.GROUP,MessageType.GROUP_TOPIC_LIKE,groupTopic.getId());
             }else if(responseModel.getCode() == 1){
                 //帖子取消喜欢
                 //扣除积分
@@ -314,5 +327,10 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Override
     public List<GroupTopic> listByCustom(int gid, String sort, int num, int day,int thumbnail) {
         return groupTopicDao.listByCustom(gid,sort,num,day,thumbnail);
+    }
+
+    public GroupTopic atFormat(GroupTopic groupTopic){
+        groupTopic.setContent(memberService.atFormat(groupTopic.getContent()));
+        return groupTopic;
     }
 }

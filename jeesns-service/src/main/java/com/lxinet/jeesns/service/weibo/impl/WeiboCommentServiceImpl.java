@@ -1,11 +1,16 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
+import com.lxinet.jeesns.core.consts.AppTag;
+import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
+import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.model.weibo.WeiboComment;
+import com.lxinet.jeesns.service.member.IMemberService;
+import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.dao.weibo.IWeiboCommentDao;
@@ -31,10 +36,15 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     private IActionLogService actionLogService;
     @Resource
     private IScoreDetailService scoreDetailService;
+    @Resource
+    private IMessageService messageService;
+    @Resource
+    private IMemberService memberService;
 
     @Override
     public WeiboComment findById(int id) {
         WeiboComment weiboComment = weiboCommentDao.findById(id);
+        atFormat(weiboComment);
         return weiboComment;
     }
 
@@ -57,6 +67,17 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
         weiboComment.setCommentId(weiboCommentId);
         int result = weiboCommentDao.save(weiboComment);
         if(result == 1){
+            //@会员处理并发送系统消息
+            messageService.atDeal(loginMember.getId(),content, AppTag.WEIBO, MessageType.WEIBO_COMMENT_REFER,weibo.getId());
+            //回复微博发送系统信息
+            messageService.diggDeal(loginMember.getId(), weibo.getMemberId(), content,AppTag.WEIBO, MessageType.WEIBO_REPLY, weibo.getId());
+            if (weiboCommentId != null){
+                WeiboComment replyWeiboComment = this.findById(weiboCommentId);
+                if (replyWeiboComment != null){
+                    //回复微博发送系统信息
+                    messageService.diggDeal(loginMember.getId(), replyWeiboComment.getMemberId(), content, AppTag.WEIBO, MessageType.WEIBO_REPLY_REPLY, replyWeiboComment.getId());
+                }
+            }
             //微博评论奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.COMMENT_WEIBO, weiboComment.getId());
             return new ResponseModel(1,"评论成功");
@@ -68,6 +89,7 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     @Override
     public ResponseModel listByWeibo(Page page, int weiboId) {
         List<WeiboComment> list = weiboCommentDao.listByWeibo(page, weiboId);
+        atFormat(list);
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
@@ -92,4 +114,15 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
         return new ResponseModel(-1,"删除失败");
     }
 
+    public WeiboComment atFormat(WeiboComment weiboComment){
+        weiboComment.setContent(memberService.atFormat(weiboComment.getContent()));
+        return weiboComment;
+    }
+
+    public List<WeiboComment> atFormat(List<WeiboComment> weiboCommentList){
+        for (WeiboComment weiboComment : weiboCommentList){
+            atFormat(weiboComment);
+        }
+        return weiboCommentList;
+    }
 }

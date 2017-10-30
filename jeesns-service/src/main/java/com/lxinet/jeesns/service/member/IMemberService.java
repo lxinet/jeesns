@@ -177,4 +177,6 @@ public interface IMemberService {
      */
     boolean updateScore(Integer score, Integer memberId);
 
+    String atFormat(String content);
+
 }

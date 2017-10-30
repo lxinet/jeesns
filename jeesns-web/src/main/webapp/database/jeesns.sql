@@ -248,6 +248,7 @@ CREATE TABLE `tbl_weibo_favor` (
 CREATE TABLE `tbl_picture` (
   `picture_id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
+  `member_id` INT(11),
   `type` INT(11) NOT NULL COMMENT '1是文章图片，2是群组帖子图片，3是微博图片',
   `foreign_id` INT(11) COMMENT '外键ID',
   `path` VARCHAR(255) NOT NULL COMMENT '图片路径',
@@ -255,6 +256,7 @@ CREATE TABLE `tbl_picture` (
   `md5` VARCHAR(32) NOT NULL,
   `width` INT(11) DEFAULT '0',
   `height` INT(11) DEFAULT '0',
+  `description` VARCHAR(1000),
   PRIMARY KEY (picture_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -266,6 +268,11 @@ CREATE TABLE `tbl_message` (
   `to_member_id` INT(11) DEFAULT '0',
   `content` TEXT,
   `url` VARCHAR(255),
+  `app_tag` INT(11),
+  `type` INT(11),
+  `relate_key_id` INT(11),
+  `member_id` INT(11),
+  `description` VARCHAR(500),
   `isread` INT(1) DEFAULT '0' COMMENT '是否已读，0未读，1已读',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -366,6 +373,7 @@ ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_to_member` FOREIGN KEY (`to
 ALTER TABLE `tbl_score_detail` ADD CONSTRAINT `fk_score_detail_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_score_detail` ADD CONSTRAINT `fk_score_detail_score_rule` FOREIGN KEY (`score_rule_id`) REFERENCES `tbl_score_rule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_member_token` ADD CONSTRAINT `fk_member_token_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 

@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.service.cms.impl;
 
+import com.lxinet.jeesns.core.consts.AppTag;
+import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.StringUtils;
@@ -7,8 +9,11 @@ import com.lxinet.jeesns.dao.cms.IArticleCommentDao;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.model.member.Member;
+import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.service.cms.IArticleCommentService;
 import com.lxinet.jeesns.service.cms.IArticleService;
+import com.lxinet.jeesns.service.member.IMemberService;
+import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.common.utils.ActionUtil;
@@ -32,10 +37,14 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     private IActionLogService actionLogService;
     @Resource
     private IScoreDetailService scoreDetailService;
+    @Resource
+    private IMessageService messageService;
+    @Resource
+    private IMemberService memberService;
 
     @Override
     public ArticleComment findById(int id) {
-        return articleCommentDao.findById(id);
+        return this.atFormat(articleCommentDao.findById(id));
     }
 
     @Override
@@ -53,6 +62,9 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
         articleComment.setContent(content);
         int result = articleCommentDao.save(articleComment);
         if(result == 1){
+            //@会员处理并发送系统消息
+            messageService.atDeal(loginMember.getId(),content, AppTag.CMS, MessageType.CMS_ARTICLE_COMMENT_REFER,articleComment.getId());
+            messageService.diggDeal(loginMember.getId(),article.getMemberId(),content,AppTag.CMS,MessageType.CMS_ARTICLR_REPLY,article.getId());
             //文章评论奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,articleComment.getId());
             return new ResponseModel(1,"评论成功");
@@ -64,6 +76,7 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     @Override
     public ResponseModel listByArticle(Page page, int articleId) {
         List<ArticleComment> list = articleCommentDao.listByArticle(page, articleId);
+        this.atFormat(list);
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
@@ -91,4 +104,15 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
         return new ResponseModel(-1,"删除失败");
     }
 
+    public ArticleComment atFormat(ArticleComment articleComment){
+        articleComment.setContent(memberService.atFormat(articleComment.getContent()));
+        return articleComment;
+    }
+
+    public List<ArticleComment> atFormat(List<ArticleComment> articleCommentList){
+        for (ArticleComment articleComment : articleCommentList){
+            atFormat(articleComment);
+        }
+        return articleCommentList;
+    }
 }

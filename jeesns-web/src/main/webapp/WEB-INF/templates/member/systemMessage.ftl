@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人中心 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>系统信息 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -150,32 +150,17 @@
                     <div class="col-sm-10">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>动态</h5>
+                                <h5>系统信息</h5>
                             </div>
                             <div>
                                 <div class="feed-activity-list">
-                                <#list actionLogModel.data as actionLog>
+                                <#list messageModel.data as message>
                                     <div class="feed-element">
-                                        <a href="${basePath}/u/${actionLog.member.id}" class="pull-left">
-                                            <img alt="image" class="img-circle"
-                                                 src="${basePath}${actionLog.member.avatar!''}">
-                                        </a>
                                         <div class="media-body ">
-                                            <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                            <a href="${basePath}/u/${actionLog.member.id}"><strong>${actionLog.member.name}</strong></a>${actionLog.action.log}：<br/>
-                                            <#if actionLog.type==1>
-                                                <a href="${basePath}/article/detail/${actionLog.foreignId}"
-                                                   target="_blank">${actionLog.remark}</a>
-                                            <#elseif actionLog.type==2>
-                                                <p>${actionLog.remark}</p>
-                                                <a href="${basePath}/weibo/detail/${actionLog.foreignId}"
-                                                   target="_blank">查看</a>
-                                            <#elseif actionLog.type==4>
-                                                <a href="${basePath}/group/topic/${actionLog.foreignId}"
-                                                   target="_blank">${actionLog.remark}</a>
-                                            </#if>
-                                            <br>
-                                            <div class="actions">
+                                            <small class="pull-right text-navy">${message.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
+                                            <a href="${basePath}/u/${message.member.id}"><strong>@${message.member.name} </strong></a>：${message.content}
+                                            <div class="message-desc">
+                                                ${message.description}
                                             </div>
                                         </div>
                                     </div>
@@ -183,8 +168,8 @@
                                     <div class="box-footer clearfix">
                                         <ul class="pagination pagination-sm no-margin pull-right"
                                             url="${basePath}/member/"
-                                            currentPage="${actionLogModel.page.pageNo}"
-                                            pageCount="${actionLogModel.page.totalPage}">
+                                            currentPage="${messageModel.page.pageNo}"
+                                            pageCount="${messageModel.page.totalPage}">
                                         </ul>
                                     </div>
                                 </div>

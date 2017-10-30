@@ -32,6 +32,8 @@ public class InitInterceptor implements HandlerInterceptor {
         request.setAttribute("loginUser", loginUser);
         //会员未读私信数量
         Integer unReadMessageNum = 0;
+        //系统未读信息数量
+        Integer systemUnReadMessageNum = 0;
         if (loginUser != null) {
             if (loginUser.getIsActive() == 0) {
                 String memberEmailValid = (String) request.getServletContext().getAttribute(ConfigUtil.MEMBER_EMAIL_VALID.toUpperCase());
@@ -44,9 +46,12 @@ public class InitInterceptor implements HandlerInterceptor {
                     }
                 }
             }
+            //会员未读信息
             unReadMessageNum = messageService.countUnreadNum(loginUser.getId());
+            systemUnReadMessageNum = messageService.countSystemUnreadNum(loginUser.getId());
         }
         request.setAttribute("unReadMessageNum", unReadMessageNum);
+        request.setAttribute("systemUnReadMessageNum", systemUnReadMessageNum);
 
         if (handler != null) {
             List<Annotation> annotationList = new ArrayList<>();

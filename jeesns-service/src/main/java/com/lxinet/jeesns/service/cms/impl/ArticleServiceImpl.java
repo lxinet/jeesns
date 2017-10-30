@@ -1,15 +1,20 @@
 package com.lxinet.jeesns.service.cms.impl;
 
+import com.lxinet.jeesns.core.consts.AppTag;
+import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.dao.cms.IArticleDao;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.member.Member;
+import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.service.cms.IArticleCommentService;
 import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.service.common.IArchiveService;
+import com.lxinet.jeesns.service.member.IMemberService;
+import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
@@ -40,16 +45,22 @@ public class ArticleServiceImpl implements IArticleService {
     private IActionLogService actionLogService;
     @Resource
     private IScoreDetailService scoreDetailService;
+    @Resource
+    private IMessageService messageService;
+    @Resource
+    private IMemberService memberService;
 
     @Override
     public Article findById(int id) {
-        return articleDao.findById(id,0);
+        return this.findById(id,null);
     }
 
     @Override
     public Article findById(int id, Member loginMember) {
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        return articleDao.findById(id,loginMemberId);
+        Article article = articleDao.findById(id,loginMemberId);
+        this.atFormat(article);
+        return article;
     }
 
     @Override
@@ -82,6 +93,8 @@ public class ArticleServiceImpl implements IArticleService {
             article.setArchiveId(archive.getArchiveId());
             int result = articleDao.save(article);
             if(result == 1){
+                //@会员处理并发送系统消息
+                messageService.atDeal(member.getId(),article.getContent(), AppTag.CMS, MessageType.CMS_ARTICLE_REFER,article.getId());
                 if(article.getStatus() == 1){
                     //投稿审核通过奖励
                     scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
@@ -137,6 +150,8 @@ public class ArticleServiceImpl implements IArticleService {
             if(responseModel.getCode() == 0){
                 //文章收到喜欢
                 scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
+                //点赞之后发送系统信息
+                messageService.diggDeal(loginMember.getId(),article.getMemberId(),AppTag.CMS,MessageType.CMS_ARTICLE_LIKE,article.getId());
             }else if(responseModel.getCode() == 1){
                 //取消喜欢，扣除积分
                 scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
@@ -200,4 +215,8 @@ public class ArticleServiceImpl implements IArticleService {
         return new ResponseModel(-1,"删除失败");
     }
 
+    public Article atFormat(Article article){
+        article.setContent(memberService.atFormat(article.getContent()));
+        return article;
+    }
 }
