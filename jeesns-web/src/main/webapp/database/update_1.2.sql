@@ -25,3 +25,11 @@ CREATE TABLE `tbl_link` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `tbl_picture` ADD COLUMN `member_id` INT;
+ALTER TABLE `tbl_picture` ADD COLUMN `description` text;
+ALTER TABLE `tbl_message` ADD COLUMN `app_tag` INT;
+ALTER TABLE `tbl_message` ADD COLUMN `type` INT;
+ALTER TABLE `tbl_message` ADD COLUMN `relate_key_id` INT;
+ALTER TABLE `tbl_message` ADD COLUMN `member_id` INT;
+ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_message` ADD COLUMN `description` VARCHAR(500);

@@ -17,7 +17,12 @@ public class Message implements Serializable {
     private String content;
     private String url;
     private Integer isread;
-
+    private Integer appTag;
+    private Integer type;
+    private Integer relateKeyId;
+    private String description;
+    private Integer memberId;
+    private Member member;
 
     public Integer getId() {
         return id;
@@ -89,5 +94,57 @@ public class Message implements Serializable {
 
     public void setIsread(Integer isread) {
         this.isread = isread;
+    }
+
+    public Integer getAppTag() {
+        return appTag;
+    }
+
+    public void setAppTag(Integer appTag) {
+        this.appTag = appTag;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public int getRelateKeyId() {
+        return relateKeyId;
+    }
+
+    public void setRelateKeyId(int relateKeyId) {
+        this.relateKeyId = relateKeyId;
+    }
+
+    public void setRelateKeyId(Integer relateKeyId) {
+        this.relateKeyId = relateKeyId;
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

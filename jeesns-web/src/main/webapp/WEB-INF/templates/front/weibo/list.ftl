@@ -138,7 +138,8 @@
                                 <a class="text-success weibo-favor" weibo-id="${weibo.id}" href="javascript:void(0);">
                                     <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
                             </#if>
-                                <a href="${basePath}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
+                                <a href="${basePath}/weibo/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
+                                <a href="${basePath}/weibo/detail/${weibo.id}">查看详情</a>
                             </div>
                         </div>
                     </div>
@@ -185,7 +186,8 @@
                                             <a class="text-success weibo-favor" weibo-id="${weibo.id}">
                                                 <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
                                         </#if>
-                                            <a href="${basePath}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
+                                            <a href="${basePath}/weibo/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
+                                            <a href="${basePath}/weibo/detail/${weibo.id}">查看详情</a>
                                         </div>
                                     </div>
                                 </div>

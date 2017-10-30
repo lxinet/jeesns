@@ -1,29 +1,27 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
+import com.lxinet.jeesns.common.utils.*;
+import com.lxinet.jeesns.core.consts.AppTag;
+import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.service.common.IPictureService;
+import com.lxinet.jeesns.service.member.IMemberService;
+import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
-import com.lxinet.jeesns.service.system.IConfigService;
 import com.lxinet.jeesns.dao.weibo.IWeiboDao;
-import com.lxinet.jeesns.service.weibo.IWeiboCommentService;
 import com.lxinet.jeesns.service.weibo.IWeiboFavorService;
 import com.lxinet.jeesns.service.weibo.IWeiboService;
-import com.lxinet.jeesns.common.utils.ActionLogType;
-import com.lxinet.jeesns.common.utils.ActionUtil;
-import com.lxinet.jeesns.common.utils.ConfigUtil;
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -40,10 +38,15 @@ public class WeiboServiceImpl implements IWeiboService {
     private IPictureService pictureService;
     @Resource
     private IScoreDetailService scoreDetailService;
+    @Resource
+    private IMessageService messageService;
+    @Resource
+    private IMemberService memberService;
 
     @Override
     public Weibo findById(int id, int memberId) {
         Weibo weibo = weiboDao.findById(id,memberId);
+//        weibo = this.atFormat(weibo);
         return weibo;
     }
 
@@ -71,6 +74,8 @@ public class WeiboServiceImpl implements IWeiboService {
             weibo.setType(1);
         }
         if(weiboDao.save(weibo) == 1){
+            //@会员处理并发送系统消息
+            messageService.atDeal(loginMember.getId(),content, AppTag.WEIBO, MessageType.WEIBO_REFER,weibo.getId());
             pictureService.update(weibo.getId(),pictures);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.POST_WEIBO,"", ActionLogType.WEIBO.getValue(),weibo.getId());
             //发布微博奖励
@@ -86,6 +91,7 @@ public class WeiboServiceImpl implements IWeiboService {
             key = "%"+key.trim()+"%";
         }
         List<Weibo> list = weiboDao.listByPage(page, memberId,loginMemberId,key);
+        list = this.atFormat(list);
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
@@ -133,6 +139,7 @@ public class WeiboServiceImpl implements IWeiboService {
     public ResponseModel favor(Member loginMember, int weiboId) {
         String message;
         ResponseModel<Integer> responseModel;
+        Weibo weibo = this.findById(weiboId,loginMember.getId());
         if(weiboFavorService.find(weiboId,loginMember.getId()) == null){
             //增加
             weiboDao.favor(weiboId,1);
@@ -141,6 +148,8 @@ public class WeiboServiceImpl implements IWeiboService {
             responseModel = new ResponseModel(0,message);
             //发布微博奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP, weiboId);
+            //点赞之后发送系统信息
+            messageService.diggDeal(loginMember.getId(),weibo.getMemberId(),AppTag.WEIBO,MessageType.WEIBO_ZAN,weibo.getId());
         }else {
             //减少
             int num = weiboDao.favor(weiboId,-1);
@@ -150,13 +159,24 @@ public class WeiboServiceImpl implements IWeiboService {
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP,weiboId);
             responseModel = new ResponseModel(1,message);
         }
-        Weibo findWeibo = this.findById(weiboId,loginMember.getId());
-        responseModel.setData(findWeibo.getFavor());
+        responseModel.setData(weibo.getFavor());
         return responseModel;
     }
 
     @Override
     public List<Weibo> listByCustom(int loginMemberId, String sort, int num, int day) {
         return weiboDao.listByCustom(loginMemberId,sort,num,day);
+    }
+
+    public Weibo atFormat(Weibo weibo){
+        weibo.setContent(memberService.atFormat(weibo.getContent()));
+        return weibo;
+    }
+
+    public List<Weibo> atFormat(List<Weibo> weiboList){
+        for (Weibo weibo : weiboList){
+            atFormat(weibo);
+        }
+        return weiboList;
     }
 }

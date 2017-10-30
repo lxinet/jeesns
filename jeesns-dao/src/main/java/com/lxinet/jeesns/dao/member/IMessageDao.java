@@ -24,6 +24,14 @@ public interface IMessageDao extends IBaseDao<Message> {
     List<Message> messageRecords(@Param("page") Page page, @Param("fromMemberId") Integer fromMemberId, @Param("toMemberId") Integer toMemberId);
 
     /**
+     * 系统信息
+     * @param page
+     * @param toMemberId
+     * @return
+     */
+    List<Message> systemMessage(@Param("page") Page page, @Param("toMemberId") Integer toMemberId,@Param("basePath") String basePath);
+
+    /**
      * 删除某个会员的所有聊天记录
      * @param memberId
      * @return
@@ -44,6 +52,13 @@ public interface IMessageDao extends IBaseDao<Message> {
      * @return
      */
     int countUnreadNum(@Param("memberId") Integer memberId);
+
+    /**
+     * 查询系统未读信息数量
+     * @param memberId
+     * @return
+     */
+    int countSystemUnreadNum(@Param("memberId") Integer memberId);
 
     /**
      * 设置已读状态

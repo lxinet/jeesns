@@ -478,13 +478,17 @@ public class MemberServiceImpl implements IMemberService {
             List<Integer> idList = new ArrayList<>();
             String idString = "";
             for (Member member : memberIdList){
-                idList.add(member.getId());
-                idString += member.getId() + ",";
+                if (member != null){
+                    idList.add(member.getId());
+                    idString += member.getId() + ",";
+                }
             }
             if (idString.length() > 0){
                 idString = idString.substring(0,idString.length()-1);
             }
-            list = memberDao.listContactMembers(memberId, idList, idString);
+            if (StringUtils.isNotEmpty(idString)){
+                list = memberDao.listContactMembers(memberId, idList, idString);
+            }
         }
         ResponseModel model = new ResponseModel(0, page);
         model.setData(list);
@@ -502,4 +506,15 @@ public class MemberServiceImpl implements IMemberService {
         return memberDao.updateScore(score,memberId) == 1;
     }
 
+    @Override
+    public String atFormat(String content) {
+        List<String> nameList = AtUtil.getAtNameList(content);
+        for (String name : nameList){
+            Member member = this.findByName(name);
+            if (member != null){
+                content = AtUtil.replaceAt(content,name,member.getId());
+            }
+        }
+        return content;
+    }
 }

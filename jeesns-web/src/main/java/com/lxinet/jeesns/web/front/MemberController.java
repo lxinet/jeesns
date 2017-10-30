@@ -357,4 +357,22 @@ public class MemberController extends BaseController {
         }
         return messageService.save(loginMember.getId(), memberId, content);
     }
+
+    /**
+     * 系统信息
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/systemMessage",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
+    public String systemMessage(Model model){
+        Page page = new Page(request);
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1008, Const.INDEX_ERROR_FTL_PATH);
+        }
+        ResponseModel messageModel = messageService.systemMessage(page, loginMember.getId(),request.getContextPath());
+        model.addAttribute("messageModel",messageModel);
+        return MEMBER_FTL_PATH + "systemMessage";
+    }
 }
