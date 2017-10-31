@@ -161,7 +161,7 @@
                     </div>
                     <div class="panel-body article-hot-list">
                         <ul>
-                        <@wb_weibo_list sort='view-count' num=10 day=30; weibo>
+                        <@wb_weibo_list sort='favor' num=10 day=30; weibo>
                             <#list weiboList as weibo>
                                 <div class="comment">
                                     <a href="${basePath}/u/${weibo.member.id}" class="avatar" target="_blank">
