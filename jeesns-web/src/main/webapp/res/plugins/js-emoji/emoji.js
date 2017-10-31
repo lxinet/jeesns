@@ -8,7 +8,7 @@ $(function () {
     });
 })
 ;(function() {
-
+    var basePath = basePath;
 	var root = this;
 	var previous_emoji = root.EmojiConvertor;
 
@@ -29,24 +29,6 @@ $(function () {
 		 * @type {string}
 		 */
 		self.img_set = 'apple';
-
-		/**
-		 * Configuration details for different image sets. This includes a path to a directory containing the
-		 * individual images (`path`) and a URL to sprite sheets (`sheet`). All of these images can be found
-		 * in the [emoji-data repository]{@link https://github.com/iamcal/emoji-data}. Using a CDN for these
-		 * is not a bad idea.
-		 *
-		 * @memberof emoji
-		 * @type {object}
-		 */
-		self.img_sets = {
-			'apple' : {'path' : '/emoji-data/img-apple-64/', 'sheet' : '/emoji-data/sheet_apple_64.png', 'mask' : 1},
-			'google' : {'path' : '/emoji-data/img-google-64/', 'sheet' : '/emoji-data/sheet_google_64.png', 'mask' : 2},
-			'twitter' : {'path' : '/emoji-data/img-twitter-64/', 'sheet' : '/emoji-data/sheet_twitter_64.png', 'mask' : 4},
-			'emojione' : {'path' : '/emoji-data/img-emojione-64/', 'sheet' : '/emoji-data/sheet_emojione_64.png', 'mask' : 8},
-			'facebook' : {'path' : '/emoji-data/img-facebook-64/', 'sheet' : '/emoji-data/sheet_facebook_64.png', 'mask' : 16},
-			'messenger' : {'path' : '/emoji-data/img-messenger-64/', 'sheet' : '/emoji-data/sheet_messenger_64.png', 'mask' : 32},
-		};
 
 		/**
 		 * Use a CSS class instead of specifying a sprite or background image for
@@ -383,9 +365,7 @@ $(function () {
 		// use the variation image. otherwise, return it as a separate image (already calculated in `extra`).
 		// first we set up the params we'll use if we can't use a variation.
 		var img = self.find_image(idx, var_idx);
-		var title = self.include_title ? ' title="'+(actual || self.data[idx][3][0])+'"' : '';
 		var text  = self.include_text  ? wrapper+(actual || self.data[idx][3][0])+wrapper : '';
-
 		// custom image for this glyph?
 		if (self.data[idx][7]){
 			img.path = self.data[idx][7];
@@ -396,26 +376,11 @@ $(function () {
 
 		// if we're displaying a variation, include it in the text and remove the extra
 		if (img.is_var){
-			extra = '';
-			// add variation text
 			if (self.include_text && variation && variation.actual && variation.wrapper) {
 				text += variation.wrapper+variation.actual+variation.wrapper;
 			}
 		}
-
-		// output
-		if (self.supports_css) {
-			if (self.use_sheet && img.px != null && img.py != null){
-				var mul = 100 / (self.sheet_size - 1);
-				var style = 'background: url('+img.sheet+');background-position:'+(mul*img.px)+'% '+(mul*img.py)+'%;background-size:'+self.sheet_size+'00%';
-				return '<span class="emoji-outer emoji-sizer"><span class="emoji-inner" style="'+style+'"'+title+' data-codepoints="'+img.full_idx+'">'+text+'</span></span>'+extra;
-			}else if (self.use_css_imgs){
-				return '<span class="emoji emoji-'+idx+'"'+title+' data-codepoints="'+img.full_idx+'">'+text+'</span>'+extra;
-			}else{
-				return '<span class="emoji emoji-sizer" style="background-image:url('+img.path+')"'+title+' data-codepoints="'+img.full_idx+'">'+text+'</span>'+extra;
-			}
-		}
-		return '<img src="'+img.path+'" class="emoji" data-codepoints="'+img.full_idx+'" '+title+'/>'+extra;
+        return '<img title="'+text+'" src="'+basePath+'/res/plugins/emoji/emoji/'+img.full_idx+'.png" data-name="'+text+'" data-src="'+basePath+'/res/plugins/emoji/emoji/'+img.full_idx+'.png" width="16px" height="16px">';
 	};
 
 	// Finds the best image to display, taking into account image set precedence and obsoletes
@@ -444,33 +409,6 @@ $(function () {
 			out.is_var = true;
 			use_mask = var_data[3];
 		}
-
-		// this matches `build/build_image.php` `in emoji-data`, so that sheet and images modes always
-		// agree about the image to use.
-		var try_order = [self.img_set, 'apple', 'emojione', 'google', 'twitter', 'facebook', 'messenger'];
-
-		// for each image set, see if we have the image we need. otherwise check for an obsolete in
-		// that image set
-		for (var j=0; j<try_order.length; j++){
-			if (use_mask & self.img_sets[try_order[j]].mask){
-				out.path = self.img_sets[try_order[j]].path+out.full_idx+'.png' + self.img_suffix;
-				// if we're not changing glyph, use our base set for sheets - it has every glyph
-				out.sheet = self.img_sets[self.img_set].sheet;
-				return out;
-			}
-			if (self.obsoletes_data[out.full_idx]){
-				var ob_data = self.obsoletes_data[out.full_idx];
-
-				if (ob_data[3] & self.img_sets[try_order[j]].mask){
-					out.path = self.img_sets[try_order[j]].path+ob_data[0]+'.png' + self.img_suffix;
-					out.sheet = self.img_sets[try_order[j]].sheet;
-					out.px = ob_data[1];
-					out.py = ob_data[2];
-					return out;
-				}
-			}
-		}
-
 		return out;
 	};
 

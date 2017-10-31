@@ -13,6 +13,10 @@
     <link href="${basePath}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
     <link href="${basePath}/res/plugins/webuploader/webuploader.css" rel="stylesheet">
     <link href="${basePath}/res/plugins/gallery/css/blueimp-gallery.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        var basePath = "${basePath}";
+        var uploadServer = "${basePath}/uploadImage";
+    </script>
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
     <script src="${basePath}/res/common/js/respond.min.js"></script>
@@ -31,10 +35,6 @@
     <script src="${basePath}/res/common/js/jquery.timeago.js"></script>
     <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
-    <script type="text/javascript">
-        var basePath = "${basePath}";
-        var uploadServer = "${basePath}/uploadImage";
-    </script>
     <script src="${basePath}/res/plugins/webuploader/weiboUpload.js"></script>
 </head>
 <body class="gray-bg">

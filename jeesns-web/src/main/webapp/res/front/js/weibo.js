@@ -1,8 +1,8 @@
 var weibo = {
-    favor: function (_this, base) {
+    favor: function (_this, basePath) {
         var weiboId = _this.attr("weibo-id");
         $.ajax({
-            url: base + "/weibo/favor/" + weiboId,
+            url: basePath + "/weibo/favor/" + weiboId,
             type: "get",
             dataType: "json",
             timeout: 5000,
@@ -25,7 +25,7 @@ var weibo = {
     },
     commentList: function (weiboId, pageNo) {
         $.ajax({
-            url: base + "/weibo/commentList/" + weiboId + ".json?pageNo=" + pageNo,
+            url: basePath + "/weibo/commentList/" + weiboId + ".json?pageNo=" + pageNo,
             type: "get",
             dataType: "json",
             success: function (json) {
@@ -33,17 +33,17 @@ var weibo = {
                 var html = "";
                 for (var i = 0; i < data.length; i++) {
                     html += "<div class=\"comment\">" +
-                        "<a href=\"" + base + "/u/" + data[i].member.id + "\" class=\"avatar\">" +
-                        "<img src=\"" + base + data[i].member.avatar + "\" class=\"icon-4x\"></a><div class=\"content\">" +
+                        "<a href=\"" + basePath + "/u/" + data[i].member.id + "\" class=\"avatar\">" +
+                        "<img src=\"" + basePath + data[i].member.avatar + "\" class=\"icon-4x\"></a><div class=\"content\">" +
                         "<div class=\"pull-right text-muted\">" + data[i].createTime + "</div><div>" +
-                        "<a href=\"" + base + "/u/" + data[i].member.id + "\"><strong>" + data[i].member.name + "</strong></a></div>" +
+                        "<a href=\"" + basePath + "/u/" + data[i].member.id + "\"><strong>" + data[i].member.name + "</strong></a></div>" +
                         "<div class=\"text\">";
                     var weiboComment = data[i].weiboComment;
                     if (weiboComment != null){
-                        html += "<pre><code><p>引用“<a href='"+base+"/u/"+weiboComment.member.id+"'>"+weiboComment.member.name+"</a>”的评论</p>"+weiboComment.content+"</code></pre>";
+                        html += "<pre><code><p>引用“<a href='"+basePath+"/u/"+weiboComment.member.id+"'>"+weiboComment.member.name+"</a>”的评论</p>"+weiboComment.content+"</code></pre>";
                     }
                     html += data[i].content + "<div class='pull-right'><a href='javascript:weibo.commentReply("+data[i].id+")'>回复</a></div></div>" +
-                        "<form class=\"form-horizontal jeesns_form\" action=\""+base+"/weibo/comment/"+weiboId+"\" method=\"post\" id='comment-form-"+data[i].id+"' style='display: none;'>" +
+                        "<form class=\"form-horizontal jeesns_form\" action=\""+basePath+"/weibo/comment/"+weiboId+"\" method=\"post\" id='comment-form-"+data[i].id+"' style='display: none;'>" +
                         "<div class=\"form-group\"><input type='hidden' name='weiboCommentId' value='"+data[i].id+"'/>" +
                         "<textarea name=\"content\" class=\"form-control weibo-comment-content\" rows=\"2\" id=\""+data[i].id+"\" maxlength=\""+weiboPostMaxcontent+"\"></textarea></div>" +
                         "<div class=\"form-group comment-user\"><span class=\"mg-r-5 weibo-words-"+data[i].id+"\">0/"+weiboPostMaxcontent+"</span>" +
