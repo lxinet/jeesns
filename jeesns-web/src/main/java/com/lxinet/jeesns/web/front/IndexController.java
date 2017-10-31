@@ -28,6 +28,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.List;
 
 /**
@@ -131,12 +134,20 @@ public class IndexController extends BaseController{
 
 
     @RequestMapping(value = "newVersion",method = RequestMethod.GET)
-    @ResponseBody
-    public String newVersion(@RequestParam("callback") String callback){
+    public void newVersion(@RequestParam("callback") String callback){
+        response.setCharacterEncoding("utf-8");
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("LAST_SYSTEM_VERSION",Const.LAST_SYSTEM_VERSION);
         jsonObject.put("LAST_SYSTEM_UPDATE_TIME", Const.LAST_SYSTEM_UPDATE_TIME);
-        return callback + "(" + jsonObject.toString() + ")";
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        out.print(callback + "(" + jsonObject.toString() + ")");
+        out.flush();
+        out.close();
     }
     /**
      * 获取Emoji数据
