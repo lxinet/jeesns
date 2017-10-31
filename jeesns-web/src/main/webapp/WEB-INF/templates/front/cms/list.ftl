@@ -88,7 +88,7 @@
                     </div>
                     <div class="panel-body article-hot-list">
                         <ul>
-                        <@cms_article_list cid=0 sort='view-count' num=10 day=30; article>
+                        <@cms_article_list cid=0 sort='view_count' num=10 day=30; article>
                             <#list articleList as article>
                                 <li><i class="icon-hand-right main-text-color"></i> <a href="${basePath}/article/detail/${article.id}">${article.title}</a></li>
                             </#list>
