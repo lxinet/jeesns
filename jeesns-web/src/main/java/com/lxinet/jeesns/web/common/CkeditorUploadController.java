@@ -87,7 +87,7 @@ public class CkeditorUploadController extends BaseController {
                     out.flush();
                     out.close();
                 }
-                String imageUrl = path + newFileName;
+                String imageUrl = request.getContextPath() + path + newFileName;
                 out.print("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'"+imageUrl+"'," + "'');</script>");
                 out.flush();
                 out.close();
