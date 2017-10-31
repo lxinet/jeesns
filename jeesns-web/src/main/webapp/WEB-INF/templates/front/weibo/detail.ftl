@@ -11,6 +11,11 @@
     <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
     <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <link href="${basePath}/res/plugins/gallery/css/blueimp-gallery.min.css" rel="stylesheet">
+    <script>
+        var basePath = "${basePath}";
+        var weiboId = ${weibo.id};
+        var weiboPostMaxcontent = ${WEIBO_POST_MAXCONTENT};
+    </script>
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
     <script src="${basePath}/res/common/js/respond.min.js"></script>
@@ -23,11 +28,6 @@
     <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
     <script src="${basePath}/res/common/js/jquery.timeago.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
-    <script>
-        var base = "${basePath}";
-        var weiboId = ${weibo.id};
-        var weiboPostMaxcontent = ${WEIBO_POST_MAXCONTENT};
-    </script>
     <script src="${basePath}/res/front/js/weibo.js"></script>
 </head>
 <body class="gray-bg">
