@@ -157,10 +157,34 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
-                                                   href="#v102">v1.2.0-RC3</a><code class="pull-right">2017.10.16</code>
+                                                   href="#v102">v1.2.0-正式版</a><code class="pull-right">2017.10.31</code>
                                             </h5>
                                         </div>
                                         <div id="v120rc3" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复：发布微博提示undefined</li>
+                                                        <li>修复：微博不显示图片的问题</li>
+                                                        <li>修复：在windows系统下微博emoji不能显示问题</li>
+                                                        <li>修复：如果应用部署在子目录下，如/jeesns，使用富文本编辑器上传图片时，图片无法显示问题，临时修复方法</li>
+                                                        <li>修复：微博列表右边热门微博显示跟最新微博内容一样的问题</li>
+                                                        <li>修复：文章列表右边热门文章显示跟最新文章一样的问题</li>
+                                                        <li>增加：微博点赞、微博回复、文章回复、文章喜欢、群组帖子回复、群组帖子喜欢发送系统消息通知</li>
+                                                        <li>增加：微博发表、微博评论、文章发布、文章评论、群组发帖、群组帖子回复@用户发送系统通知功能</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v102">v1.2.0-RC3</a><code class="pull-right">2017.10.16</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v120rc3" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
