@@ -1,5 +1,9 @@
 "use strict";
 $(function () {
+	var basePath = window.basePath;
+	if (basePath == undefined){
+		console.log("请先在引用emoji.js文件请设置系统部署根目录变量名称basePath，如：var basePath = \"${basePath}\";")
+	}
     var emoji = new EmojiConvertor();
     $(".emoji-render-content").each(function(){
         var content = $(this).html();
@@ -8,7 +12,6 @@ $(function () {
     });
 })
 ;(function() {
-    var basePath = basePath;
 	var root = this;
 	var previous_emoji = root.EmojiConvertor;
 
