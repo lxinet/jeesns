@@ -168,12 +168,12 @@
                                     <div class="col-md-3">
                                         <div class="group-detail">
                                             <div class="group-logo">
-                                                <a href="${basePaht}/group/detail/${group.id}">
+                                                <a href="${basePath}/group/detail/${group.id}">
                                                     <img alt="image" class="img-rounded" src="${basePath}${group.logo}" width="100px" height="100px">
                                                 </a>
                                             </div>
                                             <div class="group-info">
-                                                <h4><strong><a href="${basePaht}/group/detail/${group.id}">${group.name}</a></strong></h4>
+                                                <h4><strong><a href="${basePath}/group/detail/${group.id}">${group.name}</a></strong></h4>
                                                 <p class="text-muted">
                                                     <#if group.introduce?length &gt; 50>
                                                     ${group.introduce?substring(0,50)}...
