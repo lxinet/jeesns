@@ -92,9 +92,6 @@ public class Page<T> implements Serializable {
 
     public void setTotalPage() {
         this.totalPage = (this.totalCount - 1) / this.pageSize + 1;
-        if(this.getPageNo() > this.getTotalPage()){
-            this.setPageNo(this.getTotalPage());
-        }
         if(this.getPageNo() == this.getTotalPage()){
             isLastPage = true;
         }else {
