@@ -1,6 +1,5 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.model.common.Link;
 import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.common.utils.EmojiUtil;
@@ -16,12 +15,10 @@ import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.service.group.IGroupTopicService;
 import com.lxinet.jeesns.service.member.IMemberFansService;
 import com.lxinet.jeesns.web.common.BaseController;
-//import com.lxinet.jeesns.cms.service.IArticleService;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.model.system.ActionLog;
 import com.lxinet.jeesns.service.system.IActionLogService;
-//import com.lxinet.jeesns.weibo.service.IWeiboService;
 import com.lxinet.jeesns.service.weibo.IWeiboService;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -30,8 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.List;
 
 /**
  * Created by zchuanzhao on 2016/11/25.

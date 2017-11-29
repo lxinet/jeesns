@@ -249,14 +249,18 @@ CREATE TABLE `tbl_picture` (
   `picture_id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11),
-  `type` INT(11) NOT NULL COMMENT '1是文章图片，2是群组帖子图片，3是微博图片',
+  `type` INT(11) NOT NULL COMMENT '1是文章图片，2是微博图片，3是群组帖子图片',
   `foreign_id` INT(11) COMMENT '外键ID',
   `path` VARCHAR(255) NOT NULL COMMENT '图片路径',
-  `thumbnail_path` VARCHAR(255) COMMENT '缩小的图片路径',
+  `thumbnail_path` VARCHAR(255) COMMENT '缩略图',
+  `small_path` VARCHAR(255) COMMENT '按比例缩小的图片',
   `md5` VARCHAR(32) NOT NULL,
   `width` INT(11) DEFAULT '0',
   `height` INT(11) DEFAULT '0',
   `description` VARCHAR(1000),
+  `comment_count` INT(11) DEFAULT '0',
+  `favor_count` INT(11) DEFAULT '0',
+  `album_id` INT(11),
   PRIMARY KEY (picture_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -344,6 +348,76 @@ CREATE TABLE `tbl_link` (
   `status` INT(1) DEFAULT '0' COMMENT '状态，0禁用，1启用',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_picture_album` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `member_id` INT(11),
+  `comment_count` INT(11) DEFAULT '0',
+  `favor_count` INT(11) DEFAULT '0',
+  `name` VARCHAR (32),
+  `description` VARCHAR (255),
+  `juri` INT(11) DEFAULT '0' COMMENT '权限，0所有人可以查看，1是相互关注的人可以查看，2是仅自己可以查看',
+  `cover` VARCHAR(255),
+  `type` INT(1) DEFAULT '0' COMMENT '0是普通相册，2是微博配图，5是头像相册',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_picture_album_comment` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `member_id` INT(11),
+  `picture_album_id` INT(11),
+  `content` VARCHAR (1000),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_picture_album_favor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `picture_album_id` int(11),
+  `member_id` int(11),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_picture_album_id_member_id` (`picture_album_id`,`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_tag` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `func_type` INT (11),
+  `name` VARCHAR (32),
+  `refer_count` INT (11) DEFAULT '0',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_picture_tag` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `picture_id` INT (11),
+  `tag_id` INT (11),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_picture_comment` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `member_id` INT(11),
+  `picture_id` INT(11),
+  `content` VARCHAR (1000),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_picture_favor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `picture_id` int(11),
+  `member_id` int(11),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_picture_album_id_member_id` (`picture_id`,`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

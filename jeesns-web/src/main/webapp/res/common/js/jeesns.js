@@ -6,8 +6,6 @@ $(function () {
     jeesns.jeesnsLink();
 });
 
-
-
 var jeesns = {
     reg_rule : {
         'selected'   :    /.+/,

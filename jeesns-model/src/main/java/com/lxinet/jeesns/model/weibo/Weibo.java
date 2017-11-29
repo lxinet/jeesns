@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.model.weibo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lxinet.jeesns.model.common.Picture;
+import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.model.member.Member;
 
 import java.io.Serializable;

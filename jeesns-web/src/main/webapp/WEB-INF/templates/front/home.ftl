@@ -135,6 +135,13 @@
                                         </div>
                                     </div>
                                 </a>
+                                <a href="${basePath}/picture/album/${member.id}">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            相册
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

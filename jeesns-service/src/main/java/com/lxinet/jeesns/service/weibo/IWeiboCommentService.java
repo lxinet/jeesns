@@ -17,7 +17,7 @@ public interface IWeiboCommentService {
 
     ResponseModel delete(Member loginMember,int id);
 
-    ResponseModel listByWeibo(Page page, int articleId);
+    ResponseModel listByWeibo(Page page, int weiboId);
 
     void deleteByWeibo(Integer weiboId);
 }

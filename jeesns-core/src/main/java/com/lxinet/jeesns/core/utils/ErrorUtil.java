@@ -21,6 +21,9 @@ public class ErrorUtil {
         errors.put(-1007,"微博不存在");
         errors.put(-1008,"请先登录");
         errors.put(-1009,"文章不存在");
+        errors.put(-1010,"相册不存在");
+        errors.put(-1011,"图片不存在");
+        errors.put(-1012,"无权查看此相册");
     }
 
     public static String error(Model model, Integer errorcode, String ftlPath){

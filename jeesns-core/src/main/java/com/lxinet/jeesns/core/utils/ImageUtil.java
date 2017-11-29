@@ -16,10 +16,11 @@ import java.util.Iterator;
  * Created by zchuanzhao on 2017/3/7.
  */
 public class ImageUtil {
-    private static String DEFAULT_PREVFIX = "thumb_";
-    private static Boolean DEFAULT_FORCE = false;
-    private static int DEFAULT_WIDTH = 160;
-    private static int DEFAULT_HEIGHT = 160;
+    public static final String THUMB_DEFAULT_PREVFIX = "thumb_";
+    public static final String SMALL_DEFAULT_PREVFIX = "small_";
+    private static final Boolean DEFAULT_FORCE = true;
+    private static final int DEFAULT_WIDTH = 260;
+    private static final int DEFAULT_HEIGHT = 260;
     private File targetFile;
 
     public String dealImage(File imgFile){
@@ -92,7 +93,7 @@ public class ImageUtil {
     }
 
     private String thumbnailImage(File imgFile, int w, int h, boolean force) {
-        return thumbnailImage(imgFile, w, h, DEFAULT_PREVFIX, force);
+        return thumbnailImage(imgFile, w, h, SMALL_DEFAULT_PREVFIX, force);
     }
 
     private String thumbnailImage(File imgFile) {
@@ -207,7 +208,7 @@ public class ImageUtil {
             BufferedImage bi = reader.read(0,param);
 
             // 保存新图片
-            fileName = imgFile.getName();
+            fileName = THUMB_DEFAULT_PREVFIX + imgFile.getName();
             String p = imgFile.getPath();
             thumbPath = p.substring(0, p.lastIndexOf(File.separator)) + File.separator + fileName;
             ImageIO.write(bi, suffix, new File(thumbPath));

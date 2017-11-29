@@ -1,7 +1,7 @@
 jQuery(function() {
     var $ = jQuery,    // just in case. Make sure it's not an other libaray.
 
-        $wrap = $('#weiboUploader'),
+        $wrap = $('#picUploader'),
 
         // 图片容器
         $queue = $('<ul class="filelist"></ul>')
@@ -53,7 +53,7 @@ jQuery(function() {
         })(),
 
         // WebUploader实例
-        weiboUploader;
+        picUploader;
 
     if ( !WebUploader.Uploader.support() ) {
         alert( 'Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
@@ -61,12 +61,12 @@ jQuery(function() {
     }
 
     // 实例化
-    weiboUploader = WebUploader.create({
+    picUploader = WebUploader.create({
         pick: {
             id: '#filePicker',
             label: '选择图片'
         },
-        dnd: '#weiboUploader .queueList',
+        dnd: '#picUploader .queueList',
         paste: document.body,
 
         accept: {
@@ -88,7 +88,7 @@ jQuery(function() {
     });
 
     // 添加“添加文件”的按钮，
-    weiboUploader.addButton({
+    picUploader.addButton({
         id: '#filePicker2',
         label: '继续添加'
     });
@@ -131,7 +131,7 @@ jQuery(function() {
             showError( file.statusText );
         } else {
             $wrap.text( '预览中' );
-            weiboUploader.makeThumb( file, function( error, src ) {
+            picUploader.makeThumb( file, function( error, src ) {
                 if ( error ) {
                     $wrap.text( '不能预览' );
                     return;
@@ -186,7 +186,7 @@ jQuery(function() {
 
             switch ( index ) {
                 case 0:
-                    weiboUploader.removeFile( file );
+                    picUploader.removeFile( file );
                     return;
 
                 case 1:
@@ -250,14 +250,14 @@ jQuery(function() {
             text = '选中' + fileCount + '张图片，共' +
                 WebUploader.formatSize( fileSize ) + '。';
         } else if ( state === 'confirm' ) {
-            stats = weiboUploader.getStats();
+            stats = picUploader.getStats();
             if ( stats.uploadFailNum ) {
                 text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
                     stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
             }
 
         } else {
-            stats = weiboUploader.getStats();
+            stats = picUploader.getStats();
             text = '共' + fileCount + '张（' +
                 WebUploader.formatSize( fileSize )  +
                 '），已上传' + stats.successNum + '张';
@@ -287,7 +287,7 @@ jQuery(function() {
                 $queue.parent().removeClass('filled');
                 $queue.hide();
                 $statusBar.addClass( 'element-invisible' );
-                weiboUploader.refresh();
+                picUploader.refresh();
                 break;
 
             case 'ready':
@@ -296,7 +296,7 @@ jQuery(function() {
                 $queue.parent().addClass('filled');
                 $queue.show();
                 $statusBar.removeClass('element-invisible');
-                weiboUploader.refresh();
+                picUploader.refresh();
                 break;
 
             case 'uploading':
@@ -314,14 +314,14 @@ jQuery(function() {
                 $progress.hide();
                 $upload.text( '开始上传' ).addClass( 'disabled' );
 
-                stats = weiboUploader.getStats();
+                stats = picUploader.getStats();
                 if ( stats.successNum && !stats.uploadFailNum ) {
                     setState( 'finish' );
                     return;
                 }
                 break;
             case 'finish':
-                stats = weiboUploader.getStats();
+                stats = picUploader.getStats();
                 if ( stats.successNum ) {
                     $upload.hide();
                 } else {
@@ -335,7 +335,7 @@ jQuery(function() {
         updateStatus();
     }
 
-    weiboUploader.onUploadProgress = function( file, percentage ) {
+    picUploader.onUploadProgress = function( file, percentage ) {
         var $li = $('#'+file.id),
             $percent = $li.find('.progress span');
 
@@ -344,7 +344,7 @@ jQuery(function() {
         updateTotalProgress();
     };
 
-    weiboUploader.onFileQueued = function( file ) {
+    picUploader.onFileQueued = function( file ) {
         fileCount++;
         fileSize += file.size;
 
@@ -358,7 +358,7 @@ jQuery(function() {
         updateTotalProgress();
     };
 
-    weiboUploader.onFileDequeued = function( file ) {
+    picUploader.onFileDequeued = function( file ) {
         fileCount--;
         fileSize -= file.size;
 
@@ -371,7 +371,7 @@ jQuery(function() {
 
     };
 
-    weiboUploader.on( 'all', function( type ) {
+    picUploader.on( 'all', function( type ) {
         var stats;
         switch( type ) {
             case 'uploadFinished':
@@ -389,11 +389,11 @@ jQuery(function() {
         }
     });
 
-    weiboUploader.onError = function( code ) {
+    picUploader.onError = function( code ) {
         jeesnsDialog.errorTips( 'Eroor: ' + code );
     };
 
-    weiboUploader.on( 'uploadSuccess', function( file , response) {
+    picUploader.on( 'uploadSuccess', function( file , response) {
         var json = response;
         if(json.code == 0){
             var weiboPictures = $("#weibo-pictures").val();
@@ -414,16 +414,16 @@ jQuery(function() {
         }
 
         if ( state === 'ready' ) {
-            weiboUploader.upload();
+            picUploader.upload();
         } else if ( state === 'paused' ) {
-            weiboUploader.upload();
+            picUploader.upload();
         } else if ( state === 'uploading' ) {
-            weiboUploader.stop();
+            picUploader.stop();
         }
     });
 
     $info.on( 'click', '.retry', function() {
-        weiboUploader.retry();
+        picUploader.retry();
     } );
 
     $info.on( 'click', '.ignore', function() {
