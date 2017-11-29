@@ -74,3 +74,36 @@ ALTER TABLE `tbl_picture` ADD COLUMN `small_path` VARCHAR(255);
 ALTER TABLE `tbl_picture` ADD COLUMN `album_id` INT(11);
 UPDATE tbl_picture SET type = 2 where type = 3;
 UPDATE tbl_picture SET small_path = thumbnail_path where small_path IS NULL;
+
+
+
+DROP PROCEDURE IF EXISTS proc_picture_album;
+DELIMITER ;;
+CREATE PROCEDURE proc_picture_album()
+  BEGIN
+    DECLARE Done INT DEFAULT 0;
+    DECLARE memberid INT;
+    DECLARE rs CURSOR FOR SELECT id FROM tbl_member;
+    DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET Done = 1;
+    OPEN rs;
+    FETCH NEXT FROM rs INTO memberid;
+    /* 遍历数据表 */
+    REPEAT
+      IF NOT Done THEN
+        insert into tbl_picture_album(id,create_time,update_time,member_id,name,juri,type)
+        values(memberid,now(),now(),memberid,"微博配图",0,2);
+        update tbl_picture set album_id=memberid where member_id=memberid;
+      END IF;
+
+      FETCH NEXT FROM rs INTO memberid;
+
+    UNTIL Done END REPEAT;
+
+    /* 关闭游标 */
+    CLOSE rs;
+  end;;
+DELIMITER ;
+update tbl_picture set album_id=null;
+delete from tbl_picture_album;
+call proc_picture_album()
+
