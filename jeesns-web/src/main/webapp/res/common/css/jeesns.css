@@ -3013,22 +3013,22 @@ del {
 }
 
 
-#weiboUploader .queueList {
+#picUploader .queueList {
   margin: 20px;
   border: 3px dashed #e6e6e6;
 }
 
-#weiboUploader .queueList.filled {
+#picUploader .queueList.filled {
   padding: 17px;
   margin: 0;
   border: 3px dashed transparent;
 }
 
-#weiboUploader .queueList.webuploader-dnd-over {
+#picUploader .queueList.webuploader-dnd-over {
   border: 3px dashed #999999;
 }
 
-#weiboUploader p {
+#picUploader p {
   margin: 0;
 }
 
@@ -3038,7 +3038,7 @@ del {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-#weiboUploader .placeholder {
+#picUploader .placeholder {
   min-height: 150px;
   padding-top: 50px;
   text-align: center;
@@ -3047,7 +3047,7 @@ del {
   position: relative;
 }
 
-#weiboUploader .placeholder .webuploader-pick {
+#picUploader .placeholder .webuploader-pick {
   font-size: 18px;
   background: #00b7ee;
   border-radius: 3px;
@@ -3061,11 +3061,11 @@ del {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-#weiboUploader .placeholder .webuploader-pick-hover {
+#picUploader .placeholder .webuploader-pick-hover {
   background: #00a2d4;
 }
 
-#weiboUploader .placeholder .flashTip {
+#picUploader .placeholder .flashTip {
   color: #666666;
   font-size: 12px;
   position: absolute;
@@ -3074,22 +3074,22 @@ del {
   bottom: 20px;
 }
 
-#weiboUploader .placeholder .flashTip a {
+#picUploader .placeholder .flashTip a {
   color: #0785d1;
   text-decoration: none;
 }
 
-#weiboUploader .placeholder .flashTip a:hover {
+#picUploader .placeholder .flashTip a:hover {
   text-decoration: underline;
 }
 
-#weiboUploader .filelist {
+#picUploader .filelist {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-#weiboUploader .filelist:after {
+#picUploader .filelist:after {
   content: '';
   display: block;
   width: 0;
@@ -3098,7 +3098,7 @@ del {
   clear: both;
 }
 
-#weiboUploader .filelist li {
+#picUploader .filelist li {
   width: 110px;
   height: 110px;
   background: url(../images/upload_bg.png) no-repeat;
@@ -3111,12 +3111,12 @@ del {
   font-size: 12px;
 }
 
-#weiboUploader .filelist li p.log {
+#picUploader .filelist li p.log {
   position: relative;
   top: -45px;
 }
 
-#weiboUploader .filelist li p.title {
+#picUploader .filelist li p.title {
   position: absolute;
   top: 0;
   left: 0;
@@ -3129,7 +3129,7 @@ del {
   text-align: left;
 }
 
-#weiboUploader .filelist li p.progress {
+#picUploader .filelist li p.progress {
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -3143,7 +3143,7 @@ del {
   -webkit-box-shadow: 0 0 0;
 }
 
-#weiboUploader .filelist li p.progress span {
+#picUploader .filelist li p.progress span {
   display: none;
   overflow: hidden;
   width: 0;
@@ -3192,7 +3192,7 @@ del {
   }
 }
 
-#weiboUploader .filelist li p.imgWrap {
+#picUploader .filelist li p.imgWrap {
   position: relative;
   z-index: 2;
   line-height: 110px;
@@ -3214,11 +3214,11 @@ del {
   transition: 200ms ease-out;
 }
 
-#weiboUploader .filelist li img {
+#picUploader .filelist li img {
   width: 100%;
 }
 
-#weiboUploader .filelist li p.error {
+#picUploader .filelist li p.error {
   background: #f43838;
   color: #fff;
   position: absolute;
@@ -3230,7 +3230,7 @@ del {
   z-index: 100;
 }
 
-#weiboUploader .filelist li .success {
+#picUploader .filelist li .success {
   display: block;
   position: absolute;
   left: 0;
@@ -3241,7 +3241,7 @@ del {
   background: url(../images/upload_success.png) no-repeat right bottom;
 }
 
-#weiboUploader .filelist div.file-panel {
+#picUploader .filelist div.file-panel {
   position: absolute;
   height: 0;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#80000000', endColorstr='#80000000') \0;
@@ -3253,7 +3253,7 @@ del {
   z-index: 300;
 }
 
-#weiboUploader .filelist div.file-panel span {
+#picUploader .filelist div.file-panel span {
   width: 24px;
   height: 24px;
   display: inline;
@@ -3265,31 +3265,31 @@ del {
   cursor: pointer;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateLeft {
+#picUploader .filelist div.file-panel span.rotateLeft {
   background-position: 0 -24px;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateLeft:hover {
+#picUploader .filelist div.file-panel span.rotateLeft:hover {
   background-position: 0 0;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateRight {
+#picUploader .filelist div.file-panel span.rotateRight {
   background-position: -24px -24px;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateRight:hover {
+#picUploader .filelist div.file-panel span.rotateRight:hover {
   background-position: -24px 0;
 }
 
-#weiboUploader .filelist div.file-panel span.cancel {
+#picUploader .filelist div.file-panel span.cancel {
   background-position: -48px -24px;
 }
 
-#weiboUploader .filelist div.file-panel span.cancel:hover {
+#picUploader .filelist div.file-panel span.cancel:hover {
   background-position: -48px 0;
 }
 
-#weiboUploader .statusBar {
+#picUploader .statusBar {
   height: 63px;
   border-top: 1px solid #dadada;
   padding: 0 20px;
@@ -3298,7 +3298,7 @@ del {
   position: relative;
 }
 
-#weiboUploader .statusBar .progress {
+#picUploader .statusBar .progress {
   border: 1px solid #1483d8;
   width: 198px;
   background: #fff;
@@ -3312,7 +3312,7 @@ del {
   margin: 0 10px 0 0;
 }
 
-#weiboUploader .statusBar .progress span.percentage {
+#picUploader .statusBar .progress span.percentage {
   width: 0;
   height: 100%;
   left: 0;
@@ -3321,18 +3321,18 @@ del {
   position: absolute;
 }
 
-#weiboUploader .statusBar .progress span.text {
+#picUploader .statusBar .progress span.text {
   position: relative;
   z-index: 10;
 }
 
-#weiboUploader .statusBar .info {
+#picUploader .statusBar .info {
   display: inline-block;
   font-size: 14px;
   color: #666666;
 }
 
-#weiboUploader .statusBar .btns {
+#picUploader .statusBar .btns {
   position: absolute;
   top: 10px;
   right: 20px;
@@ -3344,10 +3344,10 @@ del {
   float: left;
 }
 
-#weiboUploader .statusBar .btns .webuploader-pick,
-#weiboUploader .statusBar .btns .uploadBtn,
-#weiboUploader .statusBar .btns .uploadBtn.state-uploading,
-#weiboUploader .statusBar .btns .uploadBtn.state-paused {
+#picUploader .statusBar .btns .webuploader-pick,
+#picUploader .statusBar .btns .uploadBtn,
+#picUploader .statusBar .btns .uploadBtn.state-uploading,
+#picUploader .statusBar .btns .uploadBtn.state-paused {
   background: #ffffff;
   border: 1px solid #cfcfcf;
   color: #565656;
@@ -3360,24 +3360,24 @@ del {
   float: left;
 }
 
-#weiboUploader .statusBar .btns .webuploader-pick-hover,
-#weiboUploader .statusBar .btns .uploadBtn:hover,
-#weiboUploader .statusBar .btns .uploadBtn.state-uploading:hover,
-#weiboUploader .statusBar .btns .uploadBtn.state-paused:hover {
+#picUploader .statusBar .btns .webuploader-pick-hover,
+#picUploader .statusBar .btns .uploadBtn:hover,
+#picUploader .statusBar .btns .uploadBtn.state-uploading:hover,
+#picUploader .statusBar .btns .uploadBtn.state-paused:hover {
   background: #f0f0f0;
 }
 
-#weiboUploader .statusBar .btns .uploadBtn {
+#picUploader .statusBar .btns .uploadBtn {
   background: #00b7ee;
   color: #fff;
   border-color: transparent;
 }
 
-#weiboUploader .statusBar .btns .uploadBtn:hover {
+#picUploader .statusBar .btns .uploadBtn:hover {
   background: #00a2d4;
 }
 
-#weiboUploader .statusBar .btns .uploadBtn.disabled {
+#picUploader .statusBar .btns .uploadBtn.disabled {
   pointer-events: none;
   opacity: 0.6;
 }

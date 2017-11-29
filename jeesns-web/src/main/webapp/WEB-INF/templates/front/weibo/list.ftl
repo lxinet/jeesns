@@ -60,7 +60,7 @@
                         </div>
                     </form>
                     <div class="weibo-picture-area" style="display: none;">
-                        <div id="weiboUploader">
+                        <div id="picUploader">
                             <div class="queueList">
                                 <div id="dndArea" class="placeholder">
                                     <div id="filePicker" class="webuploader-container">
@@ -136,7 +136,7 @@
                                     <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
                             <#else>
                                 <a class="text-success weibo-favor" weibo-id="${weibo.id}" href="javascript:void(0);">
-                                    <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
+                                    <i class="icon-thumbs-up"></i> ${weibo.favor}</a>
                             </#if>
                                 <a href="${basePath}/weibo/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
                                 <a href="${basePath}/weibo/detail/${weibo.id}">查看详情</a>
@@ -184,7 +184,7 @@
                                                 <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
                                         <#else>
                                             <a class="text-success weibo-favor" weibo-id="${weibo.id}">
-                                                <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
+                                                <i class="icon-thumbs-up"></i> ${weibo.favor}</a>
                                         </#if>
                                             <a href="${basePath}/weibo/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
                                             <a href="${basePath}/weibo/detail/${weibo.id}">查看详情</a>

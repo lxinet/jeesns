@@ -8,7 +8,7 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
-import com.lxinet.jeesns.service.common.IPictureService;
+import com.lxinet.jeesns.service.picture.IPictureService;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
@@ -46,7 +46,6 @@ public class WeiboServiceImpl implements IWeiboService {
     @Override
     public Weibo findById(int id, int memberId) {
         Weibo weibo = weiboDao.findById(id,memberId);
-//        weibo = this.atFormat(weibo);
         return weibo;
     }
 
@@ -76,7 +75,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if(weiboDao.save(weibo) == 1){
             //@会员处理并发送系统消息
             messageService.atDeal(loginMember.getId(),content, AppTag.WEIBO, MessageType.WEIBO_REFER,weibo.getId());
-            pictureService.update(weibo.getId(),pictures);
+            pictureService.update(weibo.getId(),pictures, content);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.POST_WEIBO,"", ActionLogType.WEIBO.getValue(),weibo.getId());
             //发布微博奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.RELEASE_WEIBO, weibo.getId());
@@ -143,6 +142,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if(weiboFavorService.find(weiboId,loginMember.getId()) == null){
             //增加
             weiboDao.favor(weiboId,1);
+            weibo.setFavor(weibo.getFavor() + 1);
             weiboFavorService.save(weiboId,loginMember.getId());
             message = "点赞成功";
             responseModel = new ResponseModel(0,message);
@@ -152,7 +152,8 @@ public class WeiboServiceImpl implements IWeiboService {
             messageService.diggDeal(loginMember.getId(),weibo.getMemberId(),AppTag.WEIBO,MessageType.WEIBO_ZAN,weibo.getId());
         }else {
             //减少
-            int num = weiboDao.favor(weiboId,-1);
+            weiboDao.favor(weiboId,-1);
+            weibo.setFavor(weibo.getFavor() - 1);
             weiboFavorService.delete(weiboId,loginMember.getId());
             message = "取消赞成功";
             //扣除积分

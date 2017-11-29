@@ -101,6 +101,15 @@
                     <li><a href="${managePath}/weibo/index" module="weibo"><i class="fa fa-circle-o"></i>微博列表</a></li>
                 </ul>
             </li>
+            <li class="treeview" module="picture">
+                <a href="#">
+                    <i class="fa fa-picture-o"></i> <span>图库管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${managePath}/tag/list/7" module="picture"><i class="fa fa-circle-o"></i>标签管理</a></li>
+                </ul>
+            </li>
             <li class="treeview" module="common">
                 <a href="#">
                     <i class="fa fa-paper-plane"></i> <span>基础模块</span>
@@ -116,11 +125,13 @@
 </aside>
 <script>
     $(function () {
-       var uri = window.document.location.pathname;
+        $(".sidebar-menu .treeview-menu a").click(function () {
+            sessionStorage.setItem("module", $(this).attr("module"))
+        })
         $(".treeview").each(function(){
             var _this = $(this);
-            var module = _this.attr("module") + "/";
-            if(uri.indexOf(module) > -1){
+            var module = _this.attr("module");
+            if(sessionStorage.module == module){
                 _this.addClass("active");
             }else {
                 _this.removeClass("active");
@@ -128,7 +139,7 @@
         });
         $(".treeview-menu li").each(function(){
             var _this = $(this);
-            if(uri == _this.find("a").attr("module")){
+            if(sessionStorage.module == module){
                 _this.addClass("active");
             }else {
                 _this.removeClass("active");

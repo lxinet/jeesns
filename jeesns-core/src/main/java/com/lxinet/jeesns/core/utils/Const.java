@@ -47,4 +47,9 @@ public class Const {
 	 */
 	public static final String DEFAULT_AVATAR = "/res/common/images/default-avatar.png";
 
+	/**
+	 * 默认相册封面
+	 */
+	public static final String DEFAULT_PICTURE_COVER = "/res/common/images/empty_album.png";
+
 }

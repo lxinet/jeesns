@@ -1,9 +1,11 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.model.common.Picture;
+import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResponseModel;
-import com.lxinet.jeesns.service.common.IPictureService;
+import com.lxinet.jeesns.model.picture.PictureAlbum;
+import com.lxinet.jeesns.service.picture.IPictureAlbumService;
+import com.lxinet.jeesns.service.picture.IPictureService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ImageUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
@@ -35,6 +37,8 @@ public class UploadController extends BaseController {
 	private IMemberService memberService;
 	@Resource
 	private IPictureService pictureService;
+	@Resource
+	private IPictureAlbumService pictureAlbumService;
 
 	@RequestMapping("${managePath}/uploadImage")
 	@ResponseBody
@@ -51,7 +55,7 @@ public class UploadController extends BaseController {
 	@RequestMapping("/weiboUploadImage")
 	@ResponseBody
 	public Object weiboUploadImage(@RequestParam(value = "file", required = false) MultipartFile file) {
-		return uploadImage(file, 3);
+		return uploadImage(file, 2);
 	}
 
 	/**
@@ -79,10 +83,14 @@ public class UploadController extends BaseController {
 	/**
 	 * 保存图片
 	 * @param file
-	 * @param type 0是普通图片，1是文章图片，2是群组帖子图片，3是微博图片，11是缩略图
+	 * @param type 0是普通图片，1是文章图片，2是微博图片，3是群组帖子图片，11是缩略图
 	 * @return
 	 */
 	private Object uploadImage(MultipartFile file, int type) {
+		Member loginMember = MemberUtil.getLoginMember(request);
+		if (loginMember == null){
+			return new ResponseModel(-1,"请先登录");
+		}
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
 		if(suffix == null || (!".png".equals(suffix.toLowerCase()) && !".jpg".equals(suffix.toLowerCase()) && !".gif".equals(suffix.toLowerCase()) && !".jpeg".equals(suffix.toLowerCase()) && !".bmp".equals(suffix.toLowerCase()))) {
@@ -107,23 +115,31 @@ public class UploadController extends BaseController {
 		}
 		//上传成功的图片URL，如果是文章、群组帖子、微博图片，则返回图片ID
 		String url = "";
-		if(type == 3){
+		if(type == 2){
 			try {
+				PictureAlbum pictureAlbum = pictureAlbumService.findWeiboAlbum(loginMember.getId());
+				if (pictureAlbum == null){
+					pictureAlbum = new PictureAlbum();
+					pictureAlbum.setType(2);
+					pictureAlbum.setName("微博配图");
+					pictureAlbum.setMemberId(loginMember.getId());
+					pictureAlbum.setJuri(0);
+					pictureAlbum.setCover(path + ImageUtil.SMALL_DEFAULT_PREVFIX + newFileName);
+					pictureAlbumService.save(pictureAlbum);
+				}
 				BufferedImage sourceImg = ImageIO.read(new FileInputStream(targetFile));
 				Picture picture = new Picture();
 				picture.setWidth(sourceImg.getWidth());
 				picture.setHeight(sourceImg.getHeight());
 				picture.setMd5(DigestUtils.md5Hex(new FileInputStream(targetFile)));
-				//生成缩略图
-				String thumbnailName = new ImageUtil().dealImage(targetFile);
-				//如果缩略图生成失败，则用原图做缩略图
-				if(StringUtils.isEmpty(thumbnailName)){
-					thumbnailName = newFileName;
-				}
+				//生成缩略图和小图片
+				new ImageUtil().dealImage(targetFile);
 				picture.setPath(path + newFileName);
-				picture.setThumbnailPath(path + thumbnailName);
+				picture.setThumbnailPath(path + ImageUtil.THUMB_DEFAULT_PREVFIX + newFileName);
+				picture.setSmallPath(path + ImageUtil.SMALL_DEFAULT_PREVFIX + newFileName);
 				picture.setType(type);
-				picture.setForeignId(0);
+				picture.setMemberId(loginMember.getId());
+				picture.setAlbumId(pictureAlbum.getId());
 				pictureService.save(picture);
 				url = String.valueOf(picture.getPictureId());
 			} catch (Exception e) {

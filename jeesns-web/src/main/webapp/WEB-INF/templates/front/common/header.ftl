@@ -16,6 +16,7 @@
                 <li><a href="${basePath}/weibo/list">${WEIBO_ALIAS}</a></li>
                 <li><a href="${basePath}/group/">${GROUP_ALIAS}</a></li>
                 <li><a href="${basePath}/action/list">动态</a></li>
+                <li><a href="${basePath}/picture/">图库</a></li>
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <div class="nav navbar-nav navbar-nav-right">

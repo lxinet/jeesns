@@ -1,4 +1,4 @@
-.main-content{
+.main-content {
     min-height: 600px;
 }
 
@@ -18,15 +18,15 @@ a {
     color: #0499e2;
 }
 
-.no-border{
+.no-border {
     border: none;
 }
 
-.float-left{
+.float-left {
     float: left;
 }
 
-.float-right{
+.float-right {
     float: right;
 }
 
@@ -34,19 +34,19 @@ a {
     padding-right: 10px;
 }
 
-.m-t-n4{
+.m-t-n4 {
     margin-top: -4px;
 }
 
-.m-t-10{
+.m-t-10 {
     margin-top: 10px;
 }
 
-.m-b-10{
+.m-b-10 {
     margin-bottom: 10px;
 }
 
-.text-align-center{
+.text-align-center {
     text-align: center;
 }
 
@@ -74,9 +74,10 @@ a {
     margin: 0 15px;
 }
 
-.navbar-inverse .navbar-nav-right{
+.navbar-inverse .navbar-nav-right {
     margin-top: -5px;
 }
+
 .navbar-inverse .navbar-nav-right > li > a {
     color: #428bca;
     font-size: 14px;
@@ -88,8 +89,8 @@ a {
     background-color: #393D49;
 }
 
-.m-navbar-header{
-    margin-right: 0!important;
+.m-navbar-header {
+    margin-right: 0 !important;
 }
 
 .jeesns-logo {
@@ -269,7 +270,7 @@ a {
     width: 100%;
     margin: 0 auto;
     padding: 20px 0;
-    background-color: hsla(0,0%,71%,.1);
+    background-color: hsla(0, 0%, 71%, .1);
     transition: .2s ease;
     height: 200px;
     border-radius: 4px;
@@ -277,8 +278,8 @@ a {
     border: 1px solid #e6e6e6;
 }
 
-.group-list .group-detail:hover{
-    box-shadow:0 5px 20px rgba(0,0,0,.1)
+.group-list .group-detail:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .1)
 }
 
 .group-list .group-detail .group-logo {
@@ -330,46 +331,47 @@ a {
     float: left;
 }
 
-.group .group-detail p .text-right{
+.group .group-detail p .text-right {
     float: right;
 }
 
-.group-topic-list{
+.group-topic-list {
     width: 100%;
     margin-bottom: 20px;
     padding: 20px;
     float: left;
 }
-.group-detail-fans .list{
+
+.group-detail-fans .list {
     width: 100%;
     padding: 10px 0;
     margin: 0 auto;
     text-align: center;
 }
-.group-detail-fans .list .fan{
+
+.group-detail-fans .list .fan {
     text-align: center;
     width: 80px;
     float: left;
     margin-bottom: 10px;
 }
 
-
-#weiboUploader .queueList {
+#picUploader .queueList {
     margin: 20px;
     border: 3px dashed #e6e6e6;
 }
 
-#weiboUploader .queueList.filled {
+#picUploader .queueList.filled {
     padding: 17px;
     margin: 0;
     border: 3px dashed transparent;
 }
 
-#weiboUploader .queueList.webuploader-dnd-over {
+#picUploader .queueList.webuploader-dnd-over {
     border: 3px dashed #999999;
 }
 
-#weiboUploader p {
+#picUploader p {
     margin: 0;
 }
 
@@ -379,7 +381,7 @@ a {
     clip: rect(1px, 1px, 1px, 1px);
 }
 
-#weiboUploader .placeholder {
+#picUploader .placeholder {
     min-height: 150px;
     padding-top: 50px;
     text-align: center;
@@ -388,7 +390,7 @@ a {
     position: relative;
 }
 
-#weiboUploader .placeholder .webuploader-pick {
+#picUploader .placeholder .webuploader-pick {
     font-size: 18px;
     background: #00b7ee;
     border-radius: 3px;
@@ -402,11 +404,11 @@ a {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-#weiboUploader .placeholder .webuploader-pick-hover {
+#picUploader .placeholder .webuploader-pick-hover {
     background: #00a2d4;
 }
 
-#weiboUploader .placeholder .flashTip {
+#picUploader .placeholder .flashTip {
     color: #666666;
     font-size: 12px;
     position: absolute;
@@ -415,22 +417,22 @@ a {
     bottom: 20px;
 }
 
-#weiboUploader .placeholder .flashTip a {
+#picUploader .placeholder .flashTip a {
     color: #0785d1;
     text-decoration: none;
 }
 
-#weiboUploader .placeholder .flashTip a:hover {
+#picUploader .placeholder .flashTip a:hover {
     text-decoration: underline;
 }
 
-#weiboUploader .filelist {
+#picUploader .filelist {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-#weiboUploader .filelist:after {
+#picUploader .filelist:after {
     content: '';
     display: block;
     width: 0;
@@ -439,7 +441,7 @@ a {
     clear: both;
 }
 
-#weiboUploader .filelist li {
+#picUploader .filelist li {
     width: 110px;
     height: 110px;
     background: url(../images/upload_bg.png) no-repeat;
@@ -452,12 +454,12 @@ a {
     font-size: 12px;
 }
 
-#weiboUploader .filelist li p.log {
+#picUploader .filelist li p.log {
     position: relative;
     top: -45px;
 }
 
-#weiboUploader .filelist li p.title {
+#picUploader .filelist li p.title {
     position: absolute;
     top: 0;
     left: 0;
@@ -470,7 +472,7 @@ a {
     text-align: left;
 }
 
-#weiboUploader .filelist li p.progress {
+#picUploader .filelist li p.progress {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -484,7 +486,7 @@ a {
     -webkit-box-shadow: 0 0 0;
 }
 
-#weiboUploader .filelist li p.progress span {
+#picUploader .filelist li p.progress span {
     display: none;
     overflow: hidden;
     width: 0;
@@ -503,7 +505,7 @@ a {
     -webkit-transform: translateZ(0);
 }
 
-.index-article{
+.index-article {
     text-align: center;
     min-height: 265px;
 }
@@ -535,7 +537,7 @@ a {
     }
 }
 
-#weiboUploader .filelist li p.imgWrap {
+#picUploader .filelist li p.imgWrap {
     position: relative;
     z-index: 2;
     line-height: 110px;
@@ -557,11 +559,11 @@ a {
     transition: 200ms ease-out;
 }
 
-#weiboUploader .filelist li img {
+#picUploader .filelist li img {
     width: 100%;
 }
 
-#weiboUploader .filelist li p.error {
+#picUploader .filelist li p.error {
     background: #f43838;
     color: #fff;
     position: absolute;
@@ -573,7 +575,7 @@ a {
     z-index: 100;
 }
 
-#weiboUploader .filelist li .success {
+#picUploader .filelist li .success {
     display: block;
     position: absolute;
     left: 0;
@@ -584,7 +586,7 @@ a {
     background: url(../images/upload_success.png) no-repeat right bottom;
 }
 
-#weiboUploader .filelist div.file-panel {
+#picUploader .filelist div.file-panel {
     position: absolute;
     height: 0;
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#80000000', endColorstr='#80000000') \0;
@@ -596,7 +598,7 @@ a {
     z-index: 300;
 }
 
-#weiboUploader .filelist div.file-panel span {
+#picUploader .filelist div.file-panel span {
     width: 24px;
     height: 24px;
     display: inline;
@@ -608,31 +610,31 @@ a {
     cursor: pointer;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateLeft {
+#picUploader .filelist div.file-panel span.rotateLeft {
     background-position: 0 -24px;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateLeft:hover {
+#picUploader .filelist div.file-panel span.rotateLeft:hover {
     background-position: 0 0;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateRight {
+#picUploader .filelist div.file-panel span.rotateRight {
     background-position: -24px -24px;
 }
 
-#weiboUploader .filelist div.file-panel span.rotateRight:hover {
+#picUploader .filelist div.file-panel span.rotateRight:hover {
     background-position: -24px 0;
 }
 
-#weiboUploader .filelist div.file-panel span.cancel {
+#picUploader .filelist div.file-panel span.cancel {
     background-position: -48px -24px;
 }
 
-#weiboUploader .filelist div.file-panel span.cancel:hover {
+#picUploader .filelist div.file-panel span.cancel:hover {
     background-position: -48px 0;
 }
 
-#weiboUploader .statusBar {
+#picUploader .statusBar {
     height: 63px;
     border-top: 1px solid #dadada;
     padding: 0 20px;
@@ -641,7 +643,7 @@ a {
     position: relative;
 }
 
-#weiboUploader .statusBar .progress {
+#picUploader .statusBar .progress {
     border: 1px solid #1483d8;
     width: 198px;
     background: #fff;
@@ -655,7 +657,7 @@ a {
     margin: 0 10px 0 0;
 }
 
-#weiboUploader .statusBar .progress span.percentage {
+#picUploader .statusBar .progress span.percentage {
     width: 0;
     height: 100%;
     left: 0;
@@ -664,18 +666,18 @@ a {
     position: absolute;
 }
 
-#weiboUploader .statusBar .progress span.text {
+#picUploader .statusBar .progress span.text {
     position: relative;
     z-index: 10;
 }
 
-#weiboUploader .statusBar .info {
+#picUploader .statusBar .info {
     display: inline-block;
     font-size: 14px;
     color: #666666;
 }
 
-#weiboUploader .statusBar .btns {
+#picUploader .statusBar .btns {
     position: absolute;
     top: 10px;
     right: 20px;
@@ -687,10 +689,10 @@ a {
     float: left;
 }
 
-#weiboUploader .statusBar .btns .webuploader-pick,
-#weiboUploader .statusBar .btns .uploadBtn,
-#weiboUploader .statusBar .btns .uploadBtn.state-uploading,
-#weiboUploader .statusBar .btns .uploadBtn.state-paused {
+#picUploader .statusBar .btns .webuploader-pick,
+#picUploader .statusBar .btns .uploadBtn,
+#picUploader .statusBar .btns .uploadBtn.state-uploading,
+#picUploader .statusBar .btns .uploadBtn.state-paused {
     background: #ffffff;
     border: 1px solid #cfcfcf;
     color: #565656;
@@ -703,24 +705,24 @@ a {
     float: left;
 }
 
-#weiboUploader .statusBar .btns .webuploader-pick-hover,
-#weiboUploader .statusBar .btns .uploadBtn:hover,
-#weiboUploader .statusBar .btns .uploadBtn.state-uploading:hover,
-#weiboUploader .statusBar .btns .uploadBtn.state-paused:hover {
+#picUploader .statusBar .btns .webuploader-pick-hover,
+#picUploader .statusBar .btns .uploadBtn:hover,
+#picUploader .statusBar .btns .uploadBtn.state-uploading:hover,
+#picUploader .statusBar .btns .uploadBtn.state-paused:hover {
     background: #f0f0f0;
 }
 
-#weiboUploader .statusBar .btns .uploadBtn {
+#picUploader .statusBar .btns .uploadBtn {
     background: #00b7ee;
     color: #fff;
     border-color: transparent;
 }
 
-#weiboUploader .statusBar .btns .uploadBtn:hover {
+#picUploader .statusBar .btns .uploadBtn:hover {
     background: #00a2d4;
 }
 
-#weiboUploader .statusBar .btns .uploadBtn.disabled {
+#picUploader .statusBar .btns .uploadBtn.disabled {
     pointer-events: none;
     opacity: 0.6;
 }
@@ -746,17 +748,342 @@ a {
 }
 
 .friend-link ul li {
-    display:inline;
-    float:left;
-    margin-right:10px;
-    white-space:nowrap;
-    line-height:25px;
+    display: inline;
+    float: left;
+    margin-right: 10px;
+    white-space: nowrap;
+    line-height: 25px;
 }
 
-.friend-link ul li a{
+.friend-link ul li a {
     color: #333333;
 }
 
-.friend-link ul li a:hover{
+.friend-link ul li a:hover {
     color: #0499e2;
+}
+
+/*********************************** Member ***********************************/
+.member-banner {
+    height: 240px;
+    margin-top: -20px;
+    position: relative;
+    color: #fff;
+}
+
+.member-banner .attempts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 240px;
+    width: 100%;
+    background: #000;
+    opacity: 0.6;
+}
+
+.member-banner .content {
+    position: absolute;
+    margin-left: -10px;
+    width: 100%;
+}
+
+.member-banner .left {
+    float: left;
+    width: 300px;
+    padding-top: 50px;
+}
+
+.member-banner .left .avatar {
+    margin-top: 10px;
+    float: left;
+    width: 80px;
+    height: 80px;
+}
+
+.member-banner .left .info {
+    float: left;
+    width: calc(100% - 110px);
+    margin-left: 20px;
+}
+
+.member-banner .left .info .name {
+    float: left;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.member-banner .left .info .sex {
+    font-size: 16px;
+    color: #0099cc;
+}
+
+.member-banner .left .info .sex i {
+    width: 18px;
+    height: 18px;
+}
+
+.member-banner .left .info p {
+    margin: 5px 0;
+}
+
+.member-banner .left .info .operator {
+    margin-top: 20px;
+}
+
+.member-banner .right {
+    float: right;
+    width: 300px;
+    padding-top: 50px;
+    text-align: right;
+}
+
+.member-banner .right .follows,
+.member-banner .right .fans,
+.member-banner .right .score {
+    font-size: 16px;
+    display: inline-block;
+    margin-left: 30px;
+    text-align: center;
+    color: #666;
+}
+
+.member-banner .right .follows span,
+.member-banner .right .fans span,
+.member-banner .right .score span {
+    color: #fff;
+}
+
+.member-banner .right .follows a,
+.member-banner .right .fans a,
+.member-banner .right .score a {
+    font-size: 36px;
+    font-weight: 600;
+    display: block;
+    margin-top: 5px;
+    color: #0099cc;
+}
+
+.member-banner .right .login-info {
+    margin-top: 80px;
+    display: block;
+    text-align: right;
+}
+
+.cards {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.picture-content {
+    width: 1280px;
+    margin: 0 auto;
+}
+
+.picture-content .rec_con ul li {
+    float: left;
+    width: 290px;
+    padding: 5px;
+    margin: 0 8px;
+    height: 200px;
+    background: #E8E8E8;
+    border-radius: 3px;
+    position: relative;
+    -webkit-transition: all .45s ease-in-out;
+    -moz-transition: all .45s ease-in-out;
+    -ms-transition: all .45s ease-in-out;
+    -o-transition: all .45s ease-in-out;
+    transition: all .45s ease-in-out;
+}
+
+.picture-content .rec_con ul li img {
+    width: 290px;
+    height: 200px;
+    display: block;
+}
+
+.picture-content .rec_con ul li .a-index h2 {
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    font-size: 2.0em;
+    line-height: 28px;
+    text-align: center;
+    text-shadow: 0 0px 2px rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-top: 0px;
+    width: 98%;
+    height: 200px;
+    margin-bottom: 0;
+    display: table;
+    padding: 0 1%;
+    letter-spacing: 2px;
+}
+
+.picture-content .rec_con ul li .a-index h2 span {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.picture-load {
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 3px;
+    opacity: 0.7;
+    background: #000;
+    margin: 10px auto 30px;
+    color: #fff;
+    display: none
+}
+
+.waterfull {
+    margin: 0 auto;
+}
+
+.waterfull ul li {
+    float: left;
+    width: 284px;
+    padding: 8px;
+    margin: 0 6px 10px;
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    border: solid 1px #BCBCBC;
+    box-shadow: 0 0 10px #BCBCBC;
+}
+
+.waterfull ul li .picture {
+    width: 284px;
+    display: block;
+    position: relative;
+    margin-left: -8px;
+    margin-top: -30px;
+}
+
+.waterfull ul li .picture img {
+    width: 100%;
+    display: block;
+}
+
+.waterfull ul li .description {
+    padding: 5px 0;
+    max-height: 66px;
+    overflow: hidden;
+    line-height: 22px;
+    color: #898686;
+    font-size: 1em;
+    text-indent: 10px;
+    background: #fff;
+    border-bottom: solid 1px #DBDBDB;
+}
+
+.waterfull ul li .qianm {
+    background: #fff;
+}
+
+.waterfull ul li .qianm .sp1 {
+    float: left;
+    height: 30px;
+    line-height: 36px;
+    color: #898686;
+}
+
+.waterfull ul li .qianm .sp1 b {
+    color: #5DAA21;
+    font-weight: bold;
+    padding: 0 5px 0;
+    font-size: 1.1em;
+}
+
+.waterfull ul li .qianm .sp2 {
+    float: right;
+    height: 30px;
+    padding: 0 5px;
+    line-height: 36px;
+    color: #898686;
+}
+
+.picture-detail {
+    width: 100%;
+    height: 100%;
+}
+
+.picture-detail .show-picture {
+    width: 70%;
+    height: 100%;
+    line-height: 100%;
+    float: left;
+    background-color: #050d18;
+}
+
+.picture-detail .show-picture img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.picture-detail .show-picture .pic {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+
+.picture-detail .show-info {
+    width: 30%;
+    height: 100%;
+    float: left;
+    padding: 15px;
+    overflow-y: scroll;
+    overflow-x:hidden;
+}
+
+.picture-detail .show-info .member-info {
+    width: 100%;
+    height: 50px;
+}
+
+.picture-detail .show-info .description {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.picture-detail .show-info .member-info .avatar {
+    width: 50px;
+    float: left;
+}
+
+.picture-detail .show-info .member-info .name {
+    float: left;
+    margin-left: 20px;
+    padding-top: 5px;
+}
+.picture-detail .show-info .more-comment {
+    padding-top: 10px;
+    text-align: center
+}
+
+/*webkit内核浏览器*/
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+    border-radius: 6px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: rgba(0,0,0,0.1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(11, 41, 147, 0.8);
 }

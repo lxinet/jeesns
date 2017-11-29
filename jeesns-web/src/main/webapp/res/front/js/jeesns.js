@@ -4,9 +4,8 @@
 $(function () {
     jeesns.submitForm();
     jeesns.jeesnsLink();
+    jeesnsDialog.message();
 });
-
-
 
 var jeesns = {
     reg_rule : {
@@ -33,7 +32,6 @@ var jeesns = {
         'double'     :    "必须为数字",
         'letter'     :    "必须为字母"
     },
-
     getOptions : function(){
         var index;
         var options = {
@@ -56,19 +54,14 @@ var jeesns = {
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.successTips(res.message);
                 }else if(res.code==1){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=window.location.href;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=window.location.href;
                 }else if(res.code==2){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=res.url;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=res.url;
                 }else if(res.code==3){
-                    parent.window.location.href=parent.window.location.href;
+                    localStorage.setItem("message",res.message);
+                    window.parent.location.reload();
                 }else if(res.code==-1){
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.errorTips(res.message);
@@ -167,8 +160,12 @@ var jeesns = {
         $('a[target="_jeesnsOpen"]').on('click',function() {
             var url = $(this).attr('href');
             var title = $(this).attr('title');
+            var text = $(this).text();
             var width = $(this).attr('width');
             var height = $(this).attr('height');
+            if (title == undefined){
+                title = text;
+            }
             if(width == undefined || width == ""){
                 width = "500px";
             }
@@ -203,18 +200,13 @@ var jeesns = {
                 }else if(res.code == -1){
                     jeesnsDialog.errorTips(res.message)
                 }else if(res.code==1){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=window.location.href;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=window.location.href;
                 }else if(res.code==2){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=res.url;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=res.url;
                 }else if(res.code==3){
+                    localStorage.setItem("message",res.message);
                     parent.window.location.href=parent.window.location.href;
                 }else{
                     jeesnsDialog.tips(res.message);
@@ -227,7 +219,7 @@ var jeesns = {
 var jeesnsDialog = {
     loading : function () {
         //加载层
-        // return parent.layer.load(0);
+        return parent.layer.load(0);
     },
 
     close : function (index) {
@@ -294,10 +286,13 @@ var jeesnsDialog = {
             maxmin: false,
             content: url,
             scrollbar: false
-            // cancel: function(){
-            //     window.location.href = window.location.href;
-            // }
         });
+    },
+    message: function () {
+        if (localStorage.message != undefined){
+            jeesnsDialog.successTips(localStorage.message);
+            localStorage.removeItem("message");
+        }
     }
 };
 
