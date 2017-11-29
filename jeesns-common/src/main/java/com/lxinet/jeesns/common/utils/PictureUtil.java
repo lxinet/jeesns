@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.common.utils;
 
-import com.lxinet.jeesns.model.common.Picture;
+import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.core.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
