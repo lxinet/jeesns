@@ -74,7 +74,8 @@ ALTER TABLE `tbl_picture` ADD COLUMN `small_path` VARCHAR(255);
 ALTER TABLE `tbl_picture` ADD COLUMN `album_id` INT(11);
 UPDATE tbl_picture SET type = 2 where type = 3;
 UPDATE tbl_picture SET small_path = thumbnail_path where small_path IS NULL;
-
+DELETE FROM tbl_picture where foreign_id=0;
+UPDATE tbl_picture set member_id=(SELECT member_id FROM tbl_weibo WHERE id = foreign_id),description=(SELECT content FROM tbl_weibo WHERE id = foreign_id);
 
 
 DROP PROCEDURE IF EXISTS proc_picture_album;
@@ -92,6 +93,7 @@ CREATE PROCEDURE proc_picture_album()
       IF NOT Done THEN
         insert into tbl_picture_album(id,create_time,update_time,member_id,name,juri,type,cover)
         values(memberid,now(),now(),memberid,"微博配图",0,2,"/res/common/images/empty_album.png");
+
         update tbl_picture set album_id=memberid where member_id=memberid;
       END IF;
 
