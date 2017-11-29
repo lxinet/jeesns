@@ -90,8 +90,8 @@ CREATE PROCEDURE proc_picture_album()
     /* 遍历数据表 */
     REPEAT
       IF NOT Done THEN
-        insert into tbl_picture_album(id,create_time,update_time,member_id,name,juri,type)
-        values(memberid,now(),now(),memberid,"微博配图",0,2);
+        insert into tbl_picture_album(id,create_time,update_time,member_id,name,juri,type,cover)
+        values(memberid,now(),now(),memberid,"微博配图",0,2,"/res/common/images/empty_album.png");
         update tbl_picture set album_id=memberid where member_id=memberid;
       END IF;
 
@@ -103,7 +103,5 @@ CREATE PROCEDURE proc_picture_album()
     CLOSE rs;
   end;;
 DELIMITER ;
-update tbl_picture set album_id=null;
-delete from tbl_picture_album;
 call proc_picture_album()
 
