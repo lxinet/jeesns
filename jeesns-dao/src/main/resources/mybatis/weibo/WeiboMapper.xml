@@ -65,7 +65,7 @@
   </update>
 
   <select id="selectPicturesByWeibo" resultType="Picture">
-    SELECT path,thumbnail_path FROM tbl_picture WHERE type=3 and foreign_id = #{weibo_id}
+    SELECT path,thumbnail_path FROM tbl_picture WHERE type=2 and foreign_id = #{weibo_id}
   </select>
 
   <select id="listByCustom" resultMap="WeiboResult">
