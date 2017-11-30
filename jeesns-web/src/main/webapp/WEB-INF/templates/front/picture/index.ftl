@@ -35,7 +35,7 @@
             <#list model.data as picture>
                 <li class="item">
                     <a href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="680px" width="1200px">
-                        <img src="${basePath}${picture.path}">
+                        <img src="${basePath}${picture.smallPath}">
                     </a>
                     <p class="description">${picture.description}</p>
                     <div class="qianm clearfloat">
