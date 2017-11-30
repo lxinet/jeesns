@@ -95,6 +95,13 @@
                                         </div>
                                     </div>
                                 </a>
+                                <a href="${basePath}/picture/album/${member.id}">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            相册
+                                        </div>
+                                    </div>
+                                </a>
                                 <a href="${basePath}/u/${member.id}/home/fans">
                                     <div class="feed-element">
                                         <div class="media-body">
@@ -134,13 +141,6 @@
                                     <div class="feed-element">
                                         <div class="media-body">
                                             关注群组
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/picture/album/${member.id}">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            相册
                                         </div>
                                     </div>
                                 </a>
