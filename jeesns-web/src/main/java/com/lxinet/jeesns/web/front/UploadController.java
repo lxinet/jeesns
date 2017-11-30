@@ -142,6 +142,10 @@ public class UploadController extends BaseController {
 				picture.setAlbumId(pictureAlbum.getId());
 				pictureService.save(picture);
 				url = String.valueOf(picture.getPictureId());
+				if (StringUtils.isEmpty(pictureAlbum.getCover()) || Const.DEFAULT_PICTURE_COVER.equals(pictureAlbum.getCover())){
+					pictureAlbum.setCover(picture.getSmallPath());
+					pictureAlbumService.update(pictureAlbum);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -46,7 +46,8 @@
     where a.id = #{id}
   </select>
   <select id="findWeiboAlbum" parameterType="java.lang.Integer" resultMap="PictureAlbumRrsult">
-    select id from tbl_picture_album WHERE member_id = #{memberId} AND type = 2
+    select <include refid="Base_Column_List"/> from tbl_picture_album AS a LEFT JOIN tbl_member AS b ON
+    a.member_id = b.id WHERE member_id = #{memberId} AND type = 2 limit 0,1
   </select>
   <delete id="delete">
     delete from tbl_picture_album WHERE id = #{id} AND default_album = 0

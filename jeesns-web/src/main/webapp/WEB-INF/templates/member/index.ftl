@@ -102,6 +102,13 @@
                                         </div>
                                     </div>
                                 </a>
+                                <a href="${basePath}/member/picture/album">
+                                    <div class="feed-element">
+                                        <div class="media-body">
+                                            相册
+                                        </div>
+                                    </div>
+                                </a>
                                 <a href="${basePath}/u/${loginUser.id}/home/fans">
                                     <div class="feed-element">
                                         <div class="media-body">
