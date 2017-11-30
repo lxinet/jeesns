@@ -94,6 +94,8 @@ public class ImageUtil {
     private String cutImage(File imgFile) {
         String fileName = "";
         String thumbPath = "";
+        int w;
+        int h;
         int x;
         int y;
         try {
@@ -113,17 +115,21 @@ public class ImageUtil {
             int height = img.getHeight(null);
             if (width > THUMB_DEFAULT_WIDTH){
                 x = (width - THUMB_DEFAULT_WIDTH) / 2;
+                w = THUMB_DEFAULT_WIDTH + x;
             }else {
-                x = THUMB_DEFAULT_WIDTH;
+                w = width;
+                x = 0;
             }
             if (height > THUMB_DEFAULT_HEIGHT){
                 y = (height - THUMB_DEFAULT_HEIGHT) / 2;
+                h = THUMB_DEFAULT_HEIGHT + y;
             }else {
-                y = THUMB_DEFAULT_HEIGHT;
+                h = height;
+                y = 0;
             }
             BufferedImage bi = new BufferedImage(THUMB_DEFAULT_WIDTH, THUMB_DEFAULT_HEIGHT, BufferedImage.TYPE_INT_RGB);
             Graphics g = bi.getGraphics();
-            g.drawImage(img, x, y, THUMB_DEFAULT_WIDTH, THUMB_DEFAULT_HEIGHT, Color.LIGHT_GRAY, null);
+            g.drawImage(img, 0, 0, w, h, x, y, x + w,y + h, null);
             g.dispose();
             // 保存新图片
             String name = imgFile.getName();
