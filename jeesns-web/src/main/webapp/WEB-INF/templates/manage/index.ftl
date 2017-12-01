@@ -157,10 +157,10 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
-                                                   href="#v102">v1.2.0-正式版</a><code class="pull-right">2017.10.31</code>
+                                                   href="#v120">v1.2.0-正式版</a><code class="pull-right">2017.10.31</code>
                                             </h5>
                                         </div>
-                                        <div id="v120rc3" class="panel-collapse collapse in">
+                                        <div id="v120" class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
@@ -181,7 +181,7 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
-                                                   href="#v102">v1.2.0-RC3</a><code class="pull-right">2017.10.16</code>
+                                                   href="#v120rc3">v1.2.0-RC3</a><code class="pull-right">2017.10.16</code>
                                             </h5>
                                         </div>
                                         <div id="v120rc3" class="panel-collapse collapse">
@@ -226,7 +226,7 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
-                                                   href="#v102">v1.2.0-RC2</a><code class="pull-right">2017.8.2</code>
+                                                   href="#v120rc2">v1.2.0-RC2</a><code class="pull-right">2017.8.2</code>
                                             </h5>
                                         </div>
                                         <div id="v120rc2" class="panel-collapse collapse">
