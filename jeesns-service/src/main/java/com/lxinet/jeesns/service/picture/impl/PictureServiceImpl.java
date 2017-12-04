@@ -60,10 +60,20 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public int delete(HttpServletRequest request, Integer foreignId) {
+    public int deleteByForeignId(HttpServletRequest request, Integer foreignId) {
         List<Picture> pictures = this.find(foreignId);
         PictureUtil.delete(request,pictures);
-        return pictureDao.delete(foreignId);
+        return pictureDao.deleteByForeignId(foreignId);
+    }
+
+    @Override
+    public ResponseModel delete(HttpServletRequest request, Integer pictureId) {
+        Picture picture = this.findById(pictureId,0);
+        PictureUtil.delete(request,picture);
+        if(pictureDao.delete(pictureId) == 1){
+            return new ResponseModel(1,"删除成功");
+        }
+        return new ResponseModel(-1,"删除失败");
     }
 
     @Override

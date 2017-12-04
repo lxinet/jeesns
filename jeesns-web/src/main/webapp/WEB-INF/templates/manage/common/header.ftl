@@ -108,6 +108,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="${managePath}/tag/list/7" module="picture"><i class="fa fa-circle-o"></i>标签管理</a></li>
+                    <li><a href="${managePath}/picture/list" module="picture"><i class="fa fa-circle-o"></i>图片管理</a></li>
                 </ul>
             </li>
             <li class="treeview" module="common">
@@ -139,6 +140,7 @@
         });
         $(".treeview-menu li").each(function(){
             var _this = $(this);
+            var module = _this.attr("module");
             if(sessionStorage.module == module){
                 _this.addClass("active");
             }else {

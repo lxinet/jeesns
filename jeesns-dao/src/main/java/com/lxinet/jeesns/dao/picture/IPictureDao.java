@@ -20,8 +20,7 @@ public interface IPictureDao extends IBaseDao<Picture> {
 
     List<Picture> listByAlbum(@Param("page") Page page, @Param("albumId") Integer albumId,@Param("loginMemberId") Integer loginMemberId);
 
-    @Override
-    int delete(@Param("id") Integer foreignId);
+    int deleteByForeignId(@Param("id") Integer foreignId);
 
     int update(@Param("foreignId") Integer foreignId, @Param("ids") String[] ids,@Param("description") String description);
 

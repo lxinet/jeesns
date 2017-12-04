@@ -23,6 +23,7 @@ public class PictureUtil {
     public static void delete(HttpServletRequest request, Picture picture){
         String path = picture.getPath();
         String thumbnailPath = picture.getThumbnailPath();
+        String smallPath = picture.getSmallPath();
         if(StringUtils.isNotEmpty(path)){
             File file = new File(request.getServletContext().getRealPath(path));
             if ((file.exists())){
@@ -31,6 +32,12 @@ public class PictureUtil {
         }
         if(StringUtils.isNotEmpty(thumbnailPath)){
             File file = new File(request.getServletContext().getRealPath(thumbnailPath));
+            if ((file.exists())){
+                file.delete();
+            }
+        }
+        if(StringUtils.isNotEmpty(smallPath)){
+            File file = new File(request.getServletContext().getRealPath(smallPath));
             if ((file.exists())){
                 file.delete();
             }
