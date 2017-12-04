@@ -157,10 +157,34 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v121">v1.2.1</a><code class="pull-right">2017.12.04</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v121" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复：如果项目部署部署在根目录，首页群组链接出错问题</li>
+                                                        <li>修复：修复后台查看版本更新日志折叠问题</li>
+                                                        <li>优化：取消访问不存在的页数时显示最后一页的数据</li>
+                                                        <li>优化：优化文章查询字段</li>
+                                                        <li>优化：上传图片生成缩略图算法</li>
+                                                        <li>优化：统一脚本和文档的路径</li>
+                                                        <li>优化：优化后台操作提示</li>
+                                                        <li>增加：图库模块</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v120">v1.2.0-正式版</a><code class="pull-right">2017.10.31</code>
                                             </h5>
                                         </div>
-                                        <div id="v120" class="panel-collapse collapse in">
+                                        <div id="v120" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
