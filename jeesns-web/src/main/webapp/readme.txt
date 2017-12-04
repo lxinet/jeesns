@@ -7,7 +7,11 @@ JAVA开发框架：Spring MVC+Spring+Mybatis
 
 简介
  JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河。数据库使用MYSQL，全部源代码开放。
- 官方网址：http://www.jeesns.cn。
+ 交流社区：http://www.jeesns.cn
+ 官方网址：http://www.lxinet.com
+ github(源代码下载)：https://github.com/zchuanzhao/jeesns
+
+
 
 应用场景
  JEESNS是一个企业级的开源社区系统，是一个可以用来搭建门户、群组、论坛和微博的社区系统。
