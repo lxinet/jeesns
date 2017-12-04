@@ -52,6 +52,9 @@
     from tbl_picture AS a LEFT JOIN tbl_member AS b ON a.member_id = b.id ORDER BY picture_id DESC
   </select>
   <delete id="delete">
+    delete from tbl_picture where picture_id=#{id}
+  </delete>
+  <delete id="deleteByForeignId">
     delete from tbl_picture where foreign_id=#{id}
   </delete>
   <insert id="save" useGeneratedKeys="true" keyProperty="pictureId">

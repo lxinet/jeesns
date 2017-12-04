@@ -106,7 +106,7 @@ public class WeiboServiceImpl implements IWeiboService {
         weiboDao.delete(id);
         //扣除积分
         scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.RELEASE_WEIBO,id);
-        pictureService.delete(request, id);
+        pictureService.deleteByForeignId(request, id);
         actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO, "ID："+weibo.getId()+"，内容："+weibo.getContent());
         return new ResponseModel(1,"操作成功");
     }

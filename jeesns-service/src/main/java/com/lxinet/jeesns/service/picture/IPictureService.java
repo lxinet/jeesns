@@ -21,7 +21,9 @@ public interface IPictureService {
 
     ResponseModel<Picture> listByAlbum(Page page, Integer pictureAlbumId,int loginMemberId);
 
-    int delete(HttpServletRequest request, Integer foreignId);
+    int deleteByForeignId(HttpServletRequest request, Integer foreignId);
+
+    ResponseModel delete(HttpServletRequest request, Integer pictureId);
 
     int save(Picture picture);
 
