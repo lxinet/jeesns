@@ -4,6 +4,7 @@
 $(function () {
     jeesns.submitForm();
     jeesns.jeesnsLink();
+    jeesnsDialog.message();
 });
 
 var jeesns = {
@@ -54,19 +55,14 @@ var jeesns = {
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.successTips(res.message);
                 }else if(res.code==1){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=window.location.href;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=window.location.href;
                 }else if(res.code==2){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=res.url;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=res.url;
                 }else if(res.code==3){
-                    parent.window.location.href=parent.window.location.href;
+                    localStorage.setItem("message",res.message);
+                    window.parent.location.reload();
                 }else if(res.code==-1){
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.errorTips(res.message);
@@ -201,19 +197,14 @@ var jeesns = {
                 }else if(res.code == -1){
                     jeesnsDialog.errorTips(res.message)
                 }else if(res.code==1){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=window.location.href;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=window.location.href;
                 }else if(res.code==2){
-                    jeesnsDialog.loading();
-                    jeesnsDialog.successTips(res.message);
-                    setTimeout(function(){
-                        window.location.href=res.url;
-                    },3000);
+                    localStorage.setItem("message",res.message);
+                    window.location.href=res.url;
                 }else if(res.code==3){
-                    parent.window.location.href=parent.window.location.href;
+                    localStorage.setItem("message",res.message);
+                    parent.window.location.href=parent.window.location.href; parent.window.location.href=parent.window.location.href;
                 }else{
                     jeesnsDialog.tips(res.message);
                 }
@@ -279,10 +270,13 @@ var jeesnsDialog = {
             maxmin: false,
             content: url,
             scrollbar: false
-            // cancel: function(){
-            //     window.location.href = window.location.href;
-            // }
         });
+    },
+    message: function () {
+        if (localStorage.message != undefined){
+            jeesnsDialog.successTips(localStorage.message);
+            localStorage.removeItem("message");
+        }
     }
 };
 

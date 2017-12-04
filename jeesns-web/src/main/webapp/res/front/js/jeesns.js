@@ -297,8 +297,9 @@ var jeesnsDialog = {
 };
 
 function ckUpdate() {
-    for (instance in CKEDITOR.instances)
+    for (instance in CKEDITOR.instances){
         CKEDITOR.instances[instance].updateElement();
+    }
 }
 
 
