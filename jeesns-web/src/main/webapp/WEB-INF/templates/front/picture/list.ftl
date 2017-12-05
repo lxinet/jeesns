@@ -37,7 +37,7 @@
                     <#list model.data as picture>
                     <div class="col-md-4 col-sm-6 col-lg-3">
                         <div class="card">
-                            <a href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="680px" width="1200px">
+                            <a href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
                                 <img src="${basePath}${picture.smallPath}">
                             </a>
                             <div class="card-actions m-t-10">
