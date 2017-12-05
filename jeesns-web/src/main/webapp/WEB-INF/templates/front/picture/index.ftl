@@ -34,7 +34,7 @@
         <ul id="pictures">
             <#list model.data as picture>
                 <li class="item">
-                    <a href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="680px" width="1200px">
+                    <a href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
                         <img src="${basePath}${picture.smallPath}">
                     </a>
                     <p class="description">${picture.description}</p>
