@@ -11,9 +11,9 @@ import com.lxinet.jeesns.model.member.Message;
  */
 public interface IMessageService {
 
-    ResponseModel save(Integer fromMemberId, Integer toMemberId, String content);
+    ResponseModel sentMsg(Integer fromMemberId, Integer toMemberId, String content);
 
-    ResponseModel save(Integer toMemberId, String content, Integer appTag,Integer type,Integer relateKeyId,Integer memberId,String description);
+    ResponseModel systemMsgSave(Integer toMemberId, String content, Integer appTag,Integer type,Integer relateKeyId,Integer memberId,String description);
 
     ResponseModel<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId);
 

@@ -32,8 +32,8 @@
 
   <select id="listByPage" resultMap="MessageResult">
     select a.id,a.create_time,a.content,a.url,a.isread,
-    a.from_member_id as 'fromMember.id',b.name as 'fromMember.name',b.avatar as 'fromMember.avatar',
-    a.to_member_id as 'toMember.id',c.name as 'toMember.name',c.avatar as 'toMember.avatar'
+    a.from_member_id,b.name as from_member_name,b.avatar as from_member_avatar,
+    a.to_member_id,c.name as to_member_name,c.avatar as to_member_avatar
     from tbl_message as a LEFT JOIN tbl_member as b ON a.from_member_id = b.id
     LEFT JOIN tbl_member as c ON a.to_member_id = c.id
     <where>
@@ -48,8 +48,8 @@
   </select>
   <select id="messageRecords" resultMap="MessageResult">
     select a.id,a.create_time,a.content,a.url,a.isread,
-    a.from_member_id as 'fromMember.id',b.name as 'fromMember.name',b.avatar as 'fromMember.avatar',
-    a.to_member_id as 'toMember.id',c.name as 'toMember.name',c.avatar as 'toMember.avatar'
+    a.from_member_id,b.name as from_member_name,b.avatar as from_member_avatar,
+    a.to_member_id,c.name as to_member_name,c.avatar as to_member_avatar
     from tbl_message as a LEFT JOIN tbl_member as b ON a.from_member_id = b.id
     LEFT JOIN tbl_member as c ON a.to_member_id = c.id
     WHERE (a.from_member_id = #{fromMemberId} AND a.to_member_id = #{toMemberId})
@@ -90,7 +90,11 @@
     delete from tbl_message where (from_member_id = #{fromMemberId} AND to_member_id = #{toMemberId})
     OR (from_member_id = #{toMemberId} AND to_member_id = #{fromMemberId})
   </delete>
-  <insert id="save" parameterType="Message">
+  <insert id="sentMsg" parameterType="Message">
+    insert into tbl_message (create_time,from_member_id,to_member_id,content)
+    values (now(),#{fromMemberId},#{toMemberId},#{content})
+  </insert>
+  <insert id="systemMsgSave" parameterType="Message">
     insert into tbl_message (create_time,from_member_id,to_member_id,content,url,isread,app_tag,type,relate_key_id,member_id,description)
     values (now(),#{fromMemberId},#{toMemberId},#{content},#{url},0,#{appTag},#{type},#{relateKeyId},#{memberId},#{description})
   </insert>

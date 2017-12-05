@@ -67,4 +67,18 @@ public interface IMessageDao extends IBaseDao<Message> {
      * @return
      */
     int setRead(@Param("fromMemberId") Integer fromMemberId, @Param("toMemberId") Integer toMemberId);
+
+    /**
+     * 会员发送信息
+     * @param message
+     * @return
+     */
+    int sentMsg(Message message);
+
+    /**
+     * 系统信息发送
+     * @param message
+     * @return
+     */
+    int systemMsgSave(Message message);
 }
