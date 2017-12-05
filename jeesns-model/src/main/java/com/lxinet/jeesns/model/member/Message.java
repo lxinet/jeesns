@@ -112,12 +112,8 @@ public class Message implements Serializable {
         this.type = type;
     }
 
-    public int getRelateKeyId() {
+    public Integer getRelateKeyId() {
         return relateKeyId;
-    }
-
-    public void setRelateKeyId(int relateKeyId) {
-        this.relateKeyId = relateKeyId;
     }
 
     public void setRelateKeyId(Integer relateKeyId) {

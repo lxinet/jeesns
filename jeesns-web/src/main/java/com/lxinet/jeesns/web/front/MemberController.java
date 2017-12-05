@@ -355,7 +355,7 @@ public class MemberController extends BaseController {
         if(findMember == null){
             return new ResponseModel(-1,"会员不存在");
         }
-        return messageService.save(loginMember.getId(), memberId, content);
+        return messageService.sentMsg(loginMember.getId(), memberId, content);
     }
 
     /**

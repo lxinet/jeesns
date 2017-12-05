@@ -25,7 +25,7 @@ public class MessageServiceImpl implements IMessageService {
     private IMemberService memberService;
 
     @Override
-    public ResponseModel save(Integer fromMemberId, Integer toMemberId, String content) {
+    public ResponseModel sentMsg(Integer fromMemberId, Integer toMemberId, String content) {
         if(fromMemberId.intValue() == toMemberId.intValue()){
             return new ResponseModel(-1, "不能发信息给自己");
         }
@@ -33,14 +33,14 @@ public class MessageServiceImpl implements IMessageService {
         message.setFromMemberId(fromMemberId);
         message.setToMemberId(toMemberId);
         message.setContent(content);
-        if(messageDao.save(message) == 1){
+        if(messageDao.sentMsg(message) == 1){
             return new ResponseModel(0, "信息发送成功");
         }
         return new ResponseModel(-1, "信息发送失败");
     }
 
     @Override
-    public ResponseModel save(Integer toMemberId, String content, Integer appTag,Integer type,Integer relateKeyId,Integer loginMemberId,String description) {
+    public ResponseModel systemMsgSave(Integer toMemberId, String content, Integer appTag,Integer type,Integer relateKeyId,Integer loginMemberId,String description) {
         Message message = new Message();
         message.setToMemberId(toMemberId);
         message.setContent(content);
@@ -49,7 +49,7 @@ public class MessageServiceImpl implements IMessageService {
         message.setType(type);
         message.setMemberId(loginMemberId);
         message.setDescription(description);
-        if(messageDao.save(message) == 1){
+        if(messageDao.systemMsgSave(message) == 1){
             return new ResponseModel(0, "信息发送成功");
         }
         return new ResponseModel(-1, "信息发送失败");
@@ -115,7 +115,7 @@ public class MessageServiceImpl implements IMessageService {
             for (String name : atMemberList){
                 Member findAtMember = memberService.findByName(name);
                 if (findAtMember != null && loginMemberId != findAtMember.getId()){
-                    this.save(findAtMember.getId(),content,appTag,messageType.getCode(),relateKeyId,loginMemberId,messageType.getContent());
+                    this.systemMsgSave(findAtMember.getId(),content,appTag,messageType.getCode(),relateKeyId,loginMemberId,messageType.getContent());
                 }
             }
         }
@@ -124,7 +124,7 @@ public class MessageServiceImpl implements IMessageService {
     @Override
     public void diggDeal(int loginMemberId, int toMemberId,String content, int appTag, MessageType messageType, int relateKeyId) {
         if (loginMemberId != toMemberId){
-            this.save(toMemberId,content,appTag,messageType.getCode(),relateKeyId,loginMemberId,messageType.getContent());
+            this.systemMsgSave(toMemberId,content,appTag,messageType.getCode(),relateKeyId,loginMemberId,messageType.getContent());
         }
     }
 

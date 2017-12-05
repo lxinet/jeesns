@@ -130,6 +130,7 @@ public class BaseController {
     @ExceptionHandler
     public void execptionHandler(Exception e){
         if (isAjaxRequest()){
+            e.printStackTrace();
             response.setCharacterEncoding("utf-8");
             PrintWriter out = null;
             try {
