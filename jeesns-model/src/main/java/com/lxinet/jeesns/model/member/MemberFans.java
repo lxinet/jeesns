@@ -9,12 +9,21 @@ import java.util.Date;
  * Created by zchuanzhao on 17/2/15.
  */
 public class MemberFans implements Serializable {
+    private Integer id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     private Integer followWho;
     private Member followWhoMember;
     private Integer whoFollow;
     private Member whoFollowMember;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Date getCreateTime() {
         return createTime;
