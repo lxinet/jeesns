@@ -57,19 +57,19 @@
 
                                         <#if loginUser?? && loginUser.isAdmin &gt; 0>
                                             <#if groupTopic.isTop = 0>
-                                                <li><a href="${base}/group/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
-                                                <li><a href="${base}/group/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
+                                                <li><a href="${basePath}/group/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
+                                                <li><a href="${basePath}/group/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
                                             <#elseif groupTopic.isTop = 1>
-                                                <li><a href="${base}/group/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消普通置顶</a></li>
-                                                <li><a href="${base}/group/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
+                                                <li><a href="${basePath}/group/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消普通置顶</a></li>
+                                                <li><a href="${basePath}/group/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
                                             <#elseif groupTopic.isTop = 2>
-                                                <li><a href="${base}/group/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消超级置顶</a></li>
-                                                <li><a href="${base}/group/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
+                                                <li><a href="${basePath}/group/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消超级置顶</a></li>
+                                                <li><a href="${basePath}/group/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
                                             </#if>
                                             <#if groupTopic.isEssence = 0>
-                                                <li><a href="${base}/group/topic/essence/${groupTopic.id}?essence=1" target="_jeesnsLink">精华</a></li>
+                                                <li><a href="${basePath}/group/topic/essence/${groupTopic.id}?essence=1" target="_jeesnsLink">精华</a></li>
                                             <#elseif groupTopic.isEssence = 1>
-                                                <li><a href="${base}/group/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink">取消精华</a></li>
+                                                <li><a href="${basePath}/group/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink">取消精华</a></li>
                                             </#if>
                                         </#if>
 
