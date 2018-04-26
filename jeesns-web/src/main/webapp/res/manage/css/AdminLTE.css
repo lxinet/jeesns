@@ -85,6 +85,7 @@ body {
   min-height: 100%;
   background-color: #ecf0f5;
   z-index: 800;
+  padding-top: 50px;
 }
 .main-footer {
   background: #fff;
@@ -181,6 +182,10 @@ a:focus {
   position: relative;
   max-height: 100px;
   z-index: 1030;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
 }
 .main-header .navbar {
   -webkit-transition: margin-left 0.3s ease-in-out;
@@ -402,11 +407,12 @@ a:focus {
  */
 .main-sidebar,
 .left-side {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  padding-top: 50px;
-  min-height: 100%;
+  width: 230px;
+  z-index: 810;
+  height: 100%;
   width: 230px;
   z-index: 810;
   -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;
@@ -449,6 +455,12 @@ a:focus {
 }
 .sidebar {
   padding-bottom: 10px;
+  background-color: #222d32;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 50px;
+  right: 0;
 }
 .sidebar-form input:focus {
   border-color: transparent;
