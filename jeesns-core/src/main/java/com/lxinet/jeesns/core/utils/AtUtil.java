@@ -23,6 +23,6 @@ public class AtUtil {
     }
 
     public static String replaceAt(String content,String name,int id){
-        return content.replaceAll("@" + name + " ","<a href=\"/u/"+id+"\" target=\"_blank\">@" + name + " </a>");
+        return content.replaceAll("@" + name + " ","<a href=\""+Const.PROJECT_PATH+"/u/"+id+"\" target=\"_blank\">@" + name + " </a>");
     }
 }
