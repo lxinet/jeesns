@@ -19,6 +19,7 @@ public class InitListener implements ServletContextListener {
     }
 
 
+    @Override
     public void contextInitialized(ServletContextEvent sce) {
         try {
             Const.PROJECT_PATH = sce.getServletContext().getContextPath();
@@ -41,6 +42,7 @@ public class InitListener implements ServletContextListener {
 
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent sce) {
 
     }
