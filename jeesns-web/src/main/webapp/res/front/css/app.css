@@ -75,13 +75,22 @@ a {
 }
 
 .navbar-inverse .navbar-nav-right {
+    background-color: #393D49;
+}
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover {
+    background-color: #393D49;
+}
+
+.navbar-inverse .navbar-nav-right dropdown > open{
     margin-top: -5px;
 }
 
 .navbar-inverse .navbar-nav-right > li > a {
     color: #428bca;
     font-size: 14px;
-    margin: 5px 1px;
+    margin: 0 1px;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
