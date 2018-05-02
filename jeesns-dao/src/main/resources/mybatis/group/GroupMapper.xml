@@ -23,7 +23,7 @@
   </select>
   <select id="listByPage" resultMap="GroupResult">
     select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
-    a.can_post,a.status,a.topic_review,(select count(c.id) from tbl_group_topic as c where id=a.id and c.status=1) as topicCount,
+    a.can_post,a.status,a.topic_review,(select count(c.id) from tbl_group_topic as c where c.group_id=a.id and c.status=1) as topicCount,
     (select count(*) from tbl_group_fans as d where d.group_id=a.id) as fansCount,
     b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id
     <where>
@@ -70,7 +70,7 @@
 
   <select id="listByCustom" resultMap="GroupResult">
     select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
-    a.can_post,a.status,a.topic_review,(select count(c.id) from tbl_group_topic as c where id=a.id and c.status=1) as topicCount,
+    a.can_post,a.status,a.topic_review,(select count(c.id) from tbl_group_topic as c where c.group_id=a.id and c.status=1) as topicCount,
     (select count(*) from tbl_group_fans as d where d.group_id=a.id) as fansCount,
     b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id
     <where>
