@@ -23,7 +23,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/20.
  */
 @Controller("frontWeiboController")
-@RequestMapping("/weibo")
+@RequestMapping("/${weiboPath}")
 public class WeiboController extends BaseController {
     @Resource
     private IWeiboService weiboService;
@@ -75,7 +75,7 @@ public class WeiboController extends BaseController {
         ResponseModel responseModel = weiboService.userDelete(request, loginMember,weiboId);
         if(responseModel.getCode() >= 0){
             responseModel.setCode(2);
-            responseModel.setUrl(request.getContextPath() + "/weibo/list");
+            responseModel.setUrl(Const.WEIBO_PATH + "/list");
         }
         return responseModel;
     }

@@ -35,7 +35,7 @@
     <div class="main-content">
         <div class="row">
             <div class="col-md-12 article-detail">
-                <form class="form-horizontal jeesns_form" role="form" action="${basePath}/group/topicUpdate" method="post" onsubmit="ckUpdate();">
+                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicUpdate" method="post" onsubmit="ckUpdate();">
                     <input type="hidden" class="form-control" name="id" value="${groupTopic.id}">
                     <div class="form-group">
                         <label for="firstname" class="col-sm-1 control-label">标题</label>
@@ -72,7 +72,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-1 col-sm-10">
                             <button type="submit" class="btn btn-info jeesns-submit">保存</button>
-                            <a class="btn btn-default" href="${basePath}/group/detail/${groupTopic.group.id}">返回</a>
+                            <a class="btn btn-default" href="${groupPath}/detail/${groupTopic.group.id}">返回</a>
                         </div>
                     </div>
                 </form>

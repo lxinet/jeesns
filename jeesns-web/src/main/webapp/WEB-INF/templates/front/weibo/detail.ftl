@@ -13,6 +13,7 @@
     <link href="${basePath}/res/plugins/gallery/css/blueimp-gallery.min.css" rel="stylesheet">
     <script>
         var basePath = "${basePath}";
+        var weiboPath = "${weiboPath}";
         var weiboId = ${weibo.id};
         var weiboPostMaxcontent = ${WEIBO_POST_MAXCONTENT};
     </script>
@@ -73,7 +74,7 @@
                                     class="icon icon-thumbs-up"></i> ${weibo.favor}</a>
                         </#if>
                         <#if loginUser?? && (loginUser.id == weibo.member.id || loginUser.isAdmin &gt; 0)>
-                            <a href="${basePath}/weibo/delete/${weibo.id}" target="_jeesnsLink" confirm="确定要删除微博吗？">删除</a>
+                            <a href="${weiboPath}/delete/${weibo.id}" target="_jeesnsLink" confirm="确定要删除微博吗？">删除</a>
                         </#if>
                         </div>
                     </div>
@@ -85,7 +86,7 @@
                     <div class="panel-heading">评论(${weibo.commentCount})</div>
                     <header>
                         <div class="reply-form">
-                            <form class="form-horizontal jeesns_form" action="${basePath}/weibo/comment/${weibo.id}" method="post">
+                            <form class="form-horizontal jeesns_form" action="${weiboPath}/comment/${weibo.id}" method="post">
                                 <div class="form-group">
                                     <textarea name="content" class="form-control new-comment-text" rows="2" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
                                 </div>

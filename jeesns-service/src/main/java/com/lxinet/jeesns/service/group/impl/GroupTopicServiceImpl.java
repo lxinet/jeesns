@@ -7,6 +7,7 @@ import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.dao.group.IGroupTopicDao;
 import com.lxinet.jeesns.model.cms.Article;
@@ -193,7 +194,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             ResponseModel responseModel = this.delete(loginMember,id);
             if(responseModel.getCode() > 0){
                 responseModel.setCode(2);
-                responseModel.setUrl(request.getContextPath() + "/group/detail/"+group.getId());
+                responseModel.setUrl(Const.GROUP_PATH + "/detail/"+group.getId());
             }
             return responseModel;
         }

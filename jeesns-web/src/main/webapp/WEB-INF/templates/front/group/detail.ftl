@@ -38,17 +38,17 @@
                             </span>
                             <span class="text-right">
                                 <#if isfollow == true>
-                                    <a title="取消关注" href="${basePath}/group/nofollow/${group.id}"
+                                    <a title="取消关注" href="${groupPath}/nofollow/${group.id}"
                                        target="_jeesnsLink"><i class="icon-minus"></i> 取消关注</a>
                                 <#else>
-                                    <a title="添加关注" href="${basePath}/group/follow/${group.id}" target="_jeesnsLink"><i
+                                    <a title="添加关注" href="${groupPath}/follow/${group.id}" target="_jeesnsLink"><i
                                             class="icon-plus"></i> 关注</a>
                                 </#if>
                                 <#if loginUser?? && loginUser.id == group.creator>
-                                   . <a href="${basePath}/group/edit/${group.id}">编辑</a>
+                                   . <a href="${groupPath}/edit/${group.id}">编辑</a>
                                 </#if>
                                 <#if isManager == 1>
-                                   . <a href="${basePath}/group/auditList/${group.id}">审核帖子</a>
+                                   . <a href="${groupPath}/auditList/${group.id}">审核帖子</a>
                                 </#if>
                             </span>
                         </p>
@@ -67,7 +67,7 @@
                     <div class="panel-heading">
                         全部
                         <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${basePath}/group/post/${group.id}">发帖</a>
+                            <a class="btn btn-primary m-t-n4" href="${groupPath}/post/${group.id}">发帖</a>
                         </span>
                     </div>
                     <div class="panel-body">
@@ -82,7 +82,7 @@
                                     <div class="text">
                                         <p>
                                         <h4>
-                                            <a href="${basePath}/group/topic/${topic.id}">${topic.title}</a>
+                                            <a href="${groupPath}/topic/${topic.id}">${topic.title}</a>
                                         <#if topic.isTop==1>
                                             <span class="label label-badge label-primary">置顶</span>
                                         <#elseif topic.isTop==2>
@@ -94,7 +94,7 @@
                                         </h4>
                                         </p>
                                         <p>
-                                            <a href="${basePath}/group/topic/${topic.id}" class="text-muted"><i
+                                            <a href="${groupPath}/topic/${topic.id}" class="text-muted"><i
                                                     class="icon-eye-open"></i> ${topic.viewCount}</a> &nbsp;
                                             <span class="text-muted">${topic.createTime?string('yyyy-MM-dd HH:mm')}</span>
                                         </p>
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <ul class="pager pagination pagination-sm no-margin pull-right"
-                        url="${basePath}/group/detail/${group.id}"
+                        url="${groupPath}/detail/${group.id}"
                         currentPage="${model.page.pageNo}"
                         pageCount="${model.page.totalPage}">
                     </ul>

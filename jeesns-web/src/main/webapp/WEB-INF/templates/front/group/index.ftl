@@ -29,19 +29,19 @@
             <div class="panel-heading" style="margin-bottom: 30px">
                 ${GROUP_ALIAS}
                 <span class="pull-right">
-                    <a class="btn btn-primary m-t-n4" href="${basePath}/group/apply">申请</a>
+                    <a class="btn btn-primary m-t-n4" href="${groupPath}/apply">申请</a>
                 </span>
             </div>
         <#list model.data as group>
             <div class="col-md-3">
                 <div class="group-detail">
                     <div class="group-logo">
-                        <a href="${basePath}/group/detail/${group.id}">
+                        <a href="${groupPath}/detail/${group.id}">
                             <img class="img-rounded" src="${basePath}${group.logo}" width="100px" height="100px">
                         </a>
                     </div>
                     <div class="group-info">
-                        <h4><strong><a href="${basePath}/group/detail/${group.id}">${group.name}</a></strong></h4>
+                        <h4><strong><a href="${groupPath}/detail/${group.id}">${group.name}</a></strong></h4>
                         <p class="text-muted" title="${group.introduce}">
                             <#if group.introduce?length &gt; 50>
                                 ${group.introduce?substring(0,50)}...
@@ -56,7 +56,7 @@
         </#list>
         </div>
         <ul class="pager pagination pagination-sm no-margin pull-right"
-            url="${basePath}/group/index"
+            url="${groupPath}/index"
             currentPage="${model.page.pageNo}"
             pageCount="${model.page.totalPage}">
         </ul>

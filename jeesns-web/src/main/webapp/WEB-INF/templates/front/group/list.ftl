@@ -33,7 +33,7 @@
                     <div class="ibox-title">
                         <h5>${GROUP_ALIAS}
                         <#if GROUP_APPLY==1>
-                            <a class="marg-l-5" href="${basePath}/group/apply" title="申请${GROUP_ALIAS}">
+                            <a class="marg-l-5" href="${groupPath}/apply" title="申请${GROUP_ALIAS}">
                                 <i class="fa fa-plus-circle green"></i>
                             </a>
                         </#if>
@@ -43,11 +43,11 @@
                         <div class="feed-activity-list">
                         <#list model.data as group>
                             <div class="feed-element">
-                                <a href="${basePath}/group/detail/${group.id}" class="pull-left">
+                                <a href="${groupPath}/detail/${group.id}" class="pull-left">
                                     <img alt="image" class="img-circle" src="${basePath}${group.logo}">
                                 </a>
                                 <div class="media-body ">
-                                    <h4><strong><a href="${basePath}/group/detail/${group.id}">${group.name}</a></strong></h4>
+                                    <h4><strong><a href="${groupPath}/detail/${group.id}">${group.name}</a></strong></h4>
                                     <p>${group.introduce}</p>
                                     <small class="text-muted">${group.topicCount}篇文章 · ${group.fansCount}人关注</small>
                                 </div>
@@ -56,7 +56,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${basePath}/group/?key=${key}"
+                                url="${groupPath}/?key=${key}"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>
