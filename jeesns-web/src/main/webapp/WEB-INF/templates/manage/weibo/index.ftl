@@ -77,7 +77,7 @@
                                     <td>${weibo.favor}</td>
                                     <td>${weibo.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
-                                        <a href="${basePath}/weibo/detail/${weibo.id}" target="_blank">
+                                        <a href="${weiboPath}/detail/${weibo.id}" target="_blank">
                                             <span class="label label-info">详情</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
