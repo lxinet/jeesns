@@ -51,5 +51,13 @@ public class Const {
 	 * 默认相册封面
 	 */
 	public static final String DEFAULT_PICTURE_COVER = "/res/common/images/empty_album.png";
+	/**
+	 * 群组路径
+	 */
+	public static String GROUP_PATH = "/group/";
+	/**
+	 * 微博路径
+	 */
+	public static String WEIBO_PATH = "/weibo/";
 
 }

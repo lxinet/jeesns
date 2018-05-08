@@ -1,7 +1,7 @@
 var group = {
     commentList : function (groupTopicId,pageNo) {
         $.ajax({
-            url : base+"/group/commentList/"+groupTopicId+".json?pageNo="+pageNo,
+            url : groupPath+"/commentList/"+groupTopicId+".json?pageNo="+pageNo,
             type : "get",
             dataType: "json",
             success : function (json) {
@@ -19,7 +19,7 @@ var group = {
                         html += "<pre><code><p>引用“<a href='"+base+"/u/"+groupTopicComment.member.id+"'>"+groupTopicComment.member.name+"</a>”的评论</p>"+groupTopicComment.content+"</code></pre>";
                     }
                     html += data[i].content + "<div class='pull-right'><a href='javascript:group.commentReply("+data[i].id+")'>回复</a></div></div>" +
-                        "<form class=\"form-horizontal jeesns_form\" action=\""+base+"/group/comment/"+groupTopicId+"\" method=\"post\" id='comment-form-"+data[i].id+"' style='display: none;'>" +
+                        "<form class=\"form-horizontal jeesns_form\" action=\""+groupPath+"/comment/"+groupTopicId+"\" method=\"post\" id='comment-form-"+data[i].id+"' style='display: none;'>" +
                         "<div class=\"form-group\"><input type='hidden' name='groupTopicCommentId' value='"+data[i].id+"'/>" +
                         "<textarea name=\"content\" class=\"form-control group-comment-content\" rows=\"2\" id=\""+data[i].id+"\"></textarea></div>" +
                         "<div class=\"form-group comment-user\">" +
@@ -40,7 +40,7 @@ var group = {
     favor : function (_this,base) {
         var topicId = _this.attr("topic-id");
         $.ajax({
-            url: base + "/group/topic/favor/" + topicId,
+            url: groupPath + "/topic/favor/" + topicId,
             type: "get",
             dataType: "json",
             timeout: 5000,

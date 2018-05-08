@@ -32,8 +32,8 @@
                 <div class="ibox float-e-margins">
                     <ol class="breadcrumb">
                         <li><a href="${basePath}/">首页</a></li>
-                        <li><a href="${basePath}/group/">群组</a></li>
-                        <li><a href="${basePath}/group/detail/${group.id}">${group.name}</a></li>
+                        <li><a href="${groupPath}/">群组</a></li>
+                        <li><a href="${groupPath}/detail/${group.id}">${group.name}</a></li>
                         <li class="active">粉丝</li>
                     </ol>
                     <div class="ibox float-e-margins">
@@ -56,7 +56,7 @@
                             </#list>
                                 <div class="box-footer clearfix">
                                     <ul class="pagination pagination-sm no-margin pull-right"
-                                        url="${basePath}/group/fans/${group.id}"
+                                        url="${groupPath}/fans/${group.id}"
                                         currentPage="${model.page.pageNo}"
                                         pageCount="${model.page.totalPage}">
                                     </ul>
@@ -73,10 +73,10 @@
                     </div>
                     <div class="ibox-content profile-element group">
                         <div class="group-logo">
-                            <a href="${basePath}/group/detail/${group.id}"><img alt="${group.name}" src="${basePath}${group.logo}" width="80px" height="80px"/></a>
+                            <a href="${groupPath}/detail/${group.id}"><img alt="${group.name}" src="${basePath}${group.logo}" width="80px" height="80px"/></a>
                         </div>
                         <div class="group-detail">
-                            <p><a href="${basePath}/group/detail/${group.id}"><strong>${group.name}</strong></a></p>
+                            <p><a href="${groupPath}/detail/${group.id}"><strong>${group.name}</strong></a></p>
                             <p>${model.data?size}关注</p>
                             <p><a href="${basePath}/u/${group.creatorMember.id}">${group.creatorMember.name}</a> 创建于${group.createTime?string("yyyy-MM-dd")}</p>
                         </div>

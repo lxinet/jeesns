@@ -29,7 +29,7 @@ import java.util.List;
  * Created by zchuanzhao on 16/12/26.
  */
 @Controller("frontGroupController")
-@RequestMapping("/group")
+@RequestMapping("/${groupPath}")
 public class GroupController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;
@@ -58,7 +58,7 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/apply",method = RequestMethod.GET)
     @Before(UserLoginInterceptor.class)
     public String apply(){
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_APPLY);
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_APPLY);
         if(StringUtils.isNotEmpty(judgeLoginJump)){
             return judgeLoginJump;
         }
@@ -118,7 +118,7 @@ public class GroupController extends BaseController {
                     isManager = true;
                 }
             }
-            if(isManager || loginMember.getId() == group.getCreator()){
+            if(isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
                 model.addAttribute("isManager",1);
             }
         }
@@ -144,7 +144,7 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/edit/{groupId}",method = RequestMethod.GET)
     public String edit(@PathVariable("groupId") Integer groupId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_EDIT+"/"+groupId);
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_EDIT+"/"+groupId);
         if(StringUtils.isNotEmpty(judgeLoginJump)){
             return judgeLoginJump;
         }
@@ -231,7 +231,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String post(@PathVariable("groupId") Integer groupId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_POST+"/"+groupId);
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_POST+"/"+groupId);
         if(StringUtils.isNotEmpty(judgeLoginJump)){
             return judgeLoginJump;
         }
@@ -264,7 +264,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String topicEdit(@PathVariable("topicId") Integer topicId,Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.GROUP_TOPIC_EDIT+"/"+topicId);
+        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_TOPIC_EDIT+"/"+topicId);
         if(StringUtils.isNotEmpty(judgeLoginJump)){
             return judgeLoginJump;
         }
@@ -290,7 +290,7 @@ public class GroupController extends BaseController {
         ResponseModel responseModel = groupTopicService.update(loginMember,groupTopic);
         if(responseModel.getCode() == 0){
             responseModel.setCode(2);
-            responseModel.setUrl(request.getContextPath()+"/group/topic/"+groupTopic.getId());
+            responseModel.setUrl(Const.GROUP_PATH + "/topic/"+groupTopic.getId());
         }
         return responseModel;
     }

@@ -15,6 +15,7 @@
     <link href="${basePath}/res/plugins/gallery/css/blueimp-gallery.min.css" rel="stylesheet">
     <script type="text/javascript">
         var basePath = "${basePath}";
+        var weiboPath = "${weiboPath}";
         var uploadServer = "${basePath}/uploadImage";
     </script>
     <!--[if lt IE 9]>
@@ -44,7 +45,7 @@
         <div class="row">
             <div class="col-md-8 white-bg m-b-10">
                 <div class="items weibo-post-area">
-                    <form class="form-horizontal m-t jeesns_form" action="${basePath}/weibo/publish" method="post">
+                    <form class="form-horizontal m-t jeesns_form" action="${weiboPath}/publish" method="post">
                         <p>
                             <textarea cols="5" class="form-control area emoji-render-input" name="content" id="weibo-content"
                                       maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
@@ -138,15 +139,15 @@
                                 <a class="text-success weibo-favor" weibo-id="${weibo.id}" href="javascript:void(0);">
                                     <i class="icon-thumbs-up"></i> ${weibo.favor}</a>
                             </#if>
-                                <a href="${basePath}/weibo/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
-                                <a href="${basePath}/weibo/detail/${weibo.id}">查看详情</a>
+                                <a href="${weiboPath}/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
+                                <a href="${weiboPath}/detail/${weibo.id}">查看详情</a>
                             </div>
                         </div>
                     </div>
                 </#list>
                 </div>
                 <ul class="pager pagination pagination-sm no-margin pull-right"
-                    url="${basePath}/weibo/list"
+                    url="${weiboPath}/list"
                     currentPage="${model.page.pageNo}"
                     pageCount="${model.page.totalPage}">
                 </ul>
@@ -186,8 +187,8 @@
                                             <a class="text-success weibo-favor" weibo-id="${weibo.id}">
                                                 <i class="icon-thumbs-up"></i> ${weibo.favor}</a>
                                         </#if>
-                                            <a href="${basePath}/weibo/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
-                                            <a href="${basePath}/weibo/detail/${weibo.id}">查看详情</a>
+                                            <a href="${weiboPath}/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
+                                            <a href="${weiboPath}/detail/${weibo.id}">查看详情</a>
                                         </div>
                                     </div>
                                 </div>

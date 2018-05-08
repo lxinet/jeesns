@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 public class JeesnsConfig {
     @Value("${managePath}")
     private String managePath;
+    @Value("${groupPath}")
+    private String groupPath;
+    @Value("${weiboPath}")
+    private String weiboPath;
     @Value("${manageTemplate}")
     private String manageTemplate;
     @Value("${memberTemplate}")
@@ -19,6 +23,14 @@ public class JeesnsConfig {
 
     public String getManagePath() {
         return managePath;
+    }
+
+    public String getGroupPath() {
+        return groupPath;
+    }
+
+    public String getWeiboPath() {
+        return weiboPath;
     }
 
     public String getManageTemplate() {

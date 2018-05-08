@@ -222,7 +222,7 @@
                                                     </div>
                                                 </#if>
                                                 <h3>
-                                                    <a href="${basePath}/group/topic/${groupTopic.id}" class="btn-link">
+                                                    <a href="${groupPath}/topic/${groupTopic.id}" class="btn-link">
                                                     ${groupTopic.title}
                                                     </a>
                                                 </h3>
@@ -286,7 +286,7 @@
                                             <#else>
                                                 <a class="text-success weibo-favor" weibo-id="${weibo.id}"><i class="fa fa-thumbs-up"></i> ${weibo.favor}</a>
                                             </#if>
-                                                <a href="${basePath}/weibo/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
+                                                <a href="${weiboPath}/detail/${weibo.id}">评论:${weibo.commentCount}</a>)
                                             </div>
                                         </div>
                                     </#list>
@@ -300,11 +300,11 @@
                                 <#elseif type=="group">
                                     <#list model.data as groupFans>
                                         <div class="feed-element">
-                                            <a href="${basePath}/group/detail/${groupFans.group.id}" class="pull-left">
+                                            <a href="${groupPath}/detail/${groupFans.group.id}" class="pull-left">
                                                 <img alt="image" class="img-circle" src="${groupFans.group.logo}">
                                             </a>
                                             <div class="media-body ">
-                                                <h4><strong><a href="${basePath}/group/detail/${groupFans.group.id}">${groupFans.group.name}</a></strong></h4>
+                                                <h4><strong><a href="${groupPath}/detail/${groupFans.group.id}">${groupFans.group.name}</a></strong></h4>
                                                 <p>${groupFans.group.introduce}</p>
                                                 <small class="text-muted">${groupFans.group.topicCount}篇文章 · ${groupFans.group.fansCount}人关注</small>
                                             </div>

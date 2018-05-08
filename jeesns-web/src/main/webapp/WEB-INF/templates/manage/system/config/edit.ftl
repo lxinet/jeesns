@@ -221,7 +221,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">微博别名</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="weibo_alias" name="weibo_alias" placeholder="微博别名" value="${weibo_alias}">默认为微博
+                                        <input type="text" class="form-control" id="weibo_alias" name="weibo_alias" placeholder="微博别名" value="${weibo_alias}">
+                                        默认为微博，如果需要修改微博访问路径，请修改jeesns.properties中weiboPath的值
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -253,7 +254,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">群组别名</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="group_alias" name="group_alias" placeholder="群组别名" value="${group_alias}">默认为群组
+                                        <input type="text" class="form-control" id="group_alias" name="group_alias" placeholder="群组别名" value="${group_alias}">
+                                        默认为群组，如果需要修改群组访问路径，请修改jeesns.properties中groupPath的值
                                     </div>
                                 </div>
                                 <div class="form-group">

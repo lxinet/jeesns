@@ -35,7 +35,7 @@
     <div class="main-content">
         <div class="row">
             <div class="col-md-12 article-detail">
-                <form class="form-horizontal jeesns_form" role="form" action="${basePath}/group/post" method="post" onsubmit="ckUpdate();">
+                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/post" method="post" onsubmit="ckUpdate();">
                     <input type="hidden" name="groupId" value="${group.id}">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">标题</label>

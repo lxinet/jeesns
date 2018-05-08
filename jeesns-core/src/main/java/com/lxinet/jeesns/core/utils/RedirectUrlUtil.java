@@ -16,18 +16,18 @@ public class RedirectUrlUtil {
     /**
      * 申请群组页面
      */
-    public static final String GROUP_APPLY = "/group/apply";
+    public static final String GROUP_APPLY = "apply";
     /**
      * 群组信息修改页面
      */
-    public static final String GROUP_EDIT = "/group/edit";
+    public static final String GROUP_EDIT = "edit";
     /**
      * 群组发帖页面
      */
-    public static final String GROUP_POST = "/group/post";
+    public static final String GROUP_POST = "post";
 
     /**
      * 群组帖子修改页面
      */
-    public static final String GROUP_TOPIC_EDIT = "/group/topicEdit";
+    public static final String GROUP_TOPIC_EDIT = "topicEdit";
 }

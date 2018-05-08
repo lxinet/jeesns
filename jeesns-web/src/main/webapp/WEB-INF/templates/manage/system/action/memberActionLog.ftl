@@ -60,9 +60,9 @@
                                         <#if actionLog.type==1>
                                             <a href="${basePath}/article/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
                                         <#elseif actionLog.type==2>
-                                            <a href="${basePath}/weibo/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                            <a href="${weiboPath}/detail/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
                                         <#elseif actionLog.type==4>
-                                            <a href="${basePath}/group/topic/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
+                                            <a href="${groupPath}/topic/${actionLog.foreignId}" target="_blank">${actionLog.remark}</a>
                                         </#if>
                                     </td>
                                     <td>${actionLog.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>

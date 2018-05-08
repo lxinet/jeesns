@@ -32,7 +32,7 @@
     <div class="main-content">
         <div class="row">
             <div class="col-md-12 article-detail">
-                <form class="form-horizontal jeesns_form" role="form" action="${basePath}/group/apply" method="post">
+                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/apply" method="post">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">名称</label>
                         <div class="col-sm-8">

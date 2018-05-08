@@ -103,7 +103,7 @@
                     <div class="panel-heading">
                         最新帖子
                         <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${basePath}/group/">阅读更多</a>
+                            <a class="btn btn-primary m-t-n4" href="${groupPath}/">阅读更多</a>
                         </span>
                     </div>
                     <div class="panel-body">
@@ -113,7 +113,7 @@
                                     <ul>
                                     <@group_topic_list cid=0 num=15 day=100; groupTopic>
                                         <#list groupTopicList as groupTopic>
-                                            <li><i class="main-text-color"></i> <a href="${basePath}/group/topic/${groupTopic.id}">
+                                            <li><i class="main-text-color"></i> <a href="${groupPath}/topic/${groupTopic.id}">
                                                 <#if groupTopic.title?length &gt; 18>
                                                 ${groupTopic.title?substring(0,18)}...
                                                 <#else>
@@ -133,14 +133,14 @@
                                             <div class="item index-article">
                                                 <div class="item-content">
                                                     <div class="media">
-                                                        <a href="${basePath}/group/topic/${groupTopic.id}">
+                                                        <a href="${groupPath}/topic/${groupTopic.id}">
                                                             <img src="${basePath}${groupTopic.thumbnail}" alt="${groupTopic.title}" height="150px" width="100%">
                                                         </a>
                                                     </div>
-                                                    <h4><a href="${basePath}/group/topic/${groupTopic.id}">${groupTopic.title}</a></h4>
+                                                    <h4><a href="${groupPath}/topic/${groupTopic.id}">${groupTopic.title}</a></h4>
                                                 </div>
                                                 <div class="item-footer">
-                                                    <a href="${basePath}/group/topic/${groupTopic.id}" class="text-muted"><i class="icon-comments"></i> ${groupTopic.viewCount}</a> &nbsp; <span class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                                    <a href="${groupPath}/topic/${groupTopic.id}" class="text-muted"><i class="icon-comments"></i> ${groupTopic.viewCount}</a> &nbsp; <span class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,7 +157,7 @@
                     <div class="panel-heading">
                         推荐群组
                         <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${basePath}/group/">查看更多</a>
+                            <a class="btn btn-primary m-t-n4" href="${groupPath}/">查看更多</a>
                         </span>
                     </div>
                     <div class="panel-body">
@@ -168,12 +168,12 @@
                                     <div class="col-md-3">
                                         <div class="group-detail">
                                             <div class="group-logo">
-                                                <a href="${basePath}/group/detail/${group.id}">
+                                                <a href="${groupPath}/detail/${group.id}">
                                                     <img alt="image" class="img-rounded" src="${basePath}${group.logo}" width="100px" height="100px">
                                                 </a>
                                             </div>
                                             <div class="group-info">
-                                                <h4><strong><a href="${basePath}/group/detail/${group.id}">${group.name}</a></strong></h4>
+                                                <h4><strong><a href="${groupPath}/detail/${group.id}">${group.name}</a></strong></h4>
                                                 <p class="text-muted">
                                                     <#if group.introduce?length &gt; 50>
                                                     ${group.introduce?substring(0,50)}...

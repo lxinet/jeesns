@@ -29,7 +29,11 @@ public class InitListener implements ServletContextListener {
             String frontTemplate = jeesnsConfig.getFrontTemplate();
             sce.getServletContext().setAttribute("frontTemplate",frontTemplate);
             String managePath = Const.PROJECT_PATH + "/" + jeesnsConfig.getManagePath();
+            Const.GROUP_PATH = Const.PROJECT_PATH + "/" + jeesnsConfig.getGroupPath();
+            Const.WEIBO_PATH = Const.PROJECT_PATH + "/" + jeesnsConfig.getWeiboPath();
             sce.getServletContext().setAttribute("managePath",managePath);
+            sce.getServletContext().setAttribute("groupPath",Const.GROUP_PATH);
+            sce.getServletContext().setAttribute("weiboPath",Const.WEIBO_PATH);
             IConfigService configService = SpringContextHolder.getBean("configService");
             List<Config> configList = configService.allList();
             for (Config config : configList) {

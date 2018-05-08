@@ -19,10 +19,10 @@
                                 <a href="${basePath}/article/list"> 文章</a>
                             </li>
                             <li>
-                                <a href="${basePath}/weibo/list"> ${WEIBO_ALIAS}</a>
+                                <a href="${weiboPath}/list"> ${WEIBO_ALIAS}</a>
                             </li>
                             <li>
-                                <a href="${basePath}/group/"> ${GROUP_ALIAS}</a>
+                                <a href="${groupPath}/"> ${GROUP_ALIAS}</a>
                             </li>
                             <li>
                                 <a href="${basePath}/action/list"> 动态</a>

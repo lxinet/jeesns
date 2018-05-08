@@ -52,10 +52,10 @@
                                        target="_blank">${actionLog.remark}</a>
                                 <#elseif actionLog.type==2>
                                     <p>${actionLog.remark}</p>
-                                    <a href="${basePath}/weibo/detail/${actionLog.foreignId}"
+                                    <a href="${weiboPath}/detail/${actionLog.foreignId}"
                                        target="_blank">查看</a>
                                 <#elseif actionLog.type==4>
-                                    <a href="${basePath}/group/topic/${actionLog.foreignId}"
+                                    <a href="${groupPath}/topic/${actionLog.foreignId}"
                                        target="_blank">${actionLog.remark}</a>
                                 </#if>
                             </div>

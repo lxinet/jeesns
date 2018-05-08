@@ -32,7 +32,7 @@
     <div class="main-content">
         <div class="row">
             <div class="col-md-12 article-detail">
-                <form class="form-horizontal jeesns_form" role="form" action="${basePath}/group/update"
+                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/update"
                       method="post">
                     <input type="hidden" class="form-control" id="id" name="id" value="${group.id}">
                     <div class="form-group">
@@ -106,7 +106,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-8">
                             <button type="submit" class="btn btn-info jeesns-submit">修改</button>
-                            <a class="btn btn-default" href="${basePath}/group/detail/${group.id}">返回</a>
+                            <a class="btn btn-default" href="${groupPath}/detail/${group.id}">返回</a>
                         </div>
                     </div>
                 </form>
