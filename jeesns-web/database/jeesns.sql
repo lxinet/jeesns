@@ -167,6 +167,8 @@ CREATE TABLE `tbl_group_topic` (
   `status` int(11) DEFAULT '0' COMMENT '状态，0未审核，1已审核',
   `is_essence` int(11) DEFAULT '0' COMMENT '精华，0不加精，1加精',
   `is_top` int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶',
+  `is_top` int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶',
+  `type_id` int(11) DEFAULT null COMMENT '帖子分类ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -418,6 +420,15 @@ CREATE TABLE `tbl_picture_favor` (
   UNIQUE KEY `uk_picture_album_id_member_id` (`picture_id`,`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tbl_group_topic_type` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `group_id` INT(11),
+  `name` VARCHAR (32),
+  `juri` INT(11) DEFAULT '0' COMMENT '权限，0所有人发布，1是管理员才可以发布',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -452,6 +463,7 @@ ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_member` FOR
 ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`picture_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`picture_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_group_topic` ADD CONSTRAINT `fk_group_topic_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_topic_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 
 
