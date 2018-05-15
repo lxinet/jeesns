@@ -2,21 +2,20 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
+import com.lxinet.jeesns.model.group.GroupTopicType;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
+import com.lxinet.jeesns.service.group.*;
 import com.lxinet.jeesns.web.common.BaseController;
-import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupFans;
 import com.lxinet.jeesns.model.group.GroupTopic;
-import com.lxinet.jeesns.service.group.IGroupFansService;
-import com.lxinet.jeesns.service.group.IGroupTopicCommentService;
-import com.lxinet.jeesns.service.group.IGroupTopicService;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +40,8 @@ public class GroupController extends BaseController {
     private IGroupFansService groupFansService;
     @Resource
     private IGroupTopicCommentService groupTopicCommentService;
+    @Resource
+    private IGroupTopicTypeService groupTopicTypeService;
     @Resource
     private IArchiveService archiveService;
     @Resource
@@ -72,7 +73,7 @@ public class GroupController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/detail/{groupId}",method = RequestMethod.GET)
-    public String detail(@PathVariable("groupId") Integer groupId, Model model) {
+    public String detail(@PathVariable("groupId") Integer groupId, @RequestParam(value = "typeId",defaultValue = "0") Integer typeId, Model model) {
         Page page = new Page(request);
         Group group = groupService.findById(groupId);
         if(group == null){
@@ -92,7 +93,7 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow",true);
         }
         //获取群组帖子列表
-        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,1,0);
+        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,1,0,typeId);
         model.addAttribute("model",responseModel);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();
@@ -106,7 +107,6 @@ public class GroupController extends BaseController {
             }
         }
         model.addAttribute("managerList",managerList);
-
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
         if(loginMember == null){
@@ -125,8 +125,11 @@ public class GroupController extends BaseController {
         //获取群组粉丝列表,第一页，20条数据
         Page groupFansPage = new Page(1,20);
         List<GroupFans> groupFansList = (List<GroupFans>) groupFansService.listByPage(groupFansPage,groupId).getData();
+        List<GroupTopicType> groupTopicTypeList = groupTopicTypeService.list(groupId);
         model.addAttribute("groupFansList",groupFansList);
+        model.addAttribute("groupTopicTypeList",groupTopicTypeList);
         model.addAttribute("loginUser", loginMember);
+        model.addAttribute("typeId", typeId);
         return jeesnsConfig.getFrontTemplate() + "/group/detail";
     }
 
@@ -142,7 +145,7 @@ public class GroupController extends BaseController {
 
 
     @RequestMapping(value = "/edit/{groupId}",method = RequestMethod.GET)
-    public String edit(@PathVariable("groupId") Integer groupId,Model model){
+    public String edit(@PathVariable("groupId") Integer groupId, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_EDIT+"/"+groupId);
         if(StringUtils.isNotEmpty(judgeLoginJump)){
@@ -247,6 +250,8 @@ public class GroupController extends BaseController {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1006, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("group",group);
+        List<GroupTopicType> groupTopicTypeList = groupTopicTypeService.list(groupId);
+        model.addAttribute("groupTopicTypeList",groupTopicTypeList);
         return jeesnsConfig.getFrontTemplate() + "/group/post";
     }
 
@@ -275,6 +280,8 @@ public class GroupController extends BaseController {
         if(loginMember.getId().intValue() != groupTopic.getMember().getId().intValue()){
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001, Const.INDEX_ERROR_FTL_PATH);
         }
+        List<GroupTopicType> groupTopicTypeList = groupTopicTypeService.list(groupTopic.getGroup().getId());
+        model.addAttribute("groupTopicTypeList",groupTopicTypeList);
         model.addAttribute("groupTopic",groupTopic);
         model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/topicEdit";
@@ -385,7 +392,7 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow",true);
         }
         //获取群组帖子列表
-        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,0,0);
+        ResponseModel responseModel = groupTopicService.listByPage(page,null,groupId,0,0,0);
         model.addAttribute("model",responseModel);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();
@@ -472,4 +479,117 @@ public class GroupController extends BaseController {
         }
         return groupTopicService.favor(loginMember,id);
     }
+
+    @RequestMapping(value = "/topicTypeList/{groupId}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
+    public String topicTypeList(@PathVariable("groupId") Integer groupId, Model model) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        Group group = groupService.findById(groupId);
+        if(group == null){
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
+        }
+        String managerIds = group.getManagers();
+        if ((","+managerIds + ",").indexOf(","+loginMember.getId()+",") == -1){
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
+        }
+        model.addAttribute("group",group);
+        List<GroupTopicType> list = groupTopicTypeService.list(groupId);
+        model.addAttribute("list",list);
+        return jeesnsConfig.getFrontTemplate() + "/group/topicTypeList";
+    }
+
+    @RequestMapping(value = "/topicTypeAdd/{groupId}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
+    public String topicTypeAdd(@PathVariable("groupId") Integer groupId, Model model) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        Group group = groupService.findById(groupId);
+        if(group == null){
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1002,Const.INDEX_ERROR_FTL_PATH);
+        }
+        String managerIds = group.getManagers();
+        if ((","+managerIds + ",").indexOf(","+loginMember.getId()+",") == -1){
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
+        }
+        model.addAttribute("group",group);
+        return jeesnsConfig.getFrontTemplate() + "/group/topicTypeAdd";
+    }
+
+    @RequestMapping(value = "/topicTypeSave",method = RequestMethod.POST)
+    @ResponseBody
+    public Object topicTypeSave(GroupTopicType groupTopicType) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        Group group = groupService.findById(groupTopicType.getGroupId());
+        String managerIds = group.getManagers();
+        if ((","+managerIds + ",").indexOf(","+loginMember.getId()+",") == -1){
+            return new ResponseModel(-1,"非法操作");
+        }
+        ResponseModel responseModel = groupTopicTypeService.save(loginMember,groupTopicType);;
+        if (responseModel.getCode() == 0){
+            responseModel.setCode(3);
+        }
+        return responseModel;
+    }
+
+    @RequestMapping(value = "/topicTypeEdit/{typeId}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
+    public String topicTypeEdit(@PathVariable("typeId") Integer typeId, Model model) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        GroupTopicType groupTopicType = groupTopicTypeService.findById(typeId);
+        if(groupTopicType == null){
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1013,Const.INDEX_ERROR_FTL_PATH);
+        }
+        Group group = groupService.findById(groupTopicType.getGroupId());
+        String managerIds = group.getManagers();
+        if ((","+managerIds + ",").indexOf(","+loginMember.getId()+",") == -1){
+            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001,Const.INDEX_ERROR_FTL_PATH);
+        }
+        model.addAttribute("groupTopicType",groupTopicType);
+        return jeesnsConfig.getFrontTemplate() + "/group/topicTypeEdit";
+    }
+
+    @RequestMapping(value = "/topicTypeUpdate",method = RequestMethod.POST)
+    @ResponseBody
+    public Object topicTypeUpdate(GroupTopicType groupTopicType) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        Group group = groupService.findById(groupTopicType.getGroupId());
+        String managerIds = group.getManagers();
+        if ((","+managerIds + ",").indexOf(","+loginMember.getId()+",") == -1){
+            return new ResponseModel(-1,"非法操作");
+        }
+        ResponseModel responseModel = groupTopicTypeService.update(loginMember,groupTopicType);;
+        if (responseModel.getCode() == 0){
+            responseModel.setCode(3);
+        }
+        return responseModel;
+    }
+
+    @RequestMapping(value = "/topicTypeDelete/{typeId}",method = RequestMethod.GET)
+    @ResponseBody
+    public Object topicTypeDelete(@PathVariable("typeId") Integer typeId) {
+        Member loginMember = MemberUtil.getLoginMember(request);
+        if(loginMember == null){
+            return new ResponseModel(-1,"请先登录");
+        }
+        GroupTopicType groupTopicType = groupTopicTypeService.findById(typeId);
+        if(groupTopicType == null){
+            return new ResponseModel(-1,"帖子分类不存在");
+        }
+        Group group = groupService.findById(groupTopicType.getGroupId());
+        String managerIds = group.getManagers();
+        if ((","+managerIds + ",").indexOf(","+loginMember.getId()+",") == -1){
+            return new ResponseModel(-1,"非法操作");
+        }
+        ResponseModel responseModel = groupTopicTypeService.delete(loginMember,typeId);;
+        if (responseModel.getCode() == 0){
+            responseModel.setCode(3);
+        }
+        return responseModel;
+    }
+
 }

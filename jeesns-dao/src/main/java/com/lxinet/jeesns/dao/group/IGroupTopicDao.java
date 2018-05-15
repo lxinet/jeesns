@@ -12,9 +12,10 @@ import java.util.List;
  */
 public interface IGroupTopicDao extends IBaseDao<GroupTopic> {
 
+    @Override
     int save(GroupTopic groupTopic);
 
-    List<GroupTopic> listByPage(@Param("page") Page page, @Param("key") String key, @Param("groupId") Integer groupId, @Param("status") Integer status, @Param("memberId") Integer memberId);
+    List<GroupTopic> listByPage(@Param("page") Page page, @Param("key") String key, @Param("groupId") Integer groupId, @Param("status") Integer status, @Param("memberId") Integer memberId, @Param("typeId") Integer typeId);
 
     int audit(@Param("id") Integer id);
 
@@ -33,6 +34,13 @@ public interface IGroupTopicDao extends IBaseDao<GroupTopic> {
      * @return
      */
     int essence(@Param("id") Integer id,@Param("essence") Integer essence);
+
+    /**
+     * 修改分类
+     * @param typeId
+     * @return
+     */
+    int updateType(@Param("id") Integer id,@Param("typeId") Integer typeId);
 
     /**
      * 自定义条件查询

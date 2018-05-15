@@ -69,8 +69,6 @@ var jeesns = {
                     $(":submit").removeAttr("disabled");
                     jeesnsDialog.tips(res.message);
                 }
-                // $(":submit").removeAttr("disabled");
-                // form.find('.jeesns-submit').removeAttr("disabled");
             }
         };
         return options;

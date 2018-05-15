@@ -50,6 +50,9 @@
                                 <#if isManager == 1>
                                    . <a href="${groupPath}/auditList/${group.id}">审核帖子</a>
                                 </#if>
+                                <#if isManager == 1>
+                                   . <a href="${groupPath}/topicTypeList/${group.id}">分类管理</a>
+                                </#if>
                             </span>
                         </p>
                         <p>${model.page.totalCount}帖子 · ${groupFansList?size}关注</p>
@@ -65,7 +68,10 @@
                 </@ads>
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
-                        全部
+                        <a href="${groupPath}/detail/${group.id}"><span class="btn btn-info">全部<#if typeId == 0> <span class="label label-dot label-info"></span></#if></span></a> &nbsp;&nbsp;
+                        <#list groupTopicTypeList as groupTopicType>
+                            <a href="${groupPath}/detail/${group.id}?typeId=${groupTopicType.id}"><span class="btn btn-success">${groupTopicType.name}<#if typeId == groupTopicType.id> <span class="label label-dot label-info"></span></#if></span></button></a>&nbsp;&nbsp;
+                        </#list>
                         <span class="pull-right">
                             <a class="btn btn-primary m-t-n4" href="${groupPath}/post/${group.id}">发帖</a>
                         </span>

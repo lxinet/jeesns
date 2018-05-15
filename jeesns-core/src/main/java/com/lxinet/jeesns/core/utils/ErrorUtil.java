@@ -24,6 +24,7 @@ public class ErrorUtil {
         errors.put(-1010,"相册不存在");
         errors.put(-1011,"图片不存在");
         errors.put(-1012,"无权查看此相册");
+        errors.put(-1013,"帖子分类不存在");
     }
 
     public static String error(Model model, Integer errorcode, String ftlPath){

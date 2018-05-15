@@ -66,7 +66,7 @@ public class IndexController extends BaseController{
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         ResponseModel articleModel = articleService.listByPage(page,key,cateid,1,0);
-        ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1,0);
+        ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1,0,0);
         ResponseModel groupModel = groupService.listByPage(1,page,key);
         ResponseModel linkModel = linkService.recommentList();
         page.setPageSize(50);
@@ -113,7 +113,7 @@ public class IndexController extends BaseController{
         if("article".equals(type)){
             model.addAttribute("model", articleService.listByPage(page,"",0,1, id));
         } else if("groupTopic".equals(type)){
-            model.addAttribute("model", groupTopicService.listByPage(page,"",0,1, id));
+            model.addAttribute("model", groupTopicService.listByPage(page,"",0,1, id,0));
         } else if("group".equals(type)){
             model.addAttribute("model", groupFansService.listByMember(page, id));
         } else if("weibo".equals(type)){

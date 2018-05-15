@@ -25,7 +25,7 @@ public interface IGroupTopicService {
 
     ResponseModel indexDelete(HttpServletRequest request, Member loginMember, int id);
 
-    ResponseModel listByPage(Page page, String key, int groupId, int status, int memberId);
+    ResponseModel listByPage(Page page, String key, int groupId, int status, int memberId, int typeId);
 
     ResponseModel audit(Member member,int id);
 

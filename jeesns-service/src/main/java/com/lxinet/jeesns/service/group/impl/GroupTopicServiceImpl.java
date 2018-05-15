@@ -113,11 +113,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     }
 
     @Override
-    public ResponseModel listByPage(Page page, String key, int groupId, int status, int memberId) {
+    public ResponseModel listByPage(Page page, String key, int groupId, int status, int memberId, int typeId) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
-        List<GroupTopic> list = groupTopicDao.listByPage(page, key,groupId,status,memberId);
+        List<GroupTopic> list = groupTopicDao.listByPage(page, key,groupId,status,memberId,typeId);
         ResponseModel model = new ResponseModel(0,page);
         model.setData(list);
         return model;
@@ -140,6 +140,9 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             archive = archive.copy(groupTopic);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (groupTopic.getTypeId().intValue() != findGroupTopic.getTypeId().intValue()){
+            groupTopicDao.updateType(groupTopic.getId(),groupTopic.getTypeId());
         }
         if(archiveService.update(member,archive)){
             return new ResponseModel(0,"更新成功");
