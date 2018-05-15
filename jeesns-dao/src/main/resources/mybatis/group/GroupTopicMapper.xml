@@ -13,7 +13,7 @@
   </resultMap>
 
   <select id="listByPage" resultMap="GroupTopicResult">
-    select a.id,a.group_id,,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,a.type_id,b.*,c.name 'group.name',
+    select a.id,a.group_id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,a.type_id,b.*,c.name 'group.name',
     b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar'
     from tbl_group_topic as a LEFT JOIN tbl_archive as b ON a.archive_id = b.archive_id
     LEFT JOIN tbl_group as c ON a.group_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id
