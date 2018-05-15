@@ -44,6 +44,17 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-1 control-label">帖子分类</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="typeId">
+                                <option value="" <#if groupTopic.typeId == null>selected</#if>>不选择分类</option>
+                                <#list groupTopicTypeList as groupTopicType>
+                                <option value="${groupTopicType.id}" <#if groupTopic.typeId == groupTopicType.id>selected</#if>>${groupTopicType.name}</option>
+                                </#list>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="firstname" class="col-sm-1 control-label">缩略图</label>
                         <div class="col-sm-10">
                             <div id="uploader">

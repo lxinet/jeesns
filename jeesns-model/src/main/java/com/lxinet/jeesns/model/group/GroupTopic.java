@@ -2,6 +2,7 @@ package com.lxinet.jeesns.model.group;
 
 
 import com.lxinet.jeesns.model.common.Archive;
+import org.hibernate.validator.internal.xml.GroupsType;
 
 import java.util.Date;
 
@@ -13,6 +14,8 @@ public class GroupTopic extends Archive {
     private Date collectTime;
     private Integer groupId;
     private Group group;
+    private Integer typeId;
+    private GroupTopicType groupTopicType;
     private Integer status;
     private Integer isTop;
     private Integer isEssence;
@@ -71,5 +74,21 @@ public class GroupTopic extends Archive {
 
     public void setIsEssence(Integer isEssence) {
         this.isEssence = isEssence;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public GroupTopicType getGroupTopicType() {
+        return groupTopicType;
+    }
+
+    public void setGroupTopicType(GroupTopicType groupTopicType) {
+        this.groupTopicType = groupTopicType;
     }
 }
