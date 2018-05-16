@@ -30,7 +30,7 @@
 <#include "/manage/common/header.ftl"/>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>群组管理(${model.page.totalCount})</h1>
+            <h1>群组管理(${list?size})</h1>
             <ol class="breadcrumb">
                 <li><a href="${managePath}/index"><i class="fa fa-dashboard"></i> 主页</a></li>
                 <li class="active">群组管理</li>
