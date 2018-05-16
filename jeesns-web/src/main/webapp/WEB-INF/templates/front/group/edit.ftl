@@ -43,6 +43,16 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">所属分类</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="typeId">
+                                <#list groupTypeList as groupType>
+                                    <option value="${groupType.id}" <#if groupType.id == group.typeId>selected</#if>>${groupType.name}</option>
+                                </#list>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="firstname" class="col-sm-2 control-label">图标</label>
                         <div class="col-sm-8">
                             <img src="${basePath}${group.logo}" height="80px"/>

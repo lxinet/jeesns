@@ -21,7 +21,7 @@ public interface IGroupService {
 
     ResponseModel delete(Member loginMember, int id);
 
-    ResponseModel listByPage(int status, Page page, String key);
+    List<Group> list(int status, String key);
 
     ResponseModel follow(Member loginMember, Integer groupId,int type);
 

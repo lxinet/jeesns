@@ -5,6 +5,7 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
+import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.web.common.BaseController;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by zchuanzhao on 16/12/23.
@@ -29,8 +31,8 @@ public class GroupController extends BaseController {
                         String key,
                         Model model) {
         Page page = new Page(request);
-        ResponseModel responseModel = groupService.listByPage(status,page,key);
-        model.addAttribute("model",responseModel);
+        List<Group> list = groupService.list(status,key);
+        model.addAttribute("list",list);
         model.addAttribute("key",key);
         return MANAGE_FTL_PATH + "index";
     }

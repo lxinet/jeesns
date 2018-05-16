@@ -25,6 +25,7 @@ public class Group implements Serializable {
     private Integer topicReview;
     private Integer topicCount;
     private Integer fansCount;
+    private Integer typeId;
 
 
     public Integer getId() {
@@ -138,5 +139,13 @@ public class Group implements Serializable {
 
     public void setFansCount(Integer fansCount) {
         this.fansCount = fansCount;
+    }
+
+    public Integer getTypeId() {
+        return typeId == null ? 1 : typeId ;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 }

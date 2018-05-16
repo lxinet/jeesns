@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.common.utils.EmojiUtil;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -65,16 +67,8 @@ public class IndexController extends BaseController{
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResponseModel articleModel = articleService.listByPage(page,key,cateid,1,0);
-        ResponseModel groupTopicModel = groupTopicService.listByPage(page,key,cateid,1,0,0);
-        ResponseModel groupModel = groupService.listByPage(1,page,key);
         ResponseModel linkModel = linkService.recommentList();
         page.setPageSize(50);
-        ResponseModel weiboModel = weiboService.listByPage(page,0,loginMemberId,"");
-        model.addAttribute("articleModel",articleModel);
-        model.addAttribute("groupTopicModel",groupTopicModel);
-        model.addAttribute("groupModel",groupModel);
-        model.addAttribute("weiboModel",weiboModel);
         model.addAttribute("linkModel",linkModel);
 
         return jeesnsConfig.getFrontTemplate() + "/index";

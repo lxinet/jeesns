@@ -40,6 +40,16 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-1 control-label">所属分类</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="typeId">
+                                <#list groupTypeList as groupType>
+                                <option value="${groupType.id}">${groupType.name}</option>
+                                </#list>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-1 control-label">缩略图</label>
                         <div class="col-sm-10">
                             <div id="uploader" class="wu-example">

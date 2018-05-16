@@ -89,6 +89,7 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
+                    <li><a href="${managePath}/group/type/list" module="group"><i class="fa fa-circle-o"></i>分类管理</a></li>
                     <li><a href="${managePath}/group/index" module="group"><i class="fa fa-circle-o"></i>群组列表</a></li>
                 </ul>
             </li>
