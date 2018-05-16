@@ -18,5 +18,5 @@ CREATE TABLE `tbl_group_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `tbl_group` ADD COLUMN `type_id` INT DEFAULT NULL;
-ALTER TABLE `tbl_group` ADD CONSTRAINT `fk_group_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_type` (`id`) ON DELETE SET 1 ON UPDATE CASCADE;
+ALTER TABLE `tbl_group` ADD CONSTRAINT `fk_group_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 INSERT INTO `tbl_group_type` values (1,now(),'默认分类');
