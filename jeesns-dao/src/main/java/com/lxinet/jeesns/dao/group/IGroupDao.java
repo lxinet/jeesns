@@ -15,7 +15,7 @@ public interface IGroupDao extends IBaseDao<Group> {
      * 获取群组
      * @return
      */
-    List<Group> listByPage(@Param("page") Page page, @Param("status") Integer status, @Param("key") String key);
+    List<Group> list(@Param("status") Integer status, @Param("key") String key);
 
     /**
      * 修改状态

@@ -23,16 +23,78 @@
 </head>
 <body class="gray-bg">
 <#include "/${frontTemplate}/common/header.ftl"/>
+
 <div class="container">
     <div class="main-content">
-        <div class="row white-bg group-list">
-            <div class="panel-heading" style="margin-bottom: 30px">
-                ${GROUP_ALIAS}
-                <span class="pull-right">
+        <div class="row white-bg">
+            <div class="panel group-topic-list no-border">
+                <div class="panel-heading">
+                    最新帖子
+                    <span class="pull-right">
                     <a class="btn btn-primary m-t-n4" href="${groupPath}/apply">申请</a>
                 </span>
+                </div>
+                <div class="panel-body">
+                    <div class="items">
+                        <div class="col-md-4">
+                            <div class="article-hot-list">
+                                <ul>
+                                    <@group_topic_list cid=0 num=15 day=0; groupTopic>
+                                        <#list groupTopicList as groupTopic>
+                                            <li><i class="main-text-color"></i> <a
+                                                    href="${groupPath}/topic/${groupTopic.id}">
+                                                <#if groupTopic.title?length &gt; 18>
+                                                    ${groupTopic.title?substring(0,18)}...
+                                                <#else>
+                                                    ${groupTopic.title}
+                                                </#if>
+                                            </a></li>
+                                        </#list>
+                                    </@group_topic_list>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="items">
+                                <@group_topic_list gid=0 num=6 thumbnail=1; groupTopic>
+                                    <#list groupTopicList as groupTopic>
+                                        <div class="col-md-4">
+                                            <div class="item index-article">
+                                                <div class="item-content">
+                                                    <div class="media">
+                                                        <a href="${groupPath}/topic/${groupTopic.id}">
+                                                            <img src="${basePath}${groupTopic.thumbnail}"
+                                                                 alt="${groupTopic.title}" height="150px" width="100%">
+                                                        </a>
+                                                    </div>
+                                                    <h4>
+                                                        <a href="${groupPath}/topic/${groupTopic.id}">${groupTopic.title}</a>
+                                                    </h4>
+                                                </div>
+                                                <div class="item-footer">
+                                                    <a href="${groupPath}/topic/${groupTopic.id}" class="text-muted"><i
+                                                            class="icon-comments"></i> ${groupTopic.viewCount}</a>
+                                                    &nbsp; <span
+                                                        class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </#list>
+                                </@group_topic_list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        <#list model.data as group>
+        </div>
+        <@group_type_list>
+            <#list groupTypeList as groupType>
+        <div class="row white-bg group-list">
+            <div class="panel-heading" style="margin-bottom: 30px">
+                ${groupType.name}
+            </div>
+        <#list list as group>
+            <#if group.typeId == groupType.id>
             <div class="col-md-3">
                 <div class="group-detail">
                     <div class="group-logo">
@@ -45,7 +107,7 @@
                         <p class="text-muted" title="${group.introduce}">
                             <#if group.introduce?length &gt; 50>
                                 ${group.introduce?substring(0,50)}...
-                                <#else>
+                            <#else>
                                 ${group.introduce}
                             </#if>
                         </p>
@@ -53,13 +115,11 @@
                     </div>
                 </div>
             </div>
+            </#if>
         </#list>
         </div>
-        <ul class="pager pagination pagination-sm no-margin pull-right"
-            url="${groupPath}/index"
-            currentPage="${model.page.pageNo}"
-            pageCount="${model.page.totalPage}">
-        </ul>
+            </#list>
+        </@group_type_list>
     </div>
 </div>
 <#include "/${frontTemplate}/common/footer.ftl"/>

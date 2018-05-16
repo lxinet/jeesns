@@ -75,6 +75,7 @@
                 <entry key="wb_weibo_list" value-ref="weiboDirective"/>
                 <entry key="group_list" value-ref="groupDirective"/>
                 <entry key="group_topic_list" value-ref="groupTopicDirective"/>
+                <entry key="group_type_list" value-ref="groupTypeDirective"/>
                 <entry key="ads" value-ref="adsDirective"/>
             </map>
         </property>

@@ -41,14 +41,12 @@ public class GroupServiceImpl implements IGroupService {
     private IScoreDetailService scoreDetailService;
 
     @Override
-    public ResponseModel listByPage(int status, Page page, String key) {
+    public List<Group> list(int status, String key) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
-        List<Group> list = groupDao.listByPage(page, status,key);
-        ResponseModel model = new ResponseModel(0,page);
-        model.setData(list);
-        return model;
+        List<Group> list = groupDao.list(status,key);
+        return list;
     }
 
     /**
@@ -165,6 +163,7 @@ public class GroupServiceImpl implements IGroupService {
         findGroup.setCanPost(group.getCanPost());
         findGroup.setTopicReview(group.getTopicReview());
         findGroup.setIntroduce(group.getIntroduce());
+        findGroup.setTypeId(group.getTypeId());
         if(groupDao.update(findGroup) == 1){
             return new ResponseModel(1,"操作成功");
         }
