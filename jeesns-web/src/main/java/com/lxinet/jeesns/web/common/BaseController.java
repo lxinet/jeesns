@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.common;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
-import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.JeeException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.model.member.MemberToken;
 import com.lxinet.jeesns.service.member.IMemberTokenService;
@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +32,8 @@ public class BaseController {
     @Resource
     protected IMemberTokenService memberTokenService;
 
-    protected ResponseModel<MemberToken> validMemberToken(){
-        ResponseModel model = new ResponseModel(-1,"非法操作");
+    protected ResultModel<MemberToken> validMemberToken(){
+        ResultModel model = new ResultModel(-1,"非法操作");
         String token = getParam("token");
         if (StringUtils.isNotEmpty(token)){
             MemberToken memberToken = memberTokenService.getByToken(token);
@@ -136,8 +134,13 @@ public class BaseController {
             try {
                 out = response.getWriter();
                 JSONObject json = new JSONObject();
-                json.put("code",-1);
-                json.put("message",e.getMessage());
+                if (e instanceof JeeException){
+                    json.put("code",((JeeException) e).getJeeMessage().getCode());
+                    json.put("message",((JeeException) e).getJeeMessage().getMessage());
+                }else {
+                    json.put("code",-1);
+                    json.put("message",e.getMessage());
+                }
                 out.print(json.toString());
                 out.flush();
             } catch (IOException e1) {

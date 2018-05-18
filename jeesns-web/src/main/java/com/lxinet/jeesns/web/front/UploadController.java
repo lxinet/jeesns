@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.common.utils.MemberUtil;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.model.picture.PictureAlbum;
 import com.lxinet.jeesns.service.picture.IPictureAlbumService;
 import com.lxinet.jeesns.service.picture.IPictureService;
@@ -89,12 +89,12 @@ public class UploadController extends BaseController {
 	private Object uploadImage(MultipartFile file, int type) {
 		Member loginMember = MemberUtil.getLoginMember(request);
 		if (loginMember == null){
-			return new ResponseModel(-1,"请先登录");
+			return new ResultModel(-1,"请先登录");
 		}
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
 		if(suffix == null || (!".png".equals(suffix.toLowerCase()) && !".jpg".equals(suffix.toLowerCase()) && !".gif".equals(suffix.toLowerCase()) && !".jpeg".equals(suffix.toLowerCase()) && !".bmp".equals(suffix.toLowerCase()))) {
-			return new ResponseModel(-1,"格式不支持");
+			return new ResultModel(-1,"格式不支持");
 		}
 		String newFileName = UUID.randomUUID() + suffix;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -158,7 +158,7 @@ public class UploadController extends BaseController {
 		}else {
 			url = path + newFileName;
 		}
-		return new ResponseModel(0,"上传成功",url);
+		return new ResultModel(0,"上传成功",url);
 	}
 
 	/**
@@ -192,12 +192,12 @@ public class UploadController extends BaseController {
 		if(findMember != null){
 			String oldAvatar = findMember.getAvatar();
 			findMember.setAvatar(filePath + fileName);
-			ResponseModel responseModel = memberService.updateAvatar(findMember,oldAvatar,request);
-			if (responseModel.getCode() == 0){
+			ResultModel resultModel = memberService.updateAvatar(findMember,oldAvatar,request);
+			if (resultModel.getCode() == 0){
 				MemberUtil.setLoginMember(request, findMember);
 			}
-			result.put("success",responseModel.getCode() == 0);
-			result.put("msg",responseModel.getMessage());
+			result.put("success", resultModel.getCode() == 0);
+			result.put("msg", resultModel.getMessage());
 		}else {
 			result.put("success",true);
 			result.put("msg","会员不存在!");

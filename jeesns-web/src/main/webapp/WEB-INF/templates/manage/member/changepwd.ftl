@@ -28,7 +28,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/member/changepwd" method="post" onsubmit="return false;">
+                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/member/changepwd" method="post" onsubmit="return false;" callback="reload">
                     <input type="hidden" class="form-control" id="id" name="id" data-type="require" value="${member.id}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">用户名</label>

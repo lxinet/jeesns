@@ -3,7 +3,7 @@ package com.lxinet.jeesns.service.weibo.impl;
 import com.lxinet.jeesns.common.utils.*;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
@@ -51,15 +51,15 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Override
     @Transactional
-    public ResponseModel save(HttpServletRequest request, Member loginMember, String content, String pictures) {
+    public ResultModel save(HttpServletRequest request, Member loginMember, String content, String pictures) {
         if("0".equals(request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST.toUpperCase()))){
-            return new ResponseModel(-1,"微博已关闭");
+            return new ResultModel(-1,"微博已关闭");
         }
         if(StringUtils.isEmpty(content)){
-            return new ResponseModel(-1,"内容不能为空");
+            return new ResultModel(-1,"内容不能为空");
         }
         if(content.length() > Integer.parseInt((String) request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase()))){
-            return new ResponseModel(-1,"内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
+            return new ResultModel(-1,"内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
         }
         Weibo weibo = new Weibo();
         weibo.setMemberId(loginMember.getId());
@@ -79,50 +79,50 @@ public class WeiboServiceImpl implements IWeiboService {
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.POST_WEIBO,"", ActionLogType.WEIBO.getValue(),weibo.getId());
             //发布微博奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.RELEASE_WEIBO, weibo.getId());
-            return new ResponseModel(1,"发布成功");
+            return new ResultModel(1,"发布成功");
         }
-        return new ResponseModel(-1,"发布失败");
+        return new ResultModel(-1,"发布失败");
     }
 
     @Override
-    public ResponseModel<Weibo> listByPage(Page page, int memberId, int loginMemberId, String key) {
+    public ResultModel<Weibo> listByPage(Page page, int memberId, int loginMemberId, String key) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
         List<Weibo> list = weiboDao.listByPage(page, memberId,loginMemberId,key);
         list = this.atFormat(list);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }
 
     @Transactional
     @Override
-    public ResponseModel delete(HttpServletRequest request, Member loginMember, int id) {
+    public ResultModel delete(HttpServletRequest request, Member loginMember, int id) {
         Weibo weibo = this.findById(id,loginMember.getId());
         if(weibo == null){
-            return new ResponseModel(-1,"微博不存在");
+            return new ResultModel(-1,"微博不存在");
         }
         weiboDao.delete(id);
         //扣除积分
         scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.RELEASE_WEIBO,id);
         pictureService.deleteByForeignId(request, id);
         actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO, "ID："+weibo.getId()+"，内容："+weibo.getContent());
-        return new ResponseModel(1,"操作成功");
+        return new ResultModel(1,"操作成功");
     }
 
     @Transactional
     @Override
-    public ResponseModel userDelete(HttpServletRequest request, Member loginMember, int id) {
+    public ResultModel userDelete(HttpServletRequest request, Member loginMember, int id) {
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
         Weibo weibo = this.findById(id,loginMember.getId());
         if(weibo == null){
-            return new ResponseModel(-1,"微博不存在");
+            return new ResultModel(-1,"微博不存在");
         }
         if(loginMember.getIsAdmin() == 0 && (loginMember.getId().intValue() != weibo.getMember().getId().intValue())){
-            return new ResponseModel(-1,"没有权限");
+            return new ResultModel(-1,"没有权限");
         }
         return this.delete(request, loginMember,id);
     }
@@ -135,9 +135,9 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Transactional
     @Override
-    public ResponseModel favor(Member loginMember, int weiboId) {
+    public ResultModel favor(Member loginMember, int weiboId) {
         String message;
-        ResponseModel<Integer> responseModel;
+        ResultModel<Integer> resultModel;
         Weibo weibo = this.findById(weiboId,loginMember.getId());
         if(weiboFavorService.find(weiboId,loginMember.getId()) == null){
             //增加
@@ -145,7 +145,7 @@ public class WeiboServiceImpl implements IWeiboService {
             weibo.setFavor(weibo.getFavor() + 1);
             weiboFavorService.save(weiboId,loginMember.getId());
             message = "点赞成功";
-            responseModel = new ResponseModel(0,message);
+            resultModel = new ResultModel(0,message);
             //发布微博奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP, weiboId);
             //点赞之后发送系统信息
@@ -158,10 +158,10 @@ public class WeiboServiceImpl implements IWeiboService {
             message = "取消赞成功";
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP,weiboId);
-            responseModel = new ResponseModel(1,message);
+            resultModel = new ResultModel(1,message);
         }
-        responseModel.setData(weibo.getFavor());
-        return responseModel;
+        resultModel.setData(weibo.getFavor());
+        return resultModel;
     }
 
     @Override

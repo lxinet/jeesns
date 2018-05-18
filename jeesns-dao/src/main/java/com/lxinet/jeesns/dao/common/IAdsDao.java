@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * Created by MMF on 2017-09-07.
+ * Created by zchuanzhao on 2017/9/07.
  */
 public interface IAdsDao extends IBaseDao<Ads>{
 

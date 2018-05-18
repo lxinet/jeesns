@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.picture;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.picture.Picture;
@@ -17,17 +17,17 @@ public interface IPictureService {
 
     Picture findById(Integer pictureId,int loginMemberId);
 
-    ResponseModel<Picture> listByPage(Page page,int loginMemberId);
+    ResultModel<Picture> listByPage(Page page, int loginMemberId);
 
-    ResponseModel<Picture> listByAlbum(Page page, Integer pictureAlbumId,int loginMemberId);
+    ResultModel<Picture> listByAlbum(Page page, Integer pictureAlbumId, int loginMemberId);
 
     int deleteByForeignId(HttpServletRequest request, Integer foreignId);
 
-    ResponseModel delete(HttpServletRequest request, Integer pictureId);
+    ResultModel delete(HttpServletRequest request, Integer pictureId);
 
     int save(Picture picture);
 
     int update(Integer foreignId, String ids,String description);
 
-    ResponseModel favor(Member loginMember, int pictureId);
+    ResultModel favor(Member loginMember, int pictureId);
 }

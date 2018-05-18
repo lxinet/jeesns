@@ -68,7 +68,7 @@
                                             <span class="label label-info">修改</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/tag/delete/${tag.id}" confirm="确定要删除标签吗？">
+                                           href="${managePath}/tag/delete/${tag.id}" confirm="确定要删除标签吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

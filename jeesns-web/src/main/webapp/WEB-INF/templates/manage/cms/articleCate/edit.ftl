@@ -28,7 +28,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form method="post" action="${managePath}/cms/articleCate/update" class="jeesns_form">
+                <form method="post" action="${managePath}/cms/articleCate/update" class="jeesns_form" callback="parentReload">
                     <input type="hidden" class="form-control" id="id" name="id" value="${articleCate.id}">
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">栏目名字:</label>

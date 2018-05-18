@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Config;
@@ -42,9 +42,9 @@ public class ConfigController extends BaseController {
 
     @RequestMapping(value = "baseUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseModel baseUpdate(String site_name, String site_seo_title, String site_domain, String site_keys, String site_description,
-                                    String site_logo, String site_send_email_account, String site_send_email_password,
-                                    String site_send_email_smtp, String site_icp, String site_copyright, String site_tongji){
+    public ResultModel baseUpdate(String site_name, String site_seo_title, String site_domain, String site_keys, String site_description,
+                                  String site_logo, String site_send_email_account, String site_send_email_password,
+                                  String site_send_email_smtp, String site_icp, String site_copyright, String site_tongji){
         Map<String,String> params = new HashMap<>();
         params.put("site_name",site_name);
         params.put("site_seo_title",site_seo_title);
@@ -102,7 +102,7 @@ public class ConfigController extends BaseController {
     @ResponseBody
     public Object weiboUpdate(String weibo_post,String weibo_post_maxcontent,String weibo_alias){
         if(Integer.parseInt(weibo_post_maxcontent) > 500){
-            return new ResponseModel(-1,"微博最大字数不能超过500");
+            return new ResultModel(-1,"微博最大字数不能超过500");
         }
         Map<String,String> params = new HashMap<>();
         if(StringUtils.isEmpty(weibo_alias)){

@@ -1,8 +1,7 @@
 package com.lxinet.jeesns.service.group.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.dao.group.IGroupTopicTypeDao;
-import com.lxinet.jeesns.model.group.GroupTopic;
 import com.lxinet.jeesns.model.group.GroupTopicType;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.group.IGroupTopicTypeService;
@@ -31,29 +30,29 @@ public class GroupTopicTypeServiceImpl implements IGroupTopicTypeService {
     }
 
     @Override
-    public ResponseModel delete(Member member, int id) {
+    public ResultModel delete(Member member, int id) {
         int result = groupTopicTypeDao.delete(id);
         if (result == 1){
-            return new ResponseModel(0);
+            return new ResultModel(0);
         }
-        return new ResponseModel(-1);
+        return new ResultModel(-1);
     }
 
     @Override
-    public ResponseModel save(Member member, GroupTopicType groupTopicType) {
+    public ResultModel save(Member member, GroupTopicType groupTopicType) {
         int result = groupTopicTypeDao.save(groupTopicType);
         if (result == 1){
-            return new ResponseModel(0);
+            return new ResultModel(0);
         }
-        return new ResponseModel(-1);
+        return new ResultModel(-1);
     }
 
     @Override
-    public ResponseModel update(Member member, GroupTopicType groupTopicType) {
+    public ResultModel update(Member member, GroupTopicType groupTopicType) {
         int result = groupTopicTypeDao.update(groupTopicType);
         if (result == 1){
-            return new ResponseModel(0);
+            return new ResultModel(0);
         }
-        return new ResponseModel(-1);
+        return new ResultModel(-1);
     }
 }

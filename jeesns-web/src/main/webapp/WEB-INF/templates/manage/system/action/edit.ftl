@@ -28,7 +28,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form method="post" action="${managePath}/system/action/update" class="jeesns_form">
+                <form method="post" action="${managePath}/system/action/update" class="jeesns_form" callback="parentReload">
                     <div class="box-body">
                         <input type="hidden" class="form-control" name="id" value="${action.id}">
                         <div class="form-group">

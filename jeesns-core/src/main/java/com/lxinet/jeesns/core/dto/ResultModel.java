@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.core.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
 
 import java.io.Serializable;
@@ -7,9 +9,12 @@ import java.io.Serializable;
 /**
  * Created by zchuanzhao on 2016/10/16.
  */
-public class ResponseModel<T> implements Serializable{
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+public class ResultModel<T> implements Serializable{
 
-    //-2参数错误，-1操作失败，0操作成功，1成功刷新当前页，2成功并跳转到url，3成功并刷新iframe的父界面
+    /**
+     * -2参数错误，-1操作失败，0操作成功，1成功刷新当前页，2成功并跳转到url，3成功并刷新iframe的父界面
+     */
     private int code;
 
     private String message;
@@ -20,7 +25,11 @@ public class ResponseModel<T> implements Serializable{
 
     private Page page;
 
-    public ResponseModel(int code) {
+    public ResultModel() {
+
+    }
+
+    public ResultModel(int code) {
         this.code = code;
         if(code == -2){
             setMessage("参数错误");
@@ -31,26 +40,41 @@ public class ResponseModel<T> implements Serializable{
         }
     }
 
-    public ResponseModel(int code, Page page) {
+
+    public ResultModel(T data) {
+        if (data instanceof Boolean){
+            setMessage(Messages.SUCCESS);
+        }else {
+            this.code = 0;
+            this.data = data;
+        }
+    }
+
+    public ResultModel(int code, Page page) {
         this.code = code;
         this.page = page;
     }
 
-    public ResponseModel(int code, String message) {
+    public ResultModel(int code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public ResponseModel(int code, String message, T data) {
+    public ResultModel(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public ResponseModel(int code, String message, String url) {
+    public ResultModel(int code, String message, String url) {
         this.code = code;
         this.message = message;
         this.url = url;
+    }
+
+    public ResultModel(Messages message) {
+        this.code = message.getCode();
+        this.message = message.getMessage();
     }
 
     public int getCode() {
@@ -91,5 +115,16 @@ public class ResponseModel<T> implements Serializable{
 
     public void setPage(Page page) {
         this.page = page;
+    }
+
+
+    public void setMessage(Messages message) {
+        this.code = message.getCode();
+        this.message = message.getMessage();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

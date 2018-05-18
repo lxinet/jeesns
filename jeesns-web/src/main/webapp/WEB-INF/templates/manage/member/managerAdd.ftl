@@ -28,7 +28,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/member/managerAdd" method="post">
+                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/member/managerAdd" method="post" callback="parentReload">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">会员用户名</label>
                         <div class="col-sm-8">

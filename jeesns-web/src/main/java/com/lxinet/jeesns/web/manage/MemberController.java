@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
@@ -32,8 +32,8 @@ public class MemberController extends BaseController {
     @Before(AdminLoginInterceptor.class)
     public String index(String key,Model model) {
         Page page = new Page(request);
-        ResponseModel responseModel = memberService.listByPage(page,key);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = memberService.listByPage(page,key);
+        model.addAttribute("model", resultModel);
         model.addAttribute("key",key);
         return MANAGE_FTL_PATH + "index";
     }
@@ -44,7 +44,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "${managePath}/member/isenable/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseModel isenable(@PathVariable("id") int id) {
+    public ResultModel isenable(@PathVariable("id") int id) {
         return memberService.isenable(id);
     }
 
@@ -89,8 +89,8 @@ public class MemberController extends BaseController {
             return errorModel(model, "没有权限");
         }
         Page page = new Page(request);
-        ResponseModel responseModel = memberService.managerList(page,key);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = memberService.managerList(page,key);
+        model.addAttribute("model", resultModel);
         model.addAttribute("key",key);
         return MANAGE_FTL_PATH + "managerList";
     }
@@ -119,7 +119,7 @@ public class MemberController extends BaseController {
     public Object managerAdd(String name) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getId() != 1 && loginMember.getIsAdmin() == 1){
-            return new ResponseModel(-1,"没有权限");
+            return new ResultModel(-1,"没有权限");
         }
         //管理员授权，只能授权普通管理员
         return memberService.managerAdd(loginMember, name);
@@ -134,11 +134,11 @@ public class MemberController extends BaseController {
     @ResponseBody
     public Object managerCancel(@PathVariable("id") Integer id) {
         if(id == null){
-            return new ResponseModel(-1,"参数错误");
+            return new ResultModel(-1,"参数错误");
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getIsAdmin() == 1){
-            return new ResponseModel(-1,"没有权限");
+            return new ResultModel(-1,"没有权限");
         }
         return memberService.managerCancel(loginMember, id);
     }

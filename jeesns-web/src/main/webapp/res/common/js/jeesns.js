@@ -7,6 +7,14 @@ $(function () {
     jeesnsDialog.message();
 });
 
+var reload = function () {
+    location.reload();
+}
+
+var parentReload = function () {
+    parent.location.reload()
+}
+
 var jeesns = {
     reg_rule : {
         'selected'   :    /.+/,
@@ -33,45 +41,38 @@ var jeesns = {
         'letter'     :    "必须为字母"
     },
 
-    getOptions : function(){
+    getOptions : function(callback){
         var index;
         var options = {
             dataType : 'json',
             timeout : 20000,
             beforeSubmit : function (){
                 $(":submit").attr("disabled","disabled");
-                // form.find('.jeesns-submit').attr("disabled","disabled");
                 index = jeesnsDialog.loading();
             },
-            error:function(res){
+            error:function(){
                 jeesnsDialog.close(index);
                 $(":submit").removeAttr("disabled");
-                // form.find('.jeesns-submit').removeAttr("disabled");
                 jeesnsDialog.tips('请求失败 ！');
             },
             success:function(res){
                 jeesnsDialog.close(index);
-                if(res.code==0){
-                    $(":submit").removeAttr("disabled");
-                    jeesnsDialog.successTips(res.message);
-                }else if(res.code==1){
-                    localStorage.setItem("message",res.message);
-                    window.location.href=window.location.href;
-                }else if(res.code==2){
-                    localStorage.setItem("message",res.message);
-                    window.location.href=res.url;
-                }else if(res.code==3){
-                    localStorage.setItem("message",res.message);
-                    window.parent.location.reload();
-                }else if(res.code==-1){
-                    $(":submit").removeAttr("disabled");
+                $(":submit").removeAttr("disabled");
+                if (res.code >= 0){
+                    if (res.message){
+                        if (callback) {
+                            localStorage.setItem("message",res.message)
+                        }else {
+                            jeesnsDialog.successTips(res.message);
+                        }
+                    }
+                    if (callback) {
+                        var json = JSON.stringify(res);
+                        eval(callback+"('"+json+"')");
+                    }
+                }else {
                     jeesnsDialog.errorTips(res.message);
-                }else{
-                    $(":submit").removeAttr("disabled");
-                    jeesnsDialog.tips(res.message);
                 }
-                // $(":submit").removeAttr("disabled");
-                // form.find('.jeesns-submit').removeAttr("disabled");
             }
         };
         return options;
@@ -85,8 +86,9 @@ var jeesns = {
         }else{//否则，对标志有class="jeesns_form"的表单进行ajax提交的绑定操作
             $('.jeesns_form').bind('submit',function(){
                 var form = $(this);
+                var callback = form.attr("callback");
                 if(jeesns.checkForm(form)==false) return false;
-                var options = jeesns.getOptions();
+                var options = jeesns.getOptions(callback);
                 form.ajaxSubmit(options);
                 return false;
             });
@@ -148,12 +150,13 @@ var jeesns = {
         $('a[target="_jeesnsLink"]').on('click',function() {
             var url = $(this).attr('href');
             var title = $(this).attr('confirm');
+            var callback = $(this).attr('callback');
             if (title) {
                 jeesnsDialog.confirm(title, function () {
-                    jeesns.jeesnsAjax(url,"GET",null);
+                    jeesns.jeesnsAjax(url,"GET",null,callback);
                 });
             }else {
-                jeesns.jeesnsAjax(url,"GET",null);
+                jeesns.jeesnsAjax(url,"GET",null,callback);
             }
             return false;
         });
@@ -174,7 +177,8 @@ var jeesns = {
         });
     },
 
-    jeesnsAjax : function(url,type,data){
+    jeesnsAjax : function(url,type,data,callback){
+        console.log(callback);
         var index;
         $.ajax({
             url: url,
@@ -192,21 +196,20 @@ var jeesns = {
             },
             success:function(res){
                 jeesnsDialog.close(index);
-                if(res.code == 0){
-                    jeesnsDialog.successTips(res.message);
-                }else if(res.code == -1){
-                    jeesnsDialog.errorTips(res.message)
-                }else if(res.code==1){
-                    localStorage.setItem("message",res.message);
-                    window.location.href=window.location.href;
-                }else if(res.code==2){
-                    localStorage.setItem("message",res.message);
-                    window.location.href=res.url;
-                }else if(res.code==3){
-                    localStorage.setItem("message",res.message);
-                    parent.window.location.href=parent.window.location.href; parent.window.location.href=parent.window.location.href;
-                }else{
-                    jeesnsDialog.tips(res.message);
+                if (res.code >= 0){
+                    if (res.message){
+                        if (callback) {
+                            localStorage.setItem("message",res.message)
+                        }else {
+                            jeesnsDialog.successTips(res.message);
+                        }
+                    }
+                    if (callback) {
+                        var json = JSON.stringify(res);
+                        eval(callback+"('"+json+"')");
+                    }
+                }else {
+                    jeesnsDialog.errorTips(res.message);
                 }
             }
         });

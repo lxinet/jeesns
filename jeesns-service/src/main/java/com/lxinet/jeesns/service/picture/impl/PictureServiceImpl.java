@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.service.picture.impl;
 
 import com.lxinet.jeesns.core.consts.AppTag;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.picture.IPictureDao;
@@ -44,17 +44,17 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public ResponseModel<Picture> listByPage(Page page,int loginMemberId) {
+    public ResultModel<Picture> listByPage(Page page, int loginMemberId) {
         List<Picture> list = pictureDao.listByPage(page,loginMemberId);
-        ResponseModel model = new ResponseModel(0, page);
+        ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
     }
 
     @Override
-    public ResponseModel<Picture> listByAlbum(Page page, Integer pictureAlbumId,int loginMemberId) {
+    public ResultModel<Picture> listByAlbum(Page page, Integer pictureAlbumId, int loginMemberId) {
         List<Picture> list = pictureDao.listByAlbum(page,pictureAlbumId,loginMemberId);
-        ResponseModel model = new ResponseModel(0, page);
+        ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
     }
@@ -67,13 +67,13 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public ResponseModel delete(HttpServletRequest request, Integer pictureId) {
+    public ResultModel delete(HttpServletRequest request, Integer pictureId) {
         Picture picture = this.findById(pictureId,0);
         PictureUtil.delete(request,picture);
         if(pictureDao.delete(pictureId) == 1){
-            return new ResponseModel(1,"删除成功");
+            return new ResultModel(1,"删除成功");
         }
-        return new ResponseModel(-1,"删除失败");
+        return new ResultModel(-1,"删除失败");
     }
 
     @Override
@@ -92,9 +92,9 @@ public class PictureServiceImpl implements IPictureService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResponseModel favor(Member loginMember, int pictureId) {
+    public ResultModel favor(Member loginMember, int pictureId) {
         String message;
-        ResponseModel<Integer> responseModel;
+        ResultModel<Integer> resultModel;
         Picture picture = this.findById(pictureId,loginMember.getId());
         if(pictureFavorService.find(pictureId,loginMember.getId()) == null){
             //增加
@@ -102,7 +102,7 @@ public class PictureServiceImpl implements IPictureService {
             picture.setFavorCount(picture.getFavorCount() + 1);
             pictureFavorService.save(pictureId,loginMember.getId());
             message = "点赞成功";
-            responseModel = new ResponseModel(0,message);
+            resultModel = new ResultModel(0,message);
             //点赞之后发送系统信息
             messageService.diggDeal(loginMember.getId(),picture.getMemberId(), AppTag.PICTURE, MessageType.PICTURE_ZAN,pictureId);
         }else {
@@ -111,9 +111,9 @@ public class PictureServiceImpl implements IPictureService {
             picture.setFavorCount(picture.getFavorCount() - 1);
             pictureFavorService.delete(pictureId,loginMember.getId());
             message = "取消赞成功";
-            responseModel = new ResponseModel(1,message);
+            resultModel = new ResultModel(1,message);
         }
-        responseModel.setData(picture.getFavorCount());
-        return responseModel;
+        resultModel.setData(picture.getFavorCount());
+        return resultModel;
     }
 }

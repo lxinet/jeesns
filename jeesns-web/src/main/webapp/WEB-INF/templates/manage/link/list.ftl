@@ -78,11 +78,11 @@
                                     </td>
                                     <td>
                                         <#if link.status=0>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/link/enable/${link.id}" confirm="确定要启用友情链接吗？">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/link/enable/${link.id}" confirm="确定要启用友情链接吗？" callback="reload">
                                             <span class="label label-danger">禁用</span>
                                         </a>
                                         <#else>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/link/enable/${link.id}" confirm="确定要禁用友情链接吗？">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/link/enable/${link.id}" confirm="确定要禁用友情链接吗？" callback="reload">
                                             <span class="label label-success">启用</span>
                                         </a>
                                         </#if>
@@ -94,7 +94,7 @@
                                             <span class="label label-info">修改</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/link/delete/${link.id}" confirm="确定要删除友情链接吗？">
+                                           href="${managePath}/link/delete/${link.id}" confirm="确定要删除友情链接吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

@@ -3,7 +3,7 @@ package com.lxinet.jeesns.web.front;
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.member.Member;
@@ -31,8 +31,8 @@ public class ScoreDetailController extends BaseController {
     public String list(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         Page page = new Page(request);
-        ResponseModel<ScoreDetail> responseModel = scoreDetailService.list(page,loginMember.getId());
-        model.addAttribute("model",responseModel);
+        ResultModel<ScoreDetail> resultModel = scoreDetailService.list(page,loginMember.getId());
+        model.addAttribute("model", resultModel);
         return INDEX_FTL_PATH + "list";
     }
 }

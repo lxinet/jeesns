@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.service.picture.impl;
 
 import com.lxinet.jeesns.core.consts.AppTag;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.picture.IPictureCommentDao;
@@ -38,10 +38,10 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
     }
 
     @Override
-    public ResponseModel save(Member loginMember, String content, Integer pictureId) {
+    public ResultModel save(Member loginMember, String content, Integer pictureId) {
         Picture picture = pictureService.findById(pictureId,loginMember.getId());
         if(picture == null){
-            return new ResponseModel(-1,"图片不存在");
+            return new ResultModel(-1,"图片不存在");
         }
         PictureComment pictureComment = new PictureComment();
         pictureComment.setMemberId(loginMember.getId());
@@ -53,17 +53,17 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
             messageService.atDeal(loginMember.getId(),content, AppTag.PICTURE, MessageType.PICTURE_COMMENT_REFER,picture.getPictureId());
             //回复微博发送系统信息
             messageService.diggDeal(loginMember.getId(), picture.getMemberId(), content,AppTag.PICTURE, MessageType.PICTURE_REPLY, picture.getPictureId());
-            return new ResponseModel(0,"评论成功");
+            return new ResultModel(0,"评论成功");
         }else {
-            return new ResponseModel(-1,"评论失败");
+            return new ResultModel(-1,"评论失败");
         }
     }
 
     @Override
-    public ResponseModel listByPicture(Page page, int pictureId) {
+    public ResultModel listByPicture(Page page, int pictureId) {
         List<PictureComment> list = pictureCommentDao.listByPicture(page, pictureId);
         atFormat(list);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }
@@ -74,16 +74,16 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
     }
 
     @Override
-    public ResponseModel delete(Member loginMember, int id) {
+    public ResultModel delete(Member loginMember, int id) {
         PictureComment pictureComment = this.findById(id);
         if(pictureComment == null){
-            return new ResponseModel(-1,"评论不存在");
+            return new ResultModel(-1,"评论不存在");
         }
         int result = pictureCommentDao.delete(id);
         if(result == 1){
-            return new ResponseModel(1,"删除成功");
+            return new ResultModel(1,"删除成功");
         }
-        return new ResponseModel(-1,"删除失败");
+        return new ResultModel(-1,"删除失败");
     }
 
     public PictureComment atFormat(PictureComment pictureComment){

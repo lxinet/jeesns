@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.common;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.common.Link;
 
@@ -9,19 +9,19 @@ import com.lxinet.jeesns.model.common.Link;
  */
 public interface ILinkService {
    
-    ResponseModel save(Link link);
+    ResultModel save(Link link);
    
-    ResponseModel listByPage(Page page);
+    ResultModel listByPage(Page page);
 
-    ResponseModel allList();
+    ResultModel allList();
 
-    ResponseModel recommentList();
+    ResultModel recommentList();
 
-    ResponseModel update(Link link);
+    ResultModel update(Link link);
 
-    ResponseModel delete(Integer id);
+    ResultModel delete(Integer id);
 
     Link findById(Integer id);
 
-    ResponseModel enable(Integer id);
+    ResultModel enable(Integer id);
 }

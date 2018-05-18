@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.service.member.impl;
 
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.AtUtil;
 import com.lxinet.jeesns.dao.member.IMessageDao;
@@ -25,22 +25,22 @@ public class MessageServiceImpl implements IMessageService {
     private IMemberService memberService;
 
     @Override
-    public ResponseModel sentMsg(Integer fromMemberId, Integer toMemberId, String content) {
+    public ResultModel sentMsg(Integer fromMemberId, Integer toMemberId, String content) {
         if(fromMemberId.intValue() == toMemberId.intValue()){
-            return new ResponseModel(-1, "不能发信息给自己");
+            return new ResultModel(-1, "不能发信息给自己");
         }
         Message message = new Message();
         message.setFromMemberId(fromMemberId);
         message.setToMemberId(toMemberId);
         message.setContent(content);
         if(messageDao.sentMsg(message) == 1){
-            return new ResponseModel(0, "信息发送成功");
+            return new ResultModel(0, "信息发送成功");
         }
-        return new ResponseModel(-1, "信息发送失败");
+        return new ResultModel(-1, "信息发送失败");
     }
 
     @Override
-    public ResponseModel systemMsgSave(Integer toMemberId, String content, Integer appTag,Integer type,Integer relateKeyId,Integer loginMemberId,String description) {
+    public ResultModel systemMsgSave(Integer toMemberId, String content, Integer appTag, Integer type, Integer relateKeyId, Integer loginMemberId, String description) {
         Message message = new Message();
         message.setToMemberId(toMemberId);
         message.setContent(content);
@@ -50,23 +50,23 @@ public class MessageServiceImpl implements IMessageService {
         message.setMemberId(loginMemberId);
         message.setDescription(description);
         if(messageDao.systemMsgSave(message) == 1){
-            return new ResponseModel(0, "信息发送成功");
+            return new ResultModel(0, "信息发送成功");
         }
-        return new ResponseModel(-1, "信息发送失败");
+        return new ResultModel(-1, "信息发送失败");
     }
 
     @Override
-    public ResponseModel<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId) {
+    public ResultModel<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId) {
         List<Message> list = messageDao.listByPage(page,fromMemberId, toMemberId);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }
 
     @Override
-    public ResponseModel<Message> messageRecords(Page page, Integer fromMemberId, Integer toMemberId) {
+    public ResultModel<Message> messageRecords(Page page, Integer fromMemberId, Integer toMemberId) {
         List<Message> list = messageDao.messageRecords(page, fromMemberId, toMemberId);
-        ResponseModel model = new ResponseModel(0, page);
+        ResultModel model = new ResultModel(0, page);
         model.setData(list);
         //设置该会员聊天记录为已读
         this.setRead(fromMemberId,toMemberId);
@@ -74,9 +74,9 @@ public class MessageServiceImpl implements IMessageService {
     }
 
     @Override
-    public ResponseModel<Message> systemMessage(Page page, Integer toMemberId,String basePath) {
+    public ResultModel<Message> systemMessage(Page page, Integer toMemberId, String basePath) {
         List<Message> list = messageDao.systemMessage(page, toMemberId,basePath);
-        ResponseModel model = new ResponseModel(0, page);
+        ResultModel model = new ResultModel(0, page);
         model.setData(list);
         //设置该会员聊天记录为已读
         this.setRead(null,toMemberId);

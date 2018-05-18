@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.picture;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.picture.PictureAlbum;
 
@@ -9,15 +9,15 @@ import com.lxinet.jeesns.model.picture.PictureAlbum;
  */
 public interface IPictureAlbumService {
 
-    ResponseModel<PictureAlbum> listByMember(Integer memberId);
+    ResultModel<PictureAlbum> listByMember(Integer memberId);
 
-    ResponseModel<PictureAlbum> listByPage(Page page);
+    ResultModel<PictureAlbum> listByPage(Page page);
 
-    ResponseModel delete(Integer id);
+    ResultModel delete(Integer id);
 
-    ResponseModel save(PictureAlbum pictureAlbum);
+    ResultModel save(PictureAlbum pictureAlbum);
 
-    ResponseModel update(PictureAlbum pictureAlbum);
+    ResultModel update(PictureAlbum pictureAlbum);
 
     PictureAlbum findWeiboAlbum(Integer memberId);
 

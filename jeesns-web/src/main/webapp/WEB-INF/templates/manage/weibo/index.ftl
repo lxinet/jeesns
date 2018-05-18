@@ -81,7 +81,7 @@
                                             <span class="label label-info">详情</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/weibo/delete/${weibo.id}" confirm="确定要删除微博吗？">
+                                           href="${managePath}/weibo/delete/${weibo.id}" confirm="确定要删除微博吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

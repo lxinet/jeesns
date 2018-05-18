@@ -79,11 +79,11 @@
                                     <td>${group.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if group.status==0>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/group/changeStatus/${group.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/group/changeStatus/${group.id}" callback="reload">
                                                 <span class="label label-danger">未审核</span>
                                             </a>
                                         <#elseif group.status==1>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/group/changeStatus/${group.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/group/changeStatus/${group.id}" callback="reload">
                                                 <span class="label label-success">已审核</span>
                                             </a>
                                         </#if>

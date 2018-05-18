@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Action;
@@ -46,14 +46,14 @@ public class ActionController extends BaseController {
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
-    public Object update(Action action){
-        return actionService.update(action);
+    public ResultModel update(Action action){
+        return new ResultModel(actionService.update(action));
     }
 
     @RequestMapping(value = "isenable/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object isenable(@PathVariable("id") Integer id){
-        return actionService.isenable(id);
+    public ResultModel isenable(@PathVariable("id") Integer id){
+        return new ResultModel(actionService.isenable(id));
     }
 
     @RequestMapping("actionLogList")
@@ -62,7 +62,7 @@ public class ActionController extends BaseController {
         if(memberId == null){
             memberId = 0;
         }
-        ResponseModel<ActionLog> list = actionLogService.listByPage(page,memberId);
+        ResultModel<ActionLog> list = actionLogService.listByPage(page,memberId);
         model.addAttribute("model",list);
         return MANAGE_FTL_PATH + "actionLogList";
     }
@@ -73,7 +73,7 @@ public class ActionController extends BaseController {
         if(memberId == null){
             memberId = 0;
         }
-        ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,memberId);
+        ResultModel<ActionLog> list = actionLogService.memberActionLog(page,memberId);
         model.addAttribute("model",list);
         return MANAGE_FTL_PATH + "memberActionLog";
     }

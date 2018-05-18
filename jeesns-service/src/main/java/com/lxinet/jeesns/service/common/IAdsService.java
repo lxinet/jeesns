@@ -1,11 +1,11 @@
 package com.lxinet.jeesns.service.common;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.common.Ads;
 
 /**
- * Created by MMF on 2017-09-07.
+ * Created by zchuanzhao on 2017/9/07.
  */
 public interface IAdsService {
     /**
@@ -13,19 +13,19 @@ public interface IAdsService {
      * @param ads
      * @return
      */
-    ResponseModel save(Ads ads);
+    boolean save(Ads ads);
     /**
      * 分页查询广告信息
      * @param page
      * @return
      */
-    ResponseModel listByPage(Page page);
+    ResultModel listByPage(Page page);
 
-    ResponseModel update(Ads ads);
+    boolean update(Ads ads);
 
-    ResponseModel delete(Integer id);
+    boolean delete(Integer id);
 
     Ads findById(Integer id);
 
-    ResponseModel enable(Integer id);
+    boolean enable(Integer id);
 }

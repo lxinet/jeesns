@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.system;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.system.ActionLog;
 
@@ -9,9 +9,9 @@ import com.lxinet.jeesns.model.system.ActionLog;
  */
 public interface IActionLogService {
 
-    ResponseModel<ActionLog> listByPage(Page page, Integer memberId);
+    ResultModel<ActionLog> listByPage(Page page, Integer memberId);
 
-    ResponseModel<ActionLog> memberActionLog(Page page, Integer memberId);
+    ResultModel<ActionLog> memberActionLog(Page page, Integer memberId);
 
     ActionLog findById(Integer id);
 

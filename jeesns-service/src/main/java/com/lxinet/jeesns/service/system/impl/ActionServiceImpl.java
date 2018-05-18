@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.service.system.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.dao.system.IActionDao;
 import com.lxinet.jeesns.model.system.Action;
 import com.lxinet.jeesns.service.system.IActionService;
@@ -27,19 +28,19 @@ public class ActionServiceImpl implements IActionService {
     }
 
     @Override
-    public ResponseModel update(Action action) {
-        if(actionDao.update(action) == 1){
-            return new ResponseModel(3,"操作成功");
+    public boolean update(Action action) {
+        if(actionDao.update(action) == 0){
+            throw new OpeErrorException();
         }
-        return new ResponseModel(-1,"操作失败");
+        return true;
     }
 
     @Override
-    public ResponseModel isenable(Integer id) {
-        if(actionDao.isenable(id) == 1){
-            return new ResponseModel(1,"操作成功");
+    public boolean isenable(Integer id) {
+        if(actionDao.isenable(id) == 0){
+            throw new OpeErrorException();
         }
-        return new ResponseModel(-1,"操作失败");
+        return true;
     }
 
     /**
