@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.web.common.BaseController;
@@ -26,7 +26,7 @@ public class ActionController extends BaseController {
     @RequestMapping("list")
     public String list(Model model){
         Page page = new Page(request);
-        ResponseModel<ActionLog> actionList = actionLogService.memberActionLog(page,0);
+        ResultModel<ActionLog> actionList = actionLogService.memberActionLog(page,0);
         model.addAttribute("model", actionList);
         return jeesnsConfig.getFrontTemplate() + "/action/list";
     }

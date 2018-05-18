@@ -3,7 +3,7 @@ package com.lxinet.jeesns.web.manage;
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -102,20 +101,20 @@ public class IndexController extends BaseController {
     @ResponseBody
     public Object login(Member member){
         if(member == null){
-            return new ResponseModel(-1,"参数错误");
+            return new ResultModel(-1,"参数错误");
         }
         if(StringUtils.isEmpty(member.getName())){
-            return new ResponseModel(-1,"用户名不能为空");
+            return new ResultModel(-1,"用户名不能为空");
         }
         if(StringUtils.isEmpty(member.getPassword())){
-            return new ResponseModel(-1,"密码不能为空");
+            return new ResultModel(-1,"密码不能为空");
         }
         Member loginMember = memberService.manageLogin(member,request);
         if(loginMember != null){
             MemberUtil.setLoginMember(request,loginMember);
-            return new ResponseModel(2,"登录成功","index");
+            return new ResultModel(2,"登录成功","index");
         }else {
-            return new ResponseModel(-1,"用户名或密码错误");
+            return new ResultModel(-1,"用户名或密码错误");
         }
     }
 }

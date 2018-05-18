@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.system.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.dao.system.IScoreRuleDao;
 import com.lxinet.jeesns.model.system.ScoreRule;
 import com.lxinet.jeesns.service.system.IScoreRuleService;
@@ -28,19 +28,19 @@ public class ScoreRuleServiceImpl implements IScoreRuleService {
     }
 
     @Override
-    public ResponseModel update(ScoreRule scoreRule) {
+    public ResultModel update(ScoreRule scoreRule) {
         if(scoreRuleDao.update(scoreRule) == 1){
-            return new ResponseModel(0, "操作成功");
+            return new ResultModel(0, "操作成功");
         }
-        return new ResponseModel(-1, "操作失败");
+        return new ResultModel(-1, "操作失败");
     }
 
     @Override
-    public ResponseModel enabled(int id) {
+    public ResultModel enabled(int id) {
         if(scoreRuleDao.enabled(id) == 1){
-            return new ResponseModel(0, "操作成功");
+            return new ResultModel(0, "操作成功");
         }
-        return new ResponseModel(-1, "操作失败");
+        return new ResultModel(-1, "操作失败");
     }
 
 }

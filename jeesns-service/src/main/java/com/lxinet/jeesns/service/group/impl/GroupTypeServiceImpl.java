@@ -1,10 +1,8 @@
 package com.lxinet.jeesns.service.group.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.dao.group.IGroupTypeDao;
 import com.lxinet.jeesns.model.group.GroupType;
-import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.group.IGroupTypeService;
 import com.lxinet.jeesns.service.group.IGroupTypeService;
 import org.springframework.stereotype.Service;
 
@@ -31,29 +29,32 @@ public class GroupTypeServiceImpl implements IGroupTypeService {
     }
 
     @Override
-    public ResponseModel delete(int id) {
+    public boolean delete(int id) {
+        if (id == 1){
+            throw new OpeErrorException("默认分类无法删除");
+        }
         int result = groupTypeDao.delete(id);
-        if (result == 1){
-            return new ResponseModel(0);
+        if (result == 0){
+            throw new OpeErrorException();
         }
-        return new ResponseModel(-1);
+        return true;
     }
 
     @Override
-    public ResponseModel save(GroupType groupType) {
+    public boolean save(GroupType groupType) {
         int result = groupTypeDao.save(groupType);
-        if (result == 1){
-            return new ResponseModel(0);
+        if (result == 0){
+            throw new OpeErrorException();
         }
-        return new ResponseModel(-1);
+        return true;
     }
 
     @Override
-    public ResponseModel update(GroupType groupType) {
+    public boolean update(GroupType groupType) {
         int result = groupTypeDao.update(groupType);
-        if (result == 1){
-            return new ResponseModel(0);
+        if (result == 0){
+            throw new OpeErrorException();
         }
-        return new ResponseModel(-1);
+        return true;
     }
 }

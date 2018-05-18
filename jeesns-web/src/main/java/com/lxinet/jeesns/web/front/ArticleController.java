@@ -4,7 +4,7 @@ import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.web.common.BaseController;
@@ -53,8 +53,8 @@ public class ArticleController extends BaseController {
             }
         }
         Page page = new Page(request);
-        ResponseModel responseModel = articleService.listByPage(page,key,cid,1,memberId);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = articleService.listByPage(page,key,cid,1,memberId);
+        model.addAttribute("model", resultModel);
         List<ArticleCate> articleCateList = articleCateService.list();
         model.addAttribute("articleCateList",articleCateList);
         ArticleCate articleCate = articleCateService.findById(cid);
@@ -95,23 +95,23 @@ public class ArticleController extends BaseController {
     @ResponseBody
     public Object save(@Valid Article article, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return new ResponseModel(-1,getErrorMessages(bindingResult));
+            return new ResultModel(-1,getErrorMessages(bindingResult));
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
-        ResponseModel responseModel = articleService.save(loginMember,article);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(2);
+        ResultModel resultModel = articleService.save(loginMember,article);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(2);
             //文章需要审核就跳转到列表页面
             if(article.getStatus() == 0){
-                responseModel.setUrl(request.getContextPath()+"/article/list");
+                resultModel.setUrl(request.getContextPath()+"/article/list");
             }else {
-                responseModel.setUrl(request.getContextPath()+"/article/detail/"+article.getId());
+                resultModel.setUrl(request.getContextPath()+"/article/detail/"+article.getId());
             }
         }
-        return responseModel;
+        return resultModel;
     }
 
     @RequestMapping(value="/edit/{id}",method = RequestMethod.GET)
@@ -137,18 +137,18 @@ public class ArticleController extends BaseController {
     @ResponseBody
     public Object update(@Valid Article article,BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            new ResponseModel(-1,getErrorMessages(bindingResult));
+            new ResultModel(-1,getErrorMessages(bindingResult));
         }
         if(article.getId() == null){
-            return new ResponseModel(-2);
+            return new ResultModel(-2);
         }
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = articleService.update(loginMember,article);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(2);
-            responseModel.setUrl(request.getContextPath() + "/article/detail/"+article.getId());
+        ResultModel resultModel = articleService.update(loginMember,article);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(2);
+            resultModel.setUrl(request.getContextPath() + "/article/detail/"+article.getId());
         }
-        return responseModel;
+        return resultModel;
     }
 
     /**
@@ -162,7 +162,7 @@ public class ArticleController extends BaseController {
     public Object comment(@PathVariable("articleId") Integer articleId, String content){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
         return articleCommentService.save(loginMember,content,articleId);
     }
@@ -184,17 +184,17 @@ public class ArticleController extends BaseController {
     public Object delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
         if(loginMember.getIsAdmin() == 0){
-            return new ResponseModel(-1,"权限不足");
+            return new ResultModel(-1,"权限不足");
         }
-        ResponseModel responseModel = articleService.delete(loginMember,id);
-        if(responseModel.getCode() > 0){
-            responseModel.setCode(2);
-            responseModel.setUrl(request.getContextPath() + "/article/list");
+        ResultModel resultModel = articleService.delete(loginMember,id);
+        if(resultModel.getCode() > 0){
+            resultModel.setCode(2);
+            resultModel.setUrl(request.getContextPath() + "/article/list");
         }
-        return responseModel;
+        return resultModel;
     }
 
 
@@ -208,10 +208,10 @@ public class ArticleController extends BaseController {
     public Object favor(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
         if(id == null) {
-            return new ResponseModel(-1, "非法操作");
+            return new ResultModel(-1, "非法操作");
         }
         return articleService.favor(loginMember,id);
     }

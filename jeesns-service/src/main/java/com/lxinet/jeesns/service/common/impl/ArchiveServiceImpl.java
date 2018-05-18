@@ -4,7 +4,7 @@ import com.lxinet.jeesns.dao.common.IArchiveDao;
 import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.service.common.IArchiveFavorService;
 import com.lxinet.jeesns.service.common.IArchiveService;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.model.member.Member;
@@ -67,25 +67,25 @@ public class ArchiveServiceImpl implements IArchiveService {
 
     @Transactional
     @Override
-    public ResponseModel favor(Member loginMember, int archiveId) {
+    public ResultModel favor(Member loginMember, int archiveId) {
         String message;
-        ResponseModel<Integer> responseModel;
+        ResultModel<Integer> resultModel;
         if(archiveFavorService.find(archiveId,loginMember.getId()) == null){
             //增加
             archiveDao.favor(archiveId,1);
             archiveFavorService.save(archiveId,loginMember.getId());
             message = "喜欢成功";
-            responseModel = new ResponseModel(0,message);
+            resultModel = new ResultModel(0,message);
         }else {
             //减少
             archiveDao.favor(archiveId,-1);
             archiveFavorService.delete(archiveId,loginMember.getId());
             message = "取消喜欢成功";
-            responseModel = new ResponseModel(1,message);
+            resultModel = new ResultModel(1,message);
         }
         Archive findArchive = this.findByArchiveId(archiveId);
-        responseModel.setData(findArchive.getFavor());
-        return responseModel;
+        resultModel.setData(findArchive.getFavor());
+        return resultModel;
     }
 
     @Override

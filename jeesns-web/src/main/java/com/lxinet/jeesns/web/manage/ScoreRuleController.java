@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.ScoreRule;
 import com.lxinet.jeesns.service.system.IScoreRuleService;
@@ -41,21 +41,21 @@ public class ScoreRuleController extends BaseController {
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public Object update(ScoreRule scoreRule){
-        ResponseModel responseModel = scoreRuleService.update(scoreRule);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
+        ResultModel resultModel = scoreRuleService.update(scoreRule);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
     @RequestMapping(value = "enabled/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Object enabled(@PathVariable("id") Integer id){
-        ResponseModel responseModel = scoreRuleService.enabled(id);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(1);
+        ResultModel resultModel = scoreRuleService.enabled(id);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(1);
         }
-        return responseModel;
+        return resultModel;
     }
 
 }

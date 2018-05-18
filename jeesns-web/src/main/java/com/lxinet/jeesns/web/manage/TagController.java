@@ -1,10 +1,9 @@
 package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
-import com.lxinet.jeesns.model.common.Link;
 import com.lxinet.jeesns.model.system.Tag;
 import com.lxinet.jeesns.service.system.ITagService;
 import com.lxinet.jeesns.web.common.BaseController;
@@ -30,9 +29,9 @@ public class TagController extends BaseController{
     @RequestMapping("/list/{funcType}")
     public String list(Model model,@PathVariable("funcType") Integer funcType){
         Page page = new Page(request);
-        ResponseModel responseModel = tagService.listByPage(page,funcType);
+        ResultModel resultModel = tagService.listByPage(page,funcType);
         model.addAttribute("funcType",funcType);
-        model.addAttribute("model",responseModel);
+        model.addAttribute("model", resultModel);
         return MANAGE_FTL_PATH + "list";
     }
 
@@ -45,11 +44,11 @@ public class TagController extends BaseController{
     @RequestMapping("/save")
     @ResponseBody
     public Object save(Tag tag){
-        ResponseModel responseModel = tagService.save(tag);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
+        ResultModel resultModel = tagService.save(tag);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
 
@@ -64,13 +63,13 @@ public class TagController extends BaseController{
     @ResponseBody
     public Object update(Tag tag){
         if (tag == null){
-            return new ResponseModel(-1,"参数错误");
+            return new ResultModel(-1,"参数错误");
         }
-        ResponseModel responseModel = tagService.update(tag);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
+        ResultModel resultModel = tagService.update(tag);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
     @RequestMapping("/delete/{id}")

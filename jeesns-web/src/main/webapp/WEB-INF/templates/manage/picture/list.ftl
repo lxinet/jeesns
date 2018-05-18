@@ -61,7 +61,7 @@
                                             </#if>
                                             <p><span class="sp2">${picture.createTime?string("yyyy-MM-dd HH:mm:ss")}</span></p>
                                             <span class="mailbox-attachment-size">
-                                                 <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/picture/delete/${picture.pictureId}" confirm="确定要删除图片吗？">
+                                                 <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/picture/delete/${picture.pictureId}" confirm="确定要删除图片吗？" callback="reload">
                                                     <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                                 </a>
                                             </span>

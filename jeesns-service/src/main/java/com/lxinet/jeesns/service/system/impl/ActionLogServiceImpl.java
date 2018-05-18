@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.system.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.system.IActionLogDao;
 import com.lxinet.jeesns.model.system.Action;
@@ -22,17 +22,17 @@ public class ActionLogServiceImpl implements IActionLogService {
     private IActionLogDao actionLogDao;
 
     @Override
-    public ResponseModel<ActionLog> listByPage(Page page, Integer memberId) {
+    public ResultModel<ActionLog> listByPage(Page page, Integer memberId) {
         List<ActionLog> list = actionLogDao.listByPage(page, memberId);
-        ResponseModel model = new ResponseModel(0, page);
+        ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
     }
 
     @Override
-    public ResponseModel<ActionLog> memberActionLog(Page page, Integer memberId) {
+    public ResultModel<ActionLog> memberActionLog(Page page, Integer memberId) {
         List<ActionLog> list = actionLogDao.memberActionLog(page, memberId);
-        ResponseModel model = new ResponseModel(0, page);
+        ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
     }

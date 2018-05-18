@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
@@ -14,7 +14,6 @@ import com.lxinet.jeesns.service.weibo.IWeiboService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -34,10 +33,10 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseModel publish(String content,String pictures){
+    public ResultModel publish(String content, String pictures){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
         return weiboService.save(request, loginMember,content, pictures);
     }
@@ -47,8 +46,8 @@ public class WeiboController extends BaseController {
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResponseModel responseModel = weiboService.listByPage(page,0,loginMemberId,key);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = weiboService.listByPage(page,0,loginMemberId,key);
+        model.addAttribute("model", resultModel);
         List<Weibo> hotList = weiboService.hotList(loginMemberId);
         model.addAttribute("hotList",hotList);
         model.addAttribute("loginUser", loginMember);
@@ -72,12 +71,12 @@ public class WeiboController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = weiboService.userDelete(request, loginMember,weiboId);
-        if(responseModel.getCode() >= 0){
-            responseModel.setCode(2);
-            responseModel.setUrl(Const.WEIBO_PATH + "/list");
+        ResultModel resultModel = weiboService.userDelete(request, loginMember,weiboId);
+        if(resultModel.getCode() >= 0){
+            resultModel.setCode(2);
+            resultModel.setUrl(Const.WEIBO_PATH + "/list");
         }
-        return responseModel;
+        return resultModel;
     }
 
 
@@ -86,7 +85,7 @@ public class WeiboController extends BaseController {
     public Object comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
         return weiboCommentService.save(loginMember,content,weiboId,weiboCommentId);
     }
@@ -106,10 +105,10 @@ public class WeiboController extends BaseController {
     public Object favor(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResponseModel(-1,"请先登录");
+            return new ResultModel(-1,"请先登录");
         }
         if(weiboId == null) {
-            return new ResponseModel(-1, "非法操作");
+            return new ResultModel(-1, "非法操作");
         }
         return weiboService.favor(loginMember,weiboId);
     }

@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.group.GroupType;
 import com.lxinet.jeesns.service.group.IGroupTypeService;
@@ -39,11 +39,7 @@ public class GroupTypeController extends BaseController {
     @RequestMapping(value = "${managePath}/group/type/save", method = RequestMethod.POST)
     @ResponseBody
     public Object save(GroupType groupType) {
-        ResponseModel responseModel = groupTypeService.save(groupType);
-        if (responseModel.getCode() == 0) {
-            responseModel.setCode(3);
-        }
-        return responseModel;
+        return new ResultModel(groupTypeService.save(groupType));
     }
 
 
@@ -57,25 +53,14 @@ public class GroupTypeController extends BaseController {
     @RequestMapping(value = "${managePath}/group/type/update", method = RequestMethod.POST)
     @ResponseBody
     public Object update(GroupType groupType) {
-        ResponseModel responseModel = groupTypeService.update(groupType);
-        if (responseModel.getCode() == 0) {
-            responseModel.setCode(3);
-        }
-        return responseModel;
+        return new ResultModel(groupTypeService.update(groupType));
     }
 
 
     @RequestMapping(value = "${managePath}/group/type/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Object delete(@PathVariable("id") int id) {
-        if (id == 1){
-            return new ResponseModel(-1,"系统默认分类无法删除");
-        }
-        ResponseModel responseModel = groupTypeService.delete(id);
-        if (responseModel.getCode() == 0) {
-            responseModel.setCode(1);
-        }
-        return responseModel;
+        return new ResultModel(groupTypeService.delete(id));
     }
 
 

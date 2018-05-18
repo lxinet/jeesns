@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.group.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupFans;
@@ -22,9 +22,9 @@ public class GroupFansServiceImpl implements IGroupFansService {
     private IGroupFansDao groupFansDao;
 
     @Override
-    public ResponseModel listByPage(Page page, Integer groupId) {
+    public ResultModel listByPage(Page page, Integer groupId) {
         List<GroupFans> list = groupFansDao.listByPage(page, groupId);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }
@@ -41,16 +41,16 @@ public class GroupFansServiceImpl implements IGroupFansService {
      * @return
      */
     @Override
-    public ResponseModel save(Member loginMember, Integer groupId) {
+    public ResultModel save(Member loginMember, Integer groupId) {
         if(groupFansDao.findByMemberAndGroup(groupId,loginMember.getId()) == null){
             if(groupFansDao.save(groupId,loginMember.getId()) == 1){
-                return new ResponseModel(1,"关注成功");
+                return new ResultModel(1,"关注成功");
             }
         }else {
             //已经关注了
-            return new ResponseModel(0,"关注成功");
+            return new ResultModel(0,"关注成功");
         }
-        return new ResponseModel(-1,"关注失败");
+        return new ResultModel(-1,"关注失败");
     }
 
     /**
@@ -60,18 +60,18 @@ public class GroupFansServiceImpl implements IGroupFansService {
      * @return
      */
     @Override
-    public ResponseModel delete(Member loginMember,Integer groupId) {
+    public ResultModel delete(Member loginMember, Integer groupId) {
         if(groupFansDao.delete(groupId,loginMember.getId()) > 0){
-            return new ResponseModel(1,"取消关注成功");
+            return new ResultModel(1,"取消关注成功");
         }
-        return new ResponseModel(-1,"取消关注失败");
+        return new ResultModel(-1,"取消关注失败");
     }
 
 
     @Override
-    public ResponseModel listByMember(Page page, Integer memberId) {
+    public ResultModel listByMember(Page page, Integer memberId) {
         List<Group> list = groupFansDao.listByMember(page, memberId);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }

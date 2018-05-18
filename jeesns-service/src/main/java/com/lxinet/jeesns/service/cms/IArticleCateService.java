@@ -1,7 +1,6 @@
 package com.lxinet.jeesns.service.cms;
 
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 
 import java.util.List;
@@ -14,11 +13,11 @@ public interface IArticleCateService {
 
     ArticleCate findById(int id);
 
-    int save(ArticleCate articleCate);
+    boolean save(ArticleCate articleCate);
 
-    int update(ArticleCate articleCate);
+    boolean update(ArticleCate articleCate);
 
-    ResponseModel delete(int id);
+    boolean delete(int id);
 
     /**
      * 获取栏目

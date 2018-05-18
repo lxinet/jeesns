@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.service.member;
 
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Message;
 
@@ -11,15 +11,15 @@ import com.lxinet.jeesns.model.member.Message;
  */
 public interface IMessageService {
 
-    ResponseModel sentMsg(Integer fromMemberId, Integer toMemberId, String content);
+    ResultModel sentMsg(Integer fromMemberId, Integer toMemberId, String content);
 
-    ResponseModel systemMsgSave(Integer toMemberId, String content, Integer appTag,Integer type,Integer relateKeyId,Integer memberId,String description);
+    ResultModel systemMsgSave(Integer toMemberId, String content, Integer appTag, Integer type, Integer relateKeyId, Integer memberId, String description);
 
-    ResponseModel<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId);
+    ResultModel<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId);
 
-    ResponseModel<Message> messageRecords(Page page, Integer fromMemberId, Integer toMemberId);
+    ResultModel<Message> messageRecords(Page page, Integer fromMemberId, Integer toMemberId);
 
-    ResponseModel<Message> systemMessage(Page page, Integer toMemberId,String basePath);
+    ResultModel<Message> systemMessage(Page page, Integer toMemberId, String basePath);
 
     /**
      * 删除某个会员的所有聊天记录

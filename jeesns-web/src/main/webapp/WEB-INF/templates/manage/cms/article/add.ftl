@@ -39,7 +39,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/cms/article/save" method="post" onsubmit="ckUpdate();">
+                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/cms/article/save" method="post" onsubmit="ckUpdate();" callback="parentReload">
                     <div class="form-group">
                         <label for="lastname" class="col-sm-1 control-label">栏目</label>
                         <div class="col-sm-3">

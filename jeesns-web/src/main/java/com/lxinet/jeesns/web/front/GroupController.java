@@ -5,14 +5,13 @@ import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.group.*;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.service.group.*;
 import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -94,8 +93,8 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow", true);
         }
         //获取群组帖子列表
-        ResponseModel responseModel = groupTopicService.listByPage(page, null, groupId, 1, 0, typeId);
-        model.addAttribute("model", responseModel);
+        ResultModel resultModel = groupTopicService.listByPage(page, null, groupId, 1, 0, typeId);
+        model.addAttribute("model", resultModel);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();
         if (StringUtils.isNotEmpty(managerIds)) {
@@ -139,7 +138,7 @@ public class GroupController extends BaseController {
     public Object apply(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         return groupService.save(loginMember, group);
     }
@@ -187,7 +186,7 @@ public class GroupController extends BaseController {
     public Object update(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         return groupService.update(loginMember, group);
     }
@@ -263,7 +262,7 @@ public class GroupController extends BaseController {
     public Object post(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         return groupTopicService.save(loginMember, groupTopic);
     }
@@ -295,14 +294,14 @@ public class GroupController extends BaseController {
     public Object topicUpdate(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
-        ResponseModel responseModel = groupTopicService.update(loginMember, groupTopic);
-        if (responseModel.getCode() == 0) {
-            responseModel.setCode(2);
-            responseModel.setUrl(Const.GROUP_PATH + "/topic/" + groupTopic.getId());
+        ResultModel resultModel = groupTopicService.update(loginMember, groupTopic);
+        if (resultModel.getCode() == 0) {
+            resultModel.setCode(2);
+            resultModel.setUrl(Const.GROUP_PATH + "/topic/" + groupTopic.getId());
         }
-        return responseModel;
+        return resultModel;
     }
 
     /**
@@ -316,7 +315,7 @@ public class GroupController extends BaseController {
     public Object follow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         return groupService.follow(loginMember, groupId, 0);
     }
@@ -332,7 +331,7 @@ public class GroupController extends BaseController {
     public Object nofollow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         return groupService.follow(loginMember, groupId, 1);
     }
@@ -349,7 +348,7 @@ public class GroupController extends BaseController {
     public Object comment(@PathVariable("groupTopicId") Integer groupTopicId, String content, Integer groupTopicCommentId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         return groupTopicCommentService.save(loginMember, content, groupTopicId, groupTopicCommentId);
     }
@@ -369,8 +368,8 @@ public class GroupController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("id") int id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = groupTopicService.indexDelete(request, loginMember, id);
-        return responseModel;
+        ResultModel resultModel = groupTopicService.indexDelete(request, loginMember, id);
+        return resultModel;
     }
 
     /**
@@ -398,8 +397,8 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow", true);
         }
         //获取群组帖子列表
-        ResponseModel responseModel = groupTopicService.listByPage(page, null, groupId, 0, 0, 0);
-        model.addAttribute("model", responseModel);
+        ResultModel resultModel = groupTopicService.listByPage(page, null, groupId, 0, 0, 0);
+        model.addAttribute("model", resultModel);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();
         if (StringUtils.isNotEmpty(managerIds)) {
@@ -421,8 +420,8 @@ public class GroupController extends BaseController {
     @ResponseBody
     public Object audit(@PathVariable("id") Integer id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = groupTopicService.audit(loginMember, id);
-        return responseModel;
+        ResultModel resultModel = groupTopicService.audit(loginMember, id);
+        return resultModel;
     }
 
     @RequestMapping(value = "/fans/{groupId}", method = RequestMethod.GET)
@@ -434,8 +433,8 @@ public class GroupController extends BaseController {
         }
         model.addAttribute("group", group);
         //获取群组粉丝列表,第一页，20条数据
-        ResponseModel<GroupFans> responseModel = groupFansService.listByPage(page, groupId);
-        model.addAttribute("model", responseModel);
+        ResultModel<GroupFans> resultModel = groupFansService.listByPage(page, groupId);
+        model.addAttribute("model", resultModel);
         return jeesnsConfig.getFrontTemplate() + "/group/fans";
     }
 
@@ -450,8 +449,8 @@ public class GroupController extends BaseController {
     @ResponseBody
     public Object top(@PathVariable("id") Integer id, @RequestParam("top") Integer top) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = groupTopicService.top(loginMember, id, top);
-        return responseModel;
+        ResultModel resultModel = groupTopicService.top(loginMember, id, top);
+        return resultModel;
     }
 
     /**
@@ -465,8 +464,8 @@ public class GroupController extends BaseController {
     @ResponseBody
     public Object essence(@PathVariable("id") Integer id, @RequestParam("essence") Integer essence) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResponseModel responseModel = groupTopicService.essence(loginMember, id, essence);
-        return responseModel;
+        ResultModel resultModel = groupTopicService.essence(loginMember, id, essence);
+        return resultModel;
     }
 
 
@@ -481,10 +480,10 @@ public class GroupController extends BaseController {
     public Object favor(@PathVariable("id") Integer id) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         if (id == null) {
-            return new ResponseModel(-1, "非法操作");
+            return new ResultModel(-1, "非法操作");
         }
         return groupTopicService.favor(loginMember, id);
     }
@@ -528,19 +527,19 @@ public class GroupController extends BaseController {
     public Object topicTypeSave(GroupTopicType groupTopicType) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
-            return new ResponseModel(-1, "非法操作");
+            return new ResultModel(-1, "非法操作");
         }
-        ResponseModel responseModel = groupTopicTypeService.save(loginMember, groupTopicType);
+        ResultModel resultModel = groupTopicTypeService.save(loginMember, groupTopicType);
         ;
-        if (responseModel.getCode() == 0) {
-            responseModel.setCode(3);
+        if (resultModel.getCode() == 0) {
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
     @RequestMapping(value = "/topicTypeEdit/{typeId}", method = RequestMethod.GET)
@@ -565,19 +564,19 @@ public class GroupController extends BaseController {
     public Object topicTypeUpdate(GroupTopicType groupTopicType) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
-            return new ResponseModel(-1, "非法操作");
+            return new ResultModel(-1, "非法操作");
         }
-        ResponseModel responseModel = groupTopicTypeService.update(loginMember, groupTopicType);
+        ResultModel resultModel = groupTopicTypeService.update(loginMember, groupTopicType);
         ;
-        if (responseModel.getCode() == 0) {
-            responseModel.setCode(3);
+        if (resultModel.getCode() == 0) {
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
     @RequestMapping(value = "/topicTypeDelete/{typeId}", method = RequestMethod.GET)
@@ -585,23 +584,23 @@ public class GroupController extends BaseController {
     public Object topicTypeDelete(@PathVariable("typeId") Integer typeId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResponseModel(-1, "请先登录");
+            return new ResultModel(-1, "请先登录");
         }
         GroupTopicType groupTopicType = groupTopicTypeService.findById(typeId);
         if (groupTopicType == null) {
-            return new ResponseModel(-1, "帖子分类不存在");
+            return new ResultModel(-1, "帖子分类不存在");
         }
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
-            return new ResponseModel(-1, "非法操作");
+            return new ResultModel(-1, "非法操作");
         }
-        ResponseModel responseModel = groupTopicTypeService.delete(loginMember, typeId);
+        ResultModel resultModel = groupTopicTypeService.delete(loginMember, typeId);
         ;
-        if (responseModel.getCode() == 0) {
-            responseModel.setCode(3);
+        if (resultModel.getCode() == 0) {
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
 }

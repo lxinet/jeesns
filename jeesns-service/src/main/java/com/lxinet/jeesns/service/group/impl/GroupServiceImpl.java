@@ -1,7 +1,6 @@
 package com.lxinet.jeesns.service.group.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
-import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.member.Member;
@@ -57,17 +56,17 @@ public class GroupServiceImpl implements IGroupService {
      * @return
      */
     @Override
-    public ResponseModel follow(Member loginMember, Integer groupId, int type) {
+    public ResultModel follow(Member loginMember, Integer groupId, int type) {
         Group group = this.findById(groupId);
         if(group == null){
-            return new ResponseModel(-1,"群组不存在");
+            return new ResultModel(-1,"群组不存在");
         }
         if(type == 0){
             return groupFansService.save(loginMember,groupId);
         }else {
             //创建者无法取消关注
             if(loginMember.getId().intValue() == group.getCreator().intValue()){
-                return new ResponseModel(-1,"管理员不能取消关注");
+                return new ResultModel(-1,"管理员不能取消关注");
             }
             return groupFansService.delete(loginMember,groupId);
         }
@@ -75,11 +74,11 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
-    public ResponseModel changeStatus(int id) {
+    public ResultModel changeStatus(int id) {
         if(groupDao.changeStatus(id) == 1){
-            return new ResponseModel(1,"操作成功");
+            return new ResultModel(1,"操作成功");
         }
-        return new ResponseModel(-1,"操作失败");
+        return new ResultModel(-1,"操作失败");
     }
 
     @Override
@@ -94,14 +93,14 @@ public class GroupServiceImpl implements IGroupService {
 
     @Override
     @Transactional
-    public ResponseModel save(Member loginMember,Group group) {
+    public ResultModel save(Member loginMember, Group group) {
         Map<String,String> config = configService.getConfigToMap();
         group.setCreator(loginMember.getId());
         if(loginMember.getIsAdmin() > 0){
             group.setStatus(1);
         }else {
             if("0".equals(config.get(ConfigUtil.GROUP_APPLY))){
-                return new ResponseModel(-1,"群组申请功能已关闭");
+                return new ResultModel(-1,"群组申请功能已关闭");
             }
             if("0".equals(config.get(ConfigUtil.GROUP_APPLY_REVIEW))){
                 group.setStatus(0);
@@ -123,19 +122,19 @@ public class GroupServiceImpl implements IGroupService {
             groupFansService.save(loginMember,group.getId());
             //申请群组奖励、扣款
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.APPLY_GROUP, group.getId());
-            return new ResponseModel(1,"申请成功，请等待审核");
+            return new ResultModel(1,"申请成功，请等待审核");
         }
-        return new ResponseModel(-1,"操作失败，请重试");
+        return new ResultModel(-1,"操作失败，请重试");
     }
 
     @Override
-    public ResponseModel update(Member loginMember, Group group) {
+    public ResultModel update(Member loginMember, Group group) {
         Group findGroup = this.findById(group.getId());
         if(findGroup == null){
-            return new ResponseModel(-1,"群组不存在");
+            return new ResultModel(-1,"群组不存在");
         }
         if(loginMember.getId().intValue() != findGroup.getCreator().intValue()){
-            return new ResponseModel(-1,"没有权限");
+            return new ResultModel(-1,"没有权限");
         }
 
         //设置管理员
@@ -143,7 +142,7 @@ public class GroupServiceImpl implements IGroupService {
         String managerIds = "";
         String[] names = managerNames.split(",");
         if(names.length > 10){
-            return new ResponseModel(-1,"管理员不能超过10个");
+            return new ResultModel(-1,"管理员不能超过10个");
         }
         for (String name : names){
             Member member = memberService.findByName(name.trim());
@@ -165,23 +164,23 @@ public class GroupServiceImpl implements IGroupService {
         findGroup.setIntroduce(group.getIntroduce());
         findGroup.setTypeId(group.getTypeId());
         if(groupDao.update(findGroup) == 1){
-            return new ResponseModel(1,"操作成功");
+            return new ResultModel(1,"操作成功");
         }
 
-        return new ResponseModel(-1,"操作失败，请重试");
+        return new ResultModel(-1,"操作失败，请重试");
     }
 
     @Override
-    public ResponseModel delete(Member loginMember, int id) {
+    public ResultModel delete(Member loginMember, int id) {
         Group group = this.findById(id);
         if(group == null){
-            return new ResponseModel(-1,"群组不存在");
+            return new ResultModel(-1,"群组不存在");
         }
         if(groupDao.delete(id) == 1){
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP,"ID："+group.getId()+"，名字："+group.getName());
-            return new ResponseModel(1,"删除成功");
+            return new ResultModel(1,"删除成功");
         }
-        return new ResponseModel(-1,"删除失败");
+        return new ResultModel(-1,"删除失败");
     }
 
 

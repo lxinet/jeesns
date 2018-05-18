@@ -24,6 +24,12 @@
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
+    <script>
+        var _delSuccess = function (res) {
+            localStorage.setItem("message", "删除成功");
+            location.reload();
+        }
+    </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -71,7 +77,8 @@
                                             <span class="label label-info">修改</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/group/type/delete/${groupType.id}" confirm="确定要删除群组分类吗？">
+                                           href="${managePath}/group/type/delete/${groupType.id}" confirm="确定要删除群组分类吗？"
+                                           callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

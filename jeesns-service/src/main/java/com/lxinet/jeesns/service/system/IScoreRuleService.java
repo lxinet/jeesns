@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.system;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.model.system.ScoreRule;
 
 import java.util.List;
@@ -14,8 +14,8 @@ public interface IScoreRuleService {
 
     ScoreRule findById(Integer id);
 
-    ResponseModel update(ScoreRule scoreRule);
+    ResultModel update(ScoreRule scoreRule);
 
-    ResponseModel enabled(int id);
+    ResultModel enabled(int id);
 
 }

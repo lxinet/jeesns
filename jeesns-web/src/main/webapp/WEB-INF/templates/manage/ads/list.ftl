@@ -73,11 +73,11 @@
                                     <td>${ads.endTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if ads.status=0>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/ads/enable/${ads.id}" confirm="确定要启用广告吗？">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/ads/enable/${ads.id}" confirm="确定要启用广告吗？" callback="reload">
                                             <span class="label label-danger">禁用</span>
                                         </a>
                                         <#else>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/ads/enable/${ads.id}" confirm="确定要禁用广告吗？">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/ads/enable/${ads.id}" confirm="确定要禁用广告吗？" callback="reload">
                                             <span class="label label-success">启用</span>
                                         </a>
                                         </#if>
@@ -88,7 +88,7 @@
                                             <span class="label label-info">修改</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/ads/delete/${ads.id}" confirm="确定要删除广告吗？">
+                                           href="${managePath}/ads/delete/${ads.id}" confirm="确定要删除广告吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

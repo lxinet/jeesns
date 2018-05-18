@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.GroupFans;
 import com.lxinet.jeesns.model.member.Member;
@@ -12,11 +12,11 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface IGroupFansService {
 
-    ResponseModel save(Member loginMember, Integer groupId);
+    ResultModel save(Member loginMember, Integer groupId);
 
-    ResponseModel delete(Member loginMember, Integer groupId);
+    ResultModel delete(Member loginMember, Integer groupId);
 
-    ResponseModel listByPage(Page page, Integer groupId);
+    ResultModel listByPage(Page page, Integer groupId);
 
     GroupFans findByMemberAndGroup(@Param("groupId") Integer groupId, @Param("memberId") Integer memberId);
 
@@ -26,5 +26,5 @@ public interface IGroupFansService {
      * @param memberId
      * @return
      */
-    ResponseModel listByMember(Page page, Integer memberId);
+    ResultModel listByMember(Page page, Integer memberId);
 }

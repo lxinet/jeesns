@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.member;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Member;
 
@@ -18,7 +18,7 @@ public interface IMemberService {
      * @param request
      * @return
      */
-    ResponseModel login(Member member, HttpServletRequest request);
+    ResultModel login(Member member, HttpServletRequest request);
 
     Member manageLogin(Member member, HttpServletRequest request);
 
@@ -30,13 +30,13 @@ public interface IMemberService {
      * @param request
      * @return
      */
-    ResponseModel register(Member member, HttpServletRequest request);
+    ResultModel register(Member member, HttpServletRequest request);
 
-    ResponseModel update(Member member);
+    ResultModel update(Member member);
 
-    ResponseModel delete(int id);
+    ResultModel delete(int id);
 
-    ResponseModel<Member> listByPage(Page page, String key);
+    ResultModel<Member> listByPage(Page page, String key);
 
     /**
      * 管理员列表
@@ -44,28 +44,28 @@ public interface IMemberService {
      * @param key
      * @return
      */
-    ResponseModel<Member> managerList(Page page, String key);
+    ResultModel<Member> managerList(Page page, String key);
 
     /**
      * 管理员授权
      * @param name
      * @return
      */
-    ResponseModel managerAdd(Member loginMember, String name);
+    ResultModel managerAdd(Member loginMember, String name);
 
     /**
      * 管理员取消
      * @param id
      * @return
      */
-    ResponseModel managerCancel(Member loginMember, int id);
+    ResultModel managerCancel(Member loginMember, int id);
 
     /**
      * 会员启用、禁用操作
      * @param id
      * @return
      */
-    ResponseModel isenable(int id);
+    ResultModel isenable(int id);
 
     /**
      * 后台修改密码
@@ -73,7 +73,7 @@ public interface IMemberService {
      * @param password
      * @return
      */
-    ResponseModel changepwd(Member loginMember, int id, String password);
+    ResultModel changepwd(Member loginMember, int id, String password);
 
 
     /**
@@ -83,7 +83,7 @@ public interface IMemberService {
      * @param newPassword
      * @return
      */
-    ResponseModel changepwd(Member loginMember, String oldPassword, String newPassword);
+    ResultModel changepwd(Member loginMember, String oldPassword, String newPassword);
 
     /**
      * 修改头像
@@ -92,7 +92,7 @@ public interface IMemberService {
      * @param request
      * @return
      */
-    ResponseModel updateAvatar(Member member, String oldAvatar, HttpServletRequest request);
+    ResultModel updateAvatar(Member member, String oldAvatar, HttpServletRequest request);
 
     /**
      * 修改会员级别信息
@@ -102,7 +102,7 @@ public interface IMemberService {
      * @param introduce  个人说明
      * @return
      */
-    ResponseModel editBaseInfo(Member member, String name, String sex, String introduce);
+    ResultModel editBaseInfo(Member member, String name, String sex, String introduce);
 
     /**
      * 修改会员其他信息
@@ -115,13 +115,13 @@ public interface IMemberService {
      * @param website
      * @return
      */
-    ResponseModel editOtherInfo(Member loginMember, String birthday, String qq, String wechat, String contactPhone,
-                                String contactEmail, String website);
+    ResultModel editOtherInfo(Member loginMember, String birthday, String qq, String wechat, String contactPhone,
+                              String contactEmail, String website);
 
 
     Member findByName(String name);
 
-    ResponseModel sendEmailActiveValidCode(Member loginMember, HttpServletRequest request);
+    ResultModel sendEmailActiveValidCode(Member loginMember, HttpServletRequest request);
 
     /**
      * 会员账号激活
@@ -129,13 +129,13 @@ public interface IMemberService {
      * @param randomCode
      * @return
      */
-    ResponseModel active(Member loginMember, String randomCode, HttpServletRequest request);
+    ResultModel active(Member loginMember, String randomCode, HttpServletRequest request);
 
     Member findByNameAndEmail(String name, String email);
 
-    ResponseModel forgetpwd(String name, String email, HttpServletRequest request);
+    ResultModel forgetpwd(String name, String email, HttpServletRequest request);
 
-    ResponseModel resetpwd(String email, String token, String password, HttpServletRequest request);
+    ResultModel resetpwd(String email, String token, String password, HttpServletRequest request);
 
     /**
      * 关注、取消关注
@@ -143,7 +143,7 @@ public interface IMemberService {
      * @param followWhoId
      * @return
      */
-    ResponseModel follows(Member loginMember, Integer followWhoId);
+    ResultModel follows(Member loginMember, Integer followWhoId);
 
     /**
      * 是否已关注
@@ -151,7 +151,7 @@ public interface IMemberService {
      * @param followWhoId
      * @return
      */
-    ResponseModel isFollowed(Member loginMember, Integer followWhoId);
+    ResultModel isFollowed(Member loginMember, Integer followWhoId);
 
     /**
      * 获取私信中的联系人列表
@@ -167,7 +167,7 @@ public interface IMemberService {
      * @param memberId
      * @return
      */
-    ResponseModel<Member> listContactMembers(Page page, Integer memberId);
+    ResultModel<Member> listContactMembers(Page page, Integer memberId);
 
     /**
      * 更新会员积分

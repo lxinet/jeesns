@@ -66,11 +66,11 @@
                                     <td>${action.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if action.status=1>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/action/isenable/${action.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/action/isenable/${action.id}" callback="reload">
                                                 <span class="label label-danger">禁用</span>
                                             </a>
                                         <#else>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/action/isenable/${action.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/action/isenable/${action.id}" callback="reload">
                                                 <span class="label label-success">启用</span>
                                             </a>
                                         </#if>

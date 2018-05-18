@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.member.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.member.IScoreDetailDao;
 import com.lxinet.jeesns.model.member.ScoreDetail;
@@ -25,19 +25,19 @@ public class ScoreDetailServiceImpl implements IScoreDetailService {
     private IMemberService memberService;
 
     @Override
-    public ResponseModel<ScoreDetail> list(Page page, Integer memberId) {
+    public ResultModel<ScoreDetail> list(Page page, Integer memberId) {
         List<ScoreDetail> list = scoreDetailDao.listByPage(page,memberId);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }
 
     @Override
-    public ResponseModel save(ScoreDetail scoreDetail) {
+    public ResultModel save(ScoreDetail scoreDetail) {
         if(scoreDetailDao.save(scoreDetail) > 0){
-            return new ResponseModel(0);
+            return new ResultModel(0);
         }
-        return new ResponseModel(-1,"保存失败");
+        return new ResultModel(-1,"保存失败");
     }
 
     /**

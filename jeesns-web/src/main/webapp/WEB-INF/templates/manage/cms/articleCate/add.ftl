@@ -28,7 +28,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form method="post" action="${managePath}/cms/articleCate/save" class="jeesns_form">
+                <form method="post" action="${managePath}/cms/articleCate/save" class="jeesns_form" callback="parentReload">
                     <div class="form-group">
                         <label for="recipient-name" class="control-label">栏目名字:</label>
                         <input type="text" class="form-control" id="name" name="name" data-type="require"

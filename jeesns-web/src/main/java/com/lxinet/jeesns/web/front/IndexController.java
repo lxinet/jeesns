@@ -1,11 +1,10 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.common.utils.EmojiUtil;
 import com.lxinet.jeesns.common.utils.MemberUtil;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -67,7 +65,7 @@ public class IndexController extends BaseController{
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResponseModel linkModel = linkService.recommentList();
+        ResultModel linkModel = linkService.recommentList();
         page.setPageSize(50);
         model.addAttribute("linkModel",linkModel);
 
@@ -84,7 +82,7 @@ public class IndexController extends BaseController{
         model.addAttribute("member",member);
         Member loginMember = MemberUtil.getLoginMember(request);
         model.addAttribute("loginMember", loginMember);
-        ResponseModel<ActionLog> list = actionLogService.memberActionLog(page,id);
+        ResultModel<ActionLog> list = actionLogService.memberActionLog(page,id);
         model.addAttribute("actionLogModel",list);
         return jeesnsConfig.getFrontTemplate() + "/u";
     }
@@ -165,7 +163,7 @@ public class IndexController extends BaseController{
      */
     @RequestMapping(value={"/link"},method = RequestMethod.GET)
     public String link(Model model) {
-        ResponseModel linkModel = linkService.allList();
+        ResultModel linkModel = linkService.allList();
         model.addAttribute("linkModel",linkModel);
         return jeesnsConfig.getFrontTemplate() + "/link";
     }

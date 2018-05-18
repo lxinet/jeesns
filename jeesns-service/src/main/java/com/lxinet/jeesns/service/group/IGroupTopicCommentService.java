@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.GroupTopicComment;
 import com.lxinet.jeesns.model.member.Member;
@@ -13,11 +13,11 @@ public interface IGroupTopicCommentService {
 
     GroupTopicComment findById(int id);
 
-    ResponseModel save(Member loginMember, String content, Integer groupTopicId,Integer commentId);
+    ResultModel save(Member loginMember, String content, Integer groupTopicId, Integer commentId);
 
-    ResponseModel delete(Member loginMember,int id);
+    ResultModel delete(Member loginMember, int id);
 
-    ResponseModel listByGroupTopic(Page page, int groupTopicId);
+    ResultModel listByGroupTopic(Page page, int groupTopicId);
 
     void deleteByTopic(int groupTopicId);
 }

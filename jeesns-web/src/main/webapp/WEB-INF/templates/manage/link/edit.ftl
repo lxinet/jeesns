@@ -31,7 +31,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/link/update" method="post">
+                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/link/update" method="post" callback="parentReload">
                     <input type="hidden" class="form-control" id="id" name="id" data-type="require" value="${link.id}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">网站名称</label>

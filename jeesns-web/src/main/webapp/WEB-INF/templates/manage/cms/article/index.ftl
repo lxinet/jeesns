@@ -126,7 +126,7 @@
                                             <span class="label label-warning"><i class="fa fa-edit green"></i></span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/cms/article/delete/${article.id}" confirm="确定要删除文章吗？">
+                                           href="${managePath}/cms/article/delete/${article.id}" confirm="确定要删除文章吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

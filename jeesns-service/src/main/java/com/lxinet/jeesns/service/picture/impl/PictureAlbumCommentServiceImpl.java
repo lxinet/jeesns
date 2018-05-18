@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.picture.impl;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.picture.IPictureAlbumCommentDao;
 import com.lxinet.jeesns.model.member.Member;
@@ -36,10 +36,10 @@ public class PictureAlbumCommentServiceImpl implements IPictureAlbumCommentServi
     }
 
     @Override
-    public ResponseModel save(Member loginMember, String content, Integer pictureAlbumId) {
+    public ResultModel save(Member loginMember, String content, Integer pictureAlbumId) {
         PictureAlbum pictureAlbum = pictureAlbumService.findById(pictureAlbumId);
         if(pictureAlbum == null){
-            return new ResponseModel(-1,"相册不存在");
+            return new ResultModel(-1,"相册不存在");
         }
         PictureAlbumComment pictureAlbumComment = new PictureAlbumComment();
         pictureAlbumComment.setMemberId(loginMember.getId());
@@ -47,17 +47,17 @@ public class PictureAlbumCommentServiceImpl implements IPictureAlbumCommentServi
         pictureAlbumComment.setContent(content);
         int result = pictureAlbumCommentDao.save(pictureAlbumComment);
         if(result == 1){
-            return new ResponseModel(0,"评论成功");
+            return new ResultModel(0,"评论成功");
         }else {
-            return new ResponseModel(-1,"评论失败");
+            return new ResultModel(-1,"评论失败");
         }
     }
 
     @Override
-    public ResponseModel listByPictureAlbum(Page page, int pictureAlbumId) {
+    public ResultModel listByPictureAlbum(Page page, int pictureAlbumId) {
         List<PictureAlbumComment> list = pictureAlbumCommentDao.listByPictureAlbum(page, pictureAlbumId);
         atFormat(list);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }
@@ -68,16 +68,16 @@ public class PictureAlbumCommentServiceImpl implements IPictureAlbumCommentServi
     }
 
     @Override
-    public ResponseModel delete(Member loginMember, int id) {
+    public ResultModel delete(Member loginMember, int id) {
         PictureAlbumComment pictureAlbumComment = this.findById(id);
         if(pictureAlbumComment == null){
-            return new ResponseModel(-1,"评论不存在");
+            return new ResultModel(-1,"评论不存在");
         }
         int result = pictureAlbumCommentDao.delete(id);
         if(result == 1){
-            return new ResponseModel(1,"删除成功");
+            return new ResultModel(1,"删除成功");
         }
-        return new ResponseModel(-1,"删除失败");
+        return new ResultModel(-1,"删除失败");
     }
 
     public PictureAlbumComment atFormat(PictureAlbumComment pictureAlbumComment){

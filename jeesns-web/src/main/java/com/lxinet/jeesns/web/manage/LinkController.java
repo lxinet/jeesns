@@ -1,13 +1,10 @@
 package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.utils.DateFormatUtil;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
-import com.lxinet.jeesns.model.common.Ads;
 import com.lxinet.jeesns.model.common.Link;
-import com.lxinet.jeesns.service.common.IAdsService;
 import com.lxinet.jeesns.service.common.ILinkService;
 import com.lxinet.jeesns.web.common.BaseController;
 import org.springframework.stereotype.Controller;
@@ -32,8 +29,8 @@ public class LinkController extends BaseController{
     @RequestMapping("/list")
     public String list(Model model){
         Page page = new Page(request);
-        ResponseModel responseModel = linkService.listByPage(page);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = linkService.listByPage(page);
+        model.addAttribute("model", resultModel);
         return MANAGE_FTL_PATH + "list";
     }
 
@@ -45,11 +42,11 @@ public class LinkController extends BaseController{
     @RequestMapping("/save")
     @ResponseBody
     public Object save(Link link){
-        ResponseModel responseModel = linkService.save(link);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
+        ResultModel resultModel = linkService.save(link);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
 
@@ -64,13 +61,13 @@ public class LinkController extends BaseController{
     @ResponseBody
     public Object update(Link link){
         if (link == null){
-            return new ResponseModel(-1,"参数错误");
+            return new ResultModel(-1,"参数错误");
         }
-        ResponseModel responseModel = linkService.update(link);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
+        ResultModel resultModel = linkService.update(link);
+        if(resultModel.getCode() == 0){
+            resultModel.setCode(3);
         }
-        return responseModel;
+        return resultModel;
     }
 
     @RequestMapping("/delete/{id}")

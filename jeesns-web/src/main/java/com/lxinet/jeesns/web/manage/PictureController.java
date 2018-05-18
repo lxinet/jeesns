@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.consts.AppTag;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.service.picture.IPictureService;
@@ -35,8 +35,8 @@ public class PictureController extends BaseController{
     @RequestMapping("/tagList")
     public String tagList(Model model){
         Page page = new Page(request);
-        ResponseModel responseModel = tagService.listByPage(page, AppTag.PICTURE);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = tagService.listByPage(page, AppTag.PICTURE);
+        model.addAttribute("model", resultModel);
         return MANAGE_FTL_PATH + "tagList";
     }
 
@@ -44,8 +44,8 @@ public class PictureController extends BaseController{
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public String list(Model model){
         Page page = new Page(request);
-        ResponseModel responseModel = pictureService.listByPage(page,0);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = pictureService.listByPage(page,0);
+        model.addAttribute("model", resultModel);
         return MANAGE_FTL_PATH + "list";
     }
 

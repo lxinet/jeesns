@@ -1,6 +1,5 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
 import com.lxinet.jeesns.model.group.GroupType;
 import java.util.List;
 
@@ -14,9 +13,9 @@ public interface IGroupTypeService {
 
     List<GroupType> list();
 
-    ResponseModel delete(int id);
+    boolean delete(int id);
 
-    ResponseModel save(GroupType groupType);
+    boolean save(GroupType groupType);
 
-    ResponseModel update(GroupType groupType);
+    boolean update(GroupType groupType);
 }

@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.DateFormatUtil;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by zchuanzhao on 2017/9/07.
@@ -32,8 +30,8 @@ public class AdsController extends BaseController{
     @RequestMapping("/list")
     public String list(Model model){
         Page page = new Page(request);
-        ResponseModel responseModel = adsService.listByPage(page);
-        model.addAttribute("model",responseModel);
+        ResultModel resultModel = adsService.listByPage(page);
+        model.addAttribute("model", resultModel);
         return MANAGE_FTL_PATH + "list";
     }
 
@@ -44,17 +42,13 @@ public class AdsController extends BaseController{
 
     @RequestMapping("/save")
     @ResponseBody
-    public Object save(Ads ads){
+    public ResultModel save(Ads ads){
         String startTimeStr = getParam("startDateTime");
         String endTimeStr = getParam("endDateTime");
         ads.setStartTime(DateFormatUtil.formatDateTime(startTimeStr));
         ads.setEndTime(DateFormatUtil.formatDateTime(endTimeStr));
         ads.setContent(ads.getContent().replace("&lt;","<").replace("&gt;",">").replace("&#47;","/"));
-        ResponseModel responseModel = adsService.save(ads);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
-        }
-        return responseModel;
+        return new ResultModel(adsService.save(ads));
     }
 
 
@@ -67,32 +61,25 @@ public class AdsController extends BaseController{
 
     @RequestMapping("/update")
     @ResponseBody
-    public Object update(Ads ads){
-        if (ads == null){
-            return new ResponseModel(-1,"参数错误");
-        }
+    public ResultModel update(Ads ads){
         String startTimeStr = getParam("startDateTime");
         String endTimeStr = getParam("endDateTime");
         ads.setStartTime(DateFormatUtil.formatDateTime(startTimeStr));
         ads.setEndTime(DateFormatUtil.formatDateTime(endTimeStr));
         ads.setContent(ads.getContent().replace("&lt;","<").replace("&gt;",">").replace("&#47;","/"));
-        ResponseModel responseModel = adsService.update(ads);
-        if(responseModel.getCode() == 0){
-            responseModel.setCode(3);
-        }
-        return responseModel;
+        return new ResultModel(adsService.update(ads));
     }
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public Object delete(@PathVariable("id") Integer id){
-        return adsService.delete(id);
+    public ResultModel delete(@PathVariable("id") Integer id){
+        return new ResultModel(adsService.delete(id));
     }
 
     @RequestMapping("/enable/{id}")
     @ResponseBody
-    public Object enable(@PathVariable("id") Integer id){
-        return adsService.enable(id);
+    public ResultModel enable(@PathVariable("id") Integer id){
+        return new ResultModel(adsService.enable(id));
     }
 
 

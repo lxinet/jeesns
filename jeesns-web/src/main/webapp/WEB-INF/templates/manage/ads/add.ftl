@@ -31,7 +31,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/ads/save" method="post">
+                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/ads/save" method="post" callback="parentReload">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">名称</label>
                         <div class="col-sm-8">

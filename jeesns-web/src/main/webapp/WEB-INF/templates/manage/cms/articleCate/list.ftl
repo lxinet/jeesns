@@ -64,7 +64,7 @@
                                             <span class="label label-warning"><i class="fa fa-edit green"></i></span>
                                         </a>
                                         <a target="_jeesnsLink" href="${managePath}/cms/articleCate/delete/${mainMenu.id}"
-                                           confirm="确定要删除栏目吗？删除后栏目下的文章将会移到未分类中！">
+                                           confirm="确定要删除栏目吗？删除后栏目下的文章将会移到未分类中！" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

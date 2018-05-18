@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.member;
 
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.ScoreDetail;
 
@@ -10,9 +10,9 @@ import com.lxinet.jeesns.model.member.ScoreDetail;
  */
 public interface IScoreDetailService {
 
-    ResponseModel<ScoreDetail> list(Page page, Integer memberId);
+    ResultModel<ScoreDetail> list(Page page, Integer memberId);
 
-    ResponseModel save(ScoreDetail scoreDetail);
+    ResultModel save(ScoreDetail scoreDetail);
 
     /**
      * 是否能奖励，true表示可以奖励

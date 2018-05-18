@@ -6,10 +6,9 @@ import com.lxinet.jeesns.dao.cms.IArticleDao;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.service.cms.IArticleCommentService;
 import com.lxinet.jeesns.service.cms.IArticleService;
-import com.lxinet.jeesns.core.dto.ResponseModel;
+import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.service.common.IArchiveService;
@@ -65,13 +64,13 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     @Transactional
-    public ResponseModel save(Member member, Article article) {
+    public ResultModel save(Member member, Article article) {
         Map<String,String> config = configService.getConfigToMap();
         if(member.getIsAdmin() == 0 && "0".equals(config.get(ConfigUtil.CMS_POST))){
-            return new ResponseModel(-1,"投稿功能已关闭");
+            return new ResultModel(-1,"投稿功能已关闭");
         }
         if(article.getCateId() == null || article.getCateId() == 0){
-            return new ResponseModel(-1,"栏目不能为空");
+            return new ResultModel(-1,"栏目不能为空");
         }
         article.setMemberId(member.getId());
         Archive archive = new Archive();
@@ -101,21 +100,21 @@ public class ArticleServiceImpl implements IArticleService {
                 }
                 actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_ARTICLE,"", ActionLogType.ARTICLE.getValue(),article.getId());
                 if (article.getStatus() == 0){
-                    return new ResponseModel(0,"文章发布成功，请等待审核");
+                    return new ResultModel(0,"文章发布成功，请等待审核");
                 }
-                return new ResponseModel(0,"文章发布成功");
+                return new ResultModel(0,"文章发布成功");
             }
         }
-        return new ResponseModel(-1,"文章发布失败");
+        return new ResultModel(-1,"文章发布失败");
     }
 
     @Override
-    public ResponseModel listByPage(Page page, String key, int cateid, int status, int memberId) {
+    public ResultModel listByPage(Page page, String key, int cateid, int status, int memberId) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
         List<Article> list = articleDao.listByPage(page, key,cateid,status,memberId);
-        ResponseModel model = new ResponseModel(0,page);
+        ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
     }
@@ -126,7 +125,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public ResponseModel audit(int id) {
+    public ResultModel audit(int id) {
         if(articleDao.audit(id) == 1){
             Article article = this.findById(id);
             if(article != null){
@@ -136,29 +135,29 @@ public class ArticleServiceImpl implements IArticleService {
                     scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
                 }
             }
-            return new ResponseModel(1,"操作成功");
+            return new ResultModel(1,"操作成功");
         }else {
-            return new ResponseModel(-1,"操作时候");
+            return new ResultModel(-1,"操作时候");
         }
     }
 
     @Override
-    public ResponseModel favor(Member loginMember, int articleId) {
+    public ResultModel favor(Member loginMember, int articleId) {
         Article article = this.findById(articleId);
         if(article != null){
-            ResponseModel responseModel = archiveService.favor(loginMember,article.getArchiveId());
-            if(responseModel.getCode() == 0){
+            ResultModel resultModel = archiveService.favor(loginMember,article.getArchiveId());
+            if(resultModel.getCode() == 0){
                 //文章收到喜欢
                 scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
                 //点赞之后发送系统信息
                 messageService.diggDeal(loginMember.getId(),article.getMemberId(),AppTag.CMS,MessageType.CMS_ARTICLE_LIKE,article.getId());
-            }else if(responseModel.getCode() == 1){
+            }else if(resultModel.getCode() == 1){
                 //取消喜欢，扣除积分
                 scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
             }
-            return responseModel;
+            return resultModel;
         }
-        return new ResponseModel(-1,"文章不存在");
+        return new ResultModel(-1,"文章不存在");
     }
 
     @Override
@@ -168,10 +167,10 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     @Transactional
-    public ResponseModel update(Member member,Article article) {
+    public ResultModel update(Member member, Article article) {
         Article findArticle = this.findById(article.getId(),member);
         if(findArticle == null){
-            return new ResponseModel(-2);
+            return new ResultModel(-2);
         }
         article.setArchiveId(findArticle.getArchiveId());
         Archive archive = new Archive();
@@ -191,17 +190,17 @@ public class ArticleServiceImpl implements IArticleService {
             //更新栏目
             findArticle.setCateId(article.getCateId());
             articleDao.update(findArticle);
-            return new ResponseModel(0,"更新成功");
+            return new ResultModel(0,"更新成功");
         }
-        return new ResponseModel(-1,"更新失败");
+        return new ResultModel(-1,"更新失败");
     }
 
     @Override
     @Transactional
-    public ResponseModel delete(Member member,int id) {
+    public ResultModel delete(Member member, int id) {
         Article article = this.findById(id);
         if (article == null){
-            return new ResponseModel(-1,"文章不存在");
+            return new ResultModel(-1,"文章不存在");
         }
         int result = articleDao.delete(id);
         if(result == 1){
@@ -210,9 +209,9 @@ public class ArticleServiceImpl implements IArticleService {
             archiveService.delete(article.getArchiveId());
             articleCommentService.deleteByArticle(id);
             actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.DELETE_ARTICLE,"ID："+article.getId()+"，标题："+article.getTitle());
-            return new ResponseModel(1,"删除成功");
+            return new ResultModel(1,"删除成功");
         }
-        return new ResponseModel(-1,"删除失败");
+        return new ResultModel(-1,"删除失败");
     }
 
     public Article atFormat(Article article){
