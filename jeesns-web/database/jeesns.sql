@@ -168,7 +168,6 @@ CREATE TABLE `tbl_group_topic` (
   `status` int(11) DEFAULT '0' COMMENT '状态，0未审核，1已审核',
   `is_essence` int(11) DEFAULT '0' COMMENT '精华，0不加精，1加精',
   `is_top` int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶',
-  `is_top` int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶',
   `type_id` int(11) DEFAULT null COMMENT '帖子分类ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
