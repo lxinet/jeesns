@@ -31,7 +31,7 @@
             <h5>修改密码</h5>
         </div>
         <div class="ibox-content">
-            <form class="form-horizontal m-t jeesns_form" action="${basePath}/member/password" method="post">
+            <form class="form-horizontal m-t jeesns_form" action="${basePath}/member/password" method="post" callback="reload">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">旧密码：</label>
                     <div class="col-sm-8">

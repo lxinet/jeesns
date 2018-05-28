@@ -23,7 +23,11 @@
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/common/js/manage.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
-
+    <script>
+        var _success = function () {
+            window.location.href = '${basePath}/member/';
+        }
+    </script>
 </head>
 
 <body class="gray-bg">
@@ -34,11 +38,11 @@
         <div class="col-md-4">
             <div class="ibox ibox-content">
                 <h2 class="font-bold">登录</h2>
-                <form class="m-t jeesns_form" action="${basePath}/member/login" method="post">
+                <form class="m-t jeesns_form" action="${basePath}/member/login" method="post" callback="_success">
                     <input type="hidden" name="redirectUrl" value="${redirectUrl}">
                     <div class="form-group">
                         用户名/邮箱
-                        <input type="text" class="form-control" name="name" placeholder="用户名/邮箱" data-type="require">
+                        <input type="text" class="form-control" name="name" placeholder="用户名/邮箱" data-type="require" callback="_success">
                     </div>
                     <div class="form-group">
                         密码
