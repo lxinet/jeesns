@@ -25,7 +25,7 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-horizontal jeesns_form" role="form" action="${basePath}/member/picture/saveAlbum" method="post">
+    <form class="form-horizontal jeesns_form" role="form" action="${basePath}/member/picture/saveAlbum" method="post" callback="reload">
         <div class="form-group">
             <label class="col-sm-1 control-label">相册名称</label>
             <div class="col-sm-8">

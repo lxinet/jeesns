@@ -42,7 +42,7 @@
                         <div id="tab-1" class="tab-pane active">
                             <div class="panel-body">
                                 <form class="form-horizontal m-t jeesns_form" action="${basePath}/member/editBaseInfo"
-                                      method="post">
+                                      method="post" callback="reload">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">登录账号：</label>
                                         <div class="col-sm-8">
@@ -90,7 +90,7 @@
                         <div id="tab-2" class="tab-pane">
                             <div class="panel-body">
                                 <form class="form-horizontal m-t jeesns_form"
-                                      action="${basePath}/member/editOtherInfo" method="post">
+                                      action="${basePath}/member/editOtherInfo" method="post" callback="reload">
                                     <input name="id" class="form-control" type="hidden" dataType=""
                                            value="${loginUser.id}">
                                     <div class="form-group">

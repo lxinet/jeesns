@@ -50,7 +50,7 @@ public enum Messages {
     //其他未知错误
     ERROR(-1, MessageField.OPERATE_ERROR),
     //成功
-    SUCCESS(0,"");
+    SUCCESS(0,MessageField.OPERATE_SUCCESS);
 
     private int code;
     private String message;

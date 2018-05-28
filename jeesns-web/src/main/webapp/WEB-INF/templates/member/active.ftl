@@ -23,7 +23,11 @@
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/common/js/manage.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
-
+    <script>
+        var _success = function () {
+            window.location.href = '${basePath}/member/login';
+        }
+    </script>
 </head>
 
 <body class="gray-bg">
@@ -34,7 +38,7 @@
         <div class="col-md-4">
             <div class="ibox-content">
                 <h2 class="font-bold">激活账号</h2>
-                <form class="m-t jeesns_form" action="${basePath}/member/active" method="post">
+                <form class="m-t jeesns_form" action="${basePath}/member/active" method="post" callback="_success">
                     <div class="form-group">
                         邮箱
                         <input type="text" class="form-control" disabled data-type="require" value="${loginUser.email}">
