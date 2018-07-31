@@ -44,6 +44,20 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         value = value.replaceAll("(?i)<script", "&lt;script");
         value = value.replaceAll("(?i)eval\\((.*)\\)", "");
         value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
+
+        // 需要过滤的脚本事件关键字
+        String[] eventKeywords = { "onmouseover", "onmouseout", "onmousedown",
+                "onmouseup", "onmousemove", "onclick", "ondblclick",
+                "onkeypress", "onkeydown", "onkeyup", "ondragstart",
+                "onerrorupdate", "onhelp", "onreadystatechange", "onrowenter",
+                "onrowexit", "onselectstart", "onload", "onunload",
+                "onbeforeunload", "onblur", "onerror", "onfocus", "onresize",
+                "onscroll", "oncontextmenu", "alert" };
+        // 滤除脚本事件代码
+        for (int i = 0; i < eventKeywords.length; i++) {
+            // 添加一个"_", 使事件代码无效
+            value = value.replaceAll(eventKeywords[i],"_" + eventKeywords[i]);
+        }
         return value;
     }
 
