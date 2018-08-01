@@ -128,15 +128,19 @@ public class BaseController {
     @ExceptionHandler
     public void execptionHandler(Exception e){
         if (isAjaxRequest()){
-            e.printStackTrace();
             response.setCharacterEncoding("utf-8");
             PrintWriter out = null;
             try {
                 out = response.getWriter();
                 JSONObject json = new JSONObject();
                 if (e instanceof JeeException){
-                    json.put("code",((JeeException) e).getJeeMessage().getCode());
-                    json.put("message",((JeeException) e).getJeeMessage().getMessage());
+                    if (null != ((JeeException) e).getJeeMessage()){
+                        json.put("code",((JeeException) e).getJeeMessage().getCode());
+                        json.put("message",((JeeException) e).getJeeMessage().getMessage());
+                    }else {
+                        json.put("code",-1);
+                        json.put("message",e.getMessage());
+                    }
                 }else {
                     json.put("code",-1);
                     json.put("message",e.getMessage());
