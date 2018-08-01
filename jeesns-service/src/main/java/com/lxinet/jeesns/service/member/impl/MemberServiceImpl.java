@@ -2,6 +2,8 @@ package com.lxinet.jeesns.service.member.impl;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.dao.member.IMemberDao;
@@ -96,10 +98,10 @@ public class MemberServiceImpl implements IMemberService {
     @Transactional
     public ResultModel register(Member member, HttpServletRequest request) {
         if(memberDao.findByName(member.getName()) != null){
-            return new ResultModel(-1,"该用户名已被注册");
+            throw new OpeErrorException(Messages.USERNAME_EXISTS);
         }
         if(memberDao.findByEmail(member.getEmail()) != null){
-            return new ResultModel(-1,"该邮箱已被注册");
+            throw new OpeErrorException(Messages.EMAIL_EXISTS);
         }
         member.setRegip(IpUtil.getIpAddress(request));
         member.setPassword(Md5Util.getMD5Code(member.getPassword()));
@@ -212,7 +214,7 @@ public class MemberServiceImpl implements IMemberService {
     @Override
     public ResultModel changepwd(Member loginMember, int id, String password) {
         if(StringUtils.isBlank(password)){
-            return new ResultModel(-1,"密码不能为空");
+            throw new OpeErrorException(Messages.PASSWORD_NOT_EMPTY);
         }
         if(password.length() < 6){
             return new ResultModel(-1,"密码不能少于6个字符");
@@ -235,7 +237,7 @@ public class MemberServiceImpl implements IMemberService {
     @Override
     public ResultModel changepwd(Member loginMember, String oldPassword, String newPassword) {
         if(StringUtils.isBlank(newPassword)){
-            return new ResultModel(-1,"密码不能为空");
+            throw new OpeErrorException(Messages.PASSWORD_NOT_EMPTY);
         }
         if(newPassword.length() < 6){
             return new ResultModel(-1,"密码不能少于6个字符");
