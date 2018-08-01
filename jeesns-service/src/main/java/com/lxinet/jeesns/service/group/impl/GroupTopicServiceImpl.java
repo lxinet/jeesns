@@ -140,7 +140,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (groupTopic.getTypeId().intValue() != findGroupTopic.getTypeId().intValue()){
+        if (groupTopic.getTypeId() != null && !groupTopic.getTypeId().equals(findGroupTopic.getTypeId())){
             groupTopicDao.updateType(groupTopic.getId(),groupTopic.getTypeId());
         }
         if(archiveService.update(member,archive)){
