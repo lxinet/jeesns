@@ -32,10 +32,15 @@ public class ControllerAop {
 
     private ResultModel<?> handlerExceotion(ProceedingJoinPoint pjp, Throwable e){
         ResultModel<?> result = new ResultModel();
-        if (e instanceof JeeException){
+        if (e instanceof JeeException && null != ((JeeException) e).getJeeMessage()){
             result.setMessage(((JeeException)e).getJeeMessage());
         }else {
-            result.setMessage(e.getMessage());
+            result.setCode(-1);
+            if (null == e.getMessage()){
+                result.setMessage("系统异常：" + e.toString());
+            }else {
+                result.setMessage(e.getMessage());
+            }
             e.printStackTrace();
         }
         return result;
