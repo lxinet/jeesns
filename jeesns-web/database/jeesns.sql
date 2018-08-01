@@ -540,3 +540,5 @@ INSERT INTO tbl_score_rule(id,create_time,update_time,name,score,remark,type,sta
   (12,now(),now(),'群组帖子评论',1,'群组帖子评论奖励积分','unlimite',1),
   (13,now(),now(),'群组帖子收到喜欢',1,'群组帖子收到喜欢奖励积分','unlimite',1);
 
+INSERT INTO `tbl_group_type` values (1,now(),'默认分类');
+
