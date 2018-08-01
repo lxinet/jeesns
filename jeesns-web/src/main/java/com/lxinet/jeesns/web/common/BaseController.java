@@ -133,16 +133,16 @@ public class BaseController {
             try {
                 out = response.getWriter();
                 JSONObject json = new JSONObject();
-                if (e instanceof JeeException){
-                    if (null != ((JeeException) e).getJeeMessage()){
-                        json.put("code",((JeeException) e).getJeeMessage().getCode());
-                        json.put("message",((JeeException) e).getJeeMessage().getMessage());
-                    }else {
-                        json.put("code",-1);
-                        json.put("message",e.getMessage());
-                    }
+                if (e instanceof JeeException && null != ((JeeException) e).getJeeMessage()){
+                    json.put("code",((JeeException) e).getJeeMessage().getCode());
+                    json.put("message",((JeeException) e).getJeeMessage().getMessage());
                 }else {
                     json.put("code",-1);
+                    if (null == e.getMessage()){
+                        json.put("message","系统异常：" + e.toString());
+                    }else {
+                        json.put("message",e.getMessage());
+                    }
                     json.put("message",e.getMessage());
                 }
                 out.print(json.toString());

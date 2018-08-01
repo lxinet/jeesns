@@ -130,4 +130,8 @@
         <!-- 这里配置将使用上面国际化配置的messageSource -->
         <property name="validationMessageSource" ref="messageSource"/>
     </bean>
+    <bean id="controllerAop" class="com.lxinet.jeesns.aop.ControllerAop"></bean>
+    <aop:aspectj-autoproxy proxy-target-class="true">
+        <aop:include name="controllerAop"/>
+    </aop:aspectj-autoproxy>
 </beans>
