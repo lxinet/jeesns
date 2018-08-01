@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ResultModel<T> implements Serializable{
+    public static final Integer SUCCESS = 0;
+    public static final Integer ERROR = -1;
 
     /**
      * -2参数错误，-1操作失败，0操作成功，1成功刷新当前页，2成功并跳转到url，3成功并刷新iframe的父界面
@@ -33,9 +35,9 @@ public class ResultModel<T> implements Serializable{
         this.code = code;
         if(code == -2){
             setMessage("参数错误");
-        }else if(code == -1){
+        }else if(code == ERROR){
             setMessage("操作失败");
-        }else if(code == 0){
+        }else if(code == SUCCESS){
             setMessage("操作成功");
         }
     }
@@ -45,7 +47,7 @@ public class ResultModel<T> implements Serializable{
         if (data instanceof Boolean){
             setMessage(Messages.SUCCESS);
         }else {
-            this.code = 0;
+            this.code = SUCCESS;
             this.data = data;
         }
     }
