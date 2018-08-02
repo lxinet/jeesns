@@ -43,7 +43,7 @@ public class TagController extends BaseController{
 
     @RequestMapping("/save")
     @ResponseBody
-    public Object save(Tag tag){
+    public ResultModel save(Tag tag){
         ResultModel resultModel = tagService.save(tag);
         if(resultModel.getCode() == 0){
             resultModel.setCode(3);
@@ -61,7 +61,7 @@ public class TagController extends BaseController{
 
     @RequestMapping("/update")
     @ResponseBody
-    public Object update(Tag tag){
+    public ResultModel update(Tag tag){
         if (tag == null){
             return new ResultModel(-1,"参数错误");
         }
@@ -74,7 +74,7 @@ public class TagController extends BaseController{
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public Object delete(@PathVariable("id") Integer id){
+    public ResultModel delete(@PathVariable("id") Integer id){
         return tagService.delete(id);
     }
 

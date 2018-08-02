@@ -57,16 +57,12 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value="${managePath}/cms/article/save",method = RequestMethod.POST)
     @ResponseBody
-    public Object save(@Valid Article article, BindingResult bindingResult) {
+    public ResultModel save(@Valid Article article, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return new ResultModel(-1,getErrorMessages(bindingResult));
         }
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = articleService.save(loginMember,article);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+        return new ResultModel(articleService.save(loginMember,article));
     }
 
     @RequestMapping(value="${managePath}/cms/article/list",method = RequestMethod.GET)
@@ -91,7 +87,7 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value="${managePath}/cms/article/update",method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@Valid Article article,BindingResult bindingResult) {
+    public ResultModel update(@Valid Article article,BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             new ResultModel(-1,getErrorMessages(bindingResult));
         }
@@ -99,27 +95,21 @@ public class ArticleController extends BaseController {
             return new ResultModel(-2);
         }
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = articleService.update(loginMember,article);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+        return new ResultModel(articleService.update(loginMember,article));
     }
 
 
     @RequestMapping(value = "${managePath}/cms/article/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@PathVariable("id") Integer id){
+    public ResultModel delete(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel response = articleService.delete(loginMember,id);
-        return response;
+        return new ResultModel(articleService.delete(loginMember,id));
     }
 
     @RequestMapping(value = "${managePath}/cms/article/audit/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object audit(@PathVariable("id") Integer id){
-        ResultModel response = articleService.audit(id);
-        return response;
+    public ResultModel audit(@PathVariable("id") Integer id){
+        return new ResultModel(articleService.audit(id));
     }
 
 }

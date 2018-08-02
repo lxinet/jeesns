@@ -18,7 +18,7 @@ public interface IMemberService {
      * @param request
      * @return
      */
-    ResultModel login(Member member, HttpServletRequest request);
+    boolean login(Member member, HttpServletRequest request);
 
     Member manageLogin(Member member, HttpServletRequest request);
 

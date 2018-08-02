@@ -20,6 +20,7 @@ public enum Messages {
     LOGIN_NAME_NOT_EMPTY(-1001, MessageField.NOT_EMPTY, Messages(MessageField.LOGIN_NAME)),
     TOKEN_NOT_EMPTY(-1001, MessageField.NOT_EMPTY, Messages(MessageField.TOKEN)),
     NAME_NOT_EMPTY(-1001, MessageField.NOT_EMPTY, Messages(MessageField.NAME)),
+    CATE_NOT_EMPTY(-1001, MessageField.NOT_EMPTY, Messages(MessageField.CATE)),
     CATEGORY_MUST_BE_SELECT(-1001, MessageField.CATEGORY_MUST_BE_SELECT),
     PRICE_IS_ERROR(-1001, MessageField.PRICE_IS_ERROR),
     STOCK_MUST_BE_INTEGER(-1001, MessageField.STOCK_MUST_BE_INTEGER),
@@ -27,10 +28,14 @@ public enum Messages {
 
     //不存在
     NOT_EXISTS(-1007, MessageField.NOT_EXISTS),
-    ADMIN_NOT_EXISTS(-1002, MessageField.ADMIN_NOT_EXISTS),
-    USER_NOT_EXISTS(-1002, MessageField.USER_NOT_EXISTS),
-    GOODS_CATEGORY_NOT_EXISTS(-1002, MessageField.GOODS_CATEGORY_NOT_EXISTS),
-    GOODS_NOT_EXISTS(-1002, MessageField.GOODS_NOT_EXISTS),
+    ADMIN_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.ADMIN)),
+    USER_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.USER)),
+    WEIBO_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.WEIBO)),
+    COMMENT_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.COMMENT)),
+    ARTICLE_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.ARTICLE)),
+    GROUP_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.GROUP)),
+    TOPIC_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.TOPIC)),
+    PICTURE_NOT_EXISTS(-1002, MessageField.NOT_EXISTS, Messages(MessageField.PICTURE)),
     AD_NOT_EXISTS(-1002, MessageField.AD_NOT_EXISTS),
     PARENT_CATE_NOT_EXISTS(-1002, MessageField.PARENT_CATE_NOT_EXISTS),
 
@@ -48,6 +53,10 @@ public enum Messages {
     ONLY_TOP_CATE_CAN_ADD(-1007, MessageField.ONLY_TOP_CATE_CAN_ADD),
     DELETE_SUB_CATE_FIRST(-1007, MessageField.DELETE_SUB_CATE_FIRST),
     CATE_NOT_EXISTS(-1007, MessageField.CATE_NOT_EXISTS),
+    LOGIN_CLOSED(-1007, MessageField.LOGIN_CLOSED),
+    CONTRIBUTION_CLOSED(-1007, MessageField.CONTRIBUTION_CLOSED),
+    CONTENT_NOT_EMPTY(-1007, MessageField.NOT_EMPTY, Messages(MessageField.CONTENT)),
+    FRIIEND_LINK_NOT_EXISTS(-1007, MessageField.NOT_EXISTS, Messages(MessageField.FRIIEND_LINK)),
 
 
 

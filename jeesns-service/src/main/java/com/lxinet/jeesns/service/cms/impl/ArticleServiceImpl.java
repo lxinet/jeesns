@@ -1,7 +1,11 @@
 package com.lxinet.jeesns.service.cms.impl;
 
+import com.lxinet.jeesns.common.utils.*;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
+import com.lxinet.jeesns.core.enums.Messages;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.dao.cms.IArticleDao;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.common.Archive;
@@ -17,10 +21,6 @@ import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
-import com.lxinet.jeesns.common.utils.ActionLogType;
-import com.lxinet.jeesns.common.utils.ActionUtil;
-import com.lxinet.jeesns.common.utils.ConfigUtil;
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -64,13 +64,13 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     @Transactional
-    public ResultModel save(Member member, Article article) {
+    public boolean save(Member member, Article article) {
         Map<String,String> config = configService.getConfigToMap();
         if(member.getIsAdmin() == 0 && "0".equals(config.get(ConfigUtil.CMS_POST))){
-            return new ResultModel(-1,"投稿功能已关闭");
+            throw new OpeErrorException(Messages.CONTRIBUTION_CLOSED);
         }
         if(article.getCateId() == null || article.getCateId() == 0){
-            return new ResultModel(-1,"栏目不能为空");
+            throw new ParamException(Messages.CATE_NOT_EMPTY);
         }
         article.setMemberId(member.getId());
         Archive archive = new Archive();
@@ -87,25 +87,23 @@ public class ArticleServiceImpl implements IArticleService {
             article.setStatus(1);
         }
         //保存文档
-        if(archiveService.save(member,archive)){
-            //保存文章
-            article.setArchiveId(archive.getArchiveId());
-            int result = articleDao.save(article);
-            if(result == 1){
-                //@会员处理并发送系统消息
-                messageService.atDeal(member.getId(),article.getContent(), AppTag.CMS, MessageType.CMS_ARTICLE_REFER,article.getId());
-                if(article.getStatus() == 1){
-                    //投稿审核通过奖励
-                    scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
-                }
-                actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_ARTICLE,"", ActionLogType.ARTICLE.getValue(),article.getId());
-                if (article.getStatus() == 0){
-                    return new ResultModel(0,"文章发布成功，请等待审核");
-                }
-                return new ResultModel(0,"文章发布成功");
-            }
+        if(!archiveService.save(member,archive)){
+            throw new OpeErrorException();
         }
-        return new ResultModel(-1,"文章发布失败");
+
+        //保存文章
+        article.setArchiveId(archive.getArchiveId());
+        int result = articleDao.save(article);
+        if(result == 1){
+            //@会员处理并发送系统消息
+            messageService.atDeal(member.getId(),article.getContent(), AppTag.CMS, MessageType.CMS_ARTICLE_REFER,article.getId());
+            if(article.getStatus() == 1){
+                //投稿审核通过奖励
+                scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
+            }
+            actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_ARTICLE,"", ActionLogType.ARTICLE.getValue(),article.getId());
+        }
+        return true;
     }
 
     @Override
@@ -125,39 +123,36 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public ResultModel audit(int id) {
-        if(articleDao.audit(id) == 1){
-            Article article = this.findById(id);
-            if(article != null){
-                //说明此次操作是审核通过
-                if(article.getStatus() == 1){
-                    //投稿审核通过奖励
-                    scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
-                }
-            }
-            return new ResultModel(1,"操作成功");
-        }else {
-            return new ResultModel(-1,"操作时候");
+    public boolean audit(int id) {
+        if(articleDao.audit(id) == 0){
+             throw new OpeErrorException();
         }
+        Article article = this.findById(id);
+        if(article != null){
+            //说明此次操作是审核通过
+            if(article.getStatus() == 1){
+                //投稿审核通过奖励
+                scoreDetailService.scoreBonus(article.getMemberId(), ScoreRuleConsts.ARTICLE_SUBMISSIONS,article.getId());
+            }
+        }
+        return true;
     }
 
     @Override
-    public ResultModel favor(Member loginMember, int articleId) {
+    public boolean favor(Member loginMember, int articleId) {
         Article article = this.findById(articleId);
-        if(article != null){
-            ResultModel resultModel = archiveService.favor(loginMember,article.getArchiveId());
-            if(resultModel.getCode() == 0){
-                //文章收到喜欢
-                scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
-                //点赞之后发送系统信息
-                messageService.diggDeal(loginMember.getId(),article.getMemberId(),AppTag.CMS,MessageType.CMS_ARTICLE_LIKE,article.getId());
-            }else if(resultModel.getCode() == 1){
-                //取消喜欢，扣除积分
-                scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
-            }
-            return resultModel;
+        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
+        ResultModel resultModel = archiveService.favor(loginMember,article.getArchiveId());
+        if(resultModel.getCode() == 0){
+            //文章收到喜欢
+            scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
+            //点赞之后发送系统信息
+            messageService.diggDeal(loginMember.getId(),article.getMemberId(),AppTag.CMS,MessageType.CMS_ARTICLE_LIKE,article.getId());
+        }else if(resultModel.getCode() == 1){
+            //取消喜欢，扣除积分
+            scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
         }
-        return new ResultModel(-1,"文章不存在");
+        return true;
     }
 
     @Override
@@ -167,11 +162,9 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     @Transactional
-    public ResultModel update(Member member, Article article) {
+    public boolean update(Member member, Article article) {
         Article findArticle = this.findById(article.getId(),member);
-        if(findArticle == null){
-            return new ResultModel(-2);
-        }
+        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
         article.setArchiveId(findArticle.getArchiveId());
         Archive archive = new Archive();
         try {
@@ -180,38 +173,36 @@ public class ArticleServiceImpl implements IArticleService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(archiveService.update(member,archive)){
-            Map<String,String> config = configService.getConfigToMap();
-            if(member.getIsAdmin() == 0 && "0".equals(config.get(ConfigUtil.CMS_POST_REVIEW))){
-                findArticle.setStatus(0);
-            }else {
-                findArticle.setStatus(1);
-            }
-            //更新栏目
-            findArticle.setCateId(article.getCateId());
-            articleDao.update(findArticle);
-            return new ResultModel(0,"更新成功");
+        if(!archiveService.update(member,archive)){
+            throw new OpeErrorException();
         }
-        return new ResultModel(-1,"更新失败");
+        Map<String,String> config = configService.getConfigToMap();
+        if(member.getIsAdmin() == 0 && "0".equals(config.get(ConfigUtil.CMS_POST_REVIEW))){
+            findArticle.setStatus(0);
+        }else {
+            findArticle.setStatus(1);
+        }
+        //更新栏目
+        findArticle.setCateId(article.getCateId());
+        articleDao.update(findArticle);;
+        return true;
     }
 
     @Override
     @Transactional
-    public ResultModel delete(Member member, int id) {
+    public boolean delete(Member member, int id) {
         Article article = this.findById(id);
-        if (article == null){
-            return new ResultModel(-1,"文章不存在");
-        }
+        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
         int result = articleDao.delete(id);
-        if(result == 1){
-            //扣除积分
-            scoreDetailService.scoreCancelBonus(member.getId(),ScoreRuleConsts.ARTICLE_SUBMISSIONS,id);
-            archiveService.delete(article.getArchiveId());
-            articleCommentService.deleteByArticle(id);
-            actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.DELETE_ARTICLE,"ID："+article.getId()+"，标题："+article.getTitle());
-            return new ResultModel(1,"删除成功");
+        if(result == 0){
+            throw new OpeErrorException();
         }
-        return new ResultModel(-1,"删除失败");
+        //扣除积分
+        scoreDetailService.scoreCancelBonus(member.getId(),ScoreRuleConsts.ARTICLE_SUBMISSIONS,id);
+        archiveService.delete(article.getArchiveId());
+        articleCommentService.deleteByArticle(id);
+        actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.DELETE_ARTICLE,"ID："+article.getId()+"，标题："+article.getTitle());
+        return true;
     }
 
     public Article atFormat(Article article){

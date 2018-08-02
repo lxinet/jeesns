@@ -55,10 +55,12 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public ResultModel<Member> login(Member member, @RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
-        ResultModel resultModel = memberService.login(member,request);
+        ResultModel resultModel = new ResultModel(memberService.login(member,request));
+        resultModel.setCode(3);
         if (StringUtils.isNotEmpty(redirectUrl) && resultModel.getCode() >= 0){
-            resultModel.setCode(3);
             resultModel.setUrl(redirectUrl);
+        }else {
+            resultModel.setUrl(request.getContextPath() + "/member/");
         }
         return resultModel;
     }
@@ -101,31 +103,24 @@ public class MemberController extends BaseController {
     }
 
     @RequestMapping(value = "/active",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String active(){
-        Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return "redirect:/member/login";
-        }
         return MEMBER_FTL_PATH + "/active";
     }
 
     @RequestMapping(value = "/active",method = RequestMethod.POST)
     @ResponseBody
+    @Before(UserLoginInterceptor.class)
     public ResultModel active(String randomCode){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
         return memberService.active(loginMember,randomCode,request);
     }
 
     @RequestMapping(value = "/sendEmailActiveValidCode",method = RequestMethod.GET)
     @ResponseBody
+    @Before(UserLoginInterceptor.class)
     public ResultModel sendEmailActiveValidCode(){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
         return memberService.sendEmailActiveValidCode(loginMember, request);
     }
 
@@ -149,6 +144,7 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/resetpwd",method = RequestMethod.POST)
     @ResponseBody
+    @Before(UserLoginInterceptor.class)
     public ResultModel resetpwd(String email, String token, String password, String repassword){
         if(StringUtils.isEmpty(password)){
             return new ResultModel(-1,"新密码不能为空");
@@ -238,7 +234,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/follows/{followWhoId}",method = RequestMethod.GET)
     @ResponseBody
-    public Object follows(@PathVariable(value = "followWhoId") Integer followWhoId){
+    public ResultModel follows(@PathVariable(value = "followWhoId") Integer followWhoId){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.follows(loginMember,followWhoId);
     }
@@ -250,7 +246,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/isFollowed/{followWhoId}",method = RequestMethod.GET)
     @ResponseBody
-    public Object isFollowed(@PathVariable(value = "followWhoId") Integer followWhoId){
+    public ResultModel isFollowed(@PathVariable(value = "followWhoId") Integer followWhoId){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.isFollowed(loginMember,followWhoId);
     }
@@ -284,15 +280,13 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/listContactMembers",method = RequestMethod.GET)
     @ResponseBody
-    public Object listContactMembers(){
+    @Before(UserLoginInterceptor.class)
+    public ResultModel listContactMembers(){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
-        if (loginMember != null){
-            //获取联系人
-            ResultModel contactMembers = memberService.listContactMembers(page, loginMember.getId());
-            return contactMembers;
-        }
-        return null;
+        //获取联系人
+        ResultModel contactMembers = memberService.listContactMembers(page, loginMember.getId());
+        return contactMembers;
     }
 
     /**
@@ -302,15 +296,12 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/messageRecords/{memberId}",method = RequestMethod.GET)
     @ResponseBody
-    public Object messageRecords(@PathVariable("memberId") Integer memberId){
+    @Before(UserLoginInterceptor.class)
+    public ResultModel messageRecords(@PathVariable("memberId") Integer memberId){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
-        if (loginMember != null){
-            //获取聊天记录
-            ResultModel messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
-            return messageRecords;
-        }
-        return null;
+        ResultModel messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
+        return messageRecords;
     }
 
     /**
@@ -322,10 +313,6 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/sendMessageBox",method = RequestMethod.GET)
     @Before(UserLoginInterceptor.class)
     public String sendMessageBox(@RequestParam(value = "mid") Integer memberId,Model model){
-        Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1008, Const.INDEX_ERROR_FTL_PATH);
-        }
         if(memberId == null){
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1000, Const.INDEX_ERROR_FTL_PATH);
         }
@@ -345,11 +332,9 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/sendMessage",method = RequestMethod.POST)
     @ResponseBody
-    public Object sendMessage(String content,Integer memberId){
+    @Before(UserLoginInterceptor.class)
+    public ResultModel sendMessage(String content,Integer memberId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
         if(memberId == null){
             return new ResultModel(-1,"请选择发送对象");
         }
@@ -370,9 +355,6 @@ public class MemberController extends BaseController {
     public String systemMessage(Model model){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1008, Const.INDEX_ERROR_FTL_PATH);
-        }
         ResultModel messageModel = messageService.systemMessage(page, loginMember.getId(),request.getContextPath());
         model.addAttribute("messageModel",messageModel);
         return MEMBER_FTL_PATH + "systemMessage";

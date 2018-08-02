@@ -38,13 +38,13 @@ public class GroupTypeController extends BaseController {
 
     @RequestMapping(value = "${managePath}/group/type/save", method = RequestMethod.POST)
     @ResponseBody
-    public Object save(GroupType groupType) {
+    public ResultModel save(GroupType groupType) {
         return new ResultModel(groupTypeService.save(groupType));
     }
 
 
     @RequestMapping(value = "${managePath}/group/type/edit/{id}", method = RequestMethod.GET)
-    public Object edit(@PathVariable("id") int id, Model model) {
+    public String edit(@PathVariable("id") int id, Model model) {
         GroupType groupType = groupTypeService.findById(id);
         model.addAttribute("groupType", groupType);
         return MANAGE_FTL_PATH + "edit";
@@ -52,14 +52,14 @@ public class GroupTypeController extends BaseController {
 
     @RequestMapping(value = "${managePath}/group/type/update", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(GroupType groupType) {
+    public ResultModel update(GroupType groupType) {
         return new ResultModel(groupTypeService.update(groupType));
     }
 
 
     @RequestMapping(value = "${managePath}/group/type/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@PathVariable("id") int id) {
+    public ResultModel delete(@PathVariable("id") int id) {
         return new ResultModel(groupTypeService.delete(id));
     }
 

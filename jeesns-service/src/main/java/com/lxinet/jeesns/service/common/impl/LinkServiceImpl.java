@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.service.common.impl;
 
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.common.ILinkDao;
 import com.lxinet.jeesns.model.common.Link;
@@ -18,11 +20,8 @@ public class LinkServiceImpl implements ILinkService {
     private ILinkDao linkDao;
 
     @Override
-    public ResultModel save(Link link) {
-        if (linkDao.save(link) == 1) {
-            return new ResultModel(0, "保存成功");
-        }
-        return new ResultModel(-1, "保存失败");
+    public boolean save(Link link) {
+        return linkDao.save(link) == 1;
     }
 
     @Override
@@ -50,23 +49,15 @@ public class LinkServiceImpl implements ILinkService {
     }
 
     @Override
-    public ResultModel update(Link link) {
+    public boolean update(Link link) {
         Link findLink = this.findById(link.getId());
-        if (findLink == null){
-            return new ResultModel(-1, "友情链接不存在");
-        }
-        if (linkDao.update(link) > 0) {
-            return new ResultModel(0, "更新成功");
-        }
-        return new ResultModel(-1, "更新失败");
+        ValidUtill.checkIsNull(findLink, Messages.FRIIEND_LINK_NOT_EXISTS);
+        return linkDao.update(link) == 1;
     }
 
     @Override
-    public ResultModel delete(Integer id) {
-        if (linkDao.delete(id) > 0) {
-            return new ResultModel(1, "删除成功");
-        }
-        return new ResultModel(-1, "删除失败");
+    public boolean delete(Integer id) {
+        return linkDao.delete(id) == 1;
     }
 
     @Override
@@ -75,10 +66,7 @@ public class LinkServiceImpl implements ILinkService {
     }
 
     @Override
-    public ResultModel enable(Integer id) {
-        if (linkDao.enable(id) == 1){
-            return new ResultModel(1, "操作成功");
-        }
-        return new ResultModel(-1, "操作失败");
+    public boolean enable(Integer id) {
+       return linkDao.enable(id) == 1;
     }
 }

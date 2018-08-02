@@ -99,7 +99,7 @@ public class IndexController extends BaseController {
     @Clear()
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public Object login(Member member){
+    public ResultModel login(Member member){
         if(member == null){
             return new ResultModel(-1,"参数错误");
         }

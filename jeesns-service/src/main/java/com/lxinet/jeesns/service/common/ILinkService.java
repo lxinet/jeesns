@@ -8,8 +8,8 @@ import com.lxinet.jeesns.model.common.Link;
  * Created by zchuanzhao on 2017-10-13.
  */
 public interface ILinkService {
-   
-    ResultModel save(Link link);
+
+    boolean save(Link link);
    
     ResultModel listByPage(Page page);
 
@@ -17,11 +17,11 @@ public interface ILinkService {
 
     ResultModel recommentList();
 
-    ResultModel update(Link link);
+    boolean update(Link link);
 
-    ResultModel delete(Integer id);
+    boolean delete(Integer id);
 
     Link findById(Integer id);
 
-    ResultModel enable(Integer id);
+    boolean enable(Integer id);
 }

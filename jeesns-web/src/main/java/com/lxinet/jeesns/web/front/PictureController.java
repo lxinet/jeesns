@@ -53,11 +53,9 @@ public class PictureController extends BaseController {
     private JeesnsConfig jeesnsConfig;
 
     @RequestMapping(value = "/picture/album/{memberId}",method = RequestMethod.GET)
+    @Before(UserLoginInterceptor.class)
     public String album(Model model,@PathVariable("memberId") Integer memberId){
         Member findMember = memberService.findById(memberId);
-        if (findMember == null){
-            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
-        }
         ResultModel resultModel = pictureAlbumService.listByMember(memberId);
         model.addAttribute("model", resultModel);
         model.addAttribute("member",findMember);
@@ -133,7 +131,7 @@ public class PictureController extends BaseController {
     }
 
     @RequestMapping(value = {"/picture","/picture/"},method = RequestMethod.GET)
-    public Object index(Model model){
+    public String index(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Page page = new Page(1,20);
@@ -144,7 +142,7 @@ public class PictureController extends BaseController {
 
     @RequestMapping(value = "/picture/indexData",method = RequestMethod.GET)
     @ResponseBody
-    public Object indexData(){
+    public ResultModel indexData(){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
@@ -153,7 +151,7 @@ public class PictureController extends BaseController {
     }
 
     @RequestMapping(value = "/picture/detail/{pictureId}",method = RequestMethod.GET)
-    public Object detail(Model model,@PathVariable("pictureId") Integer pictureId) throws NotLoginException {
+    public String detail(Model model,@PathVariable("pictureId") Integer pictureId) throws NotLoginException {
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Picture picture = pictureService.findById(pictureId,loginMemberId);
@@ -167,11 +165,9 @@ public class PictureController extends BaseController {
 
     @RequestMapping(value="/picture/comment/{pictureId}",method = RequestMethod.POST)
     @ResponseBody
-    public Object comment(@PathVariable("pictureId") Integer pictureId, String content) throws NotLoginException {
+    @Before(UserLoginInterceptor.class)
+    public ResultModel comment(@PathVariable("pictureId") Integer pictureId, String content) throws NotLoginException {
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
         if(StringUtils.isEmpty(content)){
             return new ResultModel(-1,"内容不能为空");
         }
@@ -183,7 +179,7 @@ public class PictureController extends BaseController {
 
     @RequestMapping(value="/picture/commentList/{pictureId}.json",method = RequestMethod.GET)
     @ResponseBody
-    public Object commentList(@PathVariable("pictureId") Integer pictureId){
+    public ResultModel commentList(@PathVariable("pictureId") Integer pictureId){
         Page page = new Page(request);
         if(pictureId == null){
             pictureId = 0;
@@ -193,11 +189,9 @@ public class PictureController extends BaseController {
 
     @RequestMapping(value="/picture/favor/{pictureId}",method = RequestMethod.GET)
     @ResponseBody
-    public Object favor(@PathVariable("pictureId") Integer pictureId) throws NotLoginException, ParamException {
+    @Before(UserLoginInterceptor.class)
+    public ResultModel favor(@PathVariable("pictureId") Integer pictureId) throws NotLoginException, ParamException {
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
         if(pictureId == null) {
             throw new ParamException();
         }
@@ -221,11 +215,9 @@ public class PictureController extends BaseController {
 
     @RequestMapping(value="/member/picture/uploadPic/{albumId}")
     @ResponseBody
-    public Object uploadPic(@RequestParam(value = "file", required = false) MultipartFile file, @PathVariable("albumId") Integer albumId) {
+    @Before(UserLoginInterceptor.class)
+    public ResultModel uploadPic(@RequestParam(value = "file", required = false) MultipartFile file, @PathVariable("albumId") Integer albumId) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        if (loginMember == null){
-            throw new NotLoginException();
-        }
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
         if(suffix == null || (!".png".equals(suffix.toLowerCase()) && !".jpg".equals(suffix.toLowerCase()) && !".gif".equals(suffix.toLowerCase()) && !".jpeg".equals(suffix.toLowerCase()) && !".bmp".equals(suffix.toLowerCase()))) {

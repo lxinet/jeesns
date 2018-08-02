@@ -1,13 +1,18 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
+import com.lxinet.jeesns.core.exception.NotFountException;
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
+import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
@@ -35,6 +40,7 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ResponseBody
+    @Before(UserLoginInterceptor.class)
     public ResultModel publish(String content, String pictures){
         Member loginMember = MemberUtil.getLoginMember(request);
         return weiboService.save(request, loginMember,content, pictures);
@@ -58,8 +64,8 @@ public class WeiboController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Weibo weibo = weiboService.findById(weiboId,loginMemberId);
-        if(weibo == null){
-            return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,1007, Const.INDEX_ERROR_FTL_PATH);
+        if (weibo == null){
+            throw new NotFountException(Messages.WEIBO_NOT_EXISTS);
         }
         model.addAttribute("weibo",weibo);
         model.addAttribute("loginUser", loginMember);
@@ -68,7 +74,8 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value="/delete/{weiboId}",method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@PathVariable("weiboId") Integer weiboId){
+    @Before(UserLoginInterceptor.class)
+    public ResultModel delete(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
         ResultModel resultModel = weiboService.userDelete(request, loginMember,weiboId);
         if(resultModel.getCode() >= 0){
@@ -81,34 +88,24 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value="/comment/{weiboId}",method = RequestMethod.POST)
     @ResponseBody
-    public Object comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
+    public ResultModel comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
+        ValidUtill.checkLogin(loginMember);
         return weiboCommentService.save(loginMember,content,weiboId,weiboCommentId);
     }
 
     @RequestMapping(value="/commentList/{weiboId}.json",method = RequestMethod.GET)
     @ResponseBody
-    public Object commentList(@PathVariable("weiboId") Integer weiboId){
+    public ResultModel commentList(@PathVariable("weiboId") Integer weiboId){
         Page page = new Page(request);
-        if(weiboId == null){
-            weiboId = 0;
-        }
         return weiboCommentService.listByWeibo(page,weiboId);
     }
 
     @RequestMapping(value="/favor/{weiboId}",method = RequestMethod.GET)
     @ResponseBody
-    public Object favor(@PathVariable("weiboId") Integer weiboId){
+    @Before(UserLoginInterceptor.class)
+    public ResultModel favor(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
-        if(weiboId == null) {
-            throw new ParamException();
-        }
         return weiboService.favor(loginMember,weiboId);
     }
 }

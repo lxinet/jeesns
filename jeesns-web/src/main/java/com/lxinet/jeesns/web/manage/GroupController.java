@@ -39,7 +39,7 @@ public class GroupController extends BaseController {
 
     @RequestMapping(value = "${managePath}/group/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@PathVariable("id") int id){
+    public ResultModel delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
         ResultModel response = groupService.delete(loginMember,id);
         return response;
@@ -47,7 +47,7 @@ public class GroupController extends BaseController {
 
     @RequestMapping(value = "${managePath}/group/changeStatus/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object changeStatus(@PathVariable("id") int id){
+    public ResultModel changeStatus(@PathVariable("id") int id){
         ResultModel response = groupService.changeStatus(id);
         return response;
     }

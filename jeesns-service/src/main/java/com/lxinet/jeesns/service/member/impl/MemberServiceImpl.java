@@ -50,29 +50,29 @@ public class MemberServiceImpl implements IMemberService {
     private IScoreDetailService scoreDetailService;
 
     @Override
-    public ResultModel login(Member member, HttpServletRequest request) {
+    public boolean login(Member member, HttpServletRequest request) {
         Map<String,String> config = configService.getConfigToMap();
         if("0".equals(config.get(ConfigUtil.MEMBER_LOGIN_OPEN))){
-            return new ResultModel(-1,"登录功能已关闭");
+            throw new OpeErrorException(Messages.LOGIN_CLOSED);
         }
         String password = member.getPassword();
         member.setPassword(Md5Util.getMD5Code(member.getPassword()));
         Member findMember = memberDao.login(member);
-        if(findMember != null){
-            if(findMember.getStatus() == -1){
-                return new ResultModel(-1,"该账户已被禁用");
-            }
-            //登录成功更新状态
-            memberDao.loginSuccess(findMember.getId(), IpUtil.getIpAddress(request));
-            findMember = this.findById(findMember.getId());
-            MemberUtil.setLoginMember(request,findMember);
-            actionLogService.save(findMember.getCurrLoginIp(),findMember.getId(), ActionUtil.MEMBER_LOGIN);
-            //登录奖励
-            scoreDetailService.scoreBonus(findMember.getId(), ScoreRuleConsts.LOGIN);
-            return new ResultModel(3,"登录成功",request.getServletContext().getContextPath()+"/member/");
+        if (null == findMember){
+            actionLogService.save(IpUtil.getIpAddress(request),null,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
+            throw new OpeErrorException(Messages.LOGIN_INFO_WRONG);
         }
-        actionLogService.save(IpUtil.getIpAddress(request),null,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
-        return new ResultModel(-1,"用户名或密码错误");
+        if(findMember.getStatus() == -1){
+            throw new OpeErrorException(Messages.ACCOUNT_IS_DISABLED);
+        }
+        //登录成功更新状态
+        memberDao.loginSuccess(findMember.getId(), IpUtil.getIpAddress(request));
+        findMember = this.findById(findMember.getId());
+        MemberUtil.setLoginMember(request,findMember);
+        actionLogService.save(findMember.getCurrLoginIp(),findMember.getId(), ActionUtil.MEMBER_LOGIN);
+        //登录奖励
+        scoreDetailService.scoreBonus(findMember.getId(), ScoreRuleConsts.LOGIN);
+        return true;
     }
 
     @Override

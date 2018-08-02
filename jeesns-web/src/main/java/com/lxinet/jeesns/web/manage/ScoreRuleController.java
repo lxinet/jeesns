@@ -40,7 +40,7 @@ public class ScoreRuleController extends BaseController {
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
-    public Object update(ScoreRule scoreRule){
+    public ResultModel update(ScoreRule scoreRule){
         ResultModel resultModel = scoreRuleService.update(scoreRule);
         if(resultModel.getCode() == 0){
             resultModel.setCode(3);
@@ -50,7 +50,7 @@ public class ScoreRuleController extends BaseController {
 
     @RequestMapping(value = "enabled/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object enabled(@PathVariable("id") Integer id){
+    public ResultModel enabled(@PathVariable("id") Integer id){
         ResultModel resultModel = scoreRuleService.enabled(id);
         if(resultModel.getCode() == 0){
             resultModel.setCode(1);

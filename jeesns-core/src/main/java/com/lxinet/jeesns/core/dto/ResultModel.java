@@ -36,16 +36,21 @@ public class ResultModel<T> implements Serializable{
         if(code == -2){
             setMessage("参数错误");
         }else if(code == ERROR){
-            setMessage("操作失败");
+            setMessage(Messages.ERROR);
         }else if(code == SUCCESS){
-            setMessage("操作成功");
+            setMessage(Messages.SUCCESS);
         }
     }
 
 
     public ResultModel(T data) {
         if (data instanceof Boolean){
-            setMessage(Messages.SUCCESS);
+            Boolean flag = (Boolean) data;
+            if (flag == true){
+                setMessage(Messages.SUCCESS);
+            }else {
+                setMessage(Messages.ERROR);
+            }
         }else {
             this.code = SUCCESS;
             this.data = data;

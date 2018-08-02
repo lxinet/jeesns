@@ -1,8 +1,13 @@
 package com.lxinet.jeesns.service.cms.impl;
 
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
+import com.lxinet.jeesns.core.exception.NotFountException;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.dao.cms.IArticleCommentDao;
@@ -47,29 +52,24 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     }
 
     @Override
-    public ResultModel save(Member loginMember, String content, Integer articleId) {
+    public boolean save(Member loginMember, String content, Integer articleId) {
         Article article = articleService.findById(articleId);
-        if(article == null){
-            return new ResultModel(-1,"文章不存在");
-        }
-        if(StringUtils.isEmpty(content)){
-            return new ResultModel(-1,"内容不能为空");
-        }
+        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
+        ValidUtill.checkIsBlank(content, Messages.CONTENT_NOT_EMPTY);
         ArticleComment articleComment = new ArticleComment();
         articleComment.setMemberId(loginMember.getId());
         articleComment.setArticleId(articleId);
         articleComment.setContent(content);
         int result = articleCommentDao.save(articleComment);
-        if(result == 1){
-            //@会员处理并发送系统消息
-            messageService.atDeal(loginMember.getId(),content, AppTag.CMS, MessageType.CMS_ARTICLE_COMMENT_REFER,articleComment.getId());
-            messageService.diggDeal(loginMember.getId(),article.getMemberId(),content,AppTag.CMS,MessageType.CMS_ARTICLR_REPLY,article.getId());
-            //文章评论奖励
-            scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,articleComment.getId());
-            return new ResultModel(1,"评论成功");
-        }else {
-            return new ResultModel(-1,"评论失败");
+        if(result == 0){
+            throw new OpeErrorException();
         }
+        //@会员处理并发送系统消息
+        messageService.atDeal(loginMember.getId(),content, AppTag.CMS, MessageType.CMS_ARTICLE_COMMENT_REFER,articleComment.getId());
+        messageService.diggDeal(loginMember.getId(),article.getMemberId(),content,AppTag.CMS,MessageType.CMS_ARTICLR_REPLY,article.getId());
+        //文章评论奖励
+        scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,articleComment.getId());
+        return true;
     }
 
     @Override
@@ -88,19 +88,17 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
 
     @Override
     @Transactional
-    public ResultModel delete(Member loginMember, int id) {
+    public boolean delete(Member loginMember, int id) {
         ArticleComment articleComment = this.findById(id);
-        if(articleComment == null){
-            return new ResultModel(-1,"评论不存在");
-        }
+        ValidUtill.checkIsNull(articleComment,Messages.COMMENT_NOT_EXISTS);
         int result = articleCommentDao.delete(id);
-        if(result == 1){
-            //扣除积分
-            scoreDetailService.scoreCancelBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,id);
-            actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_ARTICLE_COMMENT,"ID："+articleComment.getId()+"，内容："+articleComment.getContent());
-            return new ResultModel(1,"删除成功");
+        if(result == 0){
+            throw new OpeErrorException();
         }
-        return new ResultModel(-1,"删除失败");
+        //扣除积分
+        scoreDetailService.scoreCancelBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,id);
+        actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_ARTICLE_COMMENT,"ID："+articleComment.getId()+"，内容："+articleComment.getContent());
+        return true;
     }
 
     public ArticleComment atFormat(ArticleComment articleComment){

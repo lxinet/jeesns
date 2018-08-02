@@ -5,16 +5,28 @@ package com.lxinet.jeesns.core.consts;
  * @author zchuanzhao
  */
 public class MessageField {
-    public static final String OPERATE_SUCCESS = "operate_success";
-    public static final String OPERATE_ERROR = "operate_error";
-    public static final String PARAM_ERROR = "param_error";
-    public static final String NOT_EMPTY = "not_empty";
+
     public static final String USERNAME = "username";
     public static final String NAME = "name";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String LOGIN_NAME = "login_name";
     public static final String TOKEN = "token";
+    public static final String ARTICLE = "article";
+    public static final String GROUP = "group";
+    public static final String TOPIC = "topic";
+    public static final String COMMENT = "comment";
+    public static final String WEIBO = "weibo";
+    public static final String PICTURE = "picture";
+    public static final String ADMIN = "admin";
+    public static final String USER = "user";
+    public static final String CATE = "cate";
+
+
+    public static final String OPERATE_SUCCESS = "operate_success";
+    public static final String OPERATE_ERROR = "operate_error";
+    public static final String PARAM_ERROR = "param_error";
+    public static final String NOT_EMPTY = "not_empty";
     public static final String LOGIN_INFO_WRONG = "login_info_wrong";
     public static final String UN_LOGIN = "un_login";
     public static final String ACCOUNT_IS_DISABLED = "account_is_disabled";
@@ -36,4 +48,8 @@ public class MessageField {
     public static final String ONLY_TOP_CATE_CAN_ADD = "only_top_cate_can_add";
     public static final String DELETE_SUB_CATE_FIRST = "delete_sub_cate_first";
     public static final String CATE_NOT_EXISTS = "cate_not_exists";
+    public static final String LOGIN_CLOSED = "login_closed";
+    public static final String CONTRIBUTION_CLOSED = "contribution_closed";
+    public static final String CONTENT = "content";
+    public static final String FRIIEND_LINK = "friiend_link";
 }
