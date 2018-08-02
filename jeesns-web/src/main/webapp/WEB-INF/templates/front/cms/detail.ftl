@@ -87,7 +87,7 @@
                     <header>
                         <div class="reply-form">
                             <form class="form-horizontal jeesns_form" action="${basePath}/article/comment/${article.id}"
-                                  method="post">
+                                  method="post" callback="reload">
                                 <div class="form-group">
                                     <textarea name="content" class="form-control new-comment-text" rows="2"
                                               placeholder="撰写评论..."></textarea>

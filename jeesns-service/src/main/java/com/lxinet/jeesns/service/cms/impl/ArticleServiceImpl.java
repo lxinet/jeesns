@@ -139,7 +139,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public boolean favor(Member loginMember, int articleId) {
+    public int favor(Member loginMember, int articleId) {
         Article article = this.findById(articleId);
         ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
         ResultModel resultModel = archiveService.favor(loginMember,article.getArchiveId());
@@ -152,7 +152,7 @@ public class ArticleServiceImpl implements IArticleService {
             //取消喜欢，扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
         }
-        return true;
+        return (int) resultModel.getData();
     }
 
     @Override

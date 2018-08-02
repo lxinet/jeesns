@@ -16,9 +16,9 @@ public interface IGroupTopicTypeService {
 
     List<GroupTopicType> list(int groupId);
 
-    ResultModel delete(Member member, int id);
+    boolean delete(Member member, int id);
 
-    ResultModel save(Member member, GroupTopicType groupTopicType);
+    boolean save(Member member, GroupTopicType groupTopicType);
 
-    ResultModel update(Member member, GroupTopicType groupTopicType);
+    boolean update(Member member, GroupTopicType groupTopicType);
 }

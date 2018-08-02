@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.service.member.impl;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.member.IMemberFansDao;
 import com.lxinet.jeesns.model.member.MemberFans;
@@ -27,27 +28,19 @@ public class MemberFansServiceImpl implements IMemberFansService {
      * 关注
      */
     @Override
-    public ResultModel save(Integer whoFollowId, Integer followWhoId) {
-        if(memberFansDao.find(whoFollowId,followWhoId) == null){
-            if(memberFansDao.save(whoFollowId,followWhoId) == 1){
-                return new ResultModel(1,"关注成功");
-            }
-        }else {
-            //已经关注了
-            return new ResultModel(0,"关注成功");
+    public boolean save(Integer whoFollowId, Integer followWhoId) {
+        if(memberFansDao.find(whoFollowId,followWhoId) != null){
+            throw new OpeErrorException("已经关注");
         }
-        return new ResultModel(-1,"关注失败");
+        return memberFansDao.save(whoFollowId,followWhoId) == 1;
     }
 
     /**
      * 取消关注
      */
     @Override
-    public ResultModel delete(Integer whoFollowId, Integer followWhoId) {
-        if(memberFansDao.delete(whoFollowId,followWhoId) > 0){
-            return new ResultModel(1,"取消关注成功");
-        }
-        return new ResultModel(-1,"取消关注失败");
+    public boolean delete(Integer whoFollowId, Integer followWhoId) {
+        return memberFansDao.delete(whoFollowId,followWhoId) > 0;
     }
 
     @Override

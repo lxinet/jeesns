@@ -41,15 +41,13 @@ public class GroupController extends BaseController {
     @ResponseBody
     public ResultModel delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel response = groupService.delete(loginMember,id);
-        return response;
+        return new ResultModel(groupService.delete(loginMember,id));
     }
 
     @RequestMapping(value = "${managePath}/group/changeStatus/{id}",method = RequestMethod.GET)
     @ResponseBody
     public ResultModel changeStatus(@PathVariable("id") int id){
-        ResultModel response = groupService.changeStatus(id);
-        return response;
+        return new ResultModel(groupService.changeStatus(id));
     }
 
 

@@ -210,6 +210,9 @@ public class ArticleController extends BaseController {
         if(id == null) {
             throw new ParamException();
         }
-        return new ResultModel(articleService.favor(loginMember,id));
+        ResultModel resultModel = new ResultModel(true);
+        int num = articleService.favor(loginMember,id);
+        resultModel.setData(num);
+        return resultModel;
     }
 }

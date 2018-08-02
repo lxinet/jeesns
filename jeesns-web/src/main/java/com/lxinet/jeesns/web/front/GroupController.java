@@ -140,7 +140,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel apply(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return groupService.save(loginMember, group);
+        return new ResultModel(groupService.save(loginMember, group));
     }
 
 
@@ -186,7 +186,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel update(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return groupService.update(loginMember, group);
+        return new ResultModel(groupService.update(loginMember, group));
     }
 
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
@@ -258,9 +258,9 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public Object post(GroupTopic groupTopic) {
+    public ResultModel post(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return groupTopicService.save(loginMember, groupTopic);
+        return new ResultModel(groupTopicService.save(loginMember, groupTopic));
     }
 
     @RequestMapping(value = "/topicEdit/{topicId}", method = RequestMethod.GET)
@@ -290,8 +290,9 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel topicUpdate(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = groupTopicService.update(loginMember, groupTopic);
-        if (resultModel.getCode() == 0) {
+        boolean result = groupTopicService.update(loginMember, groupTopic);
+        ResultModel resultModel = new ResultModel(result);
+        if (result) {
             resultModel.setCode(2);
             resultModel.setUrl(Const.GROUP_PATH + "/topic/" + groupTopic.getId());
         }
@@ -309,7 +310,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel follow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return groupService.follow(loginMember, groupId, 0);
+        return new ResultModel(groupService.follow(loginMember, groupId, 0));
     }
 
     /**
@@ -323,7 +324,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel nofollow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return groupService.follow(loginMember, groupId, 1);
+        return new ResultModel(groupService.follow(loginMember, groupId, 1));
     }
 
     /**
@@ -338,7 +339,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel comment(@PathVariable("groupTopicId") Integer groupTopicId, String content, Integer groupTopicCommentId) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return groupTopicCommentService.save(loginMember, content, groupTopicId, groupTopicCommentId);
+        return new ResultModel(groupTopicCommentService.save(loginMember, content, groupTopicId, groupTopicCommentId));
     }
 
 
@@ -357,7 +358,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel delete(@PathVariable("id") int id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = groupTopicService.indexDelete(request, loginMember, id);
+        ResultModel resultModel = new ResultModel(groupTopicService.indexDelete(request, loginMember, id));
         return resultModel;
     }
 
@@ -410,7 +411,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel audit(@PathVariable("id") Integer id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = groupTopicService.audit(loginMember, id);
+        ResultModel resultModel = new ResultModel(groupTopicService.audit(loginMember, id));
         return resultModel;
     }
 
@@ -440,7 +441,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel top(@PathVariable("id") Integer id, @RequestParam("top") Integer top) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = groupTopicService.top(loginMember, id, top);
+        ResultModel resultModel = new ResultModel(groupTopicService.top(loginMember, id, top));
         return resultModel;
     }
 
@@ -456,7 +457,7 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel essence(@PathVariable("id") Integer id, @RequestParam("essence") Integer essence) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = groupTopicService.essence(loginMember, id, essence);
+        ResultModel resultModel = new ResultModel(groupTopicService.essence(loginMember, id, essence));
         return resultModel;
     }
 
@@ -475,7 +476,7 @@ public class GroupController extends BaseController {
         if (id == null) {
             return new ResultModel(-1, "非法操作");
         }
-        return groupTopicService.favor(loginMember, id);
+        return new ResultModel(groupTopicService.favor(loginMember, id));
     }
 
     @RequestMapping(value = "/topicTypeList/{groupId}", method = RequestMethod.GET)
@@ -522,7 +523,7 @@ public class GroupController extends BaseController {
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = groupTopicTypeService.save(loginMember, groupTopicType);
+        ResultModel resultModel = new ResultModel(groupTopicTypeService.save(loginMember, groupTopicType));
         if (resultModel.getCode() == 0) {
             resultModel.setCode(3);
         }
@@ -556,7 +557,7 @@ public class GroupController extends BaseController {
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = groupTopicTypeService.update(loginMember, groupTopicType);
+        ResultModel resultModel = new ResultModel(groupTopicTypeService.update(loginMember, groupTopicType));
         if (resultModel.getCode() == 0) {
             resultModel.setCode(3);
         }
@@ -577,7 +578,7 @@ public class GroupController extends BaseController {
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = groupTopicTypeService.delete(loginMember, typeId);
+        ResultModel resultModel = new ResultModel(groupTopicTypeService.delete(loginMember, typeId));
         if (resultModel.getCode() == 0) {
             resultModel.setCode(3);
         }
