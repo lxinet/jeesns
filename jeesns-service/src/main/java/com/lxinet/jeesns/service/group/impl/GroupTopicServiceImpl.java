@@ -3,10 +3,13 @@ package com.lxinet.jeesns.service.group.impl;
 import com.lxinet.jeesns.common.utils.ActionLogType;
 import com.lxinet.jeesns.common.utils.ActionUtil;
 import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
@@ -28,6 +31,7 @@ import com.lxinet.jeesns.service.system.IActionLogService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import javax.crypto.spec.OAEPParameterSpec;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -68,19 +72,17 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     @Transactional
-    public ResultModel save(Member member, GroupTopic groupTopic) {
+    public boolean save(Member member, GroupTopic groupTopic) {
         if(groupTopic.getGroupId() == null || groupTopic.getGroupId() == 0){
-            return new ResultModel(-1,"群组不能为空");
+            throw new ParamException();
         }
         Group group = groupService.findById(groupTopic.getGroupId());
-        if(group == null){
-            return new ResultModel(-1,"群组不存在");
-        }
+        ValidUtill.checkIsNull(group, Messages.GROUP_NOT_EXISTS);
         if(groupFansService.findByMemberAndGroup(group.getId(),member.getId()) == null){
-            return new ResultModel(-1,"必须关注该群组后才能发帖");
+            throw new OpeErrorException("必须关注该群组后才能发帖");
         }
         if(group.getCanPost() == 0){
-            return new ResultModel(-1,"群组已关闭发帖功能");
+            throw new OpeErrorException("群组已关闭发帖功能");
         }
         groupTopic.setMemberId(member.getId());
         Archive archive = new Archive();
@@ -92,25 +94,21 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         archive.setPostType(2);
         //保存文档
-        if(archiveService.save(member,archive)){
-            //保存文章
-            groupTopic.setStatus(group.getTopicReview()==0?1:0);
-            groupTopic.setArchiveId(archive.getArchiveId());
-            int result = groupTopicDao.save(groupTopic);
-            if(result == 1){
-                //@会员处理并发送系统消息
-                messageService.atDeal(member.getId(),groupTopic.getContent(), AppTag.GROUP, MessageType.GROUP_TOPIC_REFER,groupTopic.getId());
-                //群组发帖奖励
-                scoreDetailService.scoreBonus(member.getId(), ScoreRuleConsts.GROUP_POST, groupTopic.getId());
-                actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_GROUP_TOPIC,"", ActionLogType.GROUP_TOPIC.getValue(),groupTopic.getId());
-                if (groupTopic.getStatus() == 0){
-                    return new ResultModel(2,"帖子发布成功，请等待管理员审核通过","../detail/"+groupTopic.getGroupId());
-                }
-
-                return new ResultModel(2,"帖子发布成功","../topic/"+groupTopic.getId());
-            }
+        if(!archiveService.save(member,archive)){
+            throw new OpeErrorException();
         }
-        return new ResultModel(-1,"帖子发布失败");
+        //保存文章
+        groupTopic.setStatus(group.getTopicReview()==0?1:0);
+        groupTopic.setArchiveId(archive.getArchiveId());
+        int result = groupTopicDao.save(groupTopic);
+        if(result == 1){
+            //@会员处理并发送系统消息
+            messageService.atDeal(member.getId(),groupTopic.getContent(), AppTag.GROUP, MessageType.GROUP_TOPIC_REFER,groupTopic.getId());
+            //群组发帖奖励
+            scoreDetailService.scoreBonus(member.getId(), ScoreRuleConsts.GROUP_POST, groupTopic.getId());
+            actionLogService.save(member.getCurrLoginIp(),member.getId(), ActionUtil.POST_GROUP_TOPIC,"", ActionLogType.GROUP_TOPIC.getValue(),groupTopic.getId());
+        }
+        return result == 1;
     }
 
     @Override
@@ -126,13 +124,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     @Transactional
-    public ResultModel update(Member member, GroupTopic groupTopic) {
+    public boolean update(Member member, GroupTopic groupTopic) {
         GroupTopic findGroupTopic = this.findById(groupTopic.getId(),member);
-        if(findGroupTopic == null){
-            return new ResultModel(-2);
-        }
+        ValidUtill.checkIsNull(findGroupTopic, Messages.TOPIC_NOT_EXISTS);
         if(member.getId().intValue() != findGroupTopic.getMember().getId().intValue()){
-            return new ResultModel(-1,"没有权限");
+            throw new OpeErrorException("没有权限");
         }
         groupTopic.setArchiveId(findGroupTopic.getArchiveId());
         Archive archive = new Archive();
@@ -145,19 +141,14 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         if (groupTopic.getTypeId() != null && !groupTopic.getTypeId().equals(findGroupTopic.getTypeId())){
             groupTopicDao.updateType(groupTopic.getId(),groupTopic.getTypeId());
         }
-        if(archiveService.update(member,archive)){
-            return new ResultModel(0,"更新成功");
-        }
-        return new ResultModel(-1,"更新失败");
+        return archiveService.update(member,archive);
     }
 
     @Override
     @Transactional
-    public ResultModel delete(Member loginMember, int id) {
+    public boolean delete(Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id);
-        if(groupTopic == null){
-            return new ResultModel(-1,"帖子不存在");
-        }
+        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
         int result = groupTopicDao.delete(id);
         if(result == 1){
             //扣除积分
@@ -165,23 +156,19 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             archiveService.delete(groupTopic.getArchiveId());
             groupTopicCommentService.deleteByTopic(id);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP_TOPIC,"ID："+groupTopic.getId()+"，标题："+groupTopic.getTitle());
-            return new ResultModel(1,"删除成功");
+
         }
-        return new ResultModel(-1,"删除失败");
+        return result == 1;
     }
 
 
     @Override
     @Transactional
-    public ResultModel indexDelete(HttpServletRequest request, Member loginMember, int id) {
+    public boolean indexDelete(HttpServletRequest request, Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id,loginMember);
-        if (groupTopic == null){
-            return new ResultModel(-1,"帖子不存在");
-        }
+        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
         Group group = groupService.findById(groupTopic.getGroup().getId());
-        if(group == null){
-            throw new ParamException();
-        }
+        ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
         boolean isManager = false;
@@ -192,26 +179,18 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         if(loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() > 0 ||
                 isManager || loginMember.getId().intValue() == group.getCreator().intValue()){
-            ResultModel resultModel = this.delete(loginMember,id);
-            if(resultModel.getCode() > 0){
-                resultModel.setCode(2);
-                resultModel.setUrl(Const.GROUP_PATH + "/detail/"+group.getId());
-            }
-            return resultModel;
+            boolean flag = this.delete(loginMember,id);
+            return flag;
         }
-        return new ResultModel(-1,"权限不足");
+        throw new OpeErrorException("没有权限");
     }
 
     @Override
-    public ResultModel audit(Member member, int id) {
+    public boolean audit(Member member, int id) {
         GroupTopic groupTopic = this.findById(id,member);
-        if (groupTopic == null){
-            return new ResultModel(-1,"帖子不存在");
-        }
+        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
         Group group = groupService.findById(groupTopic.getGroup().getId());
-        if(group == null){
-            throw new ParamException();
-        }
+        ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
         boolean isManager = false;
@@ -222,25 +201,17 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() > 0 ||
                 isManager || member.getId().intValue() == group.getCreator().intValue()){
-            if(groupTopicDao.audit(id) == 1){
-                return new ResultModel(1,"审核成功");
-            }else {
-                return new ResultModel(-1,"审核失败");
-            }
+            return groupTopicDao.audit(id) == 1;
         }
-        return new ResultModel(-1,"权限不足");
+        throw new OpeErrorException("没有权限");
     }
 
     @Override
-    public ResultModel top(Member member, int id, int top) {
+    public boolean top(Member member, int id, int top) {
         GroupTopic groupTopic = this.findById(id,member);
-        if (groupTopic == null){
-            return new ResultModel(-1,"帖子不存在");
-        }
+        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
         Group group = groupService.findById(groupTopic.getGroup().getId());
-        if(group == null){
-            throw new ParamException();
-        }
+        ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
         boolean isManager = false;
@@ -251,13 +222,9 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() > 0 ||
                 isManager || member.getId().intValue() == group.getCreator().intValue()){
-            if(groupTopicDao.top(id,top) == 1){
-                return new ResultModel(1,"操作成功");
-            }else {
-                return new ResultModel(-1,"操作失败");
-            }
+            return groupTopicDao.top(id,top) == 1;
         }
-        return new ResultModel(-1,"权限不足");
+        throw new OpeErrorException("没有权限");
     }
 
     /**
@@ -268,15 +235,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
      * @return
      */
     @Override
-    public ResultModel essence(Member member, int id, int essence) {
+    public boolean essence(Member member, int id, int essence) {
         GroupTopic groupTopic = this.findById(id,member);
-        if (groupTopic == null){
-            return new ResultModel(-1,"帖子不存在");
-        }
+        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
         Group group = groupService.findById(groupTopic.getGroup().getId());
-        if(group == null){
-            throw new ParamException();
-        }
+        ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
         boolean isManager = false;
@@ -287,34 +250,28 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         if(member.getId().intValue() == groupTopic.getMember().getId().intValue() || member.getIsAdmin() > 0 ||
                 isManager || member.getId().intValue() == group.getCreator().intValue()){
-            if(groupTopicDao.essence(id,essence) == 1){
-                return new ResultModel(1,"操作成功");
-            }else {
-                return new ResultModel(-1,"操作失败");
-            }
+            return groupTopicDao.essence(id,essence) == 1;
         }
-        return new ResultModel(-1,"权限不足");
+        throw new OpeErrorException("没有权限");
     }
 
 
     @Override
-    public ResultModel favor(Member loginMember, int id) {
+    public boolean favor(Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id);
-        if(groupTopic != null){
-            ResultModel resultModel = archiveService.favor(loginMember,groupTopic.getArchiveId());
-            if(resultModel.getCode() == 0){
-                //帖子收到喜欢
-                scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
-                //点赞之后发送系统信息
-                messageService.diggDeal(loginMember.getId(),groupTopic.getMemberId(),AppTag.GROUP,MessageType.GROUP_TOPIC_LIKE,groupTopic.getId());
-            }else if(resultModel.getCode() == 1){
-                //帖子取消喜欢
-                //扣除积分
-                scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
-            }
-            return resultModel;
+        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ResultModel resultModel = archiveService.favor(loginMember,groupTopic.getArchiveId());
+        if(resultModel.getCode() == 0){
+            //帖子收到喜欢
+            scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
+            //点赞之后发送系统信息
+            messageService.diggDeal(loginMember.getId(),groupTopic.getMemberId(),AppTag.GROUP,MessageType.GROUP_TOPIC_LIKE,groupTopic.getId());
+        }else if(resultModel.getCode() == 1){
+            //帖子取消喜欢
+            //扣除积分
+            scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
         }
-        return new ResultModel(-1,"帖子不存在");
+        return true;
     }
 
     @Override

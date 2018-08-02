@@ -10,9 +10,9 @@ import com.lxinet.jeesns.model.member.MemberFans;
  */
 public interface IMemberFansService {
 
-    ResultModel save(Integer whoFollowId, Integer followWhoId);
+    boolean save(Integer whoFollowId, Integer followWhoId);
 
-    ResultModel delete(Integer whoFollowId, Integer followWhoId);
+    boolean delete(Integer whoFollowId, Integer followWhoId);
 
     ResultModel followsList(Page page, Integer whoFollowId);
 

@@ -6,28 +6,28 @@
     <parent>
         <groupId>com.lxinet</groupId>
         <artifactId>jeesns</artifactId>
-        <version>1.2</version>
+        <version>1.3</version>
     </parent>
     <groupId>com.lxinet</groupId>
     <artifactId>jeesns-service</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
     <name>jeesns-service</name>
 
     <dependencies>
         <dependency>
             <groupId>com.lxinet</groupId>
             <artifactId>jeesns-common</artifactId>
-            <version>1.2</version>
+            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>com.lxinet</groupId>
             <artifactId>jeesns-model</artifactId>
-            <version>1.2</version>
+            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>com.lxinet</groupId>
             <artifactId>jeesns-dao</artifactId>
-            <version>1.2</version>
+            <version>1.3</version>
         </dependency>
     </dependencies>
 

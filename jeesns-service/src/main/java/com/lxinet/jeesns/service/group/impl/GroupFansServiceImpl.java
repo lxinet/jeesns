@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.service.group.impl;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupFans;
@@ -41,16 +42,11 @@ public class GroupFansServiceImpl implements IGroupFansService {
      * @return
      */
     @Override
-    public ResultModel save(Member loginMember, Integer groupId) {
-        if(groupFansDao.findByMemberAndGroup(groupId,loginMember.getId()) == null){
-            if(groupFansDao.save(groupId,loginMember.getId()) == 1){
-                return new ResultModel(1,"关注成功");
-            }
-        }else {
-            //已经关注了
-            return new ResultModel(0,"关注成功");
+    public boolean save(Member loginMember, Integer groupId) {
+        if (null != groupFansDao.findByMemberAndGroup(groupId,loginMember.getId())){
+            throw new OpeErrorException("已经关注");
         }
-        return new ResultModel(-1,"关注失败");
+        return groupFansDao.save(groupId,loginMember.getId()) == 1;
     }
 
     /**
@@ -60,11 +56,8 @@ public class GroupFansServiceImpl implements IGroupFansService {
      * @return
      */
     @Override
-    public ResultModel delete(Member loginMember, Integer groupId) {
-        if(groupFansDao.delete(groupId,loginMember.getId()) > 0){
-            return new ResultModel(1,"取消关注成功");
-        }
-        return new ResultModel(-1,"取消关注失败");
+    public boolean delete(Member loginMember, Integer groupId) {
+       return groupFansDao.delete(groupId,loginMember.getId()) > 0;
     }
 
 

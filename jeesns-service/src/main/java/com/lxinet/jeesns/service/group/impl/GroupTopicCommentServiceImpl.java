@@ -1,8 +1,10 @@
 package com.lxinet.jeesns.service.group.impl;
 
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.model.group.GroupTopic;
@@ -45,14 +47,10 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
     }
 
     @Override
-    public ResultModel save(Member loginMember, String content, Integer groupTopicId, Integer commentId) {
+    public boolean save(Member loginMember, String content, Integer groupTopicId, Integer commentId) {
         GroupTopic groupTopic = groupTopicService.findById(groupTopicId,loginMember);
-        if(groupTopic == null){
-            return new ResultModel(-1,"帖子不存在");
-        }
-        if(StringUtils.isEmpty(content)){
-            return new ResultModel(-1,"内容不能为空");
-        }
+        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(content, Messages.CONTENT_NOT_EMPTY);
         GroupTopicComment groupTopicComment = new GroupTopicComment();
         groupTopicComment.setMemberId(loginMember.getId());
         groupTopicComment.setGroupTopicId(groupTopicId);
@@ -71,10 +69,8 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
             }
             //群组帖子评论奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.GROUP_TOPIC_COMMENTS, groupTopicComment.getId());
-            return new ResultModel(1,"评论成功");
-        }else {
-            return new ResultModel(-1,"评论失败");
         }
+        return result == 1;
     }
 
     @Override
@@ -92,19 +88,16 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
     }
 
     @Override
-    public ResultModel delete(Member loginMember, int id){
+    public boolean delete(Member loginMember, int id){
         GroupTopicComment groupTopicComment = this.findById(id);
-        if(groupTopicComment == null){
-            return new ResultModel(-1,"评论不存在");
-        }
+        ValidUtill.checkIsNull(groupTopicComment, Messages.COMMENT_NOT_EXISTS);
         int result = groupTopicCommentDao.delete(id);
         if(result == 1){
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_COMMENTS,id);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP_TOPIC_COMMENT,"ID："+groupTopicComment.getId()+"，内容："+groupTopicComment.getContent());
-            return new ResultModel(1,"删除成功");
         }
-        return new ResultModel(-1,"删除失败");
+        return result == 1;
     }
 
     public GroupTopicComment atFormat(GroupTopicComment groupTopicComment){

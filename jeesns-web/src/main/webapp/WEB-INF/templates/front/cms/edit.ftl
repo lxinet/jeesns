@@ -28,6 +28,9 @@
         $(function () {
             CKEDITOR.replace('content');
         });
+        function updateSuccess() {
+            window.location.href = basePath + "/article/detail/${article.id}";
+        }
     </script>
     <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
 </head>
@@ -38,7 +41,7 @@
         <div class="row">
             <div class="col-md-12 article-detail">
                 <form class="form-horizontal jeesns_form" role="form" action="${basePath}/article/update"
-                      method="post" onsubmit="ckUpdate();">
+                      method="post" onsubmit="ckUpdate();" callback="updateSuccess">
                     <input type="hidden" class="form-control" name="id" value="${article.id}">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">栏目</label>

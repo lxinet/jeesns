@@ -13,9 +13,9 @@ public interface IGroupTopicCommentService {
 
     GroupTopicComment findById(int id);
 
-    ResultModel save(Member loginMember, String content, Integer groupTopicId, Integer commentId);
+    boolean save(Member loginMember, String content, Integer groupTopicId, Integer commentId);
 
-    ResultModel delete(Member loginMember, int id);
+    boolean delete(Member loginMember, int id);
 
     ResultModel listByGroupTopic(Page page, int groupTopicId);
 

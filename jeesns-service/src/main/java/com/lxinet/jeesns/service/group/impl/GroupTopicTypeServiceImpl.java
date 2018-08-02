@@ -30,29 +30,20 @@ public class GroupTopicTypeServiceImpl implements IGroupTopicTypeService {
     }
 
     @Override
-    public ResultModel delete(Member member, int id) {
+    public boolean delete(Member member, int id) {
         int result = groupTopicTypeDao.delete(id);
-        if (result == 1){
-            return new ResultModel(0);
-        }
-        return new ResultModel(-1);
+        return result == 1;
     }
 
     @Override
-    public ResultModel save(Member member, GroupTopicType groupTopicType) {
+    public boolean save(Member member, GroupTopicType groupTopicType) {
         int result = groupTopicTypeDao.save(groupTopicType);
-        if (result == 1){
-            return new ResultModel(0);
-        }
-        return new ResultModel(-1);
+        return result == 1;
     }
 
     @Override
-    public ResultModel update(Member member, GroupTopicType groupTopicType) {
+    public boolean update(Member member, GroupTopicType groupTopicType) {
         int result = groupTopicTypeDao.update(groupTopicType);
-        if (result == 1){
-            return new ResultModel(0);
-        }
-        return new ResultModel(-1);
+        return result == 1;
     }
 }

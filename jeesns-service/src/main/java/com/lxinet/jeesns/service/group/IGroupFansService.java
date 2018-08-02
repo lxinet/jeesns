@@ -12,9 +12,9 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface IGroupFansService {
 
-    ResultModel save(Member loginMember, Integer groupId);
+    boolean save(Member loginMember, Integer groupId);
 
-    ResultModel delete(Member loginMember, Integer groupId);
+    boolean delete(Member loginMember, Integer groupId);
 
     ResultModel listByPage(Page page, Integer groupId);
 

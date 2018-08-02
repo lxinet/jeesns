@@ -17,23 +17,23 @@ public interface IGroupTopicService {
 
     GroupTopic findById(int id,Member loginMember);
 
-    ResultModel save(Member member, GroupTopic groupTopic);
+    boolean save(Member member, GroupTopic groupTopic);
 
-    ResultModel update(Member member, GroupTopic groupTopic);
+    boolean update(Member member, GroupTopic groupTopic);
 
-    ResultModel delete(Member loginMember, int id);
+    boolean delete(Member loginMember, int id);
 
-    ResultModel indexDelete(HttpServletRequest request, Member loginMember, int id);
+    boolean indexDelete(HttpServletRequest request, Member loginMember, int id);
 
     ResultModel listByPage(Page page, String key, int groupId, int status, int memberId, int typeId);
 
-    ResultModel audit(Member member, int id);
+    boolean audit(Member member, int id);
 
-    ResultModel top(Member member, int id, int top);
+    boolean top(Member member, int id, int top);
 
-    ResultModel essence(Member member, int id, int essence);
+    boolean essence(Member member, int id, int essence);
 
-    ResultModel favor(Member loginMember, int id);
+    boolean favor(Member loginMember, int id);
 
     List<GroupTopic> listByCustom(int gid, String sort, int num, int day, int thumbnail);
 }

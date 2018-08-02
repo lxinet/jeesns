@@ -14,17 +14,17 @@ public interface IGroupService {
 
     Group findById(int id);
 
-    ResultModel save(Member loginMember, Group group);
+    boolean save(Member loginMember, Group group);
 
-    ResultModel update(Member loginMember, Group group);
+    boolean update(Member loginMember, Group group);
 
-    ResultModel delete(Member loginMember, int id);
+    boolean delete(Member loginMember, int id);
 
     List<Group> list(int status, String key);
 
-    ResultModel follow(Member loginMember, Integer groupId, int type);
+    boolean follow(Member loginMember, Integer groupId, int type);
 
-    ResultModel changeStatus(int id);
+    boolean changeStatus(int id);
 
     List<Group> listByCustom(int status, int num, String sort);
 }
