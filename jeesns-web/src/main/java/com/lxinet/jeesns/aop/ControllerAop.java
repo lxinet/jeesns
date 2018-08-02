@@ -7,19 +7,20 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 /**
  * @author zchuanzhao
  */
-@Aspect
-@Configuration
 public class ControllerAop {
 
-    @Pointcut("execution(public com.lxinet.jeesns.core.dto.ResultModel *(..))")
-    public void excudeService(){}
-
-    @Around("excudeService()")
     public Object handlerController(ProceedingJoinPoint pjp){
         ResultModel<?> result;
         try {

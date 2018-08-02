@@ -13,6 +13,6 @@ public class NotFountException extends JeeException {
     }
 
     public NotFountException(String msg){
-        super(msg);
+        super(msg + "不存在");
     }
 }

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.common.utils.EmojiUtil;
@@ -152,7 +153,10 @@ public class IndexController extends BaseController{
     }
 
     @RequestMapping(value="/error",method = RequestMethod.GET)
-    public String error(){
+    public String error(String msg){
+        if (StringUtils.isNotBlank(msg)){
+            request.setAttribute("msg", msg);
+        }
         return jeesnsConfig.getFrontTemplate() + "/common/error";
     }
 

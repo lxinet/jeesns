@@ -41,12 +41,8 @@ public class LinkController extends BaseController{
 
     @RequestMapping("/save")
     @ResponseBody
-    public Object save(Link link){
-        ResultModel resultModel = linkService.save(link);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+    public ResultModel save(Link link){
+        return new ResultModel(linkService.save(link));
     }
 
 
@@ -59,27 +55,20 @@ public class LinkController extends BaseController{
 
     @RequestMapping("/update")
     @ResponseBody
-    public Object update(Link link){
-        if (link == null){
-            return new ResultModel(-1,"参数错误");
-        }
-        ResultModel resultModel = linkService.update(link);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+    public ResultModel update(Link link){
+        return new ResultModel(linkService.update(link));
     }
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public Object delete(@PathVariable("id") Integer id){
-        return linkService.delete(id);
+    public ResultModel delete(@PathVariable("id") Integer id){
+        return new ResultModel(linkService.delete(id));
     }
 
     @RequestMapping("/enable/{id}")
     @ResponseBody
-    public Object enable(@PathVariable("id") Integer id){
-        return linkService.enable(id);
+    public ResultModel enable(@PathVariable("id") Integer id){
+        return new ResultModel(linkService.enable(id));
     }
 
 

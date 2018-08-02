@@ -14,10 +14,12 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -127,37 +129,17 @@ public class BaseController {
      */
     @ExceptionHandler
     public void execptionHandler(Exception e){
-        if (isAjaxRequest()){
-            response.setCharacterEncoding("utf-8");
-            PrintWriter out = null;
-            try {
-                out = response.getWriter();
-                JSONObject json = new JSONObject();
-                if (e instanceof JeeException && null != ((JeeException) e).getJeeMessage()){
-                    json.put("code",((JeeException) e).getJeeMessage().getCode());
-                    json.put("message",((JeeException) e).getJeeMessage().getMessage());
-                }else {
-                    json.put("code",-1);
-                    if (null == e.getMessage()){
-                        json.put("message","系统异常：" + e.toString());
-                    }else {
-                        json.put("message",e.getMessage());
-                    }
-                    json.put("message",e.getMessage());
-                }
-                out.print(json.toString());
-                out.flush();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }finally {
-                if (out != null){
-                    out.close();
-                }
-            }
-        }else {
+        //ajax请求在aop中处理异常
+        if (!isAjaxRequest()){
             try {
                 e.printStackTrace();
-                response.sendRedirect(request.getContextPath() + "/error");
+                String msg = "系统异常：" + e.toString();
+                if (e instanceof JeeException && ((JeeException) e).getJeeMessage() != null){
+                    msg = ((JeeException) e).getJeeMessage().getMessage();
+                }
+                msg = URLEncoder.encode(msg, "UTF-8");
+                request.setAttribute("msg",msg);
+                response.sendRedirect(request.getContextPath() + "/error?msg="+msg);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

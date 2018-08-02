@@ -68,7 +68,7 @@ public class ConfigController extends BaseController {
 
     @RequestMapping(value = "memberUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public Object memberUpdate(String member_login_open,String member_register_open,String member_email_valid){
+    public ResultModel memberUpdate(String member_login_open,String member_register_open,String member_email_valid){
         Map<String,String> params = new HashMap<>();
         params.put("member_login_open",member_login_open);
         params.put("member_register_open",member_register_open);
@@ -78,7 +78,7 @@ public class ConfigController extends BaseController {
 
     @RequestMapping(value = "cmsUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public Object cmsUpdate(String cms_post,String cms_post_review){
+    public ResultModel cmsUpdate(String cms_post,String cms_post_review){
         Map<String,String> params = new HashMap<>();
         params.put("cms_post",cms_post);
         params.put("cms_post_review",cms_post_review);
@@ -87,7 +87,7 @@ public class ConfigController extends BaseController {
 
     @RequestMapping(value = "groupUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public Object groupUpdate(String group_apply,String group_apply_review,String group_alias){
+    public ResultModel groupUpdate(String group_apply,String group_apply_review,String group_alias){
         Map<String,String> params = new HashMap<>();
         if(StringUtils.isEmpty(group_alias)){
             group_alias = "群组";
@@ -100,7 +100,7 @@ public class ConfigController extends BaseController {
 
     @RequestMapping(value = "weiboUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public Object weiboUpdate(String weibo_post,String weibo_post_maxcontent,String weibo_alias){
+    public ResultModel weiboUpdate(String weibo_post,String weibo_post_maxcontent,String weibo_alias){
         if(Integer.parseInt(weibo_post_maxcontent) > 500){
             return new ResultModel(-1,"微博最大字数不能超过500");
         }

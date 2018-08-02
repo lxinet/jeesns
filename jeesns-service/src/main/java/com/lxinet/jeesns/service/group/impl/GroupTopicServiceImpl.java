@@ -174,9 +174,6 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Override
     @Transactional
     public ResultModel indexDelete(HttpServletRequest request, Member loginMember, int id) {
-        if(loginMember == null){
-            throw new NotLoginException();
-        }
         GroupTopic groupTopic = this.findById(id,loginMember);
         if (groupTopic == null){
             return new ResultModel(-1,"帖子不存在");
@@ -207,9 +204,6 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     public ResultModel audit(Member member, int id) {
-        if(member == null){
-            throw new NotLoginException();
-        }
         GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
             return new ResultModel(-1,"帖子不存在");
@@ -239,9 +233,6 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
     @Override
     public ResultModel top(Member member, int id, int top) {
-        if(member == null){
-            throw new NotLoginException();
-        }
         GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
             return new ResultModel(-1,"帖子不存在");
@@ -278,9 +269,6 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
      */
     @Override
     public ResultModel essence(Member member, int id, int essence) {
-        if(member == null){
-            throw new NotLoginException();
-        }
         GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
             return new ResultModel(-1,"帖子不存在");

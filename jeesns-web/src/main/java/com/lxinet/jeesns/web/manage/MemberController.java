@@ -50,7 +50,7 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "${managePath}/member/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@PathVariable("id") int id) {
+    public ResultModel delete(@PathVariable("id") int id) {
         return memberService.delete(id);
     }
 
@@ -66,7 +66,7 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "${managePath}/member/changepwd", method = RequestMethod.POST)
     @ResponseBody
-    public Object changepwd(int id, String password) {
+    public ResultModel changepwd(int id, String password) {
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.changepwd(loginMember,id, password);
     }
@@ -116,7 +116,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "${managePath}/member/managerAdd",method = RequestMethod.POST)
     @ResponseBody
-    public Object managerAdd(String name) {
+    public ResultModel managerAdd(String name) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getId() != 1 && loginMember.getIsAdmin() == 1){
             return new ResultModel(-1,"没有权限");
@@ -132,7 +132,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "${managePath}/member/managerCancel/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Object managerCancel(@PathVariable("id") Integer id) {
+    public ResultModel managerCancel(@PathVariable("id") Integer id) {
         if(id == null){
             return new ResultModel(-1,"参数错误");
         }

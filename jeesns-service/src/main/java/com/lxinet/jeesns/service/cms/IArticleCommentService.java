@@ -13,9 +13,9 @@ public interface IArticleCommentService {
 
     ArticleComment findById(int id);
 
-    ResultModel save(Member loginMember, String content, Integer articleId);
+    boolean save(Member loginMember, String content, Integer articleId);
 
-    ResultModel delete(Member loginMember, int id);
+    boolean delete(Member loginMember, int id);
 
     ResultModel listByArticle(Page page, int articleId);
 
