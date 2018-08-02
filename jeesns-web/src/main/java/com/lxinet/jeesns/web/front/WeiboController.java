@@ -2,6 +2,8 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
@@ -35,9 +37,6 @@ public class WeiboController extends BaseController {
     @ResponseBody
     public ResultModel publish(String content, String pictures){
         Member loginMember = MemberUtil.getLoginMember(request);
-        if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
-        }
         return weiboService.save(request, loginMember,content, pictures);
     }
 
@@ -85,7 +84,7 @@ public class WeiboController extends BaseController {
     public Object comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         return weiboCommentService.save(loginMember,content,weiboId,weiboCommentId);
     }
@@ -105,10 +104,10 @@ public class WeiboController extends BaseController {
     public Object favor(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         if(weiboId == null) {
-            return new ResultModel(-1, "非法操作");
+            throw new ParamException();
         }
         return weiboService.favor(loginMember,weiboId);
     }

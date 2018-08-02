@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
@@ -99,7 +101,7 @@ public class ArticleController extends BaseController {
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         ResultModel resultModel = articleService.save(loginMember,article);
         if(resultModel.getCode() == 0){
@@ -162,7 +164,7 @@ public class ArticleController extends BaseController {
     public Object comment(@PathVariable("articleId") Integer articleId, String content){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         return articleCommentService.save(loginMember,content,articleId);
     }
@@ -184,7 +186,7 @@ public class ArticleController extends BaseController {
     public Object delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         if(loginMember.getIsAdmin() == 0){
             return new ResultModel(-1,"权限不足");
@@ -208,10 +210,10 @@ public class ArticleController extends BaseController {
     public Object favor(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         if(id == null) {
-            return new ResultModel(-1, "非法操作");
+            throw new ParamException();
         }
         return articleService.favor(loginMember,id);
     }

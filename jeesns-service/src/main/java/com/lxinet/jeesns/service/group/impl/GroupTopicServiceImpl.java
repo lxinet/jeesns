@@ -6,6 +6,8 @@ import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.StringUtils;
@@ -173,7 +175,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Transactional
     public ResultModel indexDelete(HttpServletRequest request, Member loginMember, int id) {
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         GroupTopic groupTopic = this.findById(id,loginMember);
         if (groupTopic == null){
@@ -181,7 +183,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         Group group = groupService.findById(groupTopic.getGroup().getId());
         if(group == null){
-            return new ResultModel(-1,"出现异常");
+            throw new ParamException();
         }
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
@@ -206,7 +208,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Override
     public ResultModel audit(Member member, int id) {
         if(member == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
@@ -214,7 +216,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         Group group = groupService.findById(groupTopic.getGroup().getId());
         if(group == null){
-            return new ResultModel(-1,"出现异常");
+            throw new ParamException();
         }
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
@@ -238,7 +240,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Override
     public ResultModel top(Member member, int id, int top) {
         if(member == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
@@ -246,7 +248,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         Group group = groupService.findById(groupTopic.getGroup().getId());
         if(group == null){
-            return new ResultModel(-1,"出现异常");
+            throw new ParamException();
         }
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
@@ -277,7 +279,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     @Override
     public ResultModel essence(Member member, int id, int essence) {
         if(member == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         GroupTopic groupTopic = this.findById(id,member);
         if (groupTopic == null){
@@ -285,7 +287,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         }
         Group group = groupService.findById(groupTopic.getGroup().getId());
         if(group == null){
-            return new ResultModel(-1,"出现异常");
+            throw new ParamException();
         }
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");

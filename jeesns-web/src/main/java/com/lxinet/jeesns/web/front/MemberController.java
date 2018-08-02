@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -78,7 +80,7 @@ public class MemberController extends BaseController {
             return new ResultModel(-1,"注册功能已关闭");
         }
         if(member == null){
-            return new ResultModel(-1,"参数错误");
+            throw new ParamException();
         }
         if(member.getName().length() < 6){
             return new ResultModel(-1,"用户名长度最少6位");
@@ -112,7 +114,7 @@ public class MemberController extends BaseController {
     public ResultModel active(String randomCode){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         return memberService.active(loginMember,randomCode,request);
     }
@@ -122,7 +124,7 @@ public class MemberController extends BaseController {
     public ResultModel sendEmailActiveValidCode(){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         return memberService.sendEmailActiveValidCode(loginMember, request);
     }
@@ -346,7 +348,7 @@ public class MemberController extends BaseController {
     public Object sendMessage(String content,Integer memberId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         if(memberId == null){
             return new ResultModel(-1,"请选择发送对象");

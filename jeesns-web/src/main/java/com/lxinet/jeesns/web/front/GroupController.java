@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.group.*;
 import com.lxinet.jeesns.service.common.IArchiveService;
@@ -138,7 +140,7 @@ public class GroupController extends BaseController {
     public Object apply(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         return groupService.save(loginMember, group);
     }
@@ -186,7 +188,7 @@ public class GroupController extends BaseController {
     public Object update(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         return groupService.update(loginMember, group);
     }
@@ -262,7 +264,7 @@ public class GroupController extends BaseController {
     public Object post(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         return groupTopicService.save(loginMember, groupTopic);
     }
@@ -294,7 +296,7 @@ public class GroupController extends BaseController {
     public Object topicUpdate(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         ResultModel resultModel = groupTopicService.update(loginMember, groupTopic);
         if (resultModel.getCode() == 0) {
@@ -315,7 +317,7 @@ public class GroupController extends BaseController {
     public Object follow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         return groupService.follow(loginMember, groupId, 0);
     }
@@ -331,7 +333,7 @@ public class GroupController extends BaseController {
     public Object nofollow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         return groupService.follow(loginMember, groupId, 1);
     }
@@ -348,7 +350,7 @@ public class GroupController extends BaseController {
     public Object comment(@PathVariable("groupTopicId") Integer groupTopicId, String content, Integer groupTopicCommentId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         return groupTopicCommentService.save(loginMember, content, groupTopicId, groupTopicCommentId);
     }
@@ -480,7 +482,7 @@ public class GroupController extends BaseController {
     public Object favor(@PathVariable("id") Integer id) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         if (id == null) {
             return new ResultModel(-1, "非法操作");
@@ -527,12 +529,12 @@ public class GroupController extends BaseController {
     public Object topicTypeSave(GroupTopicType groupTopicType) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
-            return new ResultModel(-1, "非法操作");
+            throw new ParamException();
         }
         ResultModel resultModel = groupTopicTypeService.save(loginMember, groupTopicType);
         ;
@@ -564,12 +566,12 @@ public class GroupController extends BaseController {
     public Object topicTypeUpdate(GroupTopicType groupTopicType) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
-            return new ResultModel(-1, "非法操作");
+            throw new ParamException();
         }
         ResultModel resultModel = groupTopicTypeService.update(loginMember, groupTopicType);
         ;
@@ -584,7 +586,7 @@ public class GroupController extends BaseController {
     public Object topicTypeDelete(@PathVariable("typeId") Integer typeId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null) {
-            return new ResultModel(-1, "请先登录");
+            throw new NotLoginException();
         }
         GroupTopicType groupTopicType = groupTopicTypeService.findById(typeId);
         if (groupTopicType == null) {
@@ -593,7 +595,7 @@ public class GroupController extends BaseController {
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
-            return new ResultModel(-1, "非法操作");
+            throw new ParamException();
         }
         ResultModel resultModel = groupTopicTypeService.delete(loginMember, typeId);
         ;

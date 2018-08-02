@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -89,7 +90,7 @@ public class UploadController extends BaseController {
 	private Object uploadImage(MultipartFile file, int type) {
 		Member loginMember = MemberUtil.getLoginMember(request);
 		if (loginMember == null){
-			return new ResultModel(-1,"请先登录");
+			throw new NotLoginException();
 		}
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
