@@ -4,6 +4,7 @@ import com.lxinet.jeesns.common.utils.*;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
@@ -52,6 +53,9 @@ public class WeiboServiceImpl implements IWeiboService {
     @Override
     @Transactional
     public ResultModel save(HttpServletRequest request, Member loginMember, String content, String pictures) {
+        if (null == loginMember){
+            throw new NotLoginException();
+        }
         if("0".equals(request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST.toUpperCase()))){
             return new ResultModel(-1,"微博已关闭");
         }
@@ -115,7 +119,7 @@ public class WeiboServiceImpl implements IWeiboService {
     @Override
     public ResultModel userDelete(HttpServletRequest request, Member loginMember, int id) {
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         Weibo weibo = this.findById(id,loginMember.getId());
         if(weibo == null){

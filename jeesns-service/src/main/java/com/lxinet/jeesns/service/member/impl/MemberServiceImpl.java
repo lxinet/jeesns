@@ -3,6 +3,7 @@ package com.lxinet.jeesns.service.member.impl;
 import com.lxinet.jeesns.common.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
+import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
@@ -423,7 +424,7 @@ public class MemberServiceImpl implements IMemberService {
     @Override
     public ResultModel follows(Member loginMember, Integer followWhoId) {
         if(loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         if(this.findById(followWhoId) == null){
             return new ResultModel(-1,"关注的会员不存在");

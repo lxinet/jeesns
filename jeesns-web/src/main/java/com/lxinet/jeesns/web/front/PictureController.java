@@ -224,7 +224,7 @@ public class PictureController extends BaseController {
     public Object uploadPic(@RequestParam(value = "file", required = false) MultipartFile file, @PathVariable("albumId") Integer albumId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (loginMember == null){
-            return new ResultModel(-1,"请先登录");
+            throw new NotLoginException();
         }
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
