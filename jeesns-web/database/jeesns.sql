@@ -489,7 +489,7 @@ VALUES
   ('site_description','JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河。','网站描述'),
   ('site_domain','http://www.jeesns.cn/','网站域名'),
   ('site_keys','jeesns,sns,java','网站关键词'),
-  ('site_logo','/res/common/images/lxinetlogo.png','网站LOGO'),
+  ('site_logo','/res/common/images/logo.png','网站LOGO'),
   ('site_name','JEESNS','网站名称'),
   ('site_send_email_account','','发送邮箱账号'),
   ('site_send_email_password','','发送邮箱密码'),
