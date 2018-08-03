@@ -23,7 +23,7 @@ public interface IPictureService {
 
     int deleteByForeignId(HttpServletRequest request, Integer foreignId);
 
-    ResultModel delete(HttpServletRequest request, Integer pictureId);
+    boolean delete(HttpServletRequest request, Integer pictureId);
 
     int save(Picture picture);
 

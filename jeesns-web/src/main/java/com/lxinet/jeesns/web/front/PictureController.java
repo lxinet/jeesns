@@ -86,11 +86,7 @@ public class PictureController extends BaseController {
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         pictureAlbum.setMemberId(loginMember.getId());
-        ResultModel resultModel = pictureAlbumService.save(pictureAlbum);
-        if (resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+        return new ResultModel(pictureAlbumService.save(pictureAlbum));
     }
 
     @RequestMapping(value = "/picture/list/{memberId}-{albumId}",method = RequestMethod.GET)
@@ -174,7 +170,7 @@ public class PictureController extends BaseController {
         if(content.length() > 500){
             return new ResultModel(-1,"评论内容不能超过500长度");
         }
-        return pictureCommentService.save(loginMember,content,pictureId);
+        return new ResultModel(pictureCommentService.save(loginMember,content,pictureId));
     }
 
     @RequestMapping(value="/picture/commentList/{pictureId}.json",method = RequestMethod.GET)

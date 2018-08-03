@@ -48,7 +48,7 @@
                                     <td>${topicType.name}</td>
                                     <td>
                                         <a href="${groupPath}/topicTypeEdit/${topicType.id}" target="_jeesnsOpen" title="编辑帖子分类">编辑</a>
-                                        <a href="${groupPath}/topicTypeDelete/${topicType.id}" target="_jeesnsLink" title="编辑帖子分类" confirm="确定要删除该分类吗？">删除</a>
+                                        <a href="${groupPath}/topicTypeDelete/${topicType.id}" target="_jeesnsLink" title="编辑帖子分类" confirm="确定要删除该分类吗？" callback="reload">删除</a>
                                     </td>
                                 </tr>
                                 </#list>

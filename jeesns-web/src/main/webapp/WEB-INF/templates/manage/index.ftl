@@ -157,6 +157,38 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v121">v1.3</a><code class="pull-right">2018.08.03</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v121" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复：发送私信和获取私信列表异常问题</li>
+                                                        <li>修复：修复在小分辨率的屏幕下，图库页面打开图片详情，关闭按钮无法找到问题</li>
+                                                        <li>修复：修复前台右上角鼠标放在用户名上自动显示下拉菜单，鼠标去选择菜单时，会自动消失情况</li>
+                                                        <li>修复：修复项目如果不是部署在根目录下进行访问，@用户名 的时候，进入用户详情页面的链接错误</li>
+                                                        <li>修复：修复项目如果不是部署在根目录下进行访问，群组帖子进行置顶、设置精华等操作链接无效问题</li>
+                                                        <li>修复：修复群组页面和首页中群组帖子数量统计问题</li>
+                                                        <li>修复：修复XSS脚本注入漏洞</li>
+                                                        <li>修复：修复群组默认分类删除提示请求失败的问题</li>
+                                                        <li>修复：修复修改帖子报错问题</li>
+                                                        <li>修复：修复异常拦截问题</li>
+                                                        <li>优化：底层代码、异常信息、提示信息代码进行重构</li>
+                                                        <li>优化：优化前后台用户操作体验</li>
+                                                        <li>增加：增加微博、群组可以自定义访问路径功能</li>
+                                                        <li>增加：增加群组分类功能</li>
+                                                        <li>增加：增加群组帖子分类功能</li>
+                                                        <li>增加：会员关注实体增加ID</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v121">v1.2.1</a><code class="pull-right">2017.12.04</code>
                                             </h5>
                                         </div>

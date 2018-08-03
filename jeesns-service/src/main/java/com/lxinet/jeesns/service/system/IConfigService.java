@@ -17,5 +17,5 @@ public interface IConfigService {
 
     String getValue(String key);
 
-    ResultModel update(Map<String,String> params, HttpServletRequest request);
+    boolean update(Map<String,String> params, HttpServletRequest request);
 }

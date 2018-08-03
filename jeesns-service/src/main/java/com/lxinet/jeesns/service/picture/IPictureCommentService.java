@@ -13,9 +13,9 @@ public interface IPictureCommentService {
 
     PictureComment findById(int id);
 
-    ResultModel save(Member loginMember, String content, Integer pictureId);
+    boolean save(Member loginMember, String content, Integer pictureId);
 
-    ResultModel delete(Member loginMember, int id);
+    boolean delete(Member loginMember, int id);
 
     ResultModel listByPicture(Page page, int pictureId);
 

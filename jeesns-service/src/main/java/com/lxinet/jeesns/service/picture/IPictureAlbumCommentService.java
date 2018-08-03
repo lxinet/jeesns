@@ -15,9 +15,9 @@ public interface IPictureAlbumCommentService {
 
     PictureAlbumComment findById(int id);
 
-    ResultModel save(Member loginMember, String content, Integer pictureAlbumId);
+    boolean save(Member loginMember, String content, Integer pictureAlbumId);
 
-    ResultModel delete(Member loginMember, int id);
+    boolean delete(Member loginMember, int id);
 
     ResultModel listByPictureAlbum(Page page, int pictureAlbumId);
 

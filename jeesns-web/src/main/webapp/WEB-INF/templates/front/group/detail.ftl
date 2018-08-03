@@ -39,9 +39,9 @@
                             <span class="text-right">
                                 <#if isfollow == true>
                                     <a title="取消关注" href="${groupPath}/nofollow/${group.id}"
-                                       target="_jeesnsLink"><i class="icon-minus"></i> 取消关注</a>
+                                       target="_jeesnsLink" callback="reload"><i class="icon-minus"></i> 取消关注</a>
                                 <#else>
-                                    <a title="添加关注" href="${groupPath}/follow/${group.id}" target="_jeesnsLink"><i
+                                    <a title="添加关注" href="${groupPath}/follow/${group.id}" target="_jeesnsLink" callback="reload"><i
                                             class="icon-plus"></i> 关注</a>
                                 </#if>
                                 <#if loginUser?? && loginUser.id == group.creator>

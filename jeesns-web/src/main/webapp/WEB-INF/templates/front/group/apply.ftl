@@ -23,6 +23,11 @@
     <script type="text/javascript">
         var basePath = "${basePath}";
         var uploadServer = "${basePath}/uploadImage";
+
+        function applySuccess() {
+            localStorage.setItem("message","申请成功，请等待审核");
+            window.location.href = "index";
+        }
     </script>
     <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
 </head>
@@ -32,7 +37,7 @@
     <div class="main-content">
         <div class="row">
             <div class="col-md-12 article-detail">
-                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/apply" method="post">
+                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/apply" method="post" callback="applySuccess">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">名称</label>
                         <div class="col-sm-8">

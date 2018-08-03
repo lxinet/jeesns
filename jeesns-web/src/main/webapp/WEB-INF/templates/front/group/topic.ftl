@@ -58,19 +58,19 @@
 
                                         <#if loginUser?? && loginUser.isAdmin &gt; 0>
                                             <#if groupTopic.isTop = 0>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
+                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink" callback="reload">普通置顶</a></li>
+                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink" callback="reload">超级置顶</a></li>
                                             <#elseif groupTopic.isTop = 1>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消普通置顶</a></li>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink">超级置顶</a></li>
+                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink" callback="reload">取消普通置顶</a></li>
+                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink" callback="reload">超级置顶</a></li>
                                             <#elseif groupTopic.isTop = 2>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink">取消超级置顶</a></li>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink">普通置顶</a></li>
+                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink" callback="reload">取消超级置顶</a></li>
+                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink" callback="reload">普通置顶</a></li>
                                             </#if>
                                             <#if groupTopic.isEssence = 0>
-                                                <li><a href="${groupPath}/topic/essence/${groupTopic.id}?essence=1" target="_jeesnsLink">精华</a></li>
+                                                <li><a href="${groupPath}/topic/essence/${groupTopic.id}?essence=1" target="_jeesnsLink" callback="reload">精华</a></li>
                                             <#elseif groupTopic.isEssence = 1>
-                                                <li><a href="${groupPath}/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink">取消精华</a></li>
+                                                <li><a href="${groupPath}/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink" callback="reload">取消精华</a></li>
                                             </#if>
                                         </#if>
 
@@ -78,7 +78,7 @@
                                         <#if loginUser.id == groupTopic.memberId>
                                             <li><a href="${groupPath}/topicEdit/${groupTopic.id}">编辑</a></li>
                                         </#if>
-                                        <li><a href="${groupPath}/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink">删除</a></li>
+                                        <li><a href="${groupPath}/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink" callback="reload">删除</a></li>
                                     </ul>
                                 </div>
                             </#if>
@@ -111,7 +111,7 @@
                     <header>
                         <div class="reply-form">
                             <form class="form-horizontal jeesns_form"
-                                  action="${groupPath}/comment/${groupTopic.id}" method="post">
+                                  action="${groupPath}/comment/${groupTopic.id}" method="post" callback="reload">
                                 <div class="form-group">
                                     <textarea name="content" class="form-control new-comment-text" rows="2" placeholder="撰写评论..."></textarea>
                                 </div>
@@ -148,10 +148,10 @@
                             <span class="text-right">
                                 <#if isfollow == true>
                                     <a title="取消关注" href="${groupPath}/nofollow/${groupTopic.group.id}"
-                                       target="_jeesnsLink"><i class="icon-minus"></i> 取消关注</a>
+                                       target="_jeesnsLink" callback="reload"><i class="icon-minus"></i> 取消关注</a>
                                 <#else>
                                     <a title="添加关注" href="${groupPath}/follow/${groupTopic.group.id}"
-                                       target="_jeesnsLink"><i
+                                       target="_jeesnsLink" callback="reload"><i
                                             class="icon-plus"></i> 关注</a>
                                 </#if>
                                 <#if loginUser?? && loginUser.id == groupTopic.group.creator>

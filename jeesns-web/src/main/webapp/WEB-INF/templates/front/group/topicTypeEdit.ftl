@@ -25,7 +25,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 article-detail">
-            <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicTypeUpdate" method="post">
+            <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicTypeUpdate" method="post" callback="parentReload">
                 <input type="hidden" name="id" value="${groupTopicType.id}">
                 <input type="hidden" name="groupId" value="${groupTopicType.groupId}">
                 <div class="form-group">

@@ -13,11 +13,11 @@ public interface IPictureAlbumService {
 
     ResultModel<PictureAlbum> listByPage(Page page);
 
-    ResultModel delete(Integer id);
+    boolean delete(Integer id);
 
-    ResultModel save(PictureAlbum pictureAlbum);
+    boolean save(PictureAlbum pictureAlbum);
 
-    ResultModel update(PictureAlbum pictureAlbum);
+    boolean update(PictureAlbum pictureAlbum);
 
     PictureAlbum findWeiboAlbum(Integer memberId);
 

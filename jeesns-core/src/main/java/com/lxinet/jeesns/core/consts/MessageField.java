@@ -52,4 +52,5 @@ public class MessageField {
     public static final String CONTRIBUTION_CLOSED = "contribution_closed";
     public static final String CONTENT = "content";
     public static final String FRIIEND_LINK = "friiend_link";
+    public static final String PICTURE_ALBUM = "picture_album";
 }

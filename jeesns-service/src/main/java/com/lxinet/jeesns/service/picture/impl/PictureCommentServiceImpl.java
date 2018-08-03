@@ -1,8 +1,10 @@
 package com.lxinet.jeesns.service.picture.impl;
 
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.MessageType;
+import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.picture.IPictureCommentDao;
 import com.lxinet.jeesns.model.member.Member;
@@ -38,11 +40,9 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
     }
 
     @Override
-    public ResultModel save(Member loginMember, String content, Integer pictureId) {
+    public boolean save(Member loginMember, String content, Integer pictureId) {
         Picture picture = pictureService.findById(pictureId,loginMember.getId());
-        if(picture == null){
-            return new ResultModel(-1,"图片不存在");
-        }
+        ValidUtill.checkIsNull(picture, Messages.PICTURE_NOT_EXISTS);
         PictureComment pictureComment = new PictureComment();
         pictureComment.setMemberId(loginMember.getId());
         pictureComment.setPictureId(pictureId);
@@ -53,10 +53,8 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
             messageService.atDeal(loginMember.getId(),content, AppTag.PICTURE, MessageType.PICTURE_COMMENT_REFER,picture.getPictureId());
             //回复微博发送系统信息
             messageService.diggDeal(loginMember.getId(), picture.getMemberId(), content,AppTag.PICTURE, MessageType.PICTURE_REPLY, picture.getPictureId());
-            return new ResultModel(0,"评论成功");
-        }else {
-            return new ResultModel(-1,"评论失败");
         }
+        return result == 1;
     }
 
     @Override
@@ -74,16 +72,11 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
     }
 
     @Override
-    public ResultModel delete(Member loginMember, int id) {
+    public boolean delete(Member loginMember, int id) {
         PictureComment pictureComment = this.findById(id);
-        if(pictureComment == null){
-            return new ResultModel(-1,"评论不存在");
-        }
+        ValidUtill.checkIsNull(pictureComment, Messages.COMMENT_NOT_EXISTS);
         int result = pictureCommentDao.delete(id);
-        if(result == 1){
-            return new ResultModel(1,"删除成功");
-        }
-        return new ResultModel(-1,"删除失败");
+        return result == 1;
     }
 
     public PictureComment atFormat(PictureComment pictureComment){

@@ -26,6 +26,9 @@
         $(function () {
             CKEDITOR.replace('content');
         });
+        function _success() {
+            window.location.href = "${groupPath}/topic/${groupTopic.id}";
+        }
     </script>
     <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
 </head>
@@ -35,7 +38,7 @@
     <div class="main-content">
         <div class="row">
             <div class="col-md-12 article-detail">
-                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicUpdate" method="post" onsubmit="ckUpdate();">
+                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicUpdate" method="post" onsubmit="ckUpdate();" callback="_success">
                     <input type="hidden" class="form-control" name="id" value="${groupTopic.id}">
                     <div class="form-group">
                         <label for="firstname" class="col-sm-1 control-label">标题</label>

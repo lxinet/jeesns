@@ -41,21 +41,13 @@ public class ScoreRuleController extends BaseController {
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public ResultModel update(ScoreRule scoreRule){
-        ResultModel resultModel = scoreRuleService.update(scoreRule);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+        return new ResultModel(scoreRuleService.update(scoreRule));
     }
 
     @RequestMapping(value = "enabled/{id}",method = RequestMethod.GET)
     @ResponseBody
     public ResultModel enabled(@PathVariable("id") Integer id){
-        ResultModel resultModel = scoreRuleService.enabled(id);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(1);
-        }
-        return resultModel;
+        return new ResultModel(scoreRuleService.enabled(id));
     }
 
 }

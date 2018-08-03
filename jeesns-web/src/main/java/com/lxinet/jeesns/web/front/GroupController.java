@@ -47,7 +47,7 @@ public class GroupController extends BaseController {
     @Resource
     private IGroupTypeService groupTypeService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String index(String key, Model model) {
         List<Group> list = groupService.list(1, key);
         model.addAttribute("list", list);
@@ -260,7 +260,9 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel post(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(groupTopicService.save(loginMember, groupTopic));
+        ResultModel resultModel = new ResultModel(groupTopicService.save(loginMember, groupTopic));
+        resultModel.setData(groupTopic.getId());
+        return resultModel;
     }
 
     @RequestMapping(value = "/topicEdit/{topicId}", method = RequestMethod.GET)
@@ -476,7 +478,10 @@ public class GroupController extends BaseController {
         if (id == null) {
             return new ResultModel(-1, "非法操作");
         }
-        return new ResultModel(groupTopicService.favor(loginMember, id));
+        int num = groupTopicService.favor(loginMember, id);
+        ResultModel resultModel = new ResultModel(true);
+        resultModel.setData(num);
+        return resultModel;
     }
 
     @RequestMapping(value = "/topicTypeList/{groupId}", method = RequestMethod.GET)

@@ -43,7 +43,7 @@ public class WeiboController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel publish(String content, String pictures){
         Member loginMember = MemberUtil.getLoginMember(request);
-        return weiboService.save(request, loginMember,content, pictures);
+        return new ResultModel(weiboService.save(request, loginMember,content, pictures));
     }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
@@ -77,7 +77,8 @@ public class WeiboController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel delete(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = weiboService.userDelete(request, loginMember,weiboId);
+        boolean result = weiboService.userDelete(request, loginMember,weiboId);
+        ResultModel resultModel = new ResultModel(result);
         if(resultModel.getCode() >= 0){
             resultModel.setCode(2);
             resultModel.setUrl(Const.WEIBO_PATH + "/list");
@@ -91,7 +92,7 @@ public class WeiboController extends BaseController {
     public ResultModel comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
         ValidUtill.checkLogin(loginMember);
-        return weiboCommentService.save(loginMember,content,weiboId,weiboCommentId);
+        return new ResultModel(weiboCommentService.save(loginMember,content,weiboId,weiboCommentId));
     }
 
     @RequestMapping(value="/commentList/{weiboId}.json",method = RequestMethod.GET)
@@ -106,6 +107,9 @@ public class WeiboController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel favor(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        return weiboService.favor(loginMember,weiboId);
+        ResultModel resultModel = new ResultModel(true);
+        int num = weiboService.favor(loginMember,weiboId);
+        resultModel.setData(num);
+        return resultModel;
     }
 }

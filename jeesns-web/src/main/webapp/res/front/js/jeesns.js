@@ -11,6 +11,11 @@ var reload = function () {
     location.reload();
 }
 
+
+var parentReload = function () {
+    parent.location.reload()
+}
+
 var jeesns = {
     reg_rule : {
         'selected'   :    /.+/,
