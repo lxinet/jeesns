@@ -22,6 +22,9 @@
     <script>
         var base = "${basePath}";
         var articleId = ${article.id};
+        function deleteSuccess() {
+            window.location.href = "${basePath}/article/list";
+        }
     </script>
     <script src="${basePath}/res/front/js/cms.js"></script>
 </head>
@@ -54,7 +57,7 @@
                                         <#if loginUser.id == article.memberId>
                                             <li><a href="${basePath}/article/edit/${article.id}">编辑</a></li>
                                         </#if>
-                                        <li><a href="${basePath}/article/delete/${article.id}" confirm="确定要删除文章吗？" target="_jeesnsLink">删除</a></li>
+                                        <li><a href="${basePath}/article/delete/${article.id}" confirm="确定要删除文章吗？" target="_jeesnsLink" callback="deleteSuccess">删除</a></li>
 
                                     </ul>
                                 </div>

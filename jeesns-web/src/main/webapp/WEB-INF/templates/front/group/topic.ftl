@@ -23,6 +23,10 @@
         var base = "${basePath}";
         var groupPath = "${groupPath}";
         var groupTopicId = ${groupTopic.id};
+
+        function deleteSuccess() {
+            window.location.href = "${groupPath}/detail/${groupTopic.group.id}";
+        }
     </script>
     <script src="${basePath}/res/front/js/group.js"></script>
 </head>
@@ -78,7 +82,7 @@
                                         <#if loginUser.id == groupTopic.memberId>
                                             <li><a href="${groupPath}/topicEdit/${groupTopic.id}">编辑</a></li>
                                         </#if>
-                                        <li><a href="${groupPath}/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink" callback="reload">删除</a></li>
+                                        <li><a href="${groupPath}/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink" callback="deleteSuccess">删除</a></li>
                                     </ul>
                                 </div>
                             </#if>
