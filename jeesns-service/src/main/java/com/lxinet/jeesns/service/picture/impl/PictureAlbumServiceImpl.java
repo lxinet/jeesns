@@ -36,33 +36,24 @@ public class PictureAlbumServiceImpl implements IPictureAlbumService {
     }
 
     @Override
-    public ResultModel delete(Integer id) {
-        if (pictureAlbumDao.delete(id) > 0) {
-            return new ResultModel(0, "删除成功");
-        }
-        return new ResultModel(-1, "删除失败");
+    public boolean delete(Integer id) {
+        return pictureAlbumDao.delete(id) == 1;
     }
 
     @Override
-    public ResultModel save(PictureAlbum pictureAlbum) {
+    public boolean save(PictureAlbum pictureAlbum) {
         if (pictureAlbum.getType() == null){
             pictureAlbum.setType(0);
         }
         if (StringUtils.isEmpty(pictureAlbum.getCover())){
             pictureAlbum.setCover(Const.DEFAULT_PICTURE_COVER);
         }
-        if (pictureAlbumDao.save(pictureAlbum) > 0) {
-            return new ResultModel(0, "添加成功");
-        }
-        return new ResultModel(-1, "添加失败");
+        return pictureAlbumDao.save(pictureAlbum) == 1;
     }
 
     @Override
-    public ResultModel update(PictureAlbum pictureAlbum) {
-        if (pictureAlbumDao.update(pictureAlbum) > 0) {
-            return new ResultModel(0, "更新成功");
-        }
-        return new ResultModel(-1, "更新失败");
+    public boolean update(PictureAlbum pictureAlbum) {
+        return pictureAlbumDao.update(pictureAlbum) == 1;
     }
 
     @Override

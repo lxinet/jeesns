@@ -4,7 +4,9 @@ import com.lxinet.jeesns.common.utils.*;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.NotLoginException;
+import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
@@ -53,15 +55,13 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Override
     @Transactional
-    public ResultModel save(HttpServletRequest request, Member loginMember, String content, String pictures) {
+    public boolean save(HttpServletRequest request, Member loginMember, String content, String pictures) {
         if("0".equals(request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST.toUpperCase()))){
-            return new ResultModel(-1,"微博已关闭");
+            throw new OpeErrorException("微博已关闭");
         }
-        if(StringUtils.isEmpty(content)){
-            return new ResultModel(-1,"内容不能为空");
-        }
+        ValidUtill.checkIsNull(content, Messages.CONTENT_NOT_EMPTY);
         if(content.length() > Integer.parseInt((String) request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase()))){
-            return new ResultModel(-1,"内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
+            throw new ParamException("内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
         }
         Weibo weibo = new Weibo();
         weibo.setMemberId(loginMember.getId());
@@ -74,16 +74,16 @@ public class WeiboServiceImpl implements IWeiboService {
             //图片
             weibo.setType(1);
         }
-        if(weiboDao.save(weibo) == 1){
+        int result = weiboDao.save(weibo);
+        if(result == 1){
             //@会员处理并发送系统消息
             messageService.atDeal(loginMember.getId(),content, AppTag.WEIBO, MessageType.WEIBO_REFER,weibo.getId());
             pictureService.update(weibo.getId(),pictures, content);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.POST_WEIBO,"", ActionLogType.WEIBO.getValue(),weibo.getId());
             //发布微博奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.RELEASE_WEIBO, weibo.getId());
-            return new ResultModel(1,"发布成功");
         }
-        return new ResultModel(-1,"发布失败");
+        return result == 1;
     }
 
     @Override
@@ -100,28 +100,24 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Transactional
     @Override
-    public ResultModel delete(HttpServletRequest request, Member loginMember, int id) {
+    public boolean delete(HttpServletRequest request, Member loginMember, int id) {
         Weibo weibo = this.findById(id,loginMember.getId());
-        if(weibo == null){
-            return new ResultModel(-1,"微博不存在");
-        }
+        ValidUtill.checkIsNull(weibo, Messages.WEIBO_NOT_EXISTS);
         weiboDao.delete(id);
         //扣除积分
         scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.RELEASE_WEIBO,id);
         pictureService.deleteByForeignId(request, id);
         actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO, "ID："+weibo.getId()+"，内容："+weibo.getContent());
-        return new ResultModel(1,"操作成功");
+        return true;
     }
 
     @Transactional
     @Override
-    public ResultModel userDelete(HttpServletRequest request, Member loginMember, int id) {
+    public boolean userDelete(HttpServletRequest request, Member loginMember, int id) {
         Weibo weibo = this.findById(id,loginMember.getId());
-        if(weibo == null){
-            return new ResultModel(-1,"微博不存在");
-        }
+        ValidUtill.checkIsNull(weibo, Messages.WEIBO_NOT_EXISTS);
         if(loginMember.getIsAdmin() == 0 && (loginMember.getId().intValue() != weibo.getMember().getId().intValue())){
-            return new ResultModel(-1,"没有权限");
+            throw new OpeErrorException("没有权限");
         }
         return this.delete(request, loginMember,id);
     }
@@ -134,18 +130,14 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Transactional
     @Override
-    public ResultModel favor(Member loginMember, int weiboId) {
-        ValidUtill.checkParam(weiboId == 0);
-        String message;
-        ResultModel<Integer> resultModel;
+    public int favor(Member loginMember, int weiboId) {
+        ValidUtill.checkParam(weiboId != 0);
         Weibo weibo = this.findById(weiboId,loginMember.getId());
         if(weiboFavorService.find(weiboId,loginMember.getId()) == null){
             //增加
             weiboDao.favor(weiboId,1);
             weibo.setFavor(weibo.getFavor() + 1);
             weiboFavorService.save(weiboId,loginMember.getId());
-            message = "点赞成功";
-            resultModel = new ResultModel(0,message);
             //发布微博奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP, weiboId);
             //点赞之后发送系统信息
@@ -155,13 +147,10 @@ public class WeiboServiceImpl implements IWeiboService {
             weiboDao.favor(weiboId,-1);
             weibo.setFavor(weibo.getFavor() - 1);
             weiboFavorService.delete(weiboId,loginMember.getId());
-            message = "取消赞成功";
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP,weiboId);
-            resultModel = new ResultModel(1,message);
         }
-        resultModel.setData(weibo.getFavor());
-        return resultModel;
+        return weibo.getFavor();
     }
 
     @Override

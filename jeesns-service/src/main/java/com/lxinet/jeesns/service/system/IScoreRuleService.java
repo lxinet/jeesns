@@ -14,8 +14,8 @@ public interface IScoreRuleService {
 
     ScoreRule findById(Integer id);
 
-    ResultModel update(ScoreRule scoreRule);
+    boolean update(ScoreRule scoreRule);
 
-    ResultModel enabled(int id);
+    boolean enabled(int id);
 
 }

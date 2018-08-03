@@ -45,7 +45,7 @@
         <div class="row">
             <div class="col-md-8 white-bg m-b-10">
                 <div class="items weibo-post-area">
-                    <form class="form-horizontal m-t jeesns_form" action="${weiboPath}/publish" method="post">
+                    <form class="form-horizontal m-t jeesns_form" action="${weiboPath}/publish" method="post" callback="reload">
                         <p>
                             <textarea cols="5" class="form-control area emoji-render-input" name="content" id="weibo-content"
                                       maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>

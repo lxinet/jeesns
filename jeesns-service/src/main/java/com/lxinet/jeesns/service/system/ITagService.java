@@ -5,13 +5,13 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.system.Tag;
 
 public interface ITagService {
-    ResultModel save(Tag tag);
+    boolean save(Tag tag);
 
     ResultModel listByPage(Page page, int funcType);
 
-    ResultModel update(Tag tag);
+    boolean update(Tag tag);
 
-    ResultModel delete(Integer id);
+    boolean delete(Integer id);
 
     Tag findById(Integer id);
 

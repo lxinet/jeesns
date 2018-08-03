@@ -15,17 +15,17 @@ public interface IWeiboService {
 
     Weibo findById(int id, int memberId);
 
-    ResultModel save(HttpServletRequest request, Member loginMember, String content, String pictures);
+    boolean save(HttpServletRequest request, Member loginMember, String content, String pictures);
 
     ResultModel<Weibo> listByPage(Page page, int memberId, int loginMemberId, String key);
 
-    ResultModel delete(HttpServletRequest request, Member loginMember, int id);
+    boolean delete(HttpServletRequest request, Member loginMember, int id);
 
-    ResultModel userDelete(HttpServletRequest request, Member loginMember, int id);
+    boolean userDelete(HttpServletRequest request, Member loginMember, int id);
 
     List<Weibo> hotList(int loginMemberId);
 
-    ResultModel favor(Member loginMember, int weiboId);
+    int favor(Member loginMember, int weiboId);
 
     List<Weibo> listByCustom(int loginMemberId, String sort,int num,int day);
 }

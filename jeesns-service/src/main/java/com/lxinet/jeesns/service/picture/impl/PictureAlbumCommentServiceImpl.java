@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.service.picture.impl;
 
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.picture.IPictureAlbumCommentDao;
 import com.lxinet.jeesns.model.member.Member;
@@ -9,6 +11,7 @@ import com.lxinet.jeesns.model.picture.PictureAlbumComment;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.picture.IPictureAlbumCommentService;
 import com.lxinet.jeesns.service.picture.IPictureAlbumService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,21 +39,15 @@ public class PictureAlbumCommentServiceImpl implements IPictureAlbumCommentServi
     }
 
     @Override
-    public ResultModel save(Member loginMember, String content, Integer pictureAlbumId) {
+    public boolean save(Member loginMember, String content, Integer pictureAlbumId) {
         PictureAlbum pictureAlbum = pictureAlbumService.findById(pictureAlbumId);
-        if(pictureAlbum == null){
-            return new ResultModel(-1,"相册不存在");
-        }
+        ValidUtill.checkIsNull(pictureAlbum, Messages.PICTURE_ALBUM_NOT_EXISTS);
         PictureAlbumComment pictureAlbumComment = new PictureAlbumComment();
         pictureAlbumComment.setMemberId(loginMember.getId());
         pictureAlbumComment.setPictureAlbumId(pictureAlbumId);
         pictureAlbumComment.setContent(content);
         int result = pictureAlbumCommentDao.save(pictureAlbumComment);
-        if(result == 1){
-            return new ResultModel(0,"评论成功");
-        }else {
-            return new ResultModel(-1,"评论失败");
-        }
+        return result == 1;
     }
 
     @Override
@@ -68,16 +65,11 @@ public class PictureAlbumCommentServiceImpl implements IPictureAlbumCommentServi
     }
 
     @Override
-    public ResultModel delete(Member loginMember, int id) {
+    public boolean delete(Member loginMember, int id) {
         PictureAlbumComment pictureAlbumComment = this.findById(id);
-        if(pictureAlbumComment == null){
-            return new ResultModel(-1,"评论不存在");
-        }
+        ValidUtill.checkIsNull(pictureAlbumComment, Messages.COMMENT_NOT_EXISTS);
         int result = pictureAlbumCommentDao.delete(id);
-        if(result == 1){
-            return new ResultModel(1,"删除成功");
-        }
-        return new ResultModel(-1,"删除失败");
+        return result == 1;
     }
 
     public PictureAlbumComment atFormat(PictureAlbumComment pictureAlbumComment){

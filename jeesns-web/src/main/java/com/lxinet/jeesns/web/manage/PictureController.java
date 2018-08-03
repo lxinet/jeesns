@@ -52,7 +52,7 @@ public class PictureController extends BaseController{
     @RequestMapping(value = "/delete/{pictureId}",method = RequestMethod.GET)
     @ResponseBody
     public ResultModel delete(@PathVariable("pictureId") Integer pictureId){
-        return pictureService.delete(request,pictureId);
+        return new ResultModel(pictureService.delete(request,pictureId));
     }
 
 }

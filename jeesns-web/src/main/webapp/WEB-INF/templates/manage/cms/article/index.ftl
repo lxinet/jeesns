@@ -110,12 +110,12 @@
                                     <td>
                                         <#if article.status==0>
                                             <a class="marg-l-5" target="_jeesnsLink"
-                                               href="${managePath}/cms/article/audit/${article.id}">
+                                               href="${managePath}/cms/article/audit/${article.id}" callback="reload">
                                                 <span class="label label-danger">未审核</span>
                                             </a>
                                         <#else>
                                             <a class="marg-l-5" target="_jeesnsLink"
-                                               href="${managePath}/cms/article/audit/${article.id}">
+                                               href="${managePath}/cms/article/audit/${article.id}" callback="reload">
                                                 <span class="label label-success">已审核</span>
                                             </a>
                                         </#if>

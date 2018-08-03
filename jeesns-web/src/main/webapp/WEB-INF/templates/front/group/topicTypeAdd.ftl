@@ -25,7 +25,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 article-detail">
-            <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicTypeSave" method="post">
+            <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicTypeSave" method="post" callback="parentReload">
                 <input type="hidden" name="groupId" value="${group.id}">
                 <div class="form-group">
                     <label class="col-sm-1 control-label">分类名称</label>

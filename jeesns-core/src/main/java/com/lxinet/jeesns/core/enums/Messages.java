@@ -57,6 +57,7 @@ public enum Messages {
     CONTRIBUTION_CLOSED(-1007, MessageField.CONTRIBUTION_CLOSED),
     CONTENT_NOT_EMPTY(-1007, MessageField.NOT_EMPTY, Messages(MessageField.CONTENT)),
     FRIIEND_LINK_NOT_EXISTS(-1007, MessageField.NOT_EXISTS, Messages(MessageField.FRIIEND_LINK)),
+    PICTURE_ALBUM_NOT_EXISTS(-1007, MessageField.NOT_EXISTS, Messages(MessageField.PICTURE_ALBUM)),
 
 
 

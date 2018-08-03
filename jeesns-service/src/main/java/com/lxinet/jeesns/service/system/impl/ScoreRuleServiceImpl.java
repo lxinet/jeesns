@@ -28,19 +28,13 @@ public class ScoreRuleServiceImpl implements IScoreRuleService {
     }
 
     @Override
-    public ResultModel update(ScoreRule scoreRule) {
-        if(scoreRuleDao.update(scoreRule) == 1){
-            return new ResultModel(0, "操作成功");
-        }
-        return new ResultModel(-1, "操作失败");
+    public boolean update(ScoreRule scoreRule) {
+        return scoreRuleDao.update(scoreRule) == 1;
     }
 
     @Override
-    public ResultModel enabled(int id) {
-        if(scoreRuleDao.enabled(id) == 1){
-            return new ResultModel(0, "操作成功");
-        }
-        return new ResultModel(-1, "操作失败");
+    public boolean enabled(int id) {
+        return scoreRuleDao.enabled(id) == 1;
     }
 
 }

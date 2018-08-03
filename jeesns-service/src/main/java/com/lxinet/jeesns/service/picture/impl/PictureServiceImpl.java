@@ -67,13 +67,10 @@ public class PictureServiceImpl implements IPictureService {
     }
 
     @Override
-    public ResultModel delete(HttpServletRequest request, Integer pictureId) {
+    public boolean delete(HttpServletRequest request, Integer pictureId) {
         Picture picture = this.findById(pictureId,0);
         PictureUtil.delete(request,picture);
-        if(pictureDao.delete(pictureId) == 1){
-            return new ResultModel(1,"删除成功");
-        }
-        return new ResultModel(-1,"删除失败");
+        return pictureDao.delete(pictureId) == 1;
     }
 
     @Override

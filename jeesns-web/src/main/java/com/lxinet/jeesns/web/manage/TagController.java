@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.manage;
 
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
@@ -44,11 +45,7 @@ public class TagController extends BaseController{
     @RequestMapping("/save")
     @ResponseBody
     public ResultModel save(Tag tag){
-        ResultModel resultModel = tagService.save(tag);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+        return new ResultModel(tagService.save(tag));
     }
 
 
@@ -62,20 +59,14 @@ public class TagController extends BaseController{
     @RequestMapping("/update")
     @ResponseBody
     public ResultModel update(Tag tag){
-        if (tag == null){
-            return new ResultModel(-1,"参数错误");
-        }
-        ResultModel resultModel = tagService.update(tag);
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(3);
-        }
-        return resultModel;
+        ValidUtill.checkIsNull(tag);
+        return new ResultModel(tagService.update(tag));
     }
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
     public ResultModel delete(@PathVariable("id") Integer id){
-        return tagService.delete(id);
+        return new ResultModel(tagService.delete(id));
     }
 
 }

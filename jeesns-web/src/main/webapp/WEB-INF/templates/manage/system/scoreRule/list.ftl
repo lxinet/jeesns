@@ -84,11 +84,11 @@
                                     <td>${scoreRule.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if scoreRule.status=0>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/scoreRule/enabled/${scoreRule.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/scoreRule/enabled/${scoreRule.id}" callback="reload">
                                                 <span class="label label-danger">禁用</span>
                                             </a>
                                         <#else>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/scoreRule/enabled/${scoreRule.id}">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/scoreRule/enabled/${scoreRule.id}" callback="reload">
                                                 <span class="label label-success">启用</span>
                                             </a>
                                         </#if>

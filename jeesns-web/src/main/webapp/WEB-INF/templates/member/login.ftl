@@ -25,6 +25,7 @@
     <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script>
         var _success = function () {
+            localStorage.removeItem("message");
             window.location.href = '${basePath}/member/';
         }
     </script>

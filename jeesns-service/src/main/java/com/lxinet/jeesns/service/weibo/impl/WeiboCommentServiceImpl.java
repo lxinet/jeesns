@@ -1,8 +1,11 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
+import com.lxinet.jeesns.common.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.enums.Messages;
+import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
@@ -48,16 +51,12 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     }
 
     @Override
-    public ResultModel save(Member loginMember, String content, Integer weiboId, Integer weiboCommentId) {
+    public boolean save(Member loginMember, String content, Integer weiboId, Integer weiboCommentId) {
         Weibo weibo = weiboService.findById(weiboId,loginMember.getId());
-        if(weibo == null){
-            return new ResultModel(-1,"微博不存在");
-        }
-        if(StringUtils.isEmpty(content)){
-            return new ResultModel(-1,"内容不能为空");
-        }
+        ValidUtill.checkIsNull(weibo, Messages.WEIBO_NOT_EXISTS);
+        ValidUtill.checkIsNull(content, Messages.CONTENT_NOT_EMPTY);
         if(content.length() > 500){
-            return new ResultModel(-1,"评论内容不能超过500长度");
+            throw new ParamException("评论内容不能超过500");
         }
         WeiboComment weiboComment = new WeiboComment();
         weiboComment.setMemberId(loginMember.getId());
@@ -79,10 +78,8 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
             }
             //微博评论奖励
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.COMMENT_WEIBO, weiboComment.getId());
-            return new ResultModel(1,"评论成功");
-        }else {
-            return new ResultModel(-1,"评论失败");
         }
+        return result == 1;
     }
 
     @Override
@@ -100,17 +97,13 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     }
 
     @Override
-    public ResultModel delete(Member loginMember, int id) {
+    public boolean delete(Member loginMember, int id) {
         WeiboComment weiboComment = this.findById(id);
-        if(weiboComment == null){
-            return new ResultModel(-1,"评论不存在");
-        }
         int result = weiboCommentDao.delete(id);
         if(result == 1){
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO_COMMENT,"ID："+weiboComment.getId()+"内容："+weiboComment.getContent());
-            return new ResultModel(1,"删除成功");
         }
-        return new ResultModel(-1,"删除失败");
+        return result == 1;
     }
 
     public WeiboComment atFormat(WeiboComment weiboComment){

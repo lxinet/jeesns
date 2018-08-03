@@ -13,9 +13,9 @@ public interface IWeiboCommentService {
 
     WeiboComment findById(int id);
 
-    ResultModel save(Member loginMember, String content, Integer weiboId, Integer weiboCommentId);
+    boolean save(Member loginMember, String content, Integer weiboId, Integer weiboCommentId);
 
-    ResultModel delete(Member loginMember, int id);
+    boolean delete(Member loginMember, int id);
 
     ResultModel listByWeibo(Page page, int weiboId);
 
