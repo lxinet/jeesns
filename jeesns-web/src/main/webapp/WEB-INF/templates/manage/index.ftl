@@ -157,10 +157,10 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
-                                                   href="#v121">v1.3</a><code class="pull-right">2018.08.03</code>
+                                                   href="#v13">v1.3</a><code class="pull-right">2018.08.03</code>
                                             </h5>
                                         </div>
-                                        <div id="v121" class="panel-collapse collapse in">
+                                        <div id="v13" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
@@ -192,7 +192,7 @@
                                                    href="#v121">v1.2.1</a><code class="pull-right">2017.12.04</code>
                                             </h5>
                                         </div>
-                                        <div id="v121" class="panel-collapse collapse in">
+                                        <div id="v121" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
