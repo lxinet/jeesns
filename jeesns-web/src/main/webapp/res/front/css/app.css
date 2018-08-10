@@ -33,7 +33,16 @@ a {
 .p-r-10 {
     padding-right: 10px;
 }
+.p-20 {
+    padding: 20px;
+}
+.p-b-100 {
+    padding-bottom: 100px;
+}
 
+.m-l-20 {
+    margin-left: 20px;
+}
 .m-t-n4 {
     margin-top: -4px;
 }
@@ -42,8 +51,27 @@ a {
     margin-top: 10px;
 }
 
+.m-t-100 {
+    margin-top: 100px;
+}
+
 .m-b-10 {
     margin-bottom: 10px;
+}
+
+.m-b-20 {
+    margin-bottom:20px;
+}
+
+.m-b-30 {
+    margin-bottom: 30px;
+}
+
+.m-b-50 {
+    margin-bottom: 50px;
+}
+.m-b-90 {
+    margin-bottom: 90px;
 }
 
 .text-align-center {
@@ -1075,6 +1103,119 @@ a {
 .picture-detail .show-info .more-comment {
     padding-top: 10px;
     text-align: center
+}
+
+.message-input {
+    height: 90px !important;
+}
+.chat-avatar {
+    white: 36px;
+    height: 36px;
+    float: left;
+    margin-right: 10px;
+}
+.chat-user-name {
+    padding: 10px;
+}
+.chat-user {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e7eaec;
+}
+.chat-user a {
+    color: inherit;
+}
+.chat-view {
+    z-index: 20012;
+}
+.chat-users,
+.chat-statistic {
+    margin-left: 10px;
+    margin-right: -10px;
+}
+@media (max-width: 992px) {
+    .chat-users,
+    .chat-statistic {
+        margin-left: 0;
+    }
+}
+.chat-view .ibox-content {
+    padding: 0;
+}
+.chat-message {
+    padding: 10px 20px;
+}
+.message-avatar {
+    height: 48px;
+    width: 48px;
+    border: 1px solid #e7eaec;
+    border-radius: 4px;
+    margin-top: 1px;
+}
+.chat-discussion .chat-message.left .message-avatar {
+    float: left;
+    margin-right: 10px;
+}
+.chat-discussion .chat-message.right .message-avatar {
+    float: right;
+    margin-left: 10px;
+}
+.message {
+    background-color: #fff;
+    border: 1px solid #e7eaec;
+    text-align: left;
+    display: block;
+    padding: 10px 20px;
+    position: relative;
+    border-radius: 4px;
+}
+.chat-discussion .chat-message.left .message-date {
+    float: right;
+}
+.chat-discussion .chat-message.right .message-date {
+    float: left;
+}
+.chat-discussion .chat-message.left .message {
+    text-align: left;
+    margin-left: 55px;
+}
+.chat-discussion .chat-message.right .message {
+    text-align: right;
+    margin-right: 55px;
+}
+.message-date {
+    font-size: 10px;
+    color: #888888;
+}
+.message-content {
+    display: block;
+}
+.chat-discussion {
+    background: #e9eeee;
+    padding: 15px;
+    height: 420px;
+    overflow-y: auto;
+    margin-right: 10px;
+}
+.send-message-area {
+    margin-right: 10px;
+}
+.chat-discussion .no-message{
+    width:100%;
+    margin-top:100px;
+    text-align:center;
+    font-size:30px;
+}
+.chat-users {
+    overflow-y: auto;
+    height: 530px;
+}
+.chat-users .load-more,.chat-discussion .chat-load-more{
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+.chat-message-form .form-group {
+    margin-bottom: 0;
 }
 
 /*webkit内核浏览器*/

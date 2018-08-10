@@ -33,21 +33,21 @@
         </ol>
         <div class="carousel-inner">
             <div class="item active">
-                <img alt="First slide" src="${basePath}/res/front/images/banner1.png">
+                <img alt="First slide" src="${basePath}/res/front/images/banner1.jpg">
                 <div class="carousel-caption">
                     <h3></h3>
                     <p></p>
                 </div>
             </div>
             <div class="item">
-                <img alt="Second slide" src="${basePath}/res/front/images/banner2.png">
+                <img alt="Second slide" src="${basePath}/res/front/images/banner2.jpg">
                 <div class="carousel-caption">
                     <h3></h3>
                     <p></p>
                 </div>
             </div>
             <div class="item">
-                <img alt="Third slide" src="${basePath}/res/front/images/banner3.png">
+                <img alt="Third slide" src="${basePath}/res/front/images/banner3.jpg">
                 <div class="carousel-caption">
                     <h3></h3>
                     <p></p>
