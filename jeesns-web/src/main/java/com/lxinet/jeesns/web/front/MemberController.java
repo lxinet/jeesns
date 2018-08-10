@@ -144,7 +144,6 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/resetpwd",method = RequestMethod.POST)
     @ResponseBody
-    @Before(UserLoginInterceptor.class)
     public ResultModel resetpwd(String email, String token, String password, String repassword){
         if(StringUtils.isEmpty(password)){
             return new ResultModel(-1,"新密码不能为空");

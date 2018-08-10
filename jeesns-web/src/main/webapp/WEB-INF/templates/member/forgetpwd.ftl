@@ -2,59 +2,68 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>忘记密码 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="${basePath}/res/common/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${basePath}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${basePath}/res/common/css/jeesns.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
+    <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
     <script src="${basePath}/res/common/js/respond.min.js"></script>
     <![endif]-->
     <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
-    <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
-    <script src="${basePath}/res/plugins/metisMenu/metisMenu.js"></script>
-    <script src="${basePath}/res/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/manage.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
 </head>
 
 <body class="gray-bg">
-<#include "/member/common/header.ftl"/>
-<div class="animated fadeInDown">
-    <div class="row login-panel">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="ibox-content">
-                <h2 class="font-bold">忘记密码</h2>
-                <form class="m-t jeesns_form" action="${basePath}/member/forgetpwd" method="post" callback="reload">
-                    <div class="form-group">
-                        用户名
-                        <input type="text" class="form-control" name="name" data-type="require" placeholder="用户名">
+<#include "/${frontTemplate}/common/header.ftl"/>
+<div class="wrapper wrapper-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 white-bg m-b-20 p-20">
+                <header class="m-b-50">
+                    <h1> 忘记密码</h1>
+                </header>
+                <form class="form-horizontal jeesns_form" action="${basePath}/member/forgetpwd" method="post" callback="reload">
+                    <div class="form-group m-b-30">
+                        <label class="col-sm-3">用户名</label>
+                        <div class="col-md-8 col-sm-10">
+                            <input type="text" class="form-control" name="name" placeholder="用户名"
+                                   data-type="require">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        邮箱
-                        <input type="email" class="form-control" name="email" placeholder="邮箱" data-type="require,email">
+                    <div class="form-group m-b-30">
+                        <label class="col-sm-3">邮箱</label>
+                        <div class="col-md-8 col-sm-10">
+                             <input type="email" class="form-control" name="email" placeholder="邮箱" data-type="require,email">
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary full-width m-b">找回密码</button>
-                    <p></p>
-                    <p class="text-muted text-center">
-                    <a href="login">我要登录</a> |
-                    <a href="register">我要注册</a>
-                    </p>
+                    <div class="form-group m-b-30">
+                        <label class="col-sm-3"></label>
+                        <div class="col-md-8 col-sm-10">
+                            <button type="submit" class="btn btn-primary btn-block m-t-10">找回密码</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-90">
+                        <p class="text-muted text-center">
+                            <a href="login">我要登录</a> |
+                            <a href="register">我要注册</a>
+                        </p>
+                    </div>
                 </form>
-                <p></p>
             </div>
         </div>
     </div>
 </div>
-<#include "/member/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script>
     $(document).ready(function () {
         $("#getValidCodeBtn").click(function () {

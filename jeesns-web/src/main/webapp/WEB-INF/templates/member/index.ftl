@@ -1,35 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人中心 - ${SITE_NAME} - Powered By JEESNS</title>
-    <meta name="keywords" content="${SITE_KEYS}"/>
-    <meta name="description" content="${SITE_DESCRIPTION}"/>
-    <meta name="author" content="JEESNS"/>
-    <link href="${basePath}/res/common/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${basePath}/res/common/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${basePath}/res/common/css/jeesns.css" rel="stylesheet">
-    <link href="${basePath}/res/common/css/jeesns-skin.css" rel="stylesheet">
-    <link href="${basePath}/res/plugins/emoji/css/emoji.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
-    <script src="${basePath}/res/common/js/respond.min.js"></script>
-    <![endif]-->
-    <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
-    <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
-    <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
-    <script src="${basePath}/res/modules/weibo.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/underscore-min.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/editor.js"></script>
-    <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
-    <script src="${basePath}/res/common/js/extendPagination.js"></script>
-</head>
-
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>个人中心 - ${SITE_NAME} - Powered By JEESNS</title>
+        <meta name="keywords" content="${SITE_KEYS}"/>
+        <meta name="description" content="${SITE_DESCRIPTION}"/>
+        <meta name="author" content="JEESNS"/>
+        <link rel="shortcut icon" href="favicon.ico">
+        <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
+        <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
+        <!--[if lt IE 9]>
+        <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
+        <script src="${basePath}/res/common/js/respond.min.js"></script>
+        <![endif]-->
+        <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
+        <script src="${basePath}/res/common/js/zui.min.js"></script>
+        <script src="${basePath}/res/plugins/layer/layer.js"></script>
+        <script src="${basePath}/res/common/js/jquery.form.js"></script>
+        <script src="${basePath}/res/common/js/jeesns.js"></script>
+        <script src="${basePath}/res/common/js/extendPagination.js"></script>
+    </head>
 <body class="gray-bg">
-<#include "/member/common/header.ftl"/>
+<#include "/${frontTemplate}/common/header.ftl"/>
 <div class="wrapper wrapper-content">
     <div class="member-banner" style="background-image: url(${basePath}/res/common/images/member_banner.png);">
         <div class="attempts"></div>
@@ -82,129 +76,62 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="ibox">
-                <div class="ibox-content float-left">
-                    <div class="col-sm-2">
-                        <div class="float-e-margins">
-                            <div class="feed-activity-list">
-                                <a href="${basePath}/member/message">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            私信
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/u/${loginUser.id}">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            动态
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/member/picture/album">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            相册
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/u/${loginUser.id}/home/fans">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            粉丝
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/u/${loginUser.id}/home/follows">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            关注
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/u/${loginUser.id}/home/article">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            文章
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/u/${loginUser.id}/home/groupTopic">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            群帖
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/u/${loginUser.id}/home/weibo">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            微博
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="${basePath}/u/${loginUser.id}/home/group">
-                                    <div class="feed-element">
-                                        <div class="media-body">
-                                            关注群组
-                                        </div>
-                                    </div>
-                                </a>
+        <div class="row m-t-10">
+            <div class="col-sm-2">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="${basePath}/member/message">私信</a></li>
+                    <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}">动态</a></li>
+                    <li class="list-group-item"><a href="${basePath}/member/picture/album">相册</a></li>
+                    <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}/home/fans">粉丝</a></li>
+                    <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}/home/follows">关注</a></li>
+                    <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}/home/article">文章</a></li>
+                    <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}/home/groupTopic">群帖</a></li>
+                    <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}/home/weibo">微博</a></li>
+                    <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}/home/group">关注群组</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-10 white-bg">
+                <div class="list list-condensed">
+                    <header>
+                        <h3><i class="icon-list-ul"></i> 动态</h3>
+                    </header>
+                    <div class="items items-hover">
+                        <#list actionLogModel.data as actionLog>
+
+                        <div class="item">
+                            <div class="item-heading">
+                                <div class="pull-right"><span class="text-muted">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</span></div>
+                                <h4><a href="${basePath}/u/${actionLog.member.id}"><strong>${actionLog.member.name}</strong></a> ${actionLog.action.log}：</h4>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-10">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>动态</h5>
-                            </div>
-                            <div>
-                                <div class="feed-activity-list">
-                                <#list actionLogModel.data as actionLog>
-                                    <div class="feed-element">
-                                        <a href="${basePath}/u/${actionLog.member.id}" class="pull-left">
-                                            <img alt="image" class="img-circle"
-                                                 src="${basePath}${actionLog.member.avatar!''}">
-                                        </a>
-                                        <div class="media-body ">
-                                            <small class="pull-right text-navy">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</small>
-                                            <a href="${basePath}/u/${actionLog.member.id}"><strong>${actionLog.member.name}</strong></a>${actionLog.action.log}：<br/>
-                                            <#if actionLog.type==1>
-                                                <a href="${basePath}/article/detail/${actionLog.foreignId}"
-                                                   target="_blank">${actionLog.remark}</a>
-                                            <#elseif actionLog.type==2>
+                            <div class="item-content">
+                                <div class="text">
+                                     <#if actionLog.type==1>
+                                         <a href="${basePath}/article/detail/${actionLog.foreignId}"
+                                            target="_blank">${actionLog.remark}</a>
+                                     <#elseif actionLog.type==2>
                                                 <p>${actionLog.remark}</p>
                                                 <a href="${weiboPath}/detail/${actionLog.foreignId}"
                                                    target="_blank">查看</a>
-                                            <#elseif actionLog.type==4>
+                                     <#elseif actionLog.type==4>
                                                 <a href="${groupPath}/topic/${actionLog.foreignId}"
                                                    target="_blank">${actionLog.remark}</a>
-                                            </#if>
-                                            <br>
-                                            <div class="actions">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </#list>
-                                    <div class="box-footer clearfix">
-                                        <ul class="pagination pagination-sm no-margin pull-right"
-                                            url="${basePath}/member/"
-                                            currentPage="${actionLogModel.page.pageNo}"
-                                            pageCount="${actionLogModel.page.totalPage}">
-                                        </ul>
-                                    </div>
+                                     </#if>
                                 </div>
                             </div>
                         </div>
+                        </#list>
+                        <ul class="pager pagination pagination-sm no-margin pull-right"
+                            url="${basePath}/member/"
+                            currentPage="${actionLogModel.page.pageNo}"
+                            pageCount="${actionLogModel.page.totalPage}">
+                        </ul>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-<#include "/member/common/footer.ftl"/>
+<#include "/${frontTemplate}/common/footer.ftl"/>
 <script type="text/javascript">
     $(function () {
         $(".pagination").jeesns_page("jeesnsPageForm");
