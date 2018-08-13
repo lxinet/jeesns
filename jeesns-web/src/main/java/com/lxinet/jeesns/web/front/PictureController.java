@@ -130,7 +130,7 @@ public class PictureController extends BaseController {
     public String index(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        Page page = new Page(1,20);
+        Page page = new Page(request);
         ResultModel resultModel = pictureService.listByPage(page,loginMemberId);
         model.addAttribute("model", resultModel);
         return jeesnsConfig.getFrontTemplate() + "/picture/index";
