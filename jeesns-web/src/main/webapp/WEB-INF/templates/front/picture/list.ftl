@@ -37,9 +37,11 @@
                     <#list model.data as picture>
                     <div class="col-md-4 col-sm-6 col-lg-3">
                         <div class="card">
-                            <a href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
-                                <img src="${basePath}${picture.smallPath}">
-                            </a>
+                            <div class="albumPic">
+                                <a class="picLink" href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
+                                    <img src="${basePath}${picture.smallPath}" class="pic">
+                                </a>
+                            </div>
                             <div class="card-actions m-t-10">
                                 <div class="text-danger"><i class="icon-heart-empty"></i> ${picture.favorCount} 人喜欢</div>
                             </div>
@@ -75,7 +77,7 @@
                             ${pictureAlbum.member.introduce}
                             </p>
                             <p><strong>${pictureAlbum.name}(${model.page.totalCount})</strong></p>
-                            <div class="card"><img src="${basePath}${pictureAlbum.cover}"></div>
+                            <div class="card"><img src="${basePath}${pictureAlbum.cover}" width="240px" height="140px"></div>
                         </div>
                     </div>
                 </div>

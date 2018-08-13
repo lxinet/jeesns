@@ -38,19 +38,27 @@
                     </span>
                 </div>
                 <div class="panel-body">
-                    <div class="cards cards-borderless">
+                    <div class="cards">
                     <#list model.data as pictureAlbum>
-                        <div class="col-md-3 col-sm-6 col-lg-2">
-                            <a class="card" href="${basePath}/member/picture/list/${pictureAlbum.memberId}-${pictureAlbum.id}">
-                                <img src="${basePath}${pictureAlbum.cover}">
-                                <#if pictureAlbum.description??>
-                                    <div class="caption">${pictureAlbum.description}</div>
-                                </#if>
+                        <div class="col-md-4 col-sm-6 col-lg-3">
+                            <div class="card">
+                                <div class="albumPic">
+                                    <a class="picLink" href="${basePath}/member/picture/list/${pictureAlbum.memberId}-${pictureAlbum.id}">
+                                        <#if pictureAlbum.juri == 0>
+                                            <img src="${basePath}${pictureAlbum.cover}" class="pic">
+                                        <#else>
+                                            <img src="${basePath}/res/common/images/lock_album.png" class="pic">
+                                        </#if>
+                                    </a>
+                                </div>
+                                 <#if pictureAlbum.description??>
+                                            <div class="caption">${pictureAlbum.description}</div>
+                                 </#if>
                                 <div class="card-heading"><strong>${pictureAlbum.name}</strong></div>
                                 <div class="card-actions">
                                     <div class="pull-right text-danger"><i class="icon-heart-empty"></i> ${pictureAlbum.favorCount} 人喜欢</div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </#list>
                     </div>

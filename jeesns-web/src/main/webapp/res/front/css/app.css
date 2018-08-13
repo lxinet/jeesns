@@ -826,7 +826,7 @@ a {
 
 .member-banner .left {
     float: left;
-    width: 300px;
+    width: 800px;
     padding-top: 50px;
 }
 
@@ -1216,6 +1216,22 @@ a {
 }
 .chat-message-form .form-group {
     margin-bottom: 0;
+}
+
+.albumPic{
+    height: 160px;
+}
+
+.albumPic .picLink{
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+}
+.albumPic .pic{
+    max-height: 100%;
+    max-width: 100%
 }
 
 /*webkit内核浏览器*/
