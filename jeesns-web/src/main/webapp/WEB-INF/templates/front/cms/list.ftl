@@ -26,27 +26,34 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 white-bg">
                 <div class="items">
                     <#list model.data as article>
-                    <div class="item article-list shadow">
-                        <div class="item-content">
+                    <div class="item">
+                        <div class="item-content article">
+                            <div class="media pull-left">
                             <#if article.thumbnail??>
-                                <div class="media pull-left">
-                                    <a href="${basePath}/article/detail/${article.id}">
-                                        <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="80px" width="120px">
-                                    </a>
-                                </div>
+                                <a href="${basePath}/article/detail/${article.id}">
+                                    <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="150px" width="220px">
+                                </a>
                             </#if>
-                            <div class="text">
-                                <a href="${basePath}/article/list?cid=${article.articleCate.id}"><div class="pull-right label label-success">${article.articleCate.name}</div></a>
-                                <h3><a href="${basePath}/article/detail/${article.id}">${article.title}</a></h3>
-                                <p>
-                                    <span class="text-muted"><i class="icon-comments"></i> ${article.viewCount} &nbsp; <i class="icon-time"></i> ${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
-                                </p>
+                            </div>
+                            <div class="item-heading">
+                                <h3><a class="title" href="${basePath}/article/detail/${article.id}">${article.title}</a></h3>
+                            </div>
+                            <div class="text word-break">
+                                ${article.description}
+                            </div>
+                            <div class="item-footer">
+                                <i class="icon-eye-open"></i> ${article.viewCount} &nbsp;
+                                <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                <a href="${basePath}/article/list?cid=${article.articleCate.id}">
+                                    <div class="pull-right label label-success">
+                                        ${article.articleCate.name}
+                                    </div>
+                                </a>
                             </div>
                         </div>
-
                     </div>
                     </#list>
                         <ul class="pager pagination pagination-sm no-margin pull-right"

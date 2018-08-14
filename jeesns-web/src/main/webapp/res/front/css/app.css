@@ -78,6 +78,11 @@ a {
     text-align: center;
 }
 
+.word-break{
+    word-break:break-all;
+}
+
+
 .navbar {
     border-radius: 0px;
     min-height: 70px;
@@ -1232,6 +1237,27 @@ a {
 .albumPic .pic{
     max-height: 100%;
     max-width: 100%
+}
+.items .item-content>.media.pull-left{
+    max-width: 240px;
+}
+.article .title{
+    font-size: 18px;
+    max-height: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 22px;
+    color: #3d464d;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+}
+
+.article .title:hover{
+    color: #0499e2;
 }
 
 /*webkit内核浏览器*/

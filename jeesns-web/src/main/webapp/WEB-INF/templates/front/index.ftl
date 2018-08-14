@@ -25,69 +25,40 @@
 <body class="gray-bg">
 <#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
-    <div id="banner" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#banner" data-slide-to="0" class="active"></li>
-            <li data-target="#banner" data-slide-to="1"></li>
-            <li data-target="#banner" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="item active">
-                <img alt="First slide" src="${basePath}/res/front/images/banner1.jpg">
-                <div class="carousel-caption">
-                    <h3></h3>
-                    <p></p>
-                </div>
-            </div>
-            <div class="item">
-                <img alt="Second slide" src="${basePath}/res/front/images/banner2.jpg">
-                <div class="carousel-caption">
-                    <h3></h3>
-                    <p></p>
-                </div>
-            </div>
-            <div class="item">
-                <img alt="Third slide" src="${basePath}/res/front/images/banner3.jpg">
-                <div class="carousel-caption">
-                    <h3></h3>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="main-content m-t-10">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         推荐阅读
-                        <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${basePath}/article/list">阅读更多</a>
-                        </span>
                     </div>
                     <div class="panel-body">
                         <div class="items">
-                        <@cms_article_list cid=0 num=16 thumbnail=1; article>
+                        <@cms_article_list cid=0 num=20 thumbnail=1; article>
                             <#list articleList as article>
-                                <div class="col-md-3">
-                                    <div class="item index-article">
-                                        <div class="item-content">
-                                            <div class="media">
-                                                <a href="${basePath}/article/detail/${article.id}">
-                                                    <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="150px" width="100%">
-                                                </a>
-                                            </div>
-                                            <h4><a href="${basePath}/article/detail/${article.id}">
-                                                <#if article.title?length &gt; 18>
-                                                ${article.title?substring(0,18)}...
-                                                <#else>
-                                                ${article.title}
-                                                </#if>
-                                            </a></h4>
+                                <div class="item">
+                                    <div class="item-content article">
+                                        <div class="media pull-left">
+                                        <#if article.thumbnail??>
+                                            <a href="${basePath}/article/detail/${article.id}">
+                                                <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="150px" width="220px">
+                                            </a>
+                                        </#if>
+                                        </div>
+                                        <div class="item-heading">
+                                            <h3><a class="title" href="${basePath}/article/detail/${article.id}">${article.title}</a></h3>
+                                        </div>
+                                        <div class="text word-break">
+                                            ${article.description}
                                         </div>
                                         <div class="item-footer">
-                                            <a href="${basePath}/article/detail/${article.id}" class="text-muted"><i class="icon-comments"></i> ${article.viewCount}</a> &nbsp; <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                            <i class="icon-eye-open"></i> ${article.viewCount} &nbsp;
+                                            <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                            <a href="${basePath}/article/list?cid=${article.articleCate.id}">
+                                                <div class="pull-right label label-success">
+                                                    ${article.articleCate.name}
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -97,27 +68,64 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="panel group-topic-list no-border">
+                    <div class="panel-heading">
+                        微博
+                    </div>
+                    <div class="panel-body article-hot-list">
+                        <ul>
+                        <@wb_weibo_list num=20 day=0; weibo>
+                            <#list weiboList as weibo>
+                                <div class="comment">
+                                    <a href="${basePath}/u/${weibo.member.id}" class="avatar" target="_blank">
+                                        <img src="${basePath}${weibo.member.avatar!''}"
+                                             class="icon-camera-retro icon-2x">
+                                    </a>
+                                    <div class="content">
+                                        <div class="pull-right text-muted timeago" datetime="${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')}"></div>
+                                        <div>
+                                            <a href="${basePath}/u/${weibo.member.id}" target="_blank">
+                                                <strong>${weibo.member.name}</strong>
+                                            </a>
+                                        </div>
+                                        <div class="text">
+                                            <div class="emoji-render-content">${weibo.content}</div>
+                                        </div>
+                                        <div class="actions">
+                                            (<#if weibo.isFavor==0>
+                                            <a class="text-primary weibo-favor" weibo-id="${weibo.id}">
+                                                <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
+                                        <#else>
+                                            <a class="text-success weibo-favor" weibo-id="${weibo.id}">
+                                                <i class="icon-thumbs-up"></i> ${weibo.favor}</a>
+                                        </#if>
+                                            <a href="${weiboPath}/detail/${weibo.id}"><i class="icon-chat"></i> ${weibo.commentCount}</a>
+                                            <a href="${weiboPath}/detail/${weibo.id}">查看详情</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </#list>
+                        </@wb_weibo_list>
+                        </ul>
+                    </div>
+                </div>
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         最新帖子
-                        <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${groupPath}/">阅读更多</a>
-                        </span>
                     </div>
                     <div class="panel-body">
                         <div class="items">
-                            <div class="col-md-4">
+                            <div class="row">
                                 <div class="article-hot-list">
                                     <ul>
-                                    <@group_topic_list cid=0 num=15 day=100; groupTopic>
+                                    <@group_topic_list cid=0 num=20 day=0; groupTopic>
                                         <#list groupTopicList as groupTopic>
                                             <li><i class="main-text-color"></i> <a href="${groupPath}/topic/${groupTopic.id}">
                                                 <#if groupTopic.title?length &gt; 18>
-                                                ${groupTopic.title?substring(0,18)}...
+                                                    ${groupTopic.title?substring(0,18)}...
                                                 <#else>
-                                                ${groupTopic.title}
+                                                    ${groupTopic.title}
                                                 </#if>
                                             </a></li>
                                         </#list>
@@ -125,33 +133,12 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <div class="items">
-                                <@group_topic_list gid=0 num=6 thumbnail=1; groupTopic>
-                                    <#list groupTopicList as groupTopic>
-                                        <div class="col-md-4">
-                                            <div class="item index-article">
-                                                <div class="item-content">
-                                                    <div class="media">
-                                                        <a href="${groupPath}/topic/${groupTopic.id}">
-                                                            <img src="${basePath}${groupTopic.thumbnail}" alt="${groupTopic.title}" height="150px" width="100%">
-                                                        </a>
-                                                    </div>
-                                                    <h4><a href="${groupPath}/topic/${groupTopic.id}">${groupTopic.title}</a></h4>
-                                                </div>
-                                                <div class="item-footer">
-                                                    <a href="${groupPath}/topic/${groupTopic.id}" class="text-muted"><i class="icon-comments"></i> ${groupTopic.viewCount}</a> &nbsp; <span class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </#list>
-                                </@group_topic_list>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-md-12">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
