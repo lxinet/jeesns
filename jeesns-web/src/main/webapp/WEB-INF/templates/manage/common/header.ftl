@@ -71,6 +71,7 @@
                 <ul class="treeview-menu">
                     <li><a href="${managePath}/cms/articleCate/list" module="cms"><i class="fa fa-circle-o"></i>栏目管理</a></li>
                     <li><a href="${managePath}/cms/index" module="cms"><i class="fa fa-circle-o"></i>文章管理</a></li>
+                    <li><a href="${managePath}/cms/comment/list" module="cms"><i class="fa fa-circle-o"></i>评论管理</a></li>
                 </ul>
             </li>
             <li class="treeview" module="member">

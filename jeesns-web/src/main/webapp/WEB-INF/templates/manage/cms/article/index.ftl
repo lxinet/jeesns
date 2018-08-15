@@ -121,6 +121,9 @@
                                         </#if>
                                     </td>
                                     <td>
+                                        <a href="${managePath}/cms/comment/list?articleId=${article.id}" title="查看评论">
+                                            <span class="label label-info"><i class="fa fa-comment green"></i></span>
+                                        </a>
                                         <a href="${managePath}/cms/article/edit/${article.id}" target="_jeesnsOpen"
                                            title="编辑文章" width="1000px" height="680px">
                                             <span class="label label-warning"><i class="fa fa-edit green"></i></span>

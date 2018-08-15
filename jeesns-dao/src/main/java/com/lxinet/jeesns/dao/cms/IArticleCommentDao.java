@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface IArticleCommentDao extends IBaseDao<ArticleComment> {
 
-    List<ArticleComment> listByArticle(@Param("page") Page page, @Param("articleId") Integer articleId);
+    List<ArticleComment> listByPage(@Param("page") Page page, @Param("articleId") Integer articleId, @Param("key") String key);
 
     int deleteByArticle(@Param("articleId") Integer articleId);
 }
