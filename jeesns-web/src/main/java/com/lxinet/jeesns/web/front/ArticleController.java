@@ -6,6 +6,7 @@ import com.lxinet.jeesns.core.exception.NotFountException;
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
+import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -176,7 +177,10 @@ public class ArticleController extends BaseController {
         if(articleId == null){
             articleId = 0;
         }
-        return articleCommentService.listByArticle(page,articleId);
+        List<ArticleComment> list = articleCommentService.listByPage(page,articleId, null);
+        ResultModel resultModel = new ResultModel(0,page);
+        resultModel.setData(list);
+        return resultModel;
     }
 
 

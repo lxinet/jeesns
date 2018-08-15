@@ -73,12 +73,13 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     }
 
     @Override
-    public ResultModel listByArticle(Page page, int articleId) {
-        List<ArticleComment> list = articleCommentDao.listByArticle(page, articleId);
+    public List listByPage(Page page, int articleId, String key) {
+        if (StringUtils.isNotBlank(key)){
+            key = "%"+key+"%";
+        }
+        List<ArticleComment> list = articleCommentDao.listByPage(page, articleId, key);
         this.atFormat(list);
-        ResultModel model = new ResultModel(0,page);
-        model.setData(list);
-        return model;
+        return list;
     }
 
     @Override
@@ -89,15 +90,13 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     @Override
     @Transactional
     public boolean delete(Member loginMember, int id) {
-        ArticleComment articleComment = this.findById(id);
-        ValidUtill.checkIsNull(articleComment,Messages.COMMENT_NOT_EXISTS);
         int result = articleCommentDao.delete(id);
         if(result == 0){
             throw new OpeErrorException();
         }
         //扣除积分
         scoreDetailService.scoreCancelBonus(loginMember.getId(), ScoreRuleConsts.ARTICLE_REVIEWS,id);
-        actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_ARTICLE_COMMENT,"ID："+articleComment.getId()+"，内容："+articleComment.getContent());
+        actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_ARTICLE_COMMENT,"ID："+id);
         return true;
     }
 

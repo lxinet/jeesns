@@ -1,9 +1,10 @@
 package com.lxinet.jeesns.service.cms;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.model.member.Member;
+
+import java.util.List;
 
 
 /**
@@ -17,7 +18,7 @@ public interface IArticleCommentService {
 
     boolean delete(Member loginMember, int id);
 
-    ResultModel listByArticle(Page page, int articleId);
+    List<ArticleComment> listByPage(Page page, int articleId, String key);
 
     void deleteByArticle(Integer articleId);
 }
