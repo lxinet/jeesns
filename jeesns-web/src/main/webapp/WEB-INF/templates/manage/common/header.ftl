@@ -82,6 +82,7 @@
                 <ul class="treeview-menu">
                     <li><a href="${managePath}/member/index" module="member"><i class="fa fa-circle-o"></i>会员列表</a></li>
                     <li><a href="${managePath}/member/managerList" module="member"><i class="fa fa-circle-o"></i>管理员列表</a></li>
+                    <li><a href="${managePath}/checkin/list" module="member"><i class="fa fa-circle-o"></i>签到管理</a></li>
                 </ul>
             </li>
             <li class="treeview" module="group">

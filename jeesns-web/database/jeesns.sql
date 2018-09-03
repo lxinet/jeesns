@@ -436,6 +436,14 @@ CREATE TABLE `tbl_group_type` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tbl_checkin` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `member_id` INT(11),
+  `continue_day` INT(11),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_archive_favor` ADD CONSTRAINT `fk_archive_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -470,6 +478,7 @@ ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_member` FOREIGN
 ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`picture_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_group_topic` ADD CONSTRAINT `fk_group_topic_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_topic_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `tbl_group` ADD CONSTRAINT `fk_group_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `tbl_checkin` ADD CONSTRAINT `fk_checkin_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 
 
@@ -522,7 +531,8 @@ INSERT INTO tbl_action(id, create_time, name, log, status, update_time) VALUES
   (3007,now(),'删除文章评论','删除了文章评论',0,now()),
   (10001,now(),'发布微博','发布了微博',0,now()),
   (10002,now(),'群组发帖','发布了群组帖子',0,now()),
-  (10003,now(),'发布文章','发布了文章',0,now());
+  (10003,now(),'发布文章','发布了文章',0,now()),
+  (10004,now(),'签到','签到',0,now());
 
 
 INSERT INTO tbl_score_rule(id,create_time,update_time,name,score,remark,type,status) VALUES
@@ -538,7 +548,8 @@ INSERT INTO tbl_score_rule(id,create_time,update_time,name,score,remark,type,sta
   (10,now(),now(),'申请群组',-10,'申请群组扣除/奖励积分，如需要扣除积分，请填写负数','unlimite',1),
   (11,now(),now(),'群组发帖',1,'群组发帖奖励积分，如需审核，审核之后奖励','unlimite',1),
   (12,now(),now(),'群组帖子评论',1,'群组帖子评论奖励积分','unlimite',1),
-  (13,now(),now(),'群组帖子收到喜欢',1,'群组帖子收到喜欢奖励积分','unlimite',1);
+  (13,now(),now(),'群组帖子收到喜欢',1,'群组帖子收到喜欢奖励积分','unlimite',1),
+  (14,now(),now(),'签到',1,'签到奖励','day',1);
 
 INSERT INTO `tbl_group_type` values (1,now(),'默认分类');
 

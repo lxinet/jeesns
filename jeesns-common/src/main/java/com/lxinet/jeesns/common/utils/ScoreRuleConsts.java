@@ -69,4 +69,9 @@ public class ScoreRuleConsts {
      * 群组帖子收到喜欢
      */
     public static final Integer GROUP_TOPIC_RECEIVED_LIKE = 13;
+
+    /**
+     * 签到
+     */
+    public static final Integer CHECKIN = 14;
 }
