@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                             <div class="actions">
-                                (<#if weibo.isFavor==0>
+                                <#if weibo.isFavor==0>
                                 <a class="text-primary weibo-favor" weibo-id="${weibo.id}" href="javascript:void(0);">
                                     <i class="icon-thumbs-o-up"></i> ${weibo.favor}</a>
                             <#else>
