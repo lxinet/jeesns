@@ -25,7 +25,7 @@ public interface IWeiboService {
 
     List<Weibo> hotList(int loginMemberId);
 
-    int favor(Member loginMember, int weiboId);
+    ResultModel favor(Member loginMember, int weiboId);
 
     List<Weibo> listByCustom(int loginMemberId, String sort,int num,int day);
 }

@@ -107,9 +107,7 @@ public class WeiboController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public ResultModel favor(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(true);
-        int num = weiboService.favor(loginMember,weiboId);
-        resultModel.setData(num);
+        ResultModel resultModel = weiboService.favor(loginMember,weiboId);
         return resultModel;
     }
 }
