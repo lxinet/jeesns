@@ -7,6 +7,7 @@ import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.member.Member;
+import com.lxinet.jeesns.model.system.ScoreRule;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.dao.group.IGroupDao;
 import com.lxinet.jeesns.service.group.IGroupFansService;
@@ -17,6 +18,7 @@ import com.lxinet.jeesns.service.system.IConfigService;
 import com.lxinet.jeesns.common.utils.ActionUtil;
 import com.lxinet.jeesns.common.utils.ConfigUtil;
 import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.service.system.IScoreRuleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,8 @@ public class GroupServiceImpl implements IGroupService {
     private IActionLogService actionLogService;
     @Resource
     private IScoreDetailService scoreDetailService;
+    @Resource
+    private IScoreRuleService scoreRuleService;
 
     @Override
     public List<Group> list(int status, String key) {
@@ -92,6 +96,7 @@ public class GroupServiceImpl implements IGroupService {
     @Override
     @Transactional
     public boolean save(Member loginMember, Group group) {
+        loginMember = memberService.findById(loginMember.getId());
         Map<String,String> config = configService.getConfigToMap();
         group.setCreator(loginMember.getId());
         if(loginMember.getIsAdmin() > 0){
@@ -99,6 +104,10 @@ public class GroupServiceImpl implements IGroupService {
         }else {
             if("0".equals(config.get(ConfigUtil.GROUP_APPLY))){
                 throw new OpeErrorException("群组申请功能已关闭");
+            }
+            ScoreRule scoreRule = scoreRuleService.findById(ScoreRuleConsts.APPLY_GROUP);
+            if (scoreRule != null && loginMember.getScore() < Math.abs(scoreRule.getScore())){
+                throw new OpeErrorException("账户积分不足无法申请群组，申请群组需要积分：" + Math.abs(scoreRule.getScore()) + "，当前积分余额为：" + loginMember.getScore());
             }
             if("0".equals(config.get(ConfigUtil.GROUP_APPLY_REVIEW))){
                 group.setStatus(0);
