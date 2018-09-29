@@ -214,9 +214,7 @@ public class ArticleController extends BaseController {
         if(id == null) {
             throw new ParamException();
         }
-        ResultModel resultModel = new ResultModel(true);
-        int num = articleService.favor(loginMember,id);
-        resultModel.setData(num);
+        ResultModel resultModel = articleService.favor(loginMember,id);
         return resultModel;
     }
 }

@@ -29,7 +29,7 @@ public interface IArticleService {
 
     boolean audit(int id);
 
-    int favor(Member loginMember, int articleId);
+    ResultModel favor(Member loginMember, int articleId);
 
     List<Article> listByCustom(int cid,String sort,int num,int day,int thumbnail);
 }

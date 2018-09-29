@@ -478,9 +478,7 @@ public class GroupController extends BaseController {
         if (id == null) {
             return new ResultModel(-1, "非法操作");
         }
-        int num = groupTopicService.favor(loginMember, id);
-        ResultModel resultModel = new ResultModel(true);
-        resultModel.setData(num);
+        ResultModel resultModel = groupTopicService.favor(loginMember, id);
         return resultModel;
     }
 

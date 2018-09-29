@@ -257,7 +257,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
 
 
     @Override
-    public int favor(Member loginMember, int id) {
+    public ResultModel favor(Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id);
         ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
         ResultModel resultModel = archiveService.favor(loginMember,groupTopic.getArchiveId());
@@ -271,7 +271,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
         }
-        return groupTopic.getFavor();
+        return resultModel;
     }
 
     @Override

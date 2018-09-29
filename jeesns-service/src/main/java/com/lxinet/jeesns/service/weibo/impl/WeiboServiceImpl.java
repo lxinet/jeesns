@@ -130,9 +130,10 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Transactional
     @Override
-    public int favor(Member loginMember, int weiboId) {
+    public ResultModel favor(Member loginMember, int weiboId) {
         ValidUtill.checkParam(weiboId != 0);
         Weibo weibo = this.findById(weiboId,loginMember.getId());
+        ResultModel resultModel = new ResultModel(0);
         if(weiboFavorService.find(weiboId,loginMember.getId()) == null){
             //增加
             weiboDao.favor(weiboId,1);
@@ -149,8 +150,10 @@ public class WeiboServiceImpl implements IWeiboService {
             weiboFavorService.delete(weiboId,loginMember.getId());
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP,weiboId);
+            resultModel.setCode(1);
         }
-        return weibo.getFavor();
+        resultModel.setData(weibo.getFavor());
+        return resultModel;
     }
 
     @Override

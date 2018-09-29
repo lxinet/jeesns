@@ -33,7 +33,7 @@ public interface IGroupTopicService {
 
     boolean essence(Member member, int id, int essence);
 
-    int favor(Member loginMember, int id);
+    ResultModel favor(Member loginMember, int id);
 
     List<GroupTopic> listByCustom(int gid, String sort, int num, int day, int thumbnail);
 }
