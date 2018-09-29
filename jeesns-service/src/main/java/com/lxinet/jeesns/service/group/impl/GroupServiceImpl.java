@@ -115,14 +115,14 @@ public class GroupServiceImpl implements IGroupService {
         group.setManagers(managerIds);
         group.setCanPost(1);
         group.setTopicReview(0);
-        if(groupDao.save(group) == 1){
+        boolean result = groupDao.save(group) == 1;
+        if(result){
             //创建者默认关注群组
             groupFansService.save(loginMember,group.getId());
             //申请群组奖励、扣款
             scoreDetailService.scoreBonus(loginMember.getId(), ScoreRuleConsts.APPLY_GROUP, group.getId());
         }
-
-        return groupDao.save(group) == 1;
+        return result;
     }
 
     @Override
