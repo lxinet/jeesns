@@ -3,6 +3,7 @@ package com.lxinet.jeesns.model.common;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.model.member.Member;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.validation.constraints.Digits;
 import java.io.Serializable;
@@ -215,6 +216,7 @@ public class Archive implements Serializable {
     }
 
     public void setContent(String content) {
+        content = HtmlUtils.htmlUnescape(content);
         this.content = content;
     }
 
