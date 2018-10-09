@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.core.utils;
 
+import org.springframework.web.util.HtmlUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
@@ -12,6 +14,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public XssHttpServletRequestWrapper(HttpServletRequest servletRequest) {
         super(servletRequest);
     }
+
+    @Override
     public String[] getParameterValues(String parameter) {
         String[] values = super.getParameterValues(parameter);
         if (values==null)  {
@@ -24,6 +28,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
         return encodedValues;
     }
+
+    @Override
     public String getParameter(String parameter) {
         String value = super.getParameter(parameter);
         if (value == null) {
@@ -31,20 +37,16 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
         return cleanXSS(value);
     }
+    @Override
     public String getHeader(String name) {
         String value = super.getHeader(name);
-        if (value == null)
+        if (value == null) {
             return null;
+        }
         return cleanXSS(value);
     }
     private String cleanXSS(String value) {
-        //(?i)忽略大小写
-        value = value.replaceAll("(?i)<style>", "&lt;style&gt;").replaceAll("(?i)</style>", "&lt;&#47;style&gt;");
-        value = value.replaceAll("(?i)<script>", "&lt;script&gt;").replaceAll("(?i)</script>", "&lt;&#47;script&gt;");
-        value = value.replaceAll("(?i)<script", "&lt;script");
-        value = value.replaceAll("(?i)eval\\((.*)\\)", "");
-        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
-
+        value = HtmlUtils.htmlEscape(value);
         // 需要过滤的脚本事件关键字
         String[] eventKeywords = { "onmouseover", "onmouseout", "onmousedown",
                 "onmouseup", "onmousemove", "onclick", "ondblclick",
@@ -56,7 +58,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         // 滤除脚本事件代码
         for (int i = 0; i < eventKeywords.length; i++) {
             // 添加一个"_", 使事件代码无效
-            value = value.replaceAll(eventKeywords[i],"_" + eventKeywords[i]);
+            value = value.replaceAll("(?i)" + eventKeywords[i],"_" + eventKeywords[i]);
         }
         return value;
     }
