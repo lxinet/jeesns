@@ -6,11 +6,8 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.NotFountException;
-import com.lxinet.jeesns.core.exception.NotLoginException;
-import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
-import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.web.common.BaseController;
@@ -23,6 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -110,4 +109,26 @@ public class WeiboController extends BaseController {
         ResultModel resultModel = weiboService.favor(loginMember,weiboId);
         return resultModel;
     }
+
+
+    @RequestMapping(value = "/topic/{topicName}",method = RequestMethod.GET)
+    public String listByTopic(@PathVariable(value = "topicName") String topicName, Model model){
+        Page page = new Page(request);
+        try {
+            topicName = URLDecoder.decode(topicName, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Member loginMember = MemberUtil.getLoginMember(request);
+        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
+        ResultModel resultModel = null;
+        resultModel = weiboService.listByTopic(page,loginMemberId,topicName);
+        model.addAttribute("model", resultModel);
+        List<Weibo> hotList = weiboService.hotList(loginMemberId);
+        model.addAttribute("hotList",hotList);
+        model.addAttribute("loginUser", loginMember);
+        model.addAttribute("topicName", topicName);
+        return jeesnsConfig.getFrontTemplate() + "/weibo/topic";
+    }
+
 }

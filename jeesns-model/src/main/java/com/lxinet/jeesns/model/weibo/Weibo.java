@@ -24,6 +24,7 @@ public class Weibo implements Serializable {
     //是否已点赞，0未点赞，1已点赞
     private Integer isFavor;
     private List<Picture> pictures;
+    private Integer topicId;
 
     public Integer getId() {
         return id;
@@ -111,5 +112,13 @@ public class Weibo implements Serializable {
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    public Integer getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(Integer topicId) {
+        this.topicId = topicId;
     }
 }

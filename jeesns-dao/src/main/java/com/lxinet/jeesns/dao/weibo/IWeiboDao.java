@@ -45,4 +45,7 @@ public interface IWeiboDao extends IBaseDao<Weibo> {
      * @return
      */
     List<Weibo> listByCustom(@Param("loginMemberId") Integer loginMemberId,@Param("sort") String sort,@Param("num") int num,@Param("day") int day);
+
+    List<Weibo> listByTopic(@Param("page") Page page, @Param("loginMemberId") int loginMemberId, @Param("topicId") Integer topicId);
+
 }
