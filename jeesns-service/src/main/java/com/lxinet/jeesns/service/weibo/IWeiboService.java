@@ -28,4 +28,6 @@ public interface IWeiboService {
     ResultModel favor(Member loginMember, int weiboId);
 
     List<Weibo> listByCustom(int loginMemberId, String sort,int num,int day);
+
+    ResultModel<Weibo> listByTopic(Page page, int loginMemberId, String topicName);
 }

@@ -20,6 +20,8 @@ public class JeesnsConfig {
     private String memberTemplate;
     @Value("${frontTemplate}")
     private String frontTemplate;
+    @Value("${mobileTemplate}")
+    private String mobileTemplate;
 
     public String getManagePath() {
         return managePath;
@@ -43,5 +45,9 @@ public class JeesnsConfig {
 
     public String getFrontTemplate() {
         return frontTemplate;
+    }
+
+    public String getMobileTemplate() {
+        return mobileTemplate;
     }
 }

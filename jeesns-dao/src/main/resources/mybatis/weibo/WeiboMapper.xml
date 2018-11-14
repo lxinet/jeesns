@@ -50,7 +50,15 @@
     delete from tbl_weibo where id = #{id}
   </delete>
   <insert id="save" parameterType="Weibo" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_weibo (create_time, member_id, type, content) VALUES (now(),#{memberId},#{type},#{content})
+    insert into tbl_weibo (create_time, member_id, type, content
+    <if test="topicId != null">
+      ,topic_id
+    </if>
+    ) VALUES (now(),#{memberId},#{type},#{content}
+    <if test="topicId != null">
+      ,#{topicId}
+    </if>
+    )
   </insert>
 
   <select id="hotList" resultMap="WeiboResult">
@@ -91,5 +99,12 @@
     </choose>
     DESC
     limit 0,#{num}
+  </select>
+
+  <select id="listByTopic" resultMap="WeiboResult">
+    SELECT <include refid="select_column"/>
+    from tbl_weibo a left join tbl_member b on a.member_id = b.id
+    where a.topic_id = #{topicId}
+    order by a.id DESC
   </select>
 </mapper>

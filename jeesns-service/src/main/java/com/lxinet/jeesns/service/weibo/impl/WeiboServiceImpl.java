@@ -12,6 +12,7 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
+import com.lxinet.jeesns.model.weibo.WeiboTopic;
 import com.lxinet.jeesns.service.picture.IPictureService;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IMessageService;
@@ -20,12 +21,17 @@ import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.dao.weibo.IWeiboDao;
 import com.lxinet.jeesns.service.weibo.IWeiboFavorService;
 import com.lxinet.jeesns.service.weibo.IWeiboService;
+import com.lxinet.jeesns.service.weibo.IWeiboTopicService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -46,6 +52,8 @@ public class WeiboServiceImpl implements IWeiboService {
     private IMessageService messageService;
     @Resource
     private IMemberService memberService;
+    @Resource
+    private IWeiboTopicService weiboTopicService;
 
     @Override
     public Weibo findById(int id, int memberId) {
@@ -63,6 +71,17 @@ public class WeiboServiceImpl implements IWeiboService {
         if(content.length() > Integer.parseInt((String) request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase()))){
             throw new ParamException("内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
         }
+        //获取话题
+        String topicName = WeiboTopicUtil.getTopicName(content);
+        WeiboTopic weiboTopic = null;
+        if (StringUtils.isNotBlank(topicName)){
+            weiboTopic = weiboTopicService.findByName(topicName);
+            if (weiboTopic == null){
+                weiboTopic = new WeiboTopic();
+                weiboTopic.setName(topicName);
+                weiboTopicService.save(weiboTopic);
+            }
+        }
         Weibo weibo = new Weibo();
         weibo.setMemberId(loginMember.getId());
         weibo.setContent(content);
@@ -73,6 +92,9 @@ public class WeiboServiceImpl implements IWeiboService {
         }else {
             //图片
             weibo.setType(1);
+        }
+        if (weiboTopic != null){
+            weibo.setTopicId(weiboTopic.getId());
         }
         int result = weiboDao.save(weibo);
         if(result == 1){
@@ -92,7 +114,7 @@ public class WeiboServiceImpl implements IWeiboService {
             key = "%"+key.trim()+"%";
         }
         List<Weibo> list = weiboDao.listByPage(page, memberId,loginMemberId,key);
-        list = this.atFormat(list);
+        list = this.formatWeibo(list);
         ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
@@ -125,6 +147,7 @@ public class WeiboServiceImpl implements IWeiboService {
     @Override
     public List<Weibo> hotList(int loginMemberId) {
         List<Weibo> hotList = weiboDao.hotList(loginMemberId);
+        hotList = this.formatWeibo(hotList);
         return hotList;
     }
 
@@ -158,18 +181,40 @@ public class WeiboServiceImpl implements IWeiboService {
 
     @Override
     public List<Weibo> listByCustom(int loginMemberId, String sort, int num, int day) {
-        return weiboDao.listByCustom(loginMemberId,sort,num,day);
+        List<Weibo> list = weiboDao.listByCustom(loginMemberId,sort,num,day);
+        list = this.formatWeibo(list);
+        return list;
     }
 
-    public Weibo atFormat(Weibo weibo){
+    @Override
+    public ResultModel<Weibo> listByTopic(Page page, int loginMemberId, String topicName) {
+        WeiboTopic weiboTopic = weiboTopicService.findByName(topicName);
+        List<Weibo> list;
+        if (weiboTopic == null){
+            weiboTopic = new WeiboTopic();
+            weiboTopic.setName(topicName);
+            weiboTopicService.save(weiboTopic);
+            list = new ArrayList<>();
+        }else {
+            list = weiboDao.listByTopic(page, loginMemberId, weiboTopic.getId());
+            list = this.formatWeibo(list);
+        }
+        ResultModel model = new ResultModel(0,page);
+        model.setData(list);
+        return model;
+    }
+
+    public Weibo formatWeibo(Weibo weibo){
         weibo.setContent(memberService.atFormat(weibo.getContent()));
+        weibo.setContent(WeiboTopicUtil.formatTopic(weibo.getContent()));
         return weibo;
     }
 
-    public List<Weibo> atFormat(List<Weibo> weiboList){
+    public List<Weibo> formatWeibo(List<Weibo> weiboList){
         for (Weibo weibo : weiboList){
-            atFormat(weibo);
+            formatWeibo(weibo);
         }
         return weiboList;
     }
+
 }
