@@ -28,10 +28,11 @@
                 <li class="dropdown">
                     <a href="${basePath}/member/" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="${basePath}${loginUser.avatar}" class="img-circle" width="25px" height="25px" style="margin-top: 1px;margin-right:5px;"/>
-                            ${loginUser.name}
+                            ${loginUser.name}<span class="label label-danger">${loginUser.memberLevel.name}</span>
                             <#if unReadMessageNum+systemUnReadMessageNum &gt; 0><i class="icon-comments"></i></#if>
                         <b class="caret"></b>
                     </a>
+
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="${basePath}/member/">个人中心</a></li>
                         <li><a href="${basePath}/member/systemMessage">系统信息 ${(systemUnReadMessageNum > 0)?string("("+systemUnReadMessageNum+")","")}</a></li>

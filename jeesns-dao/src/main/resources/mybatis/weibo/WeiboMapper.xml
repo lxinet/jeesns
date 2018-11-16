@@ -11,11 +11,7 @@
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
     <result column="is_favor" jdbcType="INTEGER" property="isFavor" />
-    <association property="member" column="member_id" javaType="Member">
-      <result column="member_id" property="id"/>
-      <result column="name" property="name"/>
-      <result column="avatar" property="avatar"/>
-    </association>
+    <association property="member" column="member_id" select="selectMember"></association>
     <collection property="pictures" javaType="ArrayList" column="id" ofType="Picture" select="selectPicturesByWeibo"/>
   </resultMap>
 
@@ -107,4 +103,9 @@
     where a.topic_id = #{topicId}
     order by a.id DESC
   </select>
+
+  <select id="selectMember" resultType="Member">
+      SELECT a.id,a.name,a.avatar,a.is_vip,a.member_level_id as 'memberLevel.id',b.name as 'memberLevel.name'
+      FROM tbl_member as a left join tbl_member_level as b on a.member_level_id = b.id WHERE a.id = #{memberId}
+   </select>
 </mapper>

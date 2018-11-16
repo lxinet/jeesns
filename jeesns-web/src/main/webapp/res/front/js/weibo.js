@@ -36,7 +36,8 @@ var weibo = {
                         "<a href=\"" + basePath + "/u/" + data[i].member.id + "\" class=\"avatar\">" +
                         "<img src=\"" + basePath + data[i].member.avatar + "\" class=\"icon-4x\"></a><div class=\"content\">" +
                         "<div class=\"pull-right text-muted\">" + data[i].createTime + "</div><div>" +
-                        "<a href=\"" + basePath + "/u/" + data[i].member.id + "\"><strong>" + data[i].member.name + "</strong></a></div>" +
+                        "<a href=\"" + basePath + "/u/" + data[i].member.id + "\"><strong>" + data[i].member.name + "</strong></a>" +
+                        "&nbsp;<span class=\"label label-danger\">" + data[i].member.memberLevel.name + "</span></div>" +
                         "<div class=\"text\">";
                     var weiboComment = data[i].weiboComment;
                     if (weiboComment != null){

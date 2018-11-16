@@ -47,6 +47,8 @@ CREATE TABLE `tbl_member` (
   `is_admin` int(11) DEFAULT '0' COMMENT '是否管理员，0不是，1是普通管理员，2是超级管理员',
   `follows` INT(11) DEFAULT '0' comment '关注会员数量',
   `fans` INT(11) DEFAULT '0' comment '粉丝数量',
+  `member_level_id` INT(11) DEFAULT '1' comment '会员等级ID',
+  `is_vip` INT(11) DEFAULT '0' comment '0普通会员，1VIP',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
@@ -222,6 +224,7 @@ CREATE TABLE `tbl_weibo` (
   `content` varchar(1000) DEFAULT NULL,
   `favor` int(11) DEFAULT '0' COMMENT '赞',
   `status` tinyint(11) DEFAULT '0' COMMENT '0未审核，1已审核，-1审核不通过',
+  `topic_id` int(11) DEFAULT '0' COMMENT '话题ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -444,6 +447,23 @@ CREATE TABLE `tbl_checkin` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE `tbl_weibo_topic` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `name` varchar(255),
+  `count` INT(11) DEFAULT '0',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_member_level` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `name` varchar(255),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_archive_favor` ADD CONSTRAINT `fk_archive_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -553,3 +573,4 @@ INSERT INTO tbl_score_rule(id,create_time,update_time,name,score,remark,type,sta
 
 INSERT INTO `tbl_group_type` values (1,now(),'默认分类');
 
+INSERT INTO tbl_member_level(id, create_time, name) VALUES (1,now(),'普通会员');

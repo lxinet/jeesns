@@ -43,6 +43,7 @@
                         <#else>
                             <span class="sex"><i class="fa fa-intersex"></i></span>
                         </#if>
+                            <span class="label label-danger" style="font-size: 12px;">${loginUser.memberLevel.name}</span>
                         </div>
                         <p>${loginUser.website}</p>
                         <p>${loginUser.introduce}</p>

@@ -36,6 +36,9 @@
         <result column="is_admin" jdbcType="INTEGER" property="isAdmin" />
         <result column="follows" jdbcType="INTEGER" property="follows" />
         <result column="fans" jdbcType="INTEGER" property="fans" />
+        <result column="is_vip" jdbcType="INTEGER" property="isVip" />
+        <result column="member_level_id" jdbcType="INTEGER" property="memberLevelId" />
+        <association property="memberLevel" column="member_level_id"  select="selectMemberLevel"></association>
     </resultMap>
     <resultMap id="memberWithMessageResult" type="Member">
         <collection property="messages" javaType="ArrayList" column="{from_member_id=from_member_id,to_member_id=to_member_id}" ofType="Message" select="selectUnreadMessagesByMember"/>
@@ -202,5 +205,9 @@
     <!-- 获取会员未读的私信列表 -->
     <select id="selectUnreadMessagesByMember" resultType="Message">
         SELECT * FROM tbl_message WHERE isread = 0 and from_member_id = #{from_member_id} AND to_member_id = #{to_member_id}
+    </select>
+
+    <select id="selectMemberLevel" resultType="MemberLevel">
+        SELECT * FROM tbl_member_level WHERE id = #{memberLevelId}
     </select>
 </mapper>

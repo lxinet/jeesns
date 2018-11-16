@@ -113,6 +113,14 @@ public class Member implements Serializable {
 	//私信列表
 	private List<Message> messages;
 
+	//0普通会员，1是VIP
+	private Integer isVip;
+
+	//会员等级ID
+	private Integer memberLevelId;
+
+	private MemberLevel memberLevel;
+
 
 	public Integer getId() {
 		return id;
@@ -393,5 +401,29 @@ public class Member implements Serializable {
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+
+	public Integer getIsVip() {
+		return isVip;
+	}
+
+	public void setIsVip(Integer isVip) {
+		this.isVip = isVip;
+	}
+
+	public Integer getMemberLevelId() {
+		return memberLevelId;
+	}
+
+	public void setMemberLevelId(Integer memberLevelId) {
+		this.memberLevelId = memberLevelId;
+	}
+
+	public MemberLevel getMemberLevel() {
+		return memberLevel;
+	}
+
+	public void setMemberLevel(MemberLevel memberLevel) {
+		this.memberLevel = memberLevel;
 	}
 }
