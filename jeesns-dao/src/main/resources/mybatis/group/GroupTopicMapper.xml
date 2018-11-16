@@ -37,10 +37,13 @@
     order by a.is_top DESC,a.id DESC
   </select>
   <select id="findById" parameterType="java.lang.Integer" resultMap="GroupTopicResult">
-    select a.id,a.group_id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,a.type_id,b.*,c.name 'group.name',c.logo 'group.logo',b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',d.avatar as 'member.avatar',d.introduce as 'member.introduce',
+    select a.id,a.group_id,a.group_id as 'group.id', a.collect_time, a.status,a.is_top,a.is_essence,a.type_id,b.*,
+    c.name 'group.name',c.logo 'group.logo',b.member_id as memberId,b.member_id as 'member.id',d.name as 'member.name',
+    d.avatar as 'member.avatar',d.introduce as 'member.introduce',e.id as 'member.memberLevel.id',e.name as 'member.memberLevel.name',
     (CASE WHEN (SELECT id FROM tbl_archive_favor WHERE archive_id=b.archive_id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
     from tbl_group_topic as a INNER JOIN tbl_archive as b ON a.archive_id = b.archive_id
     LEFT JOIN tbl_group as c ON a.group_id = c.id LEFT JOIN tbl_member as d on b.member_id=d.id
+    left join tbl_member_level as e on e.id = d.member_level_id
     where a.id = #{id}
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
@@ -92,4 +95,5 @@
     ORDER BY ${sort} DESC
     limit 0,${num}
   </select>
+
 </mapper>

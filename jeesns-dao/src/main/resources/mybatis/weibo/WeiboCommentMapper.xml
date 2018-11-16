@@ -9,11 +9,7 @@
     <result column="comment_id" jdbcType="INTEGER" property="commentId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <association property="member" javaType="Member">
-      <result column="member_id" property="id"/>
-      <result column="name" property="name"/>
-      <result column="avatar" property="avatar"/>
-    </association>
+    <association property="member" column="member_id" select="selectMember"></association>
     <association column="comment_id" property="weiboComment" javaType="WeiboComment" select="com.lxinet.jeesns.dao.weibo.IWeiboCommentDao.findById"/>
   </resultMap>
   <select id="listByWeibo" resultMap="WeiboCommentResult">
@@ -42,4 +38,9 @@
     insert into tbl_weibo_comment (weibo_id,member_id,content,create_time,comment_id)
     values (#{weiboId}, #{memberId}, #{content}, now(), #{commentId})
   </insert>
+
+  <select id="selectMember" resultType="Member">
+      SELECT a.id,a.name,a.avatar,a.is_vip,a.member_level_id as 'memberLevel.id',b.name as 'memberLevel.name'
+      FROM tbl_member as a left join tbl_member_level as b on a.member_level_id = b.id WHERE a.id = #{memberId}
+   </select>
 </mapper>

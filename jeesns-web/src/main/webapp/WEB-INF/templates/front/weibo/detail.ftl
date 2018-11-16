@@ -47,6 +47,7 @@
                         </div>
                         <div class="name">
                         ${weibo.member.name}
+                            <span class="label label-danger">${weibo.member.memberLevel.name}</span>
                         </div>
                         <div class="emoji-render-content">${weibo.content}</div>
                         <div class="lightBoxGallery">

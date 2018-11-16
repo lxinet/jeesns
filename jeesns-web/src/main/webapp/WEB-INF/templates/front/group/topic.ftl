@@ -182,6 +182,7 @@
                         <div class="name">
                             <a href="${basePath}/u/${groupTopic.member.id}"
                                target="_blank">${groupTopic.member.name}</a>
+                            <p><span class="label label-danger">${groupTopic.member.memberLevel.name}</span></p>
                         </div>
                         <div class="info">
                             <p>
