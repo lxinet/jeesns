@@ -36,4 +36,6 @@ public interface IGroupTopicService {
     ResultModel favor(Member loginMember, int id);
 
     List<GroupTopic> listByCustom(int gid, String sort, int num, int day, int thumbnail);
+
+    void updateViewCount(int id);
 }

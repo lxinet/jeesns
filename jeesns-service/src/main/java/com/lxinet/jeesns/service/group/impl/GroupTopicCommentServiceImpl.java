@@ -1,12 +1,11 @@
 package com.lxinet.jeesns.service.group.impl;
 
-import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.model.group.GroupTopic;
 import com.lxinet.jeesns.model.group.GroupTopicComment;
 import com.lxinet.jeesns.model.member.Member;
@@ -17,8 +16,8 @@ import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
-import com.lxinet.jeesns.common.utils.ActionUtil;
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.utils.ActionUtil;
+import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;

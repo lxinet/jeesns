@@ -1,17 +1,12 @@
 package com.lxinet.jeesns.service.cms.impl;
 
-import com.lxinet.jeesns.core.enums.Messages;
-import com.lxinet.jeesns.core.exception.JeeException;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
-import com.lxinet.jeesns.dao.cms.IArticleDao;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.cms.IArticleCateDao;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.service.cms.IArticleCateService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -19,18 +14,10 @@ import java.util.List;
  * Created by zchuanzhao on 16/9/29.
  */
 @Service("articleCateService")
-public class ArticleCateServiceImpl implements IArticleCateService {
+public class ArticleCateServiceImpl extends BaseServiceImpl<ArticleCate> implements IArticleCateService {
 
     @Resource
     private IArticleCateDao articleCateDao;
-    @Resource
-    private IArticleDao articleDao;
-
-    @Override
-    public ArticleCate findById(int id) {
-        ArticleCate articleCate = articleCateDao.findById(id);
-        return articleCate;
-    }
 
     @Override
     public boolean save(ArticleCate articleCate) {
@@ -40,13 +27,13 @@ public class ArticleCateServiceImpl implements IArticleCateService {
         if(articleCate.getFid() != 0){
             ArticleCate fatherArticleCate = this.findById(articleCate.getFid());
             if(fatherArticleCate == null){
-                throw new ParamException(Messages.PARENT_CATE_NOT_EXISTS);
+                throw new ParamException("上级栏目不存在");
             }
             if(fatherArticleCate.getFid() != 0){
-                throw new JeeException(Messages.ONLY_TOP_CATE_CAN_ADD);
+                throw new OpeErrorException("只要顶级栏目才可以添加下级栏目");
             }
         }
-        if (articleCateDao.save(articleCate) == 0){
+        if (!super.save(articleCate)){
             throw new OpeErrorException();
         }
         return true;
@@ -56,27 +43,27 @@ public class ArticleCateServiceImpl implements IArticleCateService {
     public boolean update(ArticleCate articleCate) {
         ArticleCate findArticleCate =this.findById(articleCate.getId());
         if(findArticleCate == null){
-            throw new ParamException(Messages.CATE_NOT_EXISTS);
+            throw new ParamException("栏目不存在");
         }
         if(articleCate.getFid() == null){
             articleCate.setFid(0);
         }
         if(articleCate.getFid().intValue() == articleCate.getId().intValue()){
-            throw new ParamException(Messages.PARENT_CONNOT_BE_SELF);
+            throw new ParamException("上级栏目不能是自己");
         }
         if(articleCate.getFid() != 0){
             ArticleCate fatherArticleCate = this.findById(articleCate.getFid());
             if(fatherArticleCate == null){
-                throw new ParamException(Messages.PARENT_CATE_NOT_EXISTS);
+                throw new ParamException("上级栏目不存在");
             }
             if(fatherArticleCate.getFid() != 0){
-                throw new JeeException(Messages.ONLY_TOP_CATE_CAN_ADD);
+                throw new OpeErrorException("只要顶级栏目才可以添加下级栏目");
             }
         }
         findArticleCate.setFid(articleCate.getFid());
         findArticleCate.setName(articleCate.getName());
         findArticleCate.setSort(articleCate.getSort());
-        if (articleCateDao.update(articleCate) == 0){
+        if (!super.update(articleCate)){
             throw new OpeErrorException();
         }
         return true;
@@ -86,10 +73,10 @@ public class ArticleCateServiceImpl implements IArticleCateService {
     public boolean delete(int id) {
         List sonList = this.findListByFid(id);
         if(sonList.size() > 0){
-            throw new JeeException(Messages.DELETE_SUB_CATE_FIRST);
+            throw new OpeErrorException("请先删除下级栏目");
         }
-        int result = articleCateDao.delete(id);
-        if(result == 0){
+        boolean result = super.deleteById(id);
+        if(!result){
             throw new OpeErrorException();
         }
         return true;

@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.directive;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.directive.BaseDirective;
 import com.lxinet.jeesns.core.handler.DirectiveHandler;
 import com.lxinet.jeesns.model.member.Member;

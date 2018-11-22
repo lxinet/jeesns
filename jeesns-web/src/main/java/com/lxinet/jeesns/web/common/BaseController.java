@@ -3,22 +3,20 @@ package com.lxinet.jeesns.web.common;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.JeeException;
 import com.lxinet.jeesns.core.exception.ParamException;
+import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.model.member.MemberToken;
 import com.lxinet.jeesns.service.member.IMemberTokenService;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.StringUtils;
-import org.json.JSONObject;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -33,6 +31,8 @@ public class BaseController {
     protected HttpServletResponse response;
     @Resource
     protected IMemberTokenService memberTokenService;
+    @Resource
+    protected JeesnsConfig jeesnsConfig;
 
     protected ResultModel<MemberToken> validMemberToken(){
         ResultModel model = new ResultModel(-1,"非法操作");
@@ -138,8 +138,15 @@ public class BaseController {
                     msg = ((JeeException) e).getJeeMessage().getMessage();
                 }
                 msg = URLEncoder.encode(msg, "UTF-8");
+                String currUrl = request.getRequestURL().toString();
                 request.setAttribute("msg",msg);
-                response.sendRedirect(request.getContextPath() + "/error?msg="+msg);
+                String redirectUrl;
+                if (currUrl.indexOf("/" + jeesnsConfig.getManagePath() + "/") > -1){
+                    redirectUrl = request.getContextPath() + "/" + jeesnsConfig.getManagePath() + "/error?msg="+msg;
+                }else {
+                    redirectUrl = request.getContextPath() + "/error?msg="+msg;
+                }
+                response.sendRedirect(redirectUrl);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

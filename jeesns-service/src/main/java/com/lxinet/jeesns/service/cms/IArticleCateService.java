@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.service.cms;
 
 
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 
 import java.util.List;
@@ -9,13 +10,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 16/9/29.
  */
-public interface IArticleCateService {
-
-    ArticleCate findById(int id);
-
-    boolean save(ArticleCate articleCate);
-
-    boolean update(ArticleCate articleCate);
+public interface IArticleCateService extends IBaseService<ArticleCate> {
 
     boolean delete(int id);
 

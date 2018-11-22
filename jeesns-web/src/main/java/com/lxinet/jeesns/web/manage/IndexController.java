@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.web.manage;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.utils.ErrorUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -117,4 +118,13 @@ public class IndexController extends BaseController {
             return new ResultModel(-1,"用户名或密码错误");
         }
     }
+
+    @RequestMapping(value="/error",method = RequestMethod.GET)
+    public String error(String msg, Model model){
+        if (com.lxinet.jeesns.core.utils.StringUtils.isNotBlank(msg)){
+            model.addAttribute("msg", msg);
+        }
+        return jeesnsConfig.getManageTemplate() + "/common/error";
+    }
+
 }

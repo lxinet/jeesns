@@ -1,12 +1,11 @@
 package com.lxinet.jeesns.service.member.impl;
 
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.member.ICheckinDao;
 import com.lxinet.jeesns.model.member.Checkin;
 import com.lxinet.jeesns.service.member.ICheckinService;
-import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

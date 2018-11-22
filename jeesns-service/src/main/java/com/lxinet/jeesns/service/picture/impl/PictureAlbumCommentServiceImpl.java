@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.picture.impl;
 
-import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
@@ -11,7 +11,6 @@ import com.lxinet.jeesns.model.picture.PictureAlbumComment;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.picture.IPictureAlbumCommentService;
 import com.lxinet.jeesns.service.picture.IPictureAlbumService;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

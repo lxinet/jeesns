@@ -10,7 +10,7 @@ import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.picture.IPictureFavorService;
 import com.lxinet.jeesns.service.picture.IPictureService;
-import com.lxinet.jeesns.common.utils.PictureUtil;
+import com.lxinet.jeesns.utils.PictureUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

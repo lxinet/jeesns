@@ -19,9 +19,9 @@
         .yun2{left: 16%;top: 35%;-webkit-animation: cloudMedium 105s infinite;-moz-animation: cloudMedium 105s infinite;-o-animation: cloudMedium 105s infinite;animation: cloudMedium 105s infinite;}
         .san{left: 10%;top: 20%;-webkit-animation:dn400 3s 0s ease both;-moz-animation:dn400 3s 0s ease both;animation:dn400 3s 0s ease both;}
         .bird{left: 27%;top: 15%;-webkit-animation: flying 3s infinite;-moz-animation: flying 3s infinite;-o-animation: flying 3s infinite;animation: flying 3s infinite;}
-        .tipInfo{position:absolute;z-index:99;margin-left:150px;border: 4px solid #c0ece7;border-color: rgba(192,237,232,07);border-radius:5px;derbackground:#c0ece7;background: rgba(192,237,232,07);width: 360px}
+        .tipInfo{position:absolute;z-index:99;margin-left:150px;border: 4px solid #c0ece7;border-color: rgba(192,237,232,07);border-radius:5px;derbackground:#c0ece7;background: rgba(192,237,232,07);width: 700px}
         .tipInfo .in{background: #fff;padding: 0 10%}
-        .tipInfo .in h2{line-height:50px;font-size: 30px;color: #e94c3c;border-bottom: 1px dashed #aacdd5;padding: 18px 0}
+        .tipInfo .in h2{line-height:50px;font-size: 20px;color: #e94c3c;border-bottom: 1px dashed #aacdd5;padding: 18px 0}
         .tipInfo .in p{padding:20px 0 10px 0;text-align: center;color: #289575}
         .tipInfo .in p span{margin:0 10px}
         .tipInfo .in p span a{color:#e94c3c;margin: 0 10px}
@@ -162,22 +162,7 @@
                     抱歉，系统出现异常
                 </#if>
                 </h2>
-                <p><span>自动<a id="href" href="javascript:history.go(-1);">返回上一页面</a></span><span>等待<b id="wait">10</b>秒</span></p>
-                <p><span><a href="${basePath}/">返回首页</a></span></p>
-                <script type="text/javascript">
-                    $(function() {
-                        var wait = document.getElementById('wait');
-                        var href = document.getElementById('href').href;
-                        var interval = setInterval(function() {
-                            var time = --wait.innerHTML;
-                            if (time <= 0) {
-                                location.href = href;
-                                clearInterval(interval);
-                            }
-                            ;
-                        }, 1000);
-                    })();
-                </script>
+                <p><span><a id="href" href="javascript:history.go(-1);">返回上一页面</a> <a href="${basePath}/">返回首页</a></span></p>
             </div>
         </div>
     </div>

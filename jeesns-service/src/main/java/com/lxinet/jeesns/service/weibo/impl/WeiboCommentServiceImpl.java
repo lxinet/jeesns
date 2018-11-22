@@ -1,13 +1,12 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
-import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.model.weibo.WeiboComment;
@@ -18,8 +17,8 @@ import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.dao.weibo.IWeiboCommentDao;
 import com.lxinet.jeesns.service.weibo.IWeiboCommentService;
 import com.lxinet.jeesns.service.weibo.IWeiboService;
-import com.lxinet.jeesns.common.utils.ActionUtil;
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.utils.ActionUtil;
+import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

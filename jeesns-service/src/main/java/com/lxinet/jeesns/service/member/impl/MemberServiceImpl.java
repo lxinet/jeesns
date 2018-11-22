@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.member.impl;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.NotLoginException;
@@ -8,7 +8,7 @@ import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.dao.member.IMemberDao;
-import com.lxinet.jeesns.common.utils.EmailSendUtil;
+import com.lxinet.jeesns.utils.EmailSendUtil;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.member.ValidateCode;
 import com.lxinet.jeesns.service.member.IMemberFansService;
@@ -17,9 +17,9 @@ import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.member.IValidateCodeService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
-import com.lxinet.jeesns.common.utils.ActionUtil;
-import com.lxinet.jeesns.common.utils.ConfigUtil;
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.utils.ActionUtil;
+import com.lxinet.jeesns.utils.ConfigUtil;
+import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -520,4 +520,5 @@ public class MemberServiceImpl implements IMemberService {
         }
         return content;
     }
+
 }

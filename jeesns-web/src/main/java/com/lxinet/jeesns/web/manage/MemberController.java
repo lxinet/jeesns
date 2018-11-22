@@ -1,6 +1,10 @@
 package com.lxinet.jeesns.web.manage;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.enums.Messages;
+import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
+import com.lxinet.jeesns.core.utils.ValidUtill;
+import com.lxinet.jeesns.model.member.MemberLevel;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
@@ -8,14 +12,13 @@ import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.web.common.BaseController;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by zchuanzhao on 2016/11/22.
@@ -25,6 +28,8 @@ import javax.annotation.Resource;
 @Before(AdminLoginInterceptor.class)
 public class MemberController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/member/";
+    private static final String EXT_MEMBER_CLASS = "extMemberService";
+    private static final String EXT_MEMBER_LEVEL_CLASS = "extMemberLevelService";
     @Resource
     private IMemberService memberService;
 
@@ -38,6 +43,16 @@ public class MemberController extends BaseController {
         return MANAGE_FTL_PATH + "index";
     }
 
+
+    /**
+     * 会员详情
+     */
+    @GetMapping("${managePath}/member/info/{id}")
+    public String info(@PathVariable("id") int id, Model model) {
+        Member member = memberService.findById(id);
+        model.addAttribute("member", member);
+        return MANAGE_FTL_PATH + "info";
+    }
 
     /**
      * 会员启用、禁用操作
@@ -141,5 +156,31 @@ public class MemberController extends BaseController {
             return new ResultModel(-1,"没有权限");
         }
         return memberService.managerCancel(loginMember, id);
+    }
+    /**
+     * 设置会员VIP
+     * @param id
+     * @return
+     */
+    @GetMapping("${managePath}/member/level/{id}")
+    public String level(@PathVariable("id") Integer id, Model model) {
+        Member findMember = memberService.findById(id);
+        ValidUtill.checkIsNull(findMember, Messages.USER_NOT_EXISTS);
+        List<MemberLevel> memberLevelList = (List<MemberLevel>) JeesnsInvoke.invoke(EXT_MEMBER_LEVEL_CLASS, "listAll");
+        model.addAttribute("member", findMember);
+        model.addAttribute("memberLevelList", memberLevelList);
+        return MANAGE_FTL_PATH + "level";
+    }
+    /**
+     * 设置会员VIP
+     * @param id
+     * @return
+     */
+    @PostMapping("${managePath}/member/setLevel")
+    @ResponseBody
+    public ResultModel setLevel(@Param("id") Integer id,@Param("memberLevelId") Integer memberLevelId) {
+        ValidUtill.checkIsNull(id, Messages.PARAM_ERROR);
+        boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_CLASS, "setMemberLevel", id, memberLevelId);
+        return new ResultModel(boo);
     }
 }
