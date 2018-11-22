@@ -1,11 +1,11 @@
 package com.lxinet.jeesns.interceptor;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
-import com.lxinet.jeesns.core.exception.JeeException;
-import com.lxinet.jeesns.core.utils.SpringContextHolder;
+import com.lxinet.jeesns.core.interceptor.JeesnsInterceptor;
+import com.lxinet.jeesns.core.utils.SpringContextUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.common.utils.ConfigUtil;
+import com.lxinet.jeesns.utils.ConfigUtil;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +31,7 @@ public class UserLoginInterceptor implements JeesnsInterceptor {
                 }
                 return false;
             }else {
-                IMemberService memberService = SpringContextHolder.getBean("memberService");
+                IMemberService memberService = SpringContextUtil.getBean("memberService");
                 Member findMember = memberService.findById(loginUser.getId());
                 if(1 == Integer.parseInt((String) request.getServletContext().getAttribute(ConfigUtil.MEMBER_EMAIL_VALID.toUpperCase()))){
                     if(findMember.getIsActive() == 0){

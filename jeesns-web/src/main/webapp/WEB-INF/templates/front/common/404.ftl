@@ -158,22 +158,7 @@
                 <h2>
                     抱歉，您访问的页面找不到
                 </h2>
-                <p><span>自动<a id="href" href="${basePath}/">返回首页</a></span><span>等待<b id="wait">20</b>秒</span></p>
-                <p><span><a href="javascript:history.go(-1);">返回上一页面</a></span></p>
-                <script type="text/javascript">
-                    $(function() {
-                        var wait = document.getElementById('wait');
-                        var href = document.getElementById('href').href;
-                        var interval = setInterval(function() {
-                            var time = --wait.innerHTML;
-                            if (time <= 0) {
-                                location.href = href;
-                                clearInterval(interval);
-                            }
-                            ;
-                        }, 1000);
-                    })();
-                </script>
+                <p><span>自动<a id="href" href="${basePath}/">返回首页</a> <a href="javascript:history.go(-1);">返回上一页面</a></span></p>
             </div>
         </div>
     </div>

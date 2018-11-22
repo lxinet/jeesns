@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
-import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.utils.MemberUtil;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
@@ -10,6 +10,7 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
+import com.lxinet.jeesns.utils.ValidLoginUtill;
 import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
@@ -90,7 +91,7 @@ public class WeiboController extends BaseController {
     @ResponseBody
     public ResultModel comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ValidUtill.checkLogin(loginMember);
+        ValidLoginUtill.checkLogin(loginMember);
         return new ResultModel(weiboCommentService.save(loginMember,content,weiboId,weiboCommentId));
     }
 

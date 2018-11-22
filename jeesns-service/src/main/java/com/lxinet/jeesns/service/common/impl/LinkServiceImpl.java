@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.common.impl;
 
-import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;

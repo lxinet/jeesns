@@ -1,11 +1,12 @@
 package com.lxinet.jeesns.interceptor;
 
-import com.lxinet.jeesns.common.utils.ConfigUtil;
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.core.interceptor.JeesnsInterceptor;
+import com.lxinet.jeesns.core.utils.SpringContextUtil;
+import com.lxinet.jeesns.utils.ConfigUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.After;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
-import com.lxinet.jeesns.core.utils.SpringContextHolder;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMessageService;
 import org.springframework.web.method.HandlerMethod;
@@ -27,7 +28,7 @@ public class InitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        IMessageService messageService = SpringContextHolder.getBean("messageService");
+        IMessageService messageService = SpringContextUtil.getBean("messageService");
         Member loginUser = MemberUtil.getLoginMember(request);
         request.setAttribute("loginUser", loginUser);
         //会员未读私信数量

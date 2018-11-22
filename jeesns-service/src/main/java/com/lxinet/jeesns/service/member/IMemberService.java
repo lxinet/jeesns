@@ -3,7 +3,6 @@ package com.lxinet.jeesns.service.member;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Member;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 

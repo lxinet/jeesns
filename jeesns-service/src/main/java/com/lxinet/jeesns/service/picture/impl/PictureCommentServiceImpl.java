@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.picture.impl;
 
-import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.MessageType;

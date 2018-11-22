@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.group.*;
@@ -195,7 +195,7 @@ public class GroupController extends BaseController {
         if (groupTopic == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1004, Const.INDEX_ERROR_FTL_PATH);
         }
-        archiveService.updateViewCount(groupTopic.getArchiveId());
+        groupTopicService.updateViewCount(groupTopic.getId());
         model.addAttribute("groupTopic", groupTopic);
 
         Group group = groupService.findById(groupTopic.getGroup().getId());

@@ -1,11 +1,9 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
-import com.lxinet.jeesns.common.utils.*;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
-import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
@@ -22,16 +20,14 @@ import com.lxinet.jeesns.dao.weibo.IWeiboDao;
 import com.lxinet.jeesns.service.weibo.IWeiboFavorService;
 import com.lxinet.jeesns.service.weibo.IWeiboService;
 import com.lxinet.jeesns.service.weibo.IWeiboTopicService;
+import com.lxinet.jeesns.utils.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by zchuanzhao on 2016/11/25.
@@ -72,7 +68,7 @@ public class WeiboServiceImpl implements IWeiboService {
             throw new ParamException("内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
         }
         //获取话题
-        String topicName = WeiboTopicUtil.getTopicName(content);
+        String topicName = TopicUtil.getTopicName(content);
         WeiboTopic weiboTopic = null;
         if (StringUtils.isNotBlank(topicName)){
             weiboTopic = weiboTopicService.findByName(topicName);
@@ -206,7 +202,7 @@ public class WeiboServiceImpl implements IWeiboService {
 
     public Weibo formatWeibo(Weibo weibo){
         weibo.setContent(memberService.atFormat(weibo.getContent()));
-        weibo.setContent(WeiboTopicUtil.formatTopic(weibo.getContent()));
+        weibo.setContent(TopicUtil.formatTopic(weibo.getContent()));
         return weibo;
     }
 

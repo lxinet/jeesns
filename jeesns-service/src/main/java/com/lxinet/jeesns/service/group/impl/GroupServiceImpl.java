@@ -1,7 +1,6 @@
 package com.lxinet.jeesns.service.group.impl;
 
-import com.lxinet.jeesns.common.utils.ValidUtill;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.utils.*;
@@ -15,9 +14,9 @@ import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
-import com.lxinet.jeesns.common.utils.ActionUtil;
-import com.lxinet.jeesns.common.utils.ConfigUtil;
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.utils.ActionUtil;
+import com.lxinet.jeesns.utils.ConfigUtil;
+import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.service.system.IScoreRuleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

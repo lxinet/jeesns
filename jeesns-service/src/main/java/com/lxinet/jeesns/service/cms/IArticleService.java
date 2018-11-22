@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.cms;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.member.Member;
 
@@ -11,9 +12,8 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2016/10/14.
  */
-public interface IArticleService {
+public interface IArticleService extends IBaseService<Article> {
 
-    Article findById(int id);
 
     Article findById(int id,Member loginMember);
 

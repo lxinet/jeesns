@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.model.picture.Picture;
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.model.picture.PictureAlbum;
 import com.lxinet.jeesns.service.picture.IPictureAlbumService;

@@ -1,13 +1,11 @@
 package com.lxinet.jeesns.service.cms.impl;
 
-import com.lxinet.jeesns.common.utils.ValidUtill;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
-import com.lxinet.jeesns.core.exception.NotFountException;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
-import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.dao.cms.IArticleCommentDao;
@@ -20,8 +18,8 @@ import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
-import com.lxinet.jeesns.common.utils.ActionUtil;
-import com.lxinet.jeesns.common.utils.ScoreRuleConsts;
+import com.lxinet.jeesns.utils.ActionUtil;
+import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +30,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/10/14.
  */
 @Service("articleCommentService")
-public class ArticleCommentServiceImpl implements IArticleCommentService {
+public class ArticleCommentServiceImpl extends BaseServiceImpl<ArticleComment> implements IArticleCommentService {
     @Resource
     private IArticleCommentDao articleCommentDao;
     @Resource
@@ -47,8 +45,8 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     private IMemberService memberService;
 
     @Override
-    public ArticleComment findById(int id) {
-        return this.atFormat(articleCommentDao.findById(id));
+    public ArticleComment findById(Integer id) {
+        return this.atFormat(super.findById(id));
     }
 
     @Override
@@ -60,8 +58,8 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
         articleComment.setMemberId(loginMember.getId());
         articleComment.setArticleId(articleId);
         articleComment.setContent(content);
-        int result = articleCommentDao.save(articleComment);
-        if(result == 0){
+        boolean result = super.save(articleComment);
+        if(!result){
             throw new OpeErrorException();
         }
         //@会员处理并发送系统消息
@@ -77,7 +75,7 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
-        List<ArticleComment> list = articleCommentDao.listByPage(page, articleId, key);
+        List<ArticleComment> list = articleCommentDao.list(page, articleId, key);
         this.atFormat(list);
         return list;
     }
@@ -90,8 +88,8 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     @Override
     @Transactional
     public boolean delete(Member loginMember, int id) {
-        int result = articleCommentDao.delete(id);
-        if(result == 0){
+        boolean result = super.deleteById(id);
+        if(!result){
             throw new OpeErrorException();
         }
         //扣除积分

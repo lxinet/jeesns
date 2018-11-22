@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.NotFountException;
 import com.lxinet.jeesns.core.exception.ParamException;
@@ -75,7 +75,7 @@ public class ArticleController extends BaseController {
             throw new NotFountException(Messages.ARTICLE_NOT_EXISTS);
         }
         //更新文章访问次数
-        archiveService.updateViewCount(article.getArchiveId());
+        articleService.updateViewCount(article.getId());
         model.addAttribute("article",article);
         List<ArticleCate> articleCateList = articleCateService.list();
         model.addAttribute("articleCateList",articleCateList);

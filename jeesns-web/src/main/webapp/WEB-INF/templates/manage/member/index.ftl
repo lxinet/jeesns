@@ -63,11 +63,12 @@
                                     <th style="width: 10px">#</th>
                                     <th>用户名</th>
                                     <th>邮箱</th>
+                                    <th>VIP会员</th>
                                     <th>手机号码</th>
                                     <th>登录次数</th>
                                     <th>注册时间</th>
                                     <th>状态</th>
-                                    <th width="150px">操作</th>
+                                    <th width="200px">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -76,6 +77,7 @@
                                     <td>${member.id}</td>
                                     <td>${(member.name || member.email)?string(member.name,member.email)}</td>
                                     <td>${member.email}</td>
+                                    <td>${(member.isVip == 0)?string("否","是")}</td>
                                     <td>${member.phone}</td>
                                     <td>${member.loginCount}</td>
                                     <td>${member.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
@@ -91,6 +93,14 @@
                                         </#if>
                                     </td>
                                     <td>
+                                        <a href="${managePath}/member/level/${member.id}" target="_jeesnsOpen"
+                                           title="设置VIP会员" width="400px" height="300px">
+                                            <span class="label label-info">VIP</span>
+                                        </a>
+                                        <a href="${managePath}/member/info/${member.id}" target="_jeesnsOpen"
+                                           title="会员详情" width="1000px" height="600px">
+                                            <span class="label label-info">详情</span>
+                                        </a>
                                         <a href="${managePath}/member/changepwd/${member.id}" target="_jeesnsOpen"
                                            title="修改密码" width="400px" height="300px">
                                             <span class="label label-info">修改密码</span>

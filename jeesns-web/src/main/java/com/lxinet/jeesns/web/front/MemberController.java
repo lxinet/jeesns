@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
@@ -15,7 +15,7 @@ import com.lxinet.jeesns.model.system.ActionLog;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
 //import com.lxinet.jeesns.modules.weibo.service.IWeiboService;
-import com.lxinet.jeesns.common.utils.ConfigUtil;
+import com.lxinet.jeesns.utils.ConfigUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

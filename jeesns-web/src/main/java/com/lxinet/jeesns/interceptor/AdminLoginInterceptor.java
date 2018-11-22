@@ -1,9 +1,9 @@
 package com.lxinet.jeesns.interceptor;
 
-import com.lxinet.jeesns.common.utils.MemberUtil;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.interceptor.JeesnsInterceptor;
+import com.lxinet.jeesns.core.utils.SpringContextUtil;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.core.utils.SpringContextHolder;
 import com.lxinet.jeesns.model.member.Member;
 import net.sf.json.JSONObject;
 
@@ -31,7 +31,7 @@ public class AdminLoginInterceptor implements JeesnsInterceptor {
                 out.flush();
                 out.close();
             }else {
-                JeesnsConfig jeesnsConfig = SpringContextHolder.getBean("jeesnsConfig");
+                JeesnsConfig jeesnsConfig = SpringContextUtil.getBean("jeesnsConfig");
                 response.sendRedirect(request.getContextPath() + "/" + jeesnsConfig.getManagePath() + "/login");
             }
             return false;

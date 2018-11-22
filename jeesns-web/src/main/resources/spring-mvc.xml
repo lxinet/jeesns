@@ -112,7 +112,7 @@
         <property name="maxInMemorySize" value="40960"/>
     </bean>
 
-    <bean class="com.lxinet.jeesns.core.utils.SpringContextHolder" lazy-init="false"/>
+    <bean class="com.lxinet.jeesns.core.utils.SpringContextUtil" lazy-init="false"/>
 
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
