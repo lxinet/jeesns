@@ -11,7 +11,7 @@ JAVA开发框架：Spring MVC+Spring+Mybatis
 前台模板引擎：Freemarker
 
 ## 简介
-JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河。数据库使用MYSQL，全部源代码开放。
+JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河，数据库使用MYSQL。
 
 交流社区：[http://www.jeesns.cn](http://www.jeesns.cn/)
 
@@ -75,11 +75,18 @@ github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/je
 1. 创建数据库。如使用MySQL，字符集选择为`utf8`或者`utf8mb4`（支持更多特殊字符，推荐）。
 2. 执行数据库脚本。数据库脚本在`/src/main/webapp/database`目录下。
 3. 在eclipse中导入maven项目。点击eclipse菜单`File` - `Import`，选择`Maven` - `Existing Maven Projects`。
-4. 设置项目编码为utf-8，选择jdk1.7版本或以上，不要选择jre。
+4. 设置项目编码为utf-8，选择jdk1.8版本或以上，不要选择jre。
 5. 修改数据库连接。打开`/src/main/resources/jeesns.propertis`文件，根据实际情况修改`jdbc.url`、`jdbc.user`、`jdbc.password`的值，修改后台路径：`managePath`，如：`managePath=manage`
-6. 编译项目。在eclipse中，右键点击项目名，选择`Run as` - `Maven build...`，`Goals`填入`clean package`，然后点击`Run`，第一次运行需要下载jar包，请耐心等待。
-7. 部署项目。将项目部署到Tomcat7或以上版本，启动Tomcat。
-8. 访问系统。前台地址：[http://localhost:8080/](http://localhost:8080/)；用户名：admin，密码：jeesns，登录成功之后，在右上角展开有个'管理'，点击即可进入后台管理。
+6. 将jeesns-core-1.4.jar放到硬盘中，如：D:\jeesns-core-1.4.jar
+   
+   在命令行中输入以下命令
+   
+   `mvn install:install-file -Dfile=D:\jeesns-core-1.4.jar -DgroupId=com.lxinet -DartifactId=jeesns-core -Dversion=1.4 -Dpackaging=jar`
+   
+   执行成功后，jeesns-core-1.4.jar会自动添加到本地maven仓库中。
+7. 编译项目。在eclipse中，右键点击项目名，选择`Run as` - `Maven build...`，`Goals`填入`clean package`，然后点击`Run`，第一次运行需要下载jar包，请耐心等待。
+8. 部署项目。将项目部署到Tomcat7或以上版本，启动Tomcat。
+9. 访问系统。前台地址：[http://localhost:8080/](http://localhost:8080/)；用户名：admin，密码：jeesns，登录成功之后，在右上角展开有个'管理'，点击即可进入后台管理。
 
 ## 部署详细说明
 1. [JDK安装说明](https://my.oschina.net/zchuanzhao/blog/853387)
