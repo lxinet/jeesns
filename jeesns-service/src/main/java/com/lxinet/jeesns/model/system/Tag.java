@@ -1,10 +1,19 @@
 package com.lxinet.jeesns.model.system;
 
+import com.lxinet.jeesns.core.annotation.Column;
+import com.lxinet.jeesns.core.annotation.Id;
+import com.lxinet.jeesns.core.annotation.Table;
+import com.lxinet.jeesns.core.enums.IdType;
 
+@Table("tbl_tag")
 public class Tag {
+    @Id(value = "id", type = IdType.AUTO)
     private Integer id;
+    @Column("name")
     private String name;
+    @Column("func_type")
     private Integer funcType;
+    @Column("refer_count")
     private Integer referCount;
 
     public Integer getId() {

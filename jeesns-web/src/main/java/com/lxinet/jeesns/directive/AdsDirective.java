@@ -19,7 +19,7 @@ public class AdsDirective extends BaseDirective {
     private IAdsService adsService;
     @Override
     public void execute(DirectiveHandler handler) throws TemplateException, IOException {
-        int id = handler.getInteger("id",0);
+        Integer id = handler.getInteger("id",0);
         Ads ads = adsService.findById(id);
         handler.put("ad", ads).render();
     }

@@ -2,17 +2,16 @@ package com.lxinet.jeesns.service.member;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.member.ScoreDetail;
 
 
 /**
  * Created by zchuanzhao on 17/3/24.
  */
-public interface IScoreDetailService {
+public interface IScoreDetailService extends IBaseService<ScoreDetail> {
 
     ResultModel<ScoreDetail> list(Page page, Integer memberId);
-
-    ResultModel save(ScoreDetail scoreDetail);
 
     /**
      * 是否能奖励，true表示可以奖励

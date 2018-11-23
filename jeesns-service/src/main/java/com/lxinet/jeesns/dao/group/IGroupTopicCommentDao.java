@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.group;
 
+import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.GroupTopicComment;
@@ -10,9 +11,12 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 16/12/27.
  */
-public interface IGroupTopicCommentDao extends IBaseDao<GroupTopicComment> {
+public interface IGroupTopicCommentDao extends BaseMapper<GroupTopicComment> {
 
     List<GroupTopicComment> listByGroupTopic(@Param("page") Page page, @Param("groupTopicId") Integer groupTopicId);
 
     int deleteByTopic(@Param("groupTopicId") Integer groupTopicId);
+
+    GroupTopicComment findById(@Param("id") Integer id);
+
 }

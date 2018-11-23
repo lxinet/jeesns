@@ -7,7 +7,7 @@
     <result column="member_id" jdbcType="INTEGER" property="memberId" />
     <result column="continue_day" jdbcType="INTEGER" property="continueDay" />
   </resultMap>
-  <select id="listByPage" resultMap="CheckinResult">
+  <select id="list" resultMap="CheckinResult">
     SELECT a.*,a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'member.memberLevel.name' FROM tbl_checkin as a
     left join tbl_member as b on a.member_id = b.id
     left join tbl_member_level as c on b.member_level_id = c.id
@@ -49,8 +49,4 @@
      where a.member_id = #{memberId} and DATEDIFF(a.create_time,now())=-1
   </select>
 
-  <insert id="save" parameterType="Checkin" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_checkin(create_time,member_id,continue_day)
-    values(now(),#{memberId},#{continueDay})
-  </insert>
 </mapper>

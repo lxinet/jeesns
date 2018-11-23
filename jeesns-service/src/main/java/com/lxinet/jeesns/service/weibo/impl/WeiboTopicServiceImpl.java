@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.weibo.IWeiboTopicDao;
 import com.lxinet.jeesns.model.weibo.WeiboTopic;
 import com.lxinet.jeesns.service.weibo.IWeiboTopicService;
@@ -10,7 +11,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2018/11/14.
  */
 @Service("weiboTopicService")
-public class WeiboTopicServiceImpl implements IWeiboTopicService {
+public class WeiboTopicServiceImpl extends BaseServiceImpl<WeiboTopic> implements IWeiboTopicService {
     @Resource
     private IWeiboTopicDao weiboTopicDao;
 
@@ -19,9 +20,4 @@ public class WeiboTopicServiceImpl implements IWeiboTopicService {
         return weiboTopicDao.findByName(name);
     }
 
-    @Override
-    public Integer save(WeiboTopic weiboTopic){
-        weiboTopicDao.save(weiboTopic);
-        return weiboTopic.getId();
-    }
 }

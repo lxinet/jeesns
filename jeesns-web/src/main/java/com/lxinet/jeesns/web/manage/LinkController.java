@@ -62,7 +62,7 @@ public class LinkController extends BaseController{
     @RequestMapping("/delete/{id}")
     @ResponseBody
     public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(linkService.delete(id));
+        return new ResultModel(linkService.deleteById(id));
     }
 
     @RequestMapping("/enable/{id}")

@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.group;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.group.GroupTopic;
 import com.lxinet.jeesns.model.member.Member;
 
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2016/12/26.
  */
-public interface IGroupTopicService {
+public interface IGroupTopicService extends IBaseService<GroupTopic> {
     GroupTopic findById(int id);
 
     GroupTopic findById(int id,Member loginMember);

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.member;
 
+import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Member;
@@ -11,13 +12,13 @@ import java.util.List;
  * 会员DAO接口
  * Created by zchuanzhao on 16/9/26.
  */
-public interface IMemberDao extends IBaseDao<Member> {
+public interface IMemberDao extends BaseMapper<Member> {
 
     Member login(Member member);
 
     Member manageLogin(Member member);
 
-    List<Member> listByPage(@Param("page") Page page, @Param("key") String key);
+    List<Member> list(@Param("page") Page page, @Param("key") String key);
 
     /**
      * 管理员列表

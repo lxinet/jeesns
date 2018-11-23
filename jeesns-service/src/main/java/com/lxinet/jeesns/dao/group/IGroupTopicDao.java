@@ -25,6 +25,8 @@ public interface IGroupTopicDao extends BaseMapper<GroupTopic> {
      */
     int top(@Param("id") Integer id,@Param("top") Integer top);
 
+    int delete(@Param("id") Integer id);
+
     /**
      * 加精
      * @param essence 0取消加精，1加精

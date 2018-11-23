@@ -20,12 +20,18 @@ public class ScoreRule implements Serializable {
     @Column(value = "create_time", currTime = FillTime.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    @Column("update_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+    @Column("name")
     private String name;
+    @Column("score")
     private Integer score;
+    @Column("remark")
     private String remark;
+    @Column("type")
     private String type;
+    @Column("status")
     private Integer status;
 
     public Integer getId() {

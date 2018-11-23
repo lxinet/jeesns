@@ -20,12 +20,12 @@ public class TagServiceImpl implements ITagService {
 
     @Override
     public boolean save(Tag tag) {
-        return tagDao.save(tag) == 1;
+        return tagDao.saveObj(tag) == 1;
     }
 
     @Override
     public ResultModel listByPage(Page page, int funcType) {
-        List<Tag> list = tagDao.listByPage(page,funcType);
+        List<Tag> list = tagDao.list(page,funcType);
         ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
@@ -37,16 +37,16 @@ public class TagServiceImpl implements ITagService {
         if (findTag == null) {
             throw new OpeErrorException("标签不存在");
         }
-        return tagDao.update(tag) == 1;
+        return tagDao.updateObj(tag) == 1;
     }
 
     @Override
     public boolean delete(Integer id) {
-        return tagDao.delete(id) > 0;
+        return tagDao.deleteById(id, Tag.class) > 0;
     }
 
     @Override
     public Tag findById(Integer id) {
-        return tagDao.findById(id);
+        return tagDao.getById(id, Tag.class);
     }
 }

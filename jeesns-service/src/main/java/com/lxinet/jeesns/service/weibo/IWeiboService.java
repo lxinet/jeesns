@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.weibo;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
 
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2016/11/25.
  */
-public interface IWeiboService {
+public interface IWeiboService extends IBaseService<Weibo> {
 
     Weibo findById(int id, int memberId);
 

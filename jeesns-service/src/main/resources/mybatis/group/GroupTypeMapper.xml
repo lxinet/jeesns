@@ -7,23 +7,4 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
 
-  <select id="allList" resultMap="GroupTypeResult">
-    select * from tbl_group_type order by id desc
-  </select>
-
-  <select id="findById" parameterType="java.lang.Integer" resultMap="GroupTypeResult">
-   select * from tbl_group_type where id = #{id}
-  </select>
-
-  <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_group_type where id = #{id}
-  </delete>
-
-  <insert id="save" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_group_type (create_time, name) values (now(), #{name})
-  </insert>
-
-  <update id="update">
-    update tbl_group_type set name = #{name} where id = #{id}
-  </update>
 </mapper>

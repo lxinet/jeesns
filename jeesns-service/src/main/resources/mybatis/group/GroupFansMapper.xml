@@ -16,7 +16,7 @@
     insert into tbl_group_fans(create_time,group_id,member_id)
     values(now(),#{groupId},#{memberId})
   </insert>
-  <select id="listByPage" resultMap="GroupFansResult">
+  <select id="list" resultMap="GroupFansResult">
     select a.group_id as 'group.id',a.member_id as 'member.id',b.name as 'member.name',b.avatar as 'member.avatar' FROM tbl_group_fans as a left join tbl_member as b
     on a.member_id = b.id WHERE a.group_id=#{groupId} order by a.create_time DESC
   </select>

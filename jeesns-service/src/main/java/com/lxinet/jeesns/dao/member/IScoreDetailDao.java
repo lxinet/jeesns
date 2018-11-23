@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.member;
 
+import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.ScoreDetail;
@@ -10,9 +11,11 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2017/2/16.
  */
-public interface IScoreDetailDao extends IBaseDao<ScoreDetail> {
+public interface IScoreDetailDao extends BaseMapper<ScoreDetail> {
 
-    List<ScoreDetail> listByPage(@Param("page") Page page, @Param("memberId") Integer memberId);
+    int save(ScoreDetail scoreDetail);
+
+    List<ScoreDetail> list(@Param("page") Page page, @Param("memberId") Integer memberId);
 
     /**
      * 是否能奖励，如果返回记录为0，表示可以奖励

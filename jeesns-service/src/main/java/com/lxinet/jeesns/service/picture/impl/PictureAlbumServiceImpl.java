@@ -29,7 +29,7 @@ public class PictureAlbumServiceImpl implements IPictureAlbumService {
 
     @Override
     public ResultModel<PictureAlbum> listByPage(Page page) {
-        List<PictureAlbum> list = pictureAlbumDao.listByPage(page);
+        List<PictureAlbum> list = pictureAlbumDao.list(page);
         ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
@@ -48,12 +48,12 @@ public class PictureAlbumServiceImpl implements IPictureAlbumService {
         if (StringUtils.isEmpty(pictureAlbum.getCover())){
             pictureAlbum.setCover(Const.DEFAULT_PICTURE_COVER);
         }
-        return pictureAlbumDao.save(pictureAlbum) == 1;
+        return pictureAlbumDao.saveObj(pictureAlbum) == 1;
     }
 
     @Override
     public boolean update(PictureAlbum pictureAlbum) {
-        return pictureAlbumDao.update(pictureAlbum) == 1;
+        return pictureAlbumDao.updateObj(pictureAlbum) == 1;
     }
 
     @Override

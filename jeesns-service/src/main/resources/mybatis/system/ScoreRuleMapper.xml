@@ -12,15 +12,6 @@
         <result column="status" jdbcType="INTEGER" property="status" />
     </resultMap>
 
-    <select id="allList" resultMap="ScoreRuleResult">
-        SELECT * FROM tbl_score_rule ORDER BY ID ASC
-    </select>
-    <select id="findById" resultMap="ScoreRuleResult">
-        SELECT * FROM tbl_score_rule WHERE id=#{id}
-    </select>
-    <update id="update">
-        UPDATE tbl_score_rule SET update_time=now(),score=#{score} WHERE id=#{id}
-    </update>
     <update id="enabled">
         UPDATE tbl_score_rule SET status=(CASE WHEN status=0 then 1 ELSE 0 END) WHERE id=#{id}
     </update>

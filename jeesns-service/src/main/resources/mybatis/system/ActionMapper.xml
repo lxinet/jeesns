@@ -9,15 +9,6 @@
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     </resultMap>
-    <select id="allList" resultMap="ActionResult">
-        SELECT * FROM tbl_action
-    </select>
-    <select id="findById" resultMap="ActionResult">
-        SELECT * FROM tbl_action WHERE id=#{id}
-    </select>
-    <update id="update" parameterType="Action">
-        UPDATE tbl_action set log=#{log},update_time=now() WHERE id=#{id}
-    </update>
     <update id="isenable" parameterType="java.lang.Integer">
         update tbl_action set status=(case when status=0 then 1 else 0 end),update_time=now() where id=#{id}
     </update>

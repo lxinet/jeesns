@@ -9,8 +9,8 @@
   </resultMap>
 
   <select id="list" resultMap="ArticleCommentResult">
-    select a.id,a.create_time,a.member_id as 'member.id',a.article_id as 'article.id',d.title as 'article.title',a.content,c.name as 'member.name',c.avatar as 'member.avatar'
-    from tbl_article_comment as a left join tbl_article as b on a.article_id=b.id left join tbl_archive as d on b.archive_id = d.archive_id left join tbl_member as c on
+    select a.id,a.create_time,a.member_id as 'member.id',a.article_id as 'article.id',b.title as 'article.title',a.content,c.name as 'member.name',c.avatar as 'member.avatar'
+    from tbl_article_comment as a left join tbl_article as b on a.article_id=b.id left join tbl_member as c on
     a.member_id=c.id
     <where>
       <if test="articleId &gt; 0">

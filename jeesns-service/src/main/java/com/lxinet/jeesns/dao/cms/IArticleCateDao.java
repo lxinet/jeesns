@@ -12,12 +12,6 @@ import java.util.List;
  */
 public interface IArticleCateDao extends BaseMapper<ArticleCate> {
 
-    ArticleCate findById(@Param("id") Integer id);
-
-    int save(ArticleCate articleCate);
-
-    int update(ArticleCate articleCate);
-
     /**
      * 获取栏目
      * @return

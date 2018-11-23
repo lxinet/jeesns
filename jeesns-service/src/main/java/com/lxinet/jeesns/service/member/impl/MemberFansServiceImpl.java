@@ -3,6 +3,7 @@ package com.lxinet.jeesns.service.member.impl;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.member.IMemberFansDao;
 import com.lxinet.jeesns.model.member.MemberFans;
 import com.lxinet.jeesns.service.member.IMemberFansService;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/21.
  */
 @Service("memberFansServiceImpl")
-public class MemberFansServiceImpl implements IMemberFansService {
+public class MemberFansServiceImpl extends BaseServiceImpl<MemberFans> implements IMemberFansService {
     @Resource
     private IMemberFansDao memberFansDao;
 

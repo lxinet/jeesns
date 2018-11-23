@@ -15,7 +15,7 @@
     <script>
         var basePath = "${basePath}";
         var pageNo = 1;
-        var pictureId = ${picture.pictureId};
+        var pictureId = ${picture.id};
     </script>
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
@@ -52,12 +52,12 @@
         </div>
         <div class="description emoji-render-content">${picture.description}</div>
         <div class="right">
-            <a class="text-primary picture-favor" data-id="${picture.pictureId}">
+            <a class="text-primary picture-favor" data-id="${picture.id}">
                 <i class="icon icon-thumbs<#if picture.isFavor==0>-o</#if>-up"></i> ${picture.favorCount}
             </a>
         </div>
         <form class="form-horizontal m-t" id="comment_form"
-              action="${basePath}/picture/comment/${picture.pictureId}" method="post">
+              action="${basePath}/picture/comment/${picture.id}" method="post">
             <textarea cols="5" class="form-control area emoji-render-input" name="content" id="content"></textarea>
             <div class="row emoji-container" id="emoji">
                 <span class="pull-right p-r-10">

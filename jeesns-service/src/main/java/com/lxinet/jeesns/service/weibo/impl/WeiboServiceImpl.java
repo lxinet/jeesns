@@ -7,6 +7,7 @@ import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
@@ -33,7 +34,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/11/25.
  */
 @Service("weiboService")
-public class WeiboServiceImpl implements IWeiboService {
+public class WeiboServiceImpl extends BaseServiceImpl<Weibo> implements IWeiboService {
     @Resource
     private IWeiboDao weiboDao;
     @Resource
@@ -92,7 +93,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if (weiboTopic != null){
             weibo.setTopicId(weiboTopic.getId());
         }
-        int result = weiboDao.save(weibo);
+        int result = weiboDao.saveObj(weibo);
         if(result == 1){
             //@会员处理并发送系统消息
             messageService.atDeal(loginMember.getId(),content, AppTag.WEIBO, MessageType.WEIBO_REFER,weibo.getId());
@@ -109,7 +110,7 @@ public class WeiboServiceImpl implements IWeiboService {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
-        List<Weibo> list = weiboDao.listByPage(page, memberId,loginMemberId,key);
+        List<Weibo> list = weiboDao.list(page, memberId,loginMemberId,key);
         list = this.formatWeibo(list);
         ResultModel model = new ResultModel(0,page);
         model.setData(list);

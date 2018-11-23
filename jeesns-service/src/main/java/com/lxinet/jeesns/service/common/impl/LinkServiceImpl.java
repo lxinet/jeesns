@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.service.common.impl;
 
+import com.lxinet.jeesns.core.conditions.SqlWrapper;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
@@ -15,18 +17,13 @@ import java.util.List;
  * Created by zchuanzhao on 2017-10-13.
  */
 @Service("linkService")
-public class LinkServiceImpl implements ILinkService {
+public class LinkServiceImpl extends BaseServiceImpl<Link> implements ILinkService {
     @Resource
     private ILinkDao linkDao;
 
     @Override
-    public boolean save(Link link) {
-        return linkDao.save(link) == 1;
-    }
-
-    @Override
     public ResultModel listByPage(Page page) {
-        List<Link> list = linkDao.listByPage(page);
+        List<Link> list = linkDao.list(page);
         ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
@@ -34,7 +31,7 @@ public class LinkServiceImpl implements ILinkService {
 
     @Override
     public ResultModel allList() {
-        List<Link> list = linkDao.allList();
+        List<Link> list = linkDao.listAll(new SqlWrapper<>(Link.class));
         ResultModel model = new ResultModel(0);
         model.setData(list);
         return model;
@@ -46,23 +43,6 @@ public class LinkServiceImpl implements ILinkService {
         ResultModel model = new ResultModel(0);
         model.setData(list);
         return model;
-    }
-
-    @Override
-    public boolean update(Link link) {
-        Link findLink = this.findById(link.getId());
-        ValidUtill.checkIsNull(findLink, Messages.FRIIEND_LINK_NOT_EXISTS);
-        return linkDao.update(link) == 1;
-    }
-
-    @Override
-    public boolean delete(Integer id) {
-        return linkDao.delete(id) == 1;
-    }
-
-    @Override
-    public Link findById(Integer id) {
-        return linkDao.findById(id);
     }
 
     @Override

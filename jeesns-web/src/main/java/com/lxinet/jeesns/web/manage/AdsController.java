@@ -73,7 +73,7 @@ public class AdsController extends BaseController{
     @RequestMapping("/delete/{id}")
     @ResponseBody
     public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(adsService.delete(id));
+        return new ResultModel(adsService.deleteById(id));
     }
 
     @RequestMapping("/enable/{id}")

@@ -19,19 +19,4 @@
     order by id asc
   </select>
 
-  <select id="findById" parameterType="java.lang.Integer" resultMap="GroupTopicTypeResult">
-   select * from tbl_group_topic_type where id = #{id}
-  </select>
-
-  <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_group_topic_type where id = #{id}
-  </delete>
-
-  <insert id="save" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_group_topic_type (create_time, group_id, name, juri) values (now(), #{groupId}, #{name},#{juri})
-  </insert>
-
-  <update id="update">
-    update tbl_group_topic_type set name = #{name},juri = #{juri} where id = #{id}
-  </update>
 </mapper>

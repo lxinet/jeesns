@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.group;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.group.GroupFans;
 import com.lxinet.jeesns.model.member.Member;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * Created by zchuanzhao on 16/12/26.
  */
-public interface IGroupFansService {
+public interface IGroupFansService extends IBaseService<GroupFans> {
 
     boolean save(Member loginMember, Integer groupId);
 

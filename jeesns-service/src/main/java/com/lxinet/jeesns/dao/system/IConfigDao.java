@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.system;
 
+import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.model.system.Config;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * Created by zchuanzhao on 2016/11/26.
  */
 
-public interface IConfigDao extends IBaseDao<Config> {
+public interface IConfigDao extends BaseMapper<Config> {
 
     boolean update(@Param("key") String key,@Param("value") String value);
 

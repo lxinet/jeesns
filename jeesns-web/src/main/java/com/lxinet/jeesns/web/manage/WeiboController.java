@@ -36,8 +36,8 @@ public class WeiboController extends BaseController {
 
     @RequestMapping(value = "${managePath}/weibo/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@PathVariable("id") int id) {
+    public ResultModel delete(@PathVariable("id") int id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return weiboService.delete(request, loginMember,id);
+        return new ResultModel(weiboService.delete(request, loginMember,id));
     }
 }

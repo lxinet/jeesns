@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.member.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
@@ -35,7 +36,7 @@ import java.util.Map;
  * Created by zchuanzhao on 16/9/29.
  */
 @Service("memberService")
-public class MemberServiceImpl implements IMemberService {
+public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMemberService {
     @Resource
     private IMemberDao memberDao;
     @Resource
@@ -92,7 +93,7 @@ public class MemberServiceImpl implements IMemberService {
 
     @Override
     public Member findById(int id) {
-        return memberDao.findById(id);
+        return super.findById(id);
     }
 
     @Override
@@ -116,17 +117,10 @@ public class MemberServiceImpl implements IMemberService {
         return new ResultModel(-1,"注册失败");
     }
 
-    @Override
-    public ResultModel update(Member member) {
-        if(memberDao.update(member) == 1){
-            return new ResultModel(3,"更新成功");
-        }
-        return new ResultModel(-1,"更新失败");
-    }
 
     @Override
     public ResultModel delete(int id) {
-        if(memberDao.delete(id) == 1){
+        if(super.deleteById(id)){
             return new ResultModel(1,"删除成功");
         }
         return new ResultModel(-1,"删除失败");
@@ -137,7 +131,7 @@ public class MemberServiceImpl implements IMemberService {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
-        List<Member> list = memberDao.listByPage(page, key);
+        List<Member> list = memberDao.list(page, key);
         ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
@@ -244,7 +238,7 @@ public class MemberServiceImpl implements IMemberService {
             return new ResultModel(-1,"密码不能少于6个字符");
         }
         oldPassword = Md5Util.getMD5Code(oldPassword);
-        Member member = memberDao.findById(loginMember.getId());
+        Member member = super.findById(loginMember.getId());
         if(!oldPassword.equals(member.getPassword())){
             return new ResultModel(-1,"旧密码错误");
         }

@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.service.system;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.system.Config;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * Created by zchuanzhao on 16/9/29.
  */
-public interface IConfigService {
+public interface IConfigService extends IBaseService<Config> {
     List<Config> allList();
 
     Map<String,String> getConfigToMap();

@@ -47,12 +47,12 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
         pictureComment.setMemberId(loginMember.getId());
         pictureComment.setPictureId(pictureId);
         pictureComment.setContent(content);
-        int result = pictureCommentDao.save(pictureComment);
+        int result = pictureCommentDao.saveObj(pictureComment);
         if(result == 1){
             //@会员处理并发送系统消息
-            messageService.atDeal(loginMember.getId(),content, AppTag.PICTURE, MessageType.PICTURE_COMMENT_REFER,picture.getPictureId());
+            messageService.atDeal(loginMember.getId(),content, AppTag.PICTURE, MessageType.PICTURE_COMMENT_REFER,picture.getId());
             //回复微博发送系统信息
-            messageService.diggDeal(loginMember.getId(), picture.getMemberId(), content,AppTag.PICTURE, MessageType.PICTURE_REPLY, picture.getPictureId());
+            messageService.diggDeal(loginMember.getId(), picture.getMemberId(), content,AppTag.PICTURE, MessageType.PICTURE_REPLY, picture.getId());
         }
         return result == 1;
     }
@@ -75,7 +75,7 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
     public boolean delete(Member loginMember, int id) {
         PictureComment pictureComment = this.findById(id);
         ValidUtill.checkIsNull(pictureComment, Messages.COMMENT_NOT_EXISTS);
-        int result = pictureCommentDao.delete(id);
+        int result = pictureCommentDao.deleteById(id, PictureComment.class);
         return result == 1;
     }
 

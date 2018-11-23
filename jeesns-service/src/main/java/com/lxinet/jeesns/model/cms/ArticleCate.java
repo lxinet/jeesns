@@ -20,8 +20,6 @@ import java.util.Date;
 public class ArticleCate implements Serializable {
     @Id(value = "id", type = IdType.AUTO)
     private Integer id;
-    @Column(value = "create_time", currTime = FillTime.INSERT)
-    private Date createTime;
     @Column("fid")
     @Digits(integer = 11,fraction = 0,message = "上级栏目不能为空")
     private Integer fid;
@@ -39,15 +37,6 @@ public class ArticleCate implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 
     public Integer getFid() {

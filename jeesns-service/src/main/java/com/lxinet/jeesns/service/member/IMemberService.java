@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.member;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.member.Member;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 16/9/29.
  */
-public interface IMemberService {
+public interface IMemberService extends IBaseService<Member> {
 
     /**
      * 会员登录
@@ -30,8 +31,6 @@ public interface IMemberService {
      * @return
      */
     ResultModel register(Member member, HttpServletRequest request);
-
-    ResultModel update(Member member);
 
     ResultModel delete(int id);
 

@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.service.system.impl;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.system.IActionDao;
 import com.lxinet.jeesns.model.system.Action;
 import com.lxinet.jeesns.service.system.IActionService;
@@ -13,27 +13,20 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/14.
  */
 @Service("actionService")
-public class ActionServiceImpl implements IActionService {
+public class ActionServiceImpl extends BaseServiceImpl<Action> implements IActionService {
     @Resource
     private IActionDao actionDao;
 
     @Override
     public List<Action> list() {
-        return actionDao.allList();
+        return super.listAll();
     }
 
     @Override
     public Action findById(Integer id) {
-        return actionDao.findById(id);
+        return super.findById(id);
     }
 
-    @Override
-    public boolean update(Action action) {
-        if(actionDao.update(action) == 0){
-            throw new OpeErrorException();
-        }
-        return true;
-    }
 
     @Override
     public boolean isenable(Integer id) {

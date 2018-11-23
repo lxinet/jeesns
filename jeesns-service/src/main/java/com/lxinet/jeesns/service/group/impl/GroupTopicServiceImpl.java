@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.group.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.service.group.*;
 import com.lxinet.jeesns.utils.ActionLogType;
@@ -15,11 +16,9 @@ import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.dao.group.IGroupTopicDao;
-import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupTopic;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
@@ -37,7 +36,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/26.
  */
 @Service("groupTopicService")
-public class GroupTopicServiceImpl implements IGroupTopicService {
+public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implements IGroupTopicService {
     @Resource
     private IGroupTopicDao groupTopicDao;
     @Resource
@@ -46,8 +45,6 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     private IGroupTopicCommentService groupTopicCommentService;
     @Resource
     private IGroupFansService groupFansService;
-    @Resource
-    private IArchiveService archiveService;
     @Resource
     private IActionLogService actionLogService;
     @Resource
@@ -87,7 +84,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
         groupTopic.setMemberId(member.getId());
         //保存文章
         groupTopic.setStatus(group.getTopicReview()==0?1:0);
-        int result = groupTopicDao.insert(groupTopic);
+        int result = groupTopicDao.saveObj(groupTopic);
         if(result == 1){
             //@会员处理并发送系统消息
             messageService.atDeal(member.getId(),groupTopic.getContent(), AppTag.GROUP, MessageType.GROUP_TOPIC_REFER,groupTopic.getId());
@@ -110,7 +107,6 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     }
 
     @Override
-    @Transactional
     public boolean update(Member member, GroupTopic groupTopic) {
         GroupTopic findGroupTopic = this.findById(groupTopic.getId(),member);
         ValidUtill.checkIsNull(findGroupTopic, Messages.TOPIC_NOT_EXISTS);
@@ -157,9 +153,11 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
             if (elements.size() > 0) {
                 String imgsrc = elements.get(0).attr("src");
                 findGroupTopic.setThumbnail(imgsrc);
+            }else {
+                findGroupTopic.setThumbnail(null);
             }
         }
-        return groupTopicDao.updateByObj(findGroupTopic) == 1;
+        return groupTopicDao.updateObj(findGroupTopic) == 1;
     }
 
 
@@ -168,7 +166,7 @@ public class GroupTopicServiceImpl implements IGroupTopicService {
     public boolean delete(Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id);
         ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
-        int result = groupTopicDao.deleteById(id, GroupTopic.class);
+        int result = groupTopicDao.delete(id);
         if(result == 1){
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_POST,id);

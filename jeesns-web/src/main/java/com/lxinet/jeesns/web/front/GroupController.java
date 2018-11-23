@@ -525,7 +525,7 @@ public class GroupController extends BaseController {
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = new ResultModel(groupTopicTypeService.save(loginMember, groupTopicType));
+        ResultModel resultModel = new ResultModel(groupTopicTypeService.save(groupTopicType));
         if (resultModel.getCode() == 0) {
             resultModel.setCode(3);
         }
@@ -559,7 +559,7 @@ public class GroupController extends BaseController {
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = new ResultModel(groupTopicTypeService.update(loginMember, groupTopicType));
+        ResultModel resultModel = new ResultModel(groupTopicTypeService.update(groupTopicType));
         if (resultModel.getCode() == 0) {
             resultModel.setCode(3);
         }
@@ -580,7 +580,7 @@ public class GroupController extends BaseController {
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = new ResultModel(groupTopicTypeService.delete(loginMember, typeId));
+        ResultModel resultModel = new ResultModel(groupTopicTypeService.deleteById(typeId));
         if (resultModel.getCode() == 0) {
             resultModel.setCode(3);
         }

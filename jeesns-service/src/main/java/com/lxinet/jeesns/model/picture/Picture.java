@@ -16,8 +16,8 @@ import java.util.Date;
  */
 @Table("tbl_picture")
 public class Picture implements Serializable {
-    @Id(value = "pictureId", type = IdType.AUTO)
-    private Integer pictureId;
+    @Id(value = "id", type = IdType.AUTO)
+    private Integer id;
     @Column(value = "create_time", currTime = FillTime.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
@@ -54,12 +54,12 @@ public class Picture implements Serializable {
     @Column("is_favor")
     private Integer isFavor;
 
-    public Integer getPictureId() {
-        return pictureId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPictureId(Integer pictureId) {
-        this.pictureId = pictureId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Date getCreateTime() {

@@ -27,7 +27,7 @@
     a.juri, a.cover, a.type, b.name as member_name, b.avatar as member_avatar, b.follows as member_follows,
     b.fans as member_fans,b.introduce as member_introduce
   </sql>
-  <select id="listByPage" parameterType="java.lang.Integer" resultMap="PictureAlbumRrsult">
+  <select id="list" parameterType="java.lang.Integer" resultMap="PictureAlbumRrsult">
     select
     <include refid="Base_Column_List"/>
     from tbl_picture_album AS a LEFT JOIN tbl_member AS b ON a.member_id = b.id
@@ -52,13 +52,4 @@
   <delete id="delete">
     delete from tbl_picture_album WHERE id = #{id} AND default_album = 0
   </delete>
-  <insert id="save" parameterType="PictureAlbum" useGeneratedKeys="true" keyProperty="id">
-    insert into tbl_picture_album (create_time, update_time, member_id, name, description, juri, cover, type)
-    values (now(), now(), #{memberId}, #{name}, #{description}, #{juri}, #{cover}, #{type})
-  </insert>
-  <update id="update" parameterType="PictureAlbum">
-    update tbl_picture_album
-    set update_time = now(),name = #{name},description = #{description},cover = #{cover},juri = #{juri}
-    where id = #{id}
-  </update>
 </mapper>

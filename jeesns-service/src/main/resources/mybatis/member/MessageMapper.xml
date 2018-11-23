@@ -30,7 +30,7 @@
     </association>
   </resultMap>
 
-  <select id="listByPage" resultMap="MessageResult">
+  <select id="list" resultMap="MessageResult">
     select a.id,a.create_time,a.content,a.url,a.isread,
     a.from_member_id,b.name as from_member_name,b.avatar as from_member_avatar,
     a.to_member_id,c.name as to_member_name,c.avatar as to_member_avatar
@@ -80,9 +80,6 @@
   <select id="countSystemUnreadNum" resultType="Integer">
     SELECT COUNT(*) num FROM tbl_message WHERE isread = 0 AND app_tag != 0 AND to_member_id = #{memberId}
   </select>
-  <delete id="delete">
-    delete from tbl_message where id = #{id}
-  </delete>
   <delete id="deleteByMember">
     delete from tbl_message where from_member_id = #{id} OR to_member_id = #{id}
   </delete>

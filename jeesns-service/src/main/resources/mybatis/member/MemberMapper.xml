@@ -61,7 +61,7 @@
     </select>
 
     <!-- 会员列表 -->
-    <select id="listByPage" resultMap="RemberResult">
+    <select id="list" resultMap="RemberResult">
         select
         a.id, a.name, a.phone, a.email, a.create_time, a.login_count, a.status,a.is_admin,a.is_vip from tbl_member a
         <where>
@@ -90,11 +90,6 @@
         update tbl_member set is_admin = #{isAdmin} where id = #{id};
     </update>
 
-    <!-- 根据ID查找 -->
-    <select id="findById" parameterType="java.lang.Integer" resultMap="RemberResult">
-        select * from tbl_member where id = #{id}
-    </select>
-
     <!-- 根据昵称查找 -->
     <select id="findByName" resultMap="RemberResult">
         select * from tbl_member where name = #{name}
@@ -109,12 +104,6 @@
     <select id="findByNameAndEmail" resultMap="RemberResult">
         select * from tbl_member where name = #{name} and email = #{email}
     </select>
-
-    <!-- 删除账户 -->
-    <delete id="delete" parameterType="java.lang.Integer">
-        delete from tbl_member where id = #{id}
-    </delete>
-
     <!-- 设置账户禁用、可用 -->
     <update id="isenable" parameterType="java.lang.Integer">
       update tbl_member set status=(case when status=0 then -1 else 0 end) where id=#{id}

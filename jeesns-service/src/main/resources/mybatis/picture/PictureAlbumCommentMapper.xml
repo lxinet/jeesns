@@ -25,14 +25,7 @@
     select <include refid="Base_Column_List"/>
     from tbl_picture_album_comment as a left join tbl_member as b on a.member_id=b.id where a.id = #{id}
   </select>
-  <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_picture_album_comment where id = #{id}
-  </delete>
   <delete id="deleteByPicture" parameterType="java.lang.Integer">
     delete from tbl_picture_album_comment where picture_id = #{pictureAlbumId}
   </delete>
-  <insert id="save" parameterType="PictureAlbumComment" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_picture_album_comment (picture_album_id,member_id,create_time,content)
-    values (#{pictureAlbumId}, #{memberId}, now(), #{content})
-  </insert>
 </mapper>

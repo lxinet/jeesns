@@ -45,7 +45,7 @@ public class PictureAlbumCommentServiceImpl implements IPictureAlbumCommentServi
         pictureAlbumComment.setMemberId(loginMember.getId());
         pictureAlbumComment.setPictureAlbumId(pictureAlbumId);
         pictureAlbumComment.setContent(content);
-        int result = pictureAlbumCommentDao.save(pictureAlbumComment);
+        int result = pictureAlbumCommentDao.saveObj(pictureAlbumComment);
         return result == 1;
     }
 
@@ -67,7 +67,7 @@ public class PictureAlbumCommentServiceImpl implements IPictureAlbumCommentServi
     public boolean delete(Member loginMember, int id) {
         PictureAlbumComment pictureAlbumComment = this.findById(id);
         ValidUtill.checkIsNull(pictureAlbumComment, Messages.COMMENT_NOT_EXISTS);
-        int result = pictureAlbumCommentDao.delete(id);
+        int result = pictureAlbumCommentDao.deleteById(id, PictureAlbumComment.class);
         return result == 1;
     }
 
