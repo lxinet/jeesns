@@ -1,10 +1,10 @@
-#JEESNS-CORE
+# JEESNS-CORE
 
 免费版不再开源jeesns-core代码，只有授权后才提供全部的代码
 
 授权联系QQ：582866070
 
-##使用说明
+## 使用说明
 
 将jeesns-core-1.4.jar放到硬盘中，如：D:\jeesns-core-1.4.jar
 
