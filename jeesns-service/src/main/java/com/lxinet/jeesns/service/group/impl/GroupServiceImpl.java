@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.group.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
@@ -29,7 +30,7 @@ import java.util.Map;
  * Created by zchuanzhao on 2016/12/23.
  */
 @Service("groupService")
-public class GroupServiceImpl implements IGroupService {
+public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupService {
     @Resource
     private IGroupDao groupDao;
     @Resource
@@ -174,10 +175,11 @@ public class GroupServiceImpl implements IGroupService {
     public boolean delete(Member loginMember, int id) {
         Group findGroup = this.findById(id);
         ValidUtill.checkIsNull(findGroup, Messages.GROUP_NOT_EXISTS);
-        if(groupDao.delete(id) == 1){
+        boolean result = groupDao.delete(id) == 1;
+        if(result){
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP,"ID："+findGroup.getId()+"，名字："+findGroup.getName());
         }
-        return groupDao.delete(id) == 1;
+        return result;
     }
 
 

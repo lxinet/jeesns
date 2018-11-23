@@ -35,7 +35,7 @@
                         <div class="col-md-4 col-sm-6 col-lg-3">
                             <div class="card">
                                 <div class="albumPic">
-                                    <a class="picLink" href="${basePath}/picture/detail/${picture.pictureId}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
+                                    <a class="picLink" href="${basePath}/picture/detail/${picture.id}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
                                         <img src="${basePath}${picture.smallPath}" class="pic">
                                     </a>
                                 </div>

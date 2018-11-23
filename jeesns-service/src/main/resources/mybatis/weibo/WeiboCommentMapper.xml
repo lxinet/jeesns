@@ -28,16 +28,9 @@
     from tbl_weibo_comment as a left join tbl_weibo as b on a.weibo_id=b.id left join tbl_member as c on
     a.member_id=c.id where a.id = #{id}
   </select>
-  <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_weibo_comment where id = #{id}
-  </delete>
   <delete id="deleteByWeibo" parameterType="java.lang.Integer">
     delete from tbl_weibo_comment where weibo_id = #{weiboId}
   </delete>
-  <insert id="save" parameterType="WeiboComment" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_weibo_comment (weibo_id,member_id,content,create_time,comment_id)
-    values (#{weiboId}, #{memberId}, #{content}, now(), #{commentId})
-  </insert>
 
   <select id="selectMember" resultType="Member">
       SELECT a.id,a.name,a.avatar,a.is_vip,a.member_level_id as 'memberLevel.id',b.name as 'memberLevel.name'

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.member.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.member.IValidateCodeDao;
 import com.lxinet.jeesns.model.member.ValidateCode;
 import com.lxinet.jeesns.service.member.IValidateCodeService;
@@ -11,7 +12,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2017/1/20.
  */
 @Service("validateCodeService")
-public class ValidateCodeServiceImpl implements IValidateCodeService {
+public class ValidateCodeServiceImpl extends BaseServiceImpl<ValidateCode> implements IValidateCodeService {
     @Resource
     private IValidateCodeDao validateCodeDao;
 

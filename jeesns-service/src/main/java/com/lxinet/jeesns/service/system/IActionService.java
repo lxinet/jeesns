@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.system;
 
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.system.Action;
 
 import java.util.List;
@@ -7,13 +8,11 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2017/2/14.
  */
-public interface IActionService {
+public interface IActionService extends IBaseService<Action> {
 
     List<Action> list();
 
     Action findById(Integer id);
-
-    boolean update(Action action);
 
     boolean isenable(Integer id);
 

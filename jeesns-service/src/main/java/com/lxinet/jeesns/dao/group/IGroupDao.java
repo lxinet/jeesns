@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.group;
 
+import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.Group;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 16/12/23.
  */
-public interface IGroupDao extends IBaseDao<Group> {
+public interface IGroupDao extends BaseMapper<Group> {
 
     /**
      * 获取群组
@@ -27,4 +28,11 @@ public interface IGroupDao extends IBaseDao<Group> {
 
     List<Group> listByCustom(@Param("status") int status, @Param("num") int num, @Param("sort") String sort);
 
+    Group findById(@Param("id") Integer id);
+
+    int save(Group entity);
+
+    int update(Group entity);
+
+    int delete(@Param("id") Integer id);
 }

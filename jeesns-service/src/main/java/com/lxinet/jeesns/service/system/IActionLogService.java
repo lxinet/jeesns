@@ -2,12 +2,13 @@ package com.lxinet.jeesns.service.system;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.system.ActionLog;
 
 /**
  * Created by zchuanzhao on 2017/2/14.
  */
-public interface IActionLogService {
+public interface IActionLogService extends IBaseService<ActionLog> {
 
     ResultModel<ActionLog> listByPage(Page page, Integer memberId);
 

@@ -52,7 +52,7 @@
                                     </a>
                                 </div>
                                  <#if pictureAlbum.description??>
-                                            <div class="caption">${pictureAlbum.description}</div>
+                                     <div class="caption">${pictureAlbum.description}</div>
                                  </#if>
                                 <div class="card-heading"><strong>${pictureAlbum.name}</strong></div>
                                 <div class="card-actions">

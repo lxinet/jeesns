@@ -143,3 +143,5 @@ CREATE TABLE `tbl_group_topic_favor`  (
   CONSTRAINT `fk_group_topic_favor_group_topic` FOREIGN KEY (`group_topic_id`) REFERENCES `tbl_group_topic` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_group_topic_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table `tbl_picture` CHANGE `picture_id` `id` int(11) NOT NULL AUTO_INCREMENT;

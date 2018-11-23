@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.member.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by zchuanzhao on 18/8/20.
  */
 @Service
-public class CheckinServiceImpl implements ICheckinService {
+public class CheckinServiceImpl extends BaseServiceImpl<Checkin> implements ICheckinService {
     @Resource
     private ICheckinDao checkinDao;
     @Resource
@@ -26,7 +27,7 @@ public class CheckinServiceImpl implements ICheckinService {
 
     @Override
     public List<Checkin> list(Page page, Integer memberId) {
-        List<Checkin> list = checkinDao.listByPage(page,memberId);
+        List<Checkin> list = checkinDao.list(page,memberId);
         return list;
     }
 
@@ -66,7 +67,7 @@ public class CheckinServiceImpl implements ICheckinService {
             }else {
                 checkin.setContinueDay(1);
             }
-            boolean result = checkinDao.save(checkin) == 1;
+            boolean result = checkinDao.saveObj(checkin) == 1;
             if (result){
                 scoreDetailService.scoreBonus(memberId, ScoreRuleConsts.CHECKIN, checkin.getId());
             }

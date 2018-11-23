@@ -2,13 +2,14 @@ package com.lxinet.jeesns.service.member;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.member.MemberFans;
 
 
 /**
  * Created by zchuanzhao on 17/2/21.
  */
-public interface IMemberFansService {
+public interface IMemberFansService extends IBaseService<MemberFans> {
 
     boolean save(Integer whoFollowId, Integer followWhoId);
 

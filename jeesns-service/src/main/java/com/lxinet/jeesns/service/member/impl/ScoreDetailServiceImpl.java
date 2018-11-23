@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.member.impl;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.member.IScoreDetailDao;
 import com.lxinet.jeesns.model.member.ScoreDetail;
 import com.lxinet.jeesns.model.system.ScoreRule;
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/21.
  */
 @Service
-public class ScoreDetailServiceImpl implements IScoreDetailService {
+public class ScoreDetailServiceImpl extends BaseServiceImpl<ScoreDetail> implements IScoreDetailService {
     @Resource
     private IScoreDetailDao scoreDetailDao;
     @Resource
@@ -26,18 +27,10 @@ public class ScoreDetailServiceImpl implements IScoreDetailService {
 
     @Override
     public ResultModel<ScoreDetail> list(Page page, Integer memberId) {
-        List<ScoreDetail> list = scoreDetailDao.listByPage(page,memberId);
+        List<ScoreDetail> list = scoreDetailDao.list(page,memberId);
         ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;
-    }
-
-    @Override
-    public ResultModel save(ScoreDetail scoreDetail) {
-        if(scoreDetailDao.save(scoreDetail) > 0){
-            return new ResultModel(0);
-        }
-        return new ResultModel(-1,"保存失败");
     }
 
     /**

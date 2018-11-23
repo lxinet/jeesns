@@ -3,6 +3,7 @@ package com.lxinet.jeesns.service.group.impl;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupFans;
 import com.lxinet.jeesns.model.member.Member;
@@ -18,13 +19,13 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/26.
  */
 @Service("groupFansService")
-public class GroupFansServiceImpl implements IGroupFansService {
+public class GroupFansServiceImpl extends BaseServiceImpl<GroupFans> implements IGroupFansService {
     @Resource
     private IGroupFansDao groupFansDao;
 
     @Override
     public ResultModel listByPage(Page page, Integer groupId) {
-        List<GroupFans> list = groupFansDao.listByPage(page, groupId);
+        List<GroupFans> list = groupFansDao.list(page, groupId);
         ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;

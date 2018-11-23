@@ -7,10 +7,6 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
 
-  <select id="allList" resultMap="ConfigResult">
-    select * from tbl_config
-  </select>
-  
   <update id="update" parameterType="String">
     update tbl_config set jvalue=#{value} where jkey = #{key}
   </update>

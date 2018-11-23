@@ -45,7 +45,7 @@ public class PictureServiceImpl implements IPictureService {
 
     @Override
     public ResultModel<Picture> listByPage(Page page, int loginMemberId) {
-        List<Picture> list = pictureDao.listByPage(page,loginMemberId);
+        List<Picture> list = pictureDao.list(page,loginMemberId);
         ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
@@ -70,12 +70,12 @@ public class PictureServiceImpl implements IPictureService {
     public boolean delete(HttpServletRequest request, Integer pictureId) {
         Picture picture = this.findById(pictureId,0);
         PictureUtil.delete(request,picture);
-        return pictureDao.delete(pictureId) == 1;
+        return pictureDao.deleteById(pictureId, Picture.class) == 1;
     }
 
     @Override
     public int save(Picture picture) {
-        return pictureDao.save(picture);
+        return pictureDao.saveObj(picture);
     }
 
     @Override

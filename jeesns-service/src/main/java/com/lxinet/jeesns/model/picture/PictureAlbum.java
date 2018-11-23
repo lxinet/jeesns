@@ -3,37 +3,37 @@ package com.lxinet.jeesns.model.picture;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.core.annotation.Column;
 import com.lxinet.jeesns.core.annotation.Id;
+import com.lxinet.jeesns.core.annotation.Table;
 import com.lxinet.jeesns.core.enums.FillTime;
 import com.lxinet.jeesns.core.enums.IdType;
 import com.lxinet.jeesns.model.member.Member;
 
 import java.util.Date;
-
+@Table("tbl_picture_album")
 public class PictureAlbum {
     @Id(value = "id", type = IdType.AUTO)
     private Integer id;
     @Column(value = "create_time", currTime = FillTime.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-
+    @Column("update_time")
     private Date updateTime;
     @Column("member_id")
     private Integer memberId;
-
     private Member member;
-
+    @Column("comment_count")
     private Integer commentCount;
-
+    @Column("favor_count")
     private Integer favorCount;
-
+    @Column("name")
     private String name;
-
+    @Column("description")
     private String description;
-
+    @Column("juri")
     private Integer juri;
-
+    @Column("cover")
     private String cover;
-
+    @Column("type")
     private Integer type;
 
     public Integer getId() {

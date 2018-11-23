@@ -8,7 +8,6 @@ import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.cms.IArticleDao;
 import com.lxinet.jeesns.model.cms.Article;
-import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.cms.IArticleCommentService;
 import com.lxinet.jeesns.service.cms.IArticleFavorService;
@@ -16,13 +15,15 @@ import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
-import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
 import com.lxinet.jeesns.utils.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -79,6 +80,30 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements IArt
             article.setStatus(0);
         }else {
             article.setStatus(1);
+        }
+        if (article.getViewCount() == null) {
+            article.setViewCount(0);
+        }
+        if (article.getViewRank() == null) {
+            article.setViewRank(0);
+        }
+        if (StringUtils.isEmpty(article.getDescription())) {
+            String contentStr = HtmlUtil.delHTMLTag(article.getContent());
+            if (contentStr.length() > 200) {
+                article.setDescription(contentStr.substring(0, 200));
+            } else {
+                article.setDescription(contentStr);
+            }
+        }
+        if (StringUtils.isEmpty(article.getThumbnail())) {
+            Document doc = Jsoup.parseBodyFragment(article.getContent());
+            Elements elements = doc.select("img[src]");
+            if (elements.size() > 0) {
+                String imgsrc = elements.get(0).attr("src");
+                article.setThumbnail(imgsrc);
+            }else{
+                article.setThumbnail(null);
+            }
         }
         boolean result = super.save(article);
         if(result){
@@ -174,7 +199,49 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements IArt
         }
         //更新栏目
         findArticle.setCateId(article.getCateId());
-        articleDao.updateByObj(findArticle);;
+
+        findArticle.setTitle(article.getTitle());
+        findArticle.setThumbnail(article.getThumbnail());
+        findArticle.setContent(article.getContent());
+        findArticle.setDescription(article.getDescription());
+        findArticle.setKeywords(article.getKeywords());
+        //普通会员
+        if (member.getIsAdmin() == 0) {
+            if (member.getId().intValue() != findArticle.getMemberId().intValue()) {
+                return false;
+            }
+        } else {
+            //管理员
+            findArticle.setSource(article.getSource());
+            findArticle.setViewCount(article.getViewCount());
+            findArticle.setWriter(article.getWriter());
+            findArticle.setViewRank(article.getViewRank());
+        }
+        if (findArticle.getViewCount() == null) {
+            findArticle.setViewCount(0);
+        }
+        if (findArticle.getViewRank() == null) {
+            findArticle.setViewRank(0);
+        }
+        if (StringUtils.isEmpty(findArticle.getDescription())) {
+            String contentStr = HtmlUtil.delHTMLTag(findArticle.getContent());
+            if (contentStr.length() > 200) {
+                findArticle.setDescription(contentStr.substring(0, 200));
+            } else {
+                findArticle.setDescription(contentStr);
+            }
+        }
+        if (StringUtils.isEmpty(findArticle.getThumbnail())) {
+            Document doc = Jsoup.parseBodyFragment(findArticle.getContent());
+            Elements elements = doc.select("img[src]");
+            if (elements.size() > 0) {
+                String imgsrc = elements.get(0).attr("src");
+                findArticle.setThumbnail(imgsrc);
+            }else {
+                findArticle.setThumbnail(null);
+            }
+        }
+        articleDao.updateObj(findArticle);
         return true;
     }
 

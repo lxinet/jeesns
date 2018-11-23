@@ -12,7 +12,7 @@
         <result column="action_ip" jdbcType="VARCHAR" property="actionIp" />
     </resultMap>
 
-    <select id="listByPage" resultMap="ActionLogResult">
+    <select id="list" resultMap="ActionLogResult">
         SELECT a.id,a.create_time,a.member_id,a.member_id as 'member.id',a.action_id,a.action_id as 'action.actionId',a.remark,a.type,
          a.foreign_id,a.action_ip,b.name as 'member.name',c.name as 'action.name',c.log as 'action.log' FROM tbl_action_log as a
          left join tbl_member as b on a.member_id=b.id left join tbl_action as c on a.action_id=c.id
@@ -29,8 +29,8 @@
         a.foreign_id,a.action_ip,b.name as 'member.name',b.avatar as 'member.avatar',c.name as 'action.name',c.log as 'action.log',
         (CASE
         WHEN a.type=2 THEN (select content from tbl_weibo WHERE id=a.foreign_id)
-        WHEN a.type=1 THEN (SELECT i.title from tbl_article as h LEFT JOIN tbl_archive as i on h.archive_id=i.archive_id WHERE h.id=a.foreign_id)
-        WHEN a.type=4 THEN (SELECT k.title from tbl_group_topic as j LEFT JOIN tbl_archive as k on j.archive_id=k.archive_id WHERE j.id=a.foreign_id)
+        WHEN a.type=1 THEN (SELECT h.title from tbl_article as h  WHERE h.id=a.foreign_id)
+        WHEN a.type=4 THEN (SELECT j.title from tbl_group_topic as j WHERE j.id=a.foreign_id)
         END) as remark
         FROM tbl_action_log as a
         left join tbl_member as b on a.member_id=b.id left join tbl_action as c on a.action_id=c.id
@@ -42,8 +42,4 @@
         </where>
         ORDER BY a.id DESC
     </select>
-    <insert id="save" parameterType="ActionLog">
-        INSERT INTO tbl_action_log(create_time,member_id,action_id,remark,action_ip,type,foreign_id)
-        VALUES (now(),#{memberId},#{actionId},#{remark},#{actionIp},#{type},#{foreignId})
-    </insert>
 </mapper>

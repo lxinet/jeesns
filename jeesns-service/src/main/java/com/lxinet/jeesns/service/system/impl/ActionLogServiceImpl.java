@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.system.impl;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.system.IActionLogDao;
 import com.lxinet.jeesns.model.system.Action;
 import com.lxinet.jeesns.model.system.ActionLog;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/14.
  */
 @Service("actionLogService")
-public class ActionLogServiceImpl implements IActionLogService {
+public class ActionLogServiceImpl extends BaseServiceImpl<ActionLog> implements IActionLogService {
     @Resource
     private IActionService actionService;
     @Resource
@@ -23,7 +24,7 @@ public class ActionLogServiceImpl implements IActionLogService {
 
     @Override
     public ResultModel<ActionLog> listByPage(Page page, Integer memberId) {
-        List<ActionLog> list = actionLogDao.listByPage(page, memberId);
+        List<ActionLog> list = actionLogDao.list(page, memberId);
         ResultModel model = new ResultModel(0, page);
         model.setData(list);
         return model;
@@ -39,7 +40,7 @@ public class ActionLogServiceImpl implements IActionLogService {
 
     @Override
     public ActionLog findById(Integer id) {
-        return actionLogDao.findById(id);
+        return super.findById(id);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class ActionLogServiceImpl implements IActionLogService {
         if(action != null){
             if(action.getStatus() == 0){
                 ActionLog actionLog = new ActionLog(memberId,actionId,remark,actionIp,type,foreignId);
-                actionLogDao.save(actionLog);
+                super.save(actionLog);
             }
         }
     }

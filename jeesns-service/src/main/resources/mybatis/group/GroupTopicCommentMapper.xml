@@ -27,17 +27,9 @@
     from tbl_group_topic_comment as a left join tbl_group_topic as b on a.group_topic_id=b.id left join tbl_member as c on
     a.member_id=c.id where a.id = #{id}
   </select>
-  <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_group_topic_comment where id = #{id}
-  </delete>
   <delete id="deleteByTopic" parameterType="java.lang.Integer">
     delete from tbl_group_topic_comment where group_topic_id = #{groupTopicId}
   </delete>
-  <insert id="save" parameterType="GroupTopicComment" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_group_topic_comment (group_topic_id,member_id,content,create_time,comment_id)
-    values (#{groupTopicId}, #{memberId}, #{content}, now(),#{commentId})
-  </insert>
-
   <select id="selectMember" resultType="Member">
       SELECT a.id,a.name,a.avatar,a.is_vip,a.member_level_id as 'memberLevel.id',b.name as 'memberLevel.name'
       FROM tbl_member as a left join tbl_member_level as b on a.member_level_id = b.id WHERE a.id = #{memberId}

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.member.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.member.IMemberTokenDao;
 import com.lxinet.jeesns.model.member.MemberToken;
 import com.lxinet.jeesns.service.member.IMemberTokenService;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by zchuanzhao on 16/9/29.
  */
 @Service("memberTokenService")
-public class MemberTokenServiceImpl implements IMemberTokenService {
+public class MemberTokenServiceImpl extends BaseServiceImpl<MemberToken> implements IMemberTokenService {
     @Resource
     private IMemberTokenDao memberTokenDao;
 

@@ -3,6 +3,7 @@ package com.lxinet.jeesns.service.member.impl;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.AtUtil;
 import com.lxinet.jeesns.dao.member.IMessageDao;
 import com.lxinet.jeesns.model.member.Member;
@@ -18,7 +19,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/3/9.
  */
 @Service("messageService")
-public class MessageServiceImpl implements IMessageService {
+public class MessageServiceImpl extends BaseServiceImpl<Message> implements IMessageService {
     @Resource
     private IMessageDao messageDao;
     @Resource
@@ -57,7 +58,7 @@ public class MessageServiceImpl implements IMessageService {
 
     @Override
     public ResultModel<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId) {
-        List<Message> list = messageDao.listByPage(page,fromMemberId, toMemberId);
+        List<Message> list = messageDao.list(page,fromMemberId, toMemberId);
         ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;

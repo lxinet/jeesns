@@ -9,6 +9,7 @@ import com.lxinet.jeesns.core.enums.FillTime;
 import com.lxinet.jeesns.core.enums.IdType;
 import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.member.Member;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -87,7 +88,6 @@ public class GroupTopic implements Serializable {
     /**
      * 会员是否已点击喜欢
      */
-    @Column("is_favor")
     private Integer isFavor;
 
     public Integer getId() {
@@ -259,7 +259,7 @@ public class GroupTopic implements Serializable {
     }
 
     public String getThumbnail() {
-        return thumbnail;
+        return "".equals(thumbnail) ? null:thumbnail;
     }
 
     public void setThumbnail(String thumbnail) {
@@ -311,6 +311,7 @@ public class GroupTopic implements Serializable {
     }
 
     public void setContent(String content) {
+        content = HtmlUtils.htmlUnescape(content);
         this.content = content;
     }
 

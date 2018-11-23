@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.group.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/27.
  */
 @Service("groupTopicCommentService")
-public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
+public class GroupTopicCommentServiceImpl extends BaseServiceImpl<GroupTopicComment> implements IGroupTopicCommentService {
     @Resource
     private IGroupTopicCommentDao groupTopicCommentDao;
     @Resource
@@ -55,7 +56,7 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
         groupTopicComment.setGroupTopicId(groupTopicId);
         groupTopicComment.setContent(content);
         groupTopicComment.setCommentId(commentId);
-        int result = groupTopicCommentDao.save(groupTopicComment);
+        int result = groupTopicCommentDao.saveObj(groupTopicComment);
         if(result == 1){
             //@会员处理并发送系统消息
             messageService.atDeal(loginMember.getId(),content, AppTag.GROUP, MessageType.GROUP_TOPIC_COMMENT_REFER,groupTopicComment.getId());
@@ -90,13 +91,13 @@ public class GroupTopicCommentServiceImpl implements IGroupTopicCommentService {
     public boolean delete(Member loginMember, int id){
         GroupTopicComment groupTopicComment = this.findById(id);
         ValidUtill.checkIsNull(groupTopicComment, Messages.COMMENT_NOT_EXISTS);
-        int result = groupTopicCommentDao.delete(id);
-        if(result == 1){
+        boolean result = super.deleteById(id);
+        if(result){
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_COMMENTS,id);
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP_TOPIC_COMMENT,"ID："+groupTopicComment.getId()+"，内容："+groupTopicComment.getContent());
         }
-        return result == 1;
+        return result;
     }
 
     public GroupTopicComment atFormat(GroupTopicComment groupTopicComment){

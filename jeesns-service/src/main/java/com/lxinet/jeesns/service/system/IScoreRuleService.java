@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.service.system;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.system.ScoreRule;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2017/2/14.
  */
-public interface IScoreRuleService {
+public interface IScoreRuleService extends IBaseService<ScoreRule> {
 
     List<ScoreRule> list();
 

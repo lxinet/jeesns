@@ -3,13 +3,14 @@ package com.lxinet.jeesns.service.member;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
+import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.member.Message;
 
 /**
  * 会员私信Service
  * Created by zchuanzhao on 17/3/9.
  */
-public interface IMessageService {
+public interface IMessageService extends IBaseService<Message> {
 
     ResultModel sentMsg(Integer fromMemberId, Integer toMemberId, String content);
 

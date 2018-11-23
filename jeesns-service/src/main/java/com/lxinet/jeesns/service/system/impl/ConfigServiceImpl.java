@@ -2,6 +2,7 @@ package com.lxinet.jeesns.service.system.impl;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.ParamException;
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.system.IConfigDao;
 import com.lxinet.jeesns.model.system.Config;
 import com.lxinet.jeesns.service.system.IConfigService;
@@ -17,14 +18,14 @@ import java.util.Map;
  * Created by zchuanzhao on 16/9/27.
  */
 @Service("configService")
-public class ConfigServiceImpl implements IConfigService {
+public class ConfigServiceImpl extends BaseServiceImpl<Config> implements IConfigService {
     @Resource
     private IConfigDao configDao;
 
 
     @Override
     public List<Config> allList() {
-        return configDao.allList();
+        return super.listAll();
     }
 
     @Override

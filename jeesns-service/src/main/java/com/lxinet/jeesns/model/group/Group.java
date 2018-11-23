@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * Created by zchuanzhao on 16/12/23.
  */
-@Table("group")
+@Table("tbl_group")
 public class Group implements Serializable {
     @Id(value = "id", type = IdType.AUTO)
     private Integer id;

@@ -9,6 +9,7 @@ import com.lxinet.jeesns.core.enums.FillTime;
 import com.lxinet.jeesns.core.enums.IdType;
 import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.member.Member;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -223,7 +224,7 @@ public class Article implements Serializable {
     }
 
     public String getThumbnail() {
-        return thumbnail;
+        return "".equals(thumbnail) ? null:thumbnail;
     }
 
     public void setThumbnail(String thumbnail) {
@@ -275,6 +276,7 @@ public class Article implements Serializable {
     }
 
     public void setContent(String content) {
+        content = HtmlUtils.htmlUnescape(content);
         this.content = content;
     }
 

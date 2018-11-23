@@ -22,7 +22,7 @@
     (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
   </sql>
 
-  <select id="listByPage" resultMap="WeiboResult">
+  <select id="list" resultMap="WeiboResult">
     SELECT <include refid="select_column"/>
     from tbl_weibo a left join tbl_member b on a.member_id = b.id
     <where>
@@ -45,17 +45,6 @@
     delete from tbl_action_log where type=2 and foreign_id = #{id};
     delete from tbl_weibo where id = #{id}
   </delete>
-  <insert id="save" parameterType="Weibo" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_weibo (create_time, member_id, type, content
-    <if test="topicId != null">
-      ,topic_id
-    </if>
-    ) VALUES (now(),#{memberId},#{type},#{content}
-    <if test="topicId != null">
-      ,#{topicId}
-    </if>
-    )
-  </insert>
 
   <select id="hotList" resultMap="WeiboResult">
     SELECT <include refid="select_column"/>

@@ -8,10 +8,6 @@
     <result column="count" jdbcType="INTEGER" property="count" />
   </resultMap>
 
-  <insert id="save" parameterType="WeiboTopic" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_weibo_topic (create_time, name, count) VALUES (now(),#{name},0)
-  </insert>
-
   <select id="findByName" resultMap="WeiboTopicResult">
     SELECT * from tbl_weibo_topic where name = #{name}
   </select>

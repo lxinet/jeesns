@@ -9,12 +9,6 @@
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
 
-  <select id="findById" parameterType="java.lang.Integer" resultMap="ArticleCateResult">
-    select 
-    id,fid,name,status,sort
-    from tbl_article_cate
-    where id = #{id}
-  </select>
   <select id="findListByFid" resultMap="ArticleCateResult">
     select
     id,fid,name,status,sort
@@ -47,36 +41,4 @@
     </where>
     ORDER BY id DESC
   </select>
-
-  <delete id="delete" parameterType="java.lang.Integer">
-    delete from tbl_article_cate
-    where id = #{id}
-  </delete>
-  <insert id="save" parameterType="ArticleCate">
-    insert into tbl_article_cate
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">id,</if>
-      <if test="fid != null">fid,</if>
-      <if test="name != null">name,</if>
-      <if test="status != null">status,</if>
-      <if test="sort != null">sort,</if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">#{id},</if>
-      <if test="fid != null">#{fid},</if>
-      <if test="name != null">#{name},</if>
-      <if test="status != null">#{status},</if>
-      <if test="sort != null">#{sort},</if>
-    </trim>
-  </insert>
-  <update id="update" parameterType="ArticleCate">
-    update tbl_article_cate
-    <set>
-      <if test="fid != null">fid = #{fid},</if>
-      <if test="name != null">name = #{name},</if>
-      <if test="status != null">status = #{status},</if>
-      <if test="sort != null">sort = #{sort},</if>
-    </set>
-    where id = #{id}
-  </update>
 </mapper>

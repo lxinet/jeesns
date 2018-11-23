@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.weibo.IWeiboFavorDao;
 import com.lxinet.jeesns.model.weibo.WeiboFavor;
 import com.lxinet.jeesns.service.weibo.IWeiboFavorService;
@@ -10,7 +11,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2017/2/8.
  */
 @Service("weiboFavorService")
-public class WeiboFavorServiceImpl implements IWeiboFavorService {
+public class WeiboFavorServiceImpl extends BaseServiceImpl<WeiboFavor> implements IWeiboFavorService {
     @Resource
     private IWeiboFavorDao weiboFavorDao;
 

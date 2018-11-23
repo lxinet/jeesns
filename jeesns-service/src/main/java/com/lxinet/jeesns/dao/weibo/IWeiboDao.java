@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.weibo;
 
+import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.weibo.Weibo;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2016/11/25.
  */
-public interface IWeiboDao extends IBaseDao<Weibo> {
+public interface IWeiboDao extends BaseMapper<Weibo> {
 
     /**
      * 列表
@@ -18,9 +19,7 @@ public interface IWeiboDao extends IBaseDao<Weibo> {
      * @param loginMemberId 当前登录的会员ID，用来判断是否已点赞
      * @return
      */
-    List<Weibo> listByPage(@Param("page") Page page, @Param("memberId") int memberId, @Param("loginMemberId") int loginMemberId, @Param("key") String key);
-
-    int save(Weibo weibo);
+    List<Weibo> list(@Param("page") Page page, @Param("memberId") int memberId, @Param("loginMemberId") int loginMemberId, @Param("key") String key);
 
     int delete(int id);
 

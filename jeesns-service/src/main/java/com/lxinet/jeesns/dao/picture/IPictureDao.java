@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.picture;
 
+import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.model.picture.Picture;
@@ -10,13 +11,13 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 2017/3/1.
  */
-public interface IPictureDao extends IBaseDao<Picture> {
+public interface IPictureDao extends BaseMapper<Picture> {
 
     List<Picture> find(@Param("foreignId") Integer foreignId);
 
-    Picture findById(@Param("pictureId") Integer pictureId,@Param("loginMemberId") Integer loginMemberId);
+    Picture findById(@Param("id") Integer id,@Param("loginMemberId") Integer loginMemberId);
 
-    List<Picture> listByPage(@Param("page") Page page,@Param("loginMemberId") Integer loginMemberId);
+    List<Picture> list(@Param("page") Page page,@Param("loginMemberId") Integer loginMemberId);
 
     List<Picture> listByAlbum(@Param("page") Page page, @Param("albumId") Integer albumId,@Param("loginMemberId") Integer loginMemberId);
 

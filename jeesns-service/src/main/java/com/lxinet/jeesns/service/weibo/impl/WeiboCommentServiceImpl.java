@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.weibo.impl;
 
+import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/22.
  */
 @Service("weiboCommentService")
-public class WeiboCommentServiceImpl implements IWeiboCommentService {
+public class WeiboCommentServiceImpl extends BaseServiceImpl<WeiboComment> implements IWeiboCommentService {
     @Resource
     private IWeiboCommentDao weiboCommentDao;
     @Resource
@@ -62,7 +63,7 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
         weiboComment.setWeiboId(weiboId);
         weiboComment.setContent(content);
         weiboComment.setCommentId(weiboCommentId);
-        int result = weiboCommentDao.save(weiboComment);
+        int result = weiboCommentDao.saveObj(weiboComment);
         if(result == 1){
             //@会员处理并发送系统消息
             messageService.atDeal(loginMember.getId(),content, AppTag.WEIBO, MessageType.WEIBO_COMMENT_REFER,weibo.getId());
@@ -98,11 +99,11 @@ public class WeiboCommentServiceImpl implements IWeiboCommentService {
     @Override
     public boolean delete(Member loginMember, int id) {
         WeiboComment weiboComment = this.findById(id);
-        int result = weiboCommentDao.delete(id);
-        if(result == 1){
+        boolean result = super.deleteById(id);
+        if(result){
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_WEIBO_COMMENT,"ID："+weiboComment.getId()+"内容："+weiboComment.getContent());
         }
-        return result == 1;
+        return result;
     }
 
     public WeiboComment atFormat(WeiboComment weiboComment){
