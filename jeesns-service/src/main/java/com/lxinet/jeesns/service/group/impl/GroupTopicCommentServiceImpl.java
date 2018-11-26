@@ -49,8 +49,8 @@ public class GroupTopicCommentServiceImpl extends BaseServiceImpl<GroupTopicComm
     @Override
     public boolean save(Member loginMember, String content, Integer groupTopicId, Integer commentId) {
         GroupTopic groupTopic = groupTopicService.findById(groupTopicId,loginMember);
-        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
-        ValidUtill.checkIsNull(content, Messages.CONTENT_NOT_EMPTY);
+        ValidUtill.checkIsNull(groupTopic, "帖子不存在");
+        ValidUtill.checkIsNull(content, "内容不能为空");
         GroupTopicComment groupTopicComment = new GroupTopicComment();
         groupTopicComment.setMemberId(loginMember.getId());
         groupTopicComment.setGroupTopicId(groupTopicId);
@@ -90,7 +90,7 @@ public class GroupTopicCommentServiceImpl extends BaseServiceImpl<GroupTopicComm
     @Override
     public boolean delete(Member loginMember, int id){
         GroupTopicComment groupTopicComment = this.findById(id);
-        ValidUtill.checkIsNull(groupTopicComment, Messages.COMMENT_NOT_EXISTS);
+        ValidUtill.checkIsNull(groupTopicComment, "评论不存在");
         boolean result = super.deleteById(id);
         if(result){
             //扣除积分

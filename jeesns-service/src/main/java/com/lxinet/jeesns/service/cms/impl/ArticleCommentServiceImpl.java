@@ -52,8 +52,8 @@ public class ArticleCommentServiceImpl extends BaseServiceImpl<ArticleComment> i
     @Override
     public boolean save(Member loginMember, String content, Integer articleId) {
         Article article = articleService.findById(articleId);
-        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
-        ValidUtill.checkIsBlank(content, Messages.CONTENT_NOT_EMPTY);
+        ValidUtill.checkIsNull(article, "文章不存在");
+        ValidUtill.checkIsBlank(content, "内容不能为空");
         ArticleComment articleComment = new ArticleComment();
         articleComment.setMemberId(loginMember.getId());
         articleComment.setArticleId(articleId);

@@ -64,7 +64,7 @@ public class WeiboServiceImpl extends BaseServiceImpl<Weibo> implements IWeiboSe
         if("0".equals(request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST.toUpperCase()))){
             throw new OpeErrorException("微博已关闭");
         }
-        ValidUtill.checkIsNull(content, Messages.CONTENT_NOT_EMPTY);
+        ValidUtill.checkIsNull(content, "内容不能为空");
         if(content.length() > Integer.parseInt((String) request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase()))){
             throw new ParamException("内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
         }
@@ -121,7 +121,7 @@ public class WeiboServiceImpl extends BaseServiceImpl<Weibo> implements IWeiboSe
     @Override
     public boolean delete(HttpServletRequest request, Member loginMember, int id) {
         Weibo weibo = this.findById(id,loginMember.getId());
-        ValidUtill.checkIsNull(weibo, Messages.WEIBO_NOT_EXISTS);
+        ValidUtill.checkIsNull(weibo, "微博不存在");
         weiboDao.delete(id);
         //扣除积分
         scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.RELEASE_WEIBO,id);
@@ -134,7 +134,7 @@ public class WeiboServiceImpl extends BaseServiceImpl<Weibo> implements IWeiboSe
     @Override
     public boolean userDelete(HttpServletRequest request, Member loginMember, int id) {
         Weibo weibo = this.findById(id,loginMember.getId());
-        ValidUtill.checkIsNull(weibo, Messages.WEIBO_NOT_EXISTS);
+        ValidUtill.checkIsNull(weibo, "微博不存在");
         if(loginMember.getIsAdmin() == 0 && (loginMember.getId().intValue() != weibo.getMember().getId().intValue())){
             throw new OpeErrorException("没有权限");
         }
