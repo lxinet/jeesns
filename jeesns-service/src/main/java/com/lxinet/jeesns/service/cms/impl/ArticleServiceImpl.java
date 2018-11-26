@@ -153,7 +153,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements IArt
     @Override
     public ResultModel favor(Member loginMember, int articleId) {
         Article article = this.findById(articleId);
-        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
+        ValidUtill.checkIsNull(article, "文章不存在");
         int favor = article.getFavor();
         String message;
         ResultModel<Integer> resultModel;
@@ -190,7 +190,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements IArt
     @Transactional
     public boolean update(Member member, Article article) {
         Article findArticle = this.findById(article.getId(),member);
-        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
+        ValidUtill.checkIsNull(article, "文章不存在");
         Map<String,String> config = configService.getConfigToMap();
         if(member.getIsAdmin() == 0 && "0".equals(config.get(ConfigUtil.CMS_POST_REVIEW))){
             findArticle.setStatus(0);
@@ -249,7 +249,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements IArt
     @Transactional
     public boolean delete(Member member, int id) {
         Article article = this.findById(id);
-        ValidUtill.checkIsNull(article, Messages.ARTICLE_NOT_EXISTS);
+        ValidUtill.checkIsNull(article, "文章不存在");
         boolean result = super.deleteById(id);
         if(!result){
             throw new OpeErrorException();

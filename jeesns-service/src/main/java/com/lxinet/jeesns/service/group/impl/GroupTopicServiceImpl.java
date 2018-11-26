@@ -74,7 +74,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
             throw new ParamException();
         }
         Group group = groupService.findById(groupTopic.getGroupId());
-        ValidUtill.checkIsNull(group, Messages.GROUP_NOT_EXISTS);
+        ValidUtill.checkIsNull(group, "群组不存在");
         if(groupFansService.findByMemberAndGroup(group.getId(),member.getId()) == null){
             throw new OpeErrorException("必须关注该群组后才能发帖");
         }
@@ -109,7 +109,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     @Override
     public boolean update(Member member, GroupTopic groupTopic) {
         GroupTopic findGroupTopic = this.findById(groupTopic.getId(),member);
-        ValidUtill.checkIsNull(findGroupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(findGroupTopic, "帖子不存在");
         if(member.getId().intValue() != findGroupTopic.getMember().getId().intValue()){
             throw new OpeErrorException("没有权限");
         }
@@ -165,7 +165,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     @Transactional
     public boolean delete(Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id);
-        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(groupTopic, "帖子不存在");
         int result = groupTopicDao.delete(id);
         if(result == 1){
             //扣除积分
@@ -182,7 +182,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     @Transactional
     public boolean indexDelete(HttpServletRequest request, Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id,loginMember);
-        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(groupTopic, "帖子不存在");
         Group group = groupService.findById(groupTopic.getGroup().getId());
         ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
@@ -204,7 +204,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     @Override
     public boolean audit(Member member, int id) {
         GroupTopic groupTopic = this.findById(id,member);
-        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(groupTopic, "帖子不存在");
         Group group = groupService.findById(groupTopic.getGroup().getId());
         ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
@@ -225,7 +225,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     @Override
     public boolean top(Member member, int id, int top) {
         GroupTopic groupTopic = this.findById(id,member);
-        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(groupTopic, "帖子不存在");
         Group group = groupService.findById(groupTopic.getGroup().getId());
         ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
@@ -253,7 +253,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     @Override
     public boolean essence(Member member, int id, int essence) {
         GroupTopic groupTopic = this.findById(id,member);
-        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(groupTopic, "帖子不存在");
         Group group = groupService.findById(groupTopic.getGroup().getId());
         ValidUtill.checkIsNull(group);
         String groupManagers = group.getManagers();
@@ -275,7 +275,7 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     @Override
     public ResultModel favor(Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id);
-        ValidUtill.checkIsNull(groupTopic, Messages.TOPIC_NOT_EXISTS);
+        ValidUtill.checkIsNull(groupTopic, "帖子不存在");
         int favor = groupTopic.getFavor();
         String message;
         ResultModel<Integer> resultModel;

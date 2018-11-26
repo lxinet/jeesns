@@ -54,17 +54,17 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     public boolean login(Member member, HttpServletRequest request) {
         Map<String,String> config = configService.getConfigToMap();
         if("0".equals(config.get(ConfigUtil.MEMBER_LOGIN_OPEN))){
-            throw new OpeErrorException(Messages.LOGIN_CLOSED);
+            throw new OpeErrorException("登录功能已关闭");
         }
         String password = member.getPassword();
         member.setPassword(Md5Util.getMD5Code(member.getPassword()));
         Member findMember = memberDao.login(member);
         if (null == findMember){
             actionLogService.save(IpUtil.getIpAddress(request),null,ActionUtil.MEMBER_LOGIN_ERROR,"登录用户名："+member.getName()+"，登录密码："+password);
-            throw new OpeErrorException(Messages.LOGIN_INFO_WRONG);
+            throw new OpeErrorException("用户名或者密码错误");
         }
         if(findMember.getStatus() == -1){
-            throw new OpeErrorException(Messages.ACCOUNT_IS_DISABLED);
+            throw new OpeErrorException("账号已被禁用");
         }
         //登录成功更新状态
         memberDao.loginSuccess(findMember.getId(), IpUtil.getIpAddress(request));
@@ -100,10 +100,10 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     @Transactional
     public ResultModel register(Member member, HttpServletRequest request) {
         if(memberDao.findByName(member.getName()) != null){
-            throw new OpeErrorException(Messages.USERNAME_EXISTS);
+            throw new OpeErrorException("用户名已存在");
         }
         if(memberDao.findByEmail(member.getEmail()) != null){
-            throw new OpeErrorException(Messages.EMAIL_EXISTS);
+            throw new OpeErrorException("邮箱已存在");
         }
         member.setRegip(IpUtil.getIpAddress(request));
         member.setPassword(Md5Util.getMD5Code(member.getPassword()));
@@ -209,7 +209,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     @Override
     public ResultModel changepwd(Member loginMember, int id, String password) {
         if(StringUtils.isBlank(password)){
-            throw new OpeErrorException(Messages.PASSWORD_NOT_EMPTY);
+            throw new OpeErrorException("密码不能为空");
         }
         if(password.length() < 6){
             return new ResultModel(-1,"密码不能少于6个字符");
@@ -232,7 +232,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     @Override
     public ResultModel changepwd(Member loginMember, String oldPassword, String newPassword) {
         if(StringUtils.isBlank(newPassword)){
-            throw new OpeErrorException(Messages.PASSWORD_NOT_EMPTY);
+            throw new OpeErrorException("密码不能为空");
         }
         if(newPassword.length() < 6){
             return new ResultModel(-1,"密码不能少于6个字符");

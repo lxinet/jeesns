@@ -65,7 +65,7 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
     @Override
     public boolean follow(Member loginMember, Integer groupId, int type) {
         Group group = this.findById(groupId);
-        ValidUtill.checkIsNull(group,Messages.GROUP_NOT_EXISTS);
+        ValidUtill.checkIsNull(group,"群组不存在");
         if(type == 0){
             return groupFansService.save(loginMember,groupId);
         }else {
@@ -137,7 +137,7 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
     @Override
     public boolean update(Member loginMember, Group group) {
         Group findGroup = this.findById(group.getId());
-        ValidUtill.checkIsNull(findGroup, Messages.GROUP_NOT_EXISTS);
+        ValidUtill.checkIsNull(findGroup, "群组不存在");
         if(loginMember.getId().intValue() != findGroup.getCreator().intValue()){
             throw new OpeErrorException("没有权限");
         }
@@ -174,7 +174,7 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
     @Override
     public boolean delete(Member loginMember, int id) {
         Group findGroup = this.findById(id);
-        ValidUtill.checkIsNull(findGroup, Messages.GROUP_NOT_EXISTS);
+        ValidUtill.checkIsNull(findGroup, "群组不存在");
         boolean result = groupDao.delete(id) == 1;
         if(result){
             actionLogService.save(loginMember.getCurrLoginIp(),loginMember.getId(), ActionUtil.DELETE_GROUP,"ID："+findGroup.getId()+"，名字："+findGroup.getName());

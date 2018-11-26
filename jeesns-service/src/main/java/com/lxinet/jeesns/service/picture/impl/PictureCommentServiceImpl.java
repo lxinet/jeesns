@@ -74,7 +74,7 @@ public class PictureCommentServiceImpl implements IPictureCommentService {
     @Override
     public boolean delete(Member loginMember, int id) {
         PictureComment pictureComment = this.findById(id);
-        ValidUtill.checkIsNull(pictureComment, Messages.COMMENT_NOT_EXISTS);
+        ValidUtill.checkIsNull(pictureComment, "评论不存在");
         int result = pictureCommentDao.deleteById(id, PictureComment.class);
         return result == 1;
     }

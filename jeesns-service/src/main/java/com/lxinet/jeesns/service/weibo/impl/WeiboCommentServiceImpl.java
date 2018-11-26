@@ -53,8 +53,8 @@ public class WeiboCommentServiceImpl extends BaseServiceImpl<WeiboComment> imple
     @Override
     public boolean save(Member loginMember, String content, Integer weiboId, Integer weiboCommentId) {
         Weibo weibo = weiboService.findById(weiboId,loginMember.getId());
-        ValidUtill.checkIsNull(weibo, Messages.WEIBO_NOT_EXISTS);
-        ValidUtill.checkIsNull(content, Messages.CONTENT_NOT_EMPTY);
+        ValidUtill.checkIsNull(weibo, "微博不存在");
+        ValidUtill.checkIsNull(content, "内容不能为空");
         if(content.length() > 500){
             throw new ParamException("评论内容不能超过500");
         }

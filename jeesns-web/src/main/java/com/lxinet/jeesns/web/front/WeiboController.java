@@ -65,7 +65,7 @@ public class WeiboController extends BaseController {
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Weibo weibo = weiboService.findById(weiboId,loginMemberId);
         if (weibo == null){
-            throw new NotFountException(Messages.WEIBO_NOT_EXISTS);
+            throw new NotFountException("微博不存在");
         }
         model.addAttribute("weibo",weibo);
         model.addAttribute("loginUser", loginMember);
