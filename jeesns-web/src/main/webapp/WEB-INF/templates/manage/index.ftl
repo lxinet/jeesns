@@ -157,6 +157,39 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v14">v1.4</a><code class="pull-right">2018.11.26</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v14" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复：修复前台申请群组时，会出现2个一样的记录</li>
+                                                        <li>修复：修复文章、帖子、微博点赞/取消点赞图标不会变化的问题</li>
+                                                        <li>修复：修复申请群组时，积分不足也可以申请群组，导致账户积分为负数</li>
+                                                        <li>修复：修复XSS攻击问题</li>
+                                                        <li>优化：统一会员中心与前台的前端框架</li>
+                                                        <li>优化：优化图库界面</li>
+                                                        <li>优化：修改首页和文章列表页面</li>
+                                                        <li>优化：接口返回json数据，日期指定时区</li>
+                                                        <li>优化：微博页面优化</li>
+                                                        <li>优化：帖子与文章表分开</li>
+                                                        <li>优化：升级Spring框架版本</li>
+                                                        <li>优化：数据库连接池使用druid</li>
+                                                        <li>增加：增加文章评论管理</li>
+                                                        <li>增加：签到功能</li>
+                                                        <li>增加：增加微博话题功能</li>
+                                                        <li>增加：增加VIP会员功能</li>
+                                                        <li>增加：Mybatis增删改查基础操作进行封装</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v13">v1.3</a><code class="pull-right">2018.08.03</code>
                                             </h5>
                                         </div>
