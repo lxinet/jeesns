@@ -67,11 +67,14 @@
                         pageCount="${model.page.totalPage}">
                 </div>
             </div>
+
             <div class="col-md-3">
-                <a  class="btn btn-block btn-primary" href="${basePath}/checkin/save" target="_jeesnsLink" callback="checkin">签到</a>
-                <div class="panel group-topic-list no-border">
+                <div class="panel group no-border">
                     <div class="panel-heading">
                         连续签到排行
+                        <span class="pull-right">
+                            <a  class="btn btn-primary m-t-n4" href="${basePath}/checkin/save" target="_jeesnsLink" callback="checkin">签到</a>
+                        </span>
                     </div>
                     <div class="panel-body">
                         <div class="items">
