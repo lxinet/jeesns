@@ -26,11 +26,6 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.lxinet</groupId>
-			<artifactId>jeesns-ext</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 		</dependency>
