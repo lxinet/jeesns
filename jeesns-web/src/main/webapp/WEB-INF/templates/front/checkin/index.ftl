@@ -73,7 +73,7 @@
                     <div class="panel-heading">
                         连续签到排行
                         <span class="pull-right">
-                            <a  class="btn btn-primary m-t-n4" href="${basePath}/checkin/save" target="_jeesnsLink" callback="checkin">签到</a>
+                            <a  class="btn btn-primary right-btn m-t-n4" href="${basePath}/checkin/save" target="_jeesnsLink" callback="checkin">签到</a>
                         </span>
                     </div>
                     <div class="panel-body">

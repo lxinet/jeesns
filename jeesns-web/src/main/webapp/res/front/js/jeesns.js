@@ -164,21 +164,28 @@ var jeesns = {
         });
 
         $('a[target="_jeesnsOpen"]').on('click',function() {
+            var browserWidth = $(window).width();
             var url = $(this).attr('href');
             var title = $(this).attr('title');
-            var text = $(this).text();
             var width = $(this).attr('width');
             var height = $(this).attr('height');
-            if (title == undefined){
-                title = text;
-            }
+            var mode = $(this).attr('mode');
+
             if(width == undefined || width == ""){
                 width = "500px";
             }
             if(height == undefined || height == ""){
                 height = "300px";
             }
-            jeesnsDialog.open(url,title,width,height);
+            var widthInt = width.replace("px","");
+            if (browserWidth * 0.9 < widthInt){
+                width = browserWidth * 0.9 + "px";
+            }
+            if (mode == 'withWidth' && browserWidth < 600){
+                window.location.href = url;
+            } else {
+                jeesnsDialog.open(url,title,width,height);
+            }
             return false;
         });
     },
@@ -290,7 +297,7 @@ var jeesnsDialog = {
             fix: true,
             maxmin: false,
             content: url,
-            scrollbar: false
+            scrollbar: true
         });
     },
     message: function () {

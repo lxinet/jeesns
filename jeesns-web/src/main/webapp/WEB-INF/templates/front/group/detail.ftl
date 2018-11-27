@@ -26,7 +26,7 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-8 col-xs-12">
                 <div class="group white-bg">
                     <div class="group-logo">
                         <img alt="${group.name}" src="${basePath}${group.logo}" width="80px" height="80px"/>
@@ -117,7 +117,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-4 float-left">
+            <div class="col-sm-4 col-xs-12">
                 <div class="panel group-detail-fans">
                     <div class="panel-heading">
                         粉丝(${groupFansList?size})

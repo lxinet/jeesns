@@ -33,8 +33,8 @@
 <div class="wrapper wrapper-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 white-bg m-b-20 p-20">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 col-xs-12 white-bg m-b-20 p-20">
                 <header class="m-b-50">
                     <h1> 登录</h1>
                 </header>

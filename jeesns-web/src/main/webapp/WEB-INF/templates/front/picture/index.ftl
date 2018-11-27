@@ -18,7 +18,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script>
         var basePath = "${basePath}";
@@ -29,13 +29,13 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-12 white-bg">
-                <div class="cards">
+            <div class="col-sm-12 col-xs-12">
+                <div class="cards white-bg">
                     <#list model.data as picture>
-                        <div class="col-md-4 col-sm-6 col-lg-3">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                             <div class="card">
                                 <div class="albumPic">
-                                    <a class="picLink" href="${basePath}/picture/detail/${picture.id}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
+                                    <a class="picLink" href="${basePath}/picture/detail/${picture.id}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%" mode="withWidth">
                                         <img src="${basePath}${picture.smallPath}" class="pic">
                                     </a>
                                 </div>

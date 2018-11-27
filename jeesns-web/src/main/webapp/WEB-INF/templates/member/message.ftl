@@ -29,36 +29,38 @@
 <div class="wrapper wrapper-content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 white-bg">
-                <div class="list list-condensed">
-                    <header>
-                        <h3><i class="icon-list-ul"></i> 私信</h3>
-                    </header>
-                    <div class="col-md-3">
-                        <div class="chat-users">
-                            <div class="users-list" id="users-list">
+            <div class="col-sm-12 col-xs-12">
+                <div class="col-xs-12 white-bg">
+                    <div class="list list-condensed">
+                        <header>
+                            <h3><i class="icon-list-ul"></i> 私信</h3>
+                        </header>
+                        <div class="col-md-3">
+                            <div class="chat-users">
+                                <div class="users-list" id="users-list">
 
-                            </div>
-                            <div class="load-more">
-                                <a href="javascript:void(0)" class="contacts-load-more-a" onclick="contactsLoadMore()"
-                                   style="display: none;">加载更多...</a>
+                                </div>
+                                <div class="load-more">
+                                    <a href="javascript:void(0)" class="contacts-load-more-a" onclick="contactsLoadMore()"
+                                       style="display: none;">加载更多...</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="chat-discussion">
-                            <div class="chat-load-more">
-                                <a href="javascript:void(0)" class="message-load-more-a" onclick="messageLoadMore()"
-                                   style="display: none;">加载更多...</a>
-                            </div>
-                            <div class="chat-discussion-content">
+                        <div class="col-md-9">
+                            <div class="chat-discussion">
+                                <div class="chat-load-more">
+                                    <a href="javascript:void(0)" class="message-load-more-a" onclick="messageLoadMore()"
+                                       style="display: none;">加载更多...</a>
+                                </div>
+                                <div class="chat-discussion-content">
 
+                                </div>
+                                <div class="no-message"> 暂无聊天记录</div>
                             </div>
-                            <div class="no-message"> 暂无聊天记录</div>
-                        </div>
-                        <div class="send-message-area">
-                            <textarea class="form-control message-input" name="content" id="content"></textarea>
-                            <button class="btn btn-info pull-right sendMessage">发送</button>
+                            <div class="send-message-area">
+                                <textarea class="form-control message-input" name="content" id="content"></textarea>
+                                <button class="btn btn-info pull-right sendMessage">发送</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -26,7 +26,7 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-8 col-xs-12">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         帖子分类管理
@@ -59,7 +59,7 @@
 
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4 col-xs-12">
                 <div class="group white-bg">
                     <div class="group-logo">
                         <a href="${groupPath}/detail/${group.id}">

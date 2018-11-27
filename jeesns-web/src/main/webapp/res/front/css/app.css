@@ -30,6 +30,12 @@ a {
     float: right;
 }
 
+.p-t-5 {
+    padding-top: 5px;
+}
+.p-t-10 {
+    padding-top: 10px;
+}
 .p-r-10 {
     padding-right: 10px;
 }
@@ -200,10 +206,13 @@ a {
     border-bottom: 1px solid #0499e2;
     font-size: 15px;
     font-weight: 500;
-    padding: 5px 0 5px 15px;
+    padding: 5px 5px 5px 5px;
     margin-bottom: 5px;
     background-color: #ffffff !important;
     border-color: #0499e2 !important;
+}
+.panel-heading .right-btn {
+    margin-right: -5px;
 }
 
 .article-list {
@@ -244,7 +253,7 @@ a {
 }
 
 .weibo-post-area {
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .weibo-list {
@@ -830,75 +839,76 @@ a {
 }
 
 .member-banner .left {
-    float: left;
-    width: 800px;
     padding-top: 50px;
 }
 
-.member-banner .left .avatar {
+.member-banner .avatar {
     margin-top: 10px;
     float: left;
     width: 80px;
     height: 80px;
 }
 
-.member-banner .left .info {
+.member-banner .info {
     float: left;
     width: calc(100% - 110px);
     margin-left: 20px;
 }
 
-.member-banner .left .info .name {
+.member-banner .info .name {
     float: left;
     width: 100%;
     font-size: 25px;
     font-weight: bold;
 }
+.member-banner .info .name .edit {
+    font-size: 13px;
+    font-weight: normal;
+}
 
-.member-banner .left .info .sex {
+.member-banner .info .sex {
     font-size: 16px;
     color: #0099cc;
 }
 
-.member-banner .left .info .sex i {
+.member-banner .info .sex i {
     width: 18px;
     height: 18px;
 }
 
-.member-banner .left .info p {
+.member-banner .info p {
     margin: 5px 0;
 }
 
-.member-banner .left .info .operator {
+.member-banner .info .operator {
     margin-top: 20px;
 }
 
 .member-banner .right {
     float: right;
-    width: 300px;
     padding-top: 50px;
     text-align: right;
 }
 
-.member-banner .right .follows,
-.member-banner .right .fans,
-.member-banner .right .score {
+.member-banner .follows,
+.member-banner .fans,
+.member-banner .score {
     font-size: 16px;
     display: inline-block;
-    margin-left: 30px;
+    margin-right: 30px;
     text-align: center;
     color: #666;
 }
 
-.member-banner .right .follows span,
-.member-banner .right .fans span,
-.member-banner .right .score span {
+.member-banner .follows span,
+.member-banner .fans span,
+.member-banner .score span {
     color: #fff;
 }
 
-.member-banner .right .follows a,
-.member-banner .right .fans a,
-.member-banner .right .score a {
+.member-banner .follows a,
+.member-banner .fans a,
+.member-banner .score a {
     font-size: 36px;
     font-weight: 600;
     display: block;
@@ -906,11 +916,51 @@ a {
     color: #0099cc;
 }
 
-.member-banner .right .login-info {
+.member-banner .login-info {
     margin-top: 80px;
     display: block;
     text-align: right;
 }
+
+
+@media screen and (max-width: 768px) {
+    .member-banner .left {
+        padding-top: 5px;
+    }
+
+    .member-banner .avatar {
+        margin-top: 10px;
+        float: left;
+        width: 40px;
+        height: 40px;
+    }
+
+    .member-banner .info {
+        float: left;
+        width: calc(100% - 50px);
+        margin-left: 10px;
+    }
+
+    .member-banner .right {
+        padding-top: 5px;
+        float: left;
+        text-align: left;
+    }
+    .member-banner .follows a,
+    .member-banner .fans a,
+    .member-banner .score a {
+        font-size: 20px;
+        display: block;
+        margin-top: 5px;
+        color: #0099cc;
+    }
+    .member-banner .login-info {
+        margin-top: 10px;
+        display: block;
+        text-align: left;
+    }
+}
+
 
 .cards {
     margin-left: 0px;
@@ -1055,8 +1105,20 @@ a {
     height: 100%;
 }
 
+.picture-detail .row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    height:100% !important;
+}
+
+.picture-detail .row .col {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    height:100% !important;
+}
+
 .picture-detail .show-picture {
-    width: 70%;
+    width: 100%;
     height: 100%;
     line-height: 100%;
     float: left;
@@ -1077,7 +1139,7 @@ a {
 }
 
 .picture-detail .show-info {
-    width: 30%;
+    width: 100%;
     height: 100%;
     float: left;
     padding: 15px;

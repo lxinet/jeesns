@@ -18,7 +18,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script>
         var basePath = "${basePath}";
@@ -29,25 +29,29 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-9 white-bg">
-                <div class="panel-heading">
-                    <a href="${basePath}/picture/album/${pictureAlbum.member.id}">${pictureAlbum.member.name}的相册</a> > ${pictureAlbum.name}
-                </div>
-                <div class="cards">
-                    <#list model.data as picture>
-                    <div class="col-md-4 col-sm-6 col-lg-3">
-                        <div class="card">
-                            <div class="albumPic">
-                                <a class="picLink" href="${basePath}/picture/detail/${picture.id}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
-                                    <img src="${basePath}${picture.smallPath}" class="pic">
-                                </a>
+            <div class="col-sm-9 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <a href="${basePath}/picture/album/${pictureAlbum.member.id}">${pictureAlbum.member.name}的相册</a> > ${pictureAlbum.name}
+                    </div>
+                    <div class="panel-body">
+                        <div class="cards">
+                            <#list model.data as picture>
+                            <div class="col-md-4 col-sm-6 col-lg-3">
+                                <div class="card">
+                                    <div class="albumPic">
+                                        <a class="picLink" href="${basePath}/picture/detail/${picture.id}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%" mode="withWidth">
+                                            <img src="${basePath}${picture.smallPath}" class="pic">
+                                        </a>
+                                    </div>
+                                    <div class="card-actions m-t-10">
+                                        <div class="text-danger"><i class="icon-heart-empty"></i> ${picture.favorCount} 人喜欢</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-actions m-t-10">
-                                <div class="text-danger"><i class="icon-heart-empty"></i> ${picture.favorCount} 人喜欢</div>
-                            </div>
+                            </#list>
                         </div>
                     </div>
-                    </#list>
                 </div>
                 <ul class="pager pagination pagination-sm no-margin pull-right"
                     url="${basePath}/member/picture/list/${pictureAlbum.member.id}-${pictureAlbum.id}"
@@ -55,7 +59,7 @@
                     pageCount="${model.page.totalPage}">
                 </ul>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3 col-xs-12">
                 <div class="panel">
                     <div class="panel-body weibo-author">
                         <div class="avatar">

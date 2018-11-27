@@ -21,7 +21,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
@@ -29,10 +29,10 @@
 <div class="member-banner" style="background-image: url(${basePath}/res/common/images/member_banner.png);">
     <div class="attempts"></div>
     <div class="container">
-        <div class="container content">
-            <div class="left">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 left">
                 <div class="avatar">
-                    <img src="${basePath}${member.avatar}" class="img-circle" width="80px" height="80px"/>
+                    <img src="${basePath}${member.avatar}" class="img-circle" width="100%" height="100%"/>
                 </div>
                 <div class="info">
                     <div class="name">
@@ -44,17 +44,15 @@
                     <#else>
                         <span class="sex"><i class="fa fa-intersex"></i></span>
                     </#if>
+                        <a class="label label-primary edit" member-id="${member.id}">
+                            <i class="fa fa-heart-o"></i> 关注
+                        </a>
                     </div>
                     <p>${member.website}</p>
                     <p>${member.introduce}</p>
-                    <p class="operator">
-                        <a class="label label-primary member-follows" member-id="${member.id}">
-                            <i class="fa fa-heart-o"></i> 关注
-                        </a>
-                    </p>
                 </div>
             </div>
-            <div class="right">
+            <div class="col-sm-6 col-xs-12 right">
                 <div class="follows">
                     <span>关注</span>
                     <a href="${basePath}/u/${member.id}/home/follows">${member.follows}</a>

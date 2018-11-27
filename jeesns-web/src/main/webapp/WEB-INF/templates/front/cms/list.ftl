@@ -26,8 +26,8 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-8 white-bg">
-                <div class="items">
+            <div class="col-sm-8 col-xs-12">
+                <div class="items white-bg">
                     <#list model.data as article>
                     <div class="item">
                         <div class="item-content article">
@@ -63,7 +63,7 @@
                         </ul>
                 </div>
             </div>
-            <div class="col-md-4 float-left">
+            <div class="col-sm-4 col-xs-12">
                 <form action="${basePath}/article/list" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="key">
@@ -76,7 +76,7 @@
                     <div class="panel-heading">
                         文章栏目
                         <span class="pull-right">
-                            <a class="btn btn-primary m-t-n4" href="${basePath}/article/add">发布文章</a>
+                            <a class="btn btn-primary right-btn m-t-n4" href="${basePath}/article/add">发布文章</a>
                         </span>
                     </div>
                     <div class="panel-body">

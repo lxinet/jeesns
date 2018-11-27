@@ -34,10 +34,10 @@
     <div class="member-banner" style="background-image: url(${basePath}/res/common/images/member_banner.png);">
         <div class="attempts"></div>
         <div class="container">
-            <div class="container content">
-                <div class="left">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12 left">
                     <div class="avatar">
-                        <img src="${basePath}${member.avatar}" class="img-circle" width="80px" height="80px"/>
+                        <img src="${basePath}${member.avatar}" class="img-circle" width="100%" height="100%"/>
                     </div>
                     <div class="info">
                         <div class="name">
@@ -50,17 +50,15 @@
                             <span class="sex"><i class="fa fa-intersex"></i></span>
                         </#if>
                             <span class="label label-danger" style="font-size: 12px;">${member.memberLevel.name}</span>
+                            <a class="label label-primary edit" member-id="${member.id}">
+                                <i class="fa fa-heart-o"></i> 关注
+                            </a>
                         </div>
                         <p>${member.website}</p>
                         <p>${member.introduce}</p>
-                        <p class="operator">
-                            <a class="label label-primary member-follows" member-id="${member.id}">
-                                <i class="fa fa-heart-o"></i> 关注
-                            </a>
-                        </p>
                     </div>
                 </div>
-                <div class="right">
+                <div class="col-sm-6 col-xs-12 right">
                     <div class="follows">
                         <span>关注</span>
                         <a href="${basePath}/u/${member.id}/home/follows">${member.follows}</a>
@@ -83,7 +81,7 @@
     </div>
     <div class="container">
         <div class="row m-t-10">
-            <div class="col-sm-2">
+            <div class="col-sm-2 col-xs-12">
                 <ul class="list-group">
                     <li class="list-group-item"><a href="${basePath}/u/${member.id}">动态</a></li>
                     <li class="list-group-item"><a href="${basePath}/picture/album/${member.id}">相册</a></li>
@@ -95,180 +93,181 @@
                     <li class="list-group-item"><a href="${basePath}/u/${member.id}/home/group">关注群组</a></li>
                 </ul>
             </div>
-            <div class="col-sm-10 white-bg">
-                <div class="list list-condensed">
-                    <header>
-                        <h3><i class="icon-list-ul"></i>
-                        <#if type=="article">
-                                        文章
-                        <#elseif type=="groupTopic">
-                                        群贴
-                        <#elseif type=="weibo">
-                                        微博
-                        <#elseif type=="groupTopic">
-                                        群贴
-                        <#elseif type=="fans">
-                                        粉丝
-                        <#elseif type=="follows">
-                                        关注
-                        <#elseif type=="group">
-                                        关注群组
-                        </#if>
-                        </h3>
-                    </header>
-                    <div class="items items-hover">
-                         <#if type=="article">
-                             <#list model.data as article>
-                             <div class="item">
-                                 <div class="item-heading">
-                                     <div class="pull-right"><span
-                                             class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+            <div class="col-sm-10 col-xs-12">
+                <div class="col-xs-12 white-bg">
+                    <div class="list list-condensed">
+                        <header>
+                            <h3><i class="icon-list-ul"></i>
+                            <#if type=="article">
+                                            文章
+                            <#elseif type=="groupTopic">
+                                            群贴
+                            <#elseif type=="weibo">
+                                            微博
+                            <#elseif type=="groupTopic">
+                                            群贴
+                            <#elseif type=="fans">
+                                            粉丝
+                            <#elseif type=="follows">
+                                            关注
+                            <#elseif type=="group">
+                                            关注群组
+                            </#if>
+                            </h3>
+                        </header>
+                        <div class="items items-hover">
+                             <#if type=="article">
+                                 <#list model.data as article>
+                                 <div class="item">
+                                     <div class="item-heading">
+                                         <div class="pull-right"><span
+                                                 class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                         </div>
+                                         <h4>
+                                             <a href="${basePath}/article/detail/${article.id}" class="btn-link">
+                                                 ${article.title}
+                                             </a>
+                                         </h4>
                                      </div>
-                                     <h4>
-                                         <a href="${basePath}/article/detail/${article.id}" class="btn-link">
-                                             ${article.title}
-                                         </a>
-                                     </h4>
                                  </div>
-                             </div>
-                             </#list>
-                             <ul class="pager pagination pagination-sm no-margin pull-right"
-                                 url="${basePath}/u/${member.id}/home/article"
-                                 currentPage="${model.page.pageNo}"
-                                 pageCount="${model.page.totalPage}">
-                             </ul>
-                         <#elseif type=="groupTopic">
-                             <#list model.data as groupTopic>
-                             <div class="item">
-                                 <div class="item-heading">
-                                     <div class="pull-right"><span
-                                             class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                 </#list>
+                                 <ul class="pager pagination pagination-sm no-margin pull-right"
+                                     url="${basePath}/u/${member.id}/home/article"
+                                     currentPage="${model.page.pageNo}"
+                                     pageCount="${model.page.totalPage}">
+                                 </ul>
+                             <#elseif type=="groupTopic">
+                                 <#list model.data as groupTopic>
+                                 <div class="item">
+                                     <div class="item-heading">
+                                         <div class="pull-right"><span
+                                                 class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
+                                         </div>
+                                         <h4>
+                                             <a href="${groupPath}/topic/${groupTopic.id}" class="btn-link">
+                                                 ${groupTopic.title}
+                                             </a>
+                                         </h4>
                                      </div>
-                                     <h4>
-                                         <a href="${groupPath}/topic/${groupTopic.id}" class="btn-link">
-                                             ${groupTopic.title}
-                                         </a>
-                                     </h4>
                                  </div>
-                             </div>
-                             </#list>
-                        <ul class="pager pagination pagination-sm no-margin pull-right"
-                            url="${basePath}/u/${member.id}/home/groupTopic"
-                            currentPage="${model.page.pageNo}"
-                            pageCount="${model.page.totalPage}">
-                        </ul>
-                         <#elseif type=="weibo">
-                             <#list model.data as weibo>
-                            <div class="item">
-                                <div class="item-heading">
-                                    <h4>
-                                        <a href="${basePath}/u/${weibo.member.id}"><strong>${weibo.member.name}</strong></a>
-                                    </h4>
-                                </div>
-                                <div class="item-content">
-                                    <div class="text">
-                                        <p>${weibo.content}</p>
-                                        <div class="lightBoxGallery">
-                                                        <#list weibo.pictures as picture>
-                                                            <a href="${basePath}${picture.path}"
-                                                               title="${weibo.member.name}" data-gallery=""><img
-                                                                    src="${basePath}${picture.thumbnailPath}"/></a>
-                                                        </#list>
-                                            <div id="blueimp-gallery" class="blueimp-gallery">
-                                                <div class="slides"></div>
-                                                <h3 class="title"></h3>
-                                                <a class="prev">‹</a>
-                                                <a class="next">›</a>
-                                                <a class="close">×</a>
-                                                <a class="play-pause"></a>
-                                                <ol class="indicator"></ol>
-                                            </div>
+                                 </#list>
+                            <ul class="pager pagination pagination-sm no-margin pull-right"
+                                url="${basePath}/u/${member.id}/home/groupTopic"
+                                currentPage="${model.page.pageNo}"
+                                pageCount="${model.page.totalPage}">
+                            </ul>
+                             <#elseif type=="weibo">
+                                 <#list model.data as weibo>
+                                <div class="item">
+                                    <div class="item-heading">
+                                        <h4>
+                                            <a href="${basePath}/u/${weibo.member.id}"><strong>${weibo.member.name}</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div class="item-content">
+                                        <div class="text">
+                                            <p>${weibo.content}</p>
+                                            <div class="lightBoxGallery">
+                                                            <#list weibo.pictures as picture>
+                                                                <a href="${basePath}${picture.path}"
+                                                                   title="${weibo.member.name}" data-gallery=""><img
+                                                                        src="${basePath}${picture.thumbnailPath}"/></a>
+                                                            </#list>
+                                                <div id="blueimp-gallery" class="blueimp-gallery">
+                                                    <div class="slides"></div>
+                                                    <h3 class="title"></h3>
+                                                    <a class="prev">‹</a>
+                                                    <a class="next">›</a>
+                                                    <a class="close">×</a>
+                                                    <a class="play-pause"></a>
+                                                    <ol class="indicator"></ol>
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                        <div class="pull-left">
+                                            <span class="text-muted">${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')} （<a href="${weiboPath}/detail/${weibo.id}">评论:${weibo.commentCount}</a>）</span>
                                         </div>
                                     </div>
-                                    <div class="pull-left">
-                                        <span class="text-muted">${weibo.createTime?string('yyyy-MM-dd HH:mm:ss')} （<a href="${weiboPath}/detail/${weibo.id}">评论:${weibo.commentCount}</a>）</span>
-                                    </div>
                                 </div>
-                            </div>
-                             </#list>
-                          <ul class="pager pagination pagination-sm no-margin pull-right"
-                              url="${basePath}/u/${member.id}/home/weibo"
-                              currentPage="${model.page.pageNo}"
-                              pageCount="${model.page.totalPage}">
-                          </ul>
-                         <#elseif type=="group">
-                             <#list model.data as groupFans>
+                                 </#list>
+                              <ul class="pager pagination pagination-sm no-margin pull-right"
+                                  url="${basePath}/u/${member.id}/home/weibo"
+                                  currentPage="${model.page.pageNo}"
+                                  pageCount="${model.page.totalPage}">
+                              </ul>
+                             <#elseif type=="group">
+                                 <#list model.data as groupFans>
 
-                             <div class="item">
-                                 <div class="item-heading">
-                                     <h4>
-                                         <a href="${groupPath}/detail/${groupFans.group.id}">${groupFans.group.name}</a>
-                                     </h4>
-                                 </div>
-                                 <div class="item-content">
-                                     <div class="text">
-                                         <p>${groupFans.group.introduce}</p>
-                                         <small class="text-muted">${groupFans.group.topicCount}篇文章
-                                             · ${groupFans.group.fansCount}人关注
-                                         </small>
+                                 <div class="item">
+                                     <div class="item-heading">
+                                         <h4>
+                                             <a href="${groupPath}/detail/${groupFans.group.id}">${groupFans.group.name}</a>
+                                         </h4>
+                                     </div>
+                                     <div class="item-content">
+                                         <div class="text">
+                                             <p>${groupFans.group.introduce}</p>
+                                             <small class="text-muted">${groupFans.group.topicCount}篇文章
+                                                 · ${groupFans.group.fansCount}人关注
+                                             </small>
+                                         </div>
                                      </div>
                                  </div>
-                             </div>
-                             </#list>
-                            <ul class="pager pagination pagination-sm no-margin pull-right"
-                                url="${basePath}/u/${member.id}/home/group"
-                                currentPage="${model.page.pageNo}"
-                                pageCount="${model.page.totalPage}">
-                            </ul>
-                         <#elseif type=="follows">
-                             <#list model.data as memberFans>
-                             <div class="item">
-                                 <div class="item-heading">
-                                     <h4>
-                                         <a href="${basePath}/u/${memberFans.followWhoMember.id}">${memberFans.followWhoMember.name}</a>
-                                     </h4>
-                                 </div>
-                                 <div class="item-content">
-                                     <div class="text">
-                                         <p>${memberFans.followWhoMember.introduce}</p>
-                                         <small class="text-muted">${memberFans.followWhoMember.follows}关注
-                                             · ${memberFans.followWhoMember.fans}粉丝
-                                         </small>
+                                 </#list>
+                                <ul class="pager pagination pagination-sm no-margin pull-right"
+                                    url="${basePath}/u/${member.id}/home/group"
+                                    currentPage="${model.page.pageNo}"
+                                    pageCount="${model.page.totalPage}">
+                                </ul>
+                             <#elseif type=="follows">
+                                 <#list model.data as memberFans>
+                                 <div class="item">
+                                     <div class="item-heading">
+                                         <h4>
+                                             <a href="${basePath}/u/${memberFans.followWhoMember.id}">${memberFans.followWhoMember.name}</a>
+                                         </h4>
+                                     </div>
+                                     <div class="item-content">
+                                         <div class="text">
+                                             <p>${memberFans.followWhoMember.introduce}</p>
+                                             <small class="text-muted">${memberFans.followWhoMember.follows}关注
+                                                 · ${memberFans.followWhoMember.fans}粉丝
+                                             </small>
+                                         </div>
                                      </div>
                                  </div>
-                             </div>
-                             </#list>
-                            <ul class="pager pagination pagination-sm no-margin pull-right"
-                                url="${basePath}/u/${member.id}/home/follows"
-                                currentPage="${model.page.pageNo}"
-                                pageCount="${model.page.totalPage}">
-                            </ul>
-                         <#elseif type=="fans">
-                             <#list model.data as memberFans>
-                             <div class="item">
-                                 <div class="item-heading">
-                                     <h4>
-                                         <a href="${basePath}/u/${memberFans.whoFollowMember.id}">${memberFans.whoFollowMember.name}</a>
-                                     </h4>
-                                 </div>
-                                 <div class="item-content">
-                                     <div class="text">
-                                         <p>${memberFans.whoFollowMember.introduce}</p>
-                                         <small class="text-muted">${memberFans.whoFollowMember.follows}关注
-                                             · ${memberFans.whoFollowMember.fans}粉丝
-                                         </small>
+                                 </#list>
+                                <ul class="pager pagination pagination-sm no-margin pull-right"
+                                    url="${basePath}/u/${member.id}/home/follows"
+                                    currentPage="${model.page.pageNo}"
+                                    pageCount="${model.page.totalPage}">
+                                </ul>
+                             <#elseif type=="fans">
+                                 <#list model.data as memberFans>
+                                 <div class="item">
+                                     <div class="item-heading">
+                                         <h4>
+                                             <a href="${basePath}/u/${memberFans.whoFollowMember.id}">${memberFans.whoFollowMember.name}</a>
+                                         </h4>
+                                     </div>
+                                     <div class="item-content">
+                                         <div class="text">
+                                             <p>${memberFans.whoFollowMember.introduce}</p>
+                                             <small class="text-muted">${memberFans.whoFollowMember.follows}关注
+                                                 · ${memberFans.whoFollowMember.fans}粉丝
+                                             </small>
+                                         </div>
                                      </div>
                                  </div>
-                             </div>
-                             </#list>
-                            <ul class="pager pagination pagination-sm no-margin pull-right"
-                                url="${basePath}/u/${member.id}/home/fans"
-                                currentPage="${model.page.pageNo}"
-                                pageCount="${model.page.totalPage}">
-                            </ul>
-                         </#if>
-
+                                 </#list>
+                                <ul class="pager pagination pagination-sm no-margin pull-right"
+                                    url="${basePath}/u/${member.id}/home/fans"
+                                    currentPage="${model.page.pageNo}"
+                                    pageCount="${model.page.totalPage}">
+                                </ul>
+                             </#if>
+                        </div>
                     </div>
                 </div>
             </div>

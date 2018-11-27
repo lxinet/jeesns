@@ -24,34 +24,36 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-12 article-detail">
-            <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicTypeUpdate" method="post" callback="parentReload">
-                <input type="hidden" name="id" value="${groupTopicType.id}">
-                <input type="hidden" name="groupId" value="${groupTopicType.groupId}">
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">分类名称</label>
-                    <input type="text" class="form-control" name="name" placeholder="分类名称" data-type="require"
-                           value="${groupTopicType.name}">
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1 control-label">分类权限</label>
-                    <label>
-                        <input type="radio" name="juri" value="0" <#if groupTopicType.juri==0>checked</#if>>
-                        不限制
-                    </label>
-                    <label>
-                        <input type="radio" name="juri" value="1" <#if groupTopicType.juri==1>checked</#if>>
-                        管理员使用
-                    </label>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-1 col-sm-10">
-                        <button type="submit" class="btn btn-info jeesns-submit">保存</button>
-                        <a href="javascript:void(0)" onclick="jeesnsDialog.closeAll()"
-                           class="btn btn-default jeesns-submit">取消</a>
+        <div class="col-sm-12 col-xs-12">
+            <div class="article-detail">
+                <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicTypeUpdate" method="post" callback="parentReload">
+                    <input type="hidden" name="id" value="${groupTopicType.id}">
+                    <input type="hidden" name="groupId" value="${groupTopicType.groupId}">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">分类名称</label>
+                        <input type="text" class="form-control" name="name" placeholder="分类名称" data-type="require"
+                               value="${groupTopicType.name}">
                     </div>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">分类权限</label>
+                        <label>
+                            <input type="radio" name="juri" value="0" <#if groupTopicType.juri==0>checked</#if>>
+                            不限制
+                        </label>
+                        <label>
+                            <input type="radio" name="juri" value="1" <#if groupTopicType.juri==1>checked</#if>>
+                            管理员使用
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-1 col-sm-10">
+                            <button type="submit" class="btn btn-info jeesns-submit">保存</button>
+                            <a href="javascript:void(0)" onclick="jeesnsDialog.closeAll()"
+                               class="btn btn-default jeesns-submit">取消</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
