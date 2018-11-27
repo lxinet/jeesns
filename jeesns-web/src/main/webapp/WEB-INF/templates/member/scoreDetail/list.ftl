@@ -27,37 +27,39 @@
 <div class="wrapper wrapper-content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 white-bg">
-                <div class="list list-condensed">
-                    <header>
-                        <h3><i class="icon-list-ul"></i> 积分明细</h3>
-                    </header>
-                    <div class="items items-hover">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>变动积分</th>
-                                <th>备注</th>
-                                <th>时间</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                    <#list model.data as scoreDetail>
-                    <tr>
-                        <td>${scoreDetail.id}</td>
-                        <td>${scoreDetail.score}</td>
-                        <td>${scoreDetail.remark}</td>
-                        <td>${scoreDetail.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                    </tr>
-                    </#list>
-                            </tbody>
-                        </table>
-                        <ul class="pager pagination pagination-sm no-margin pull-right"
-                            url="${basePath}/member/scoreDetail/list"
-                            currentPage="${model.page.pageNo}"
-                            pageCount="${model.page.totalPage}">
-                        </ul>
+            <div class="col-xs-12">
+                <div class="white-bg">
+                    <div class="list list-condensed">
+                        <header>
+                            <h3><i class="icon-list-ul"></i> 积分明细</h3>
+                        </header>
+                        <div class="items items-hover">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>变动积分</th>
+                                    <th>备注</th>
+                                    <th>时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                        <#list model.data as scoreDetail>
+                        <tr>
+                            <td>${scoreDetail.id}</td>
+                            <td>${scoreDetail.score}</td>
+                            <td>${scoreDetail.remark}</td>
+                            <td>${scoreDetail.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                        </tr>
+                        </#list>
+                                </tbody>
+                            </table>
+                            <ul class="pager pagination pagination-sm no-margin pull-right"
+                                url="${basePath}/member/scoreDetail/list"
+                                currentPage="${model.page.pageNo}"
+                                pageCount="${model.page.totalPage}">
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

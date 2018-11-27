@@ -28,10 +28,10 @@
     <div class="member-banner" style="background-image: url(${basePath}/res/common/images/member_banner.png);">
         <div class="attempts"></div>
         <div class="container">
-            <div class="container content">
-                <div class="left">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12 left">
                     <div class="avatar">
-                        <img src="${basePath}${loginUser.avatar}" class="img-circle" width="80px" height="80px"/>
+                        <img src="${basePath}${loginUser.avatar}" class="img-circle" width="100%" height="100%"/>
                     </div>
                     <div class="info">
                         <div class="name">
@@ -44,17 +44,15 @@
                             <span class="sex"><i class="fa fa-intersex"></i></span>
                         </#if>
                             <span class="label label-danger" style="font-size: 12px;">${loginUser.memberLevel.name}</span>
+                            <a class="label label-primary edit" href="${basePath}/member/editInfo">
+                                <i class="fa fa-edit"></i> 编辑
+                            </a>
                         </div>
                         <p>${loginUser.website}</p>
                         <p>${loginUser.introduce}</p>
-                        <p class="operator">
-                            <a class="btn btn-info btn-outline member-follows" href="${basePath}/member/editInfo">
-                                <i class="fa fa-edit"></i> 编辑个人资料
-                            </a>
-                        </p>
                     </div>
                 </div>
-                <div class="right">
+                <div class="col-sm-6 col-xs-12 right">
                     <div class="follows">
                         <span>关注</span>
                         <a href="${basePath}/u/${loginUser.id}/home/follows">${loginUser.follows}</a>
@@ -78,7 +76,7 @@
     </div>
     <div class="container">
         <div class="row m-t-10">
-            <div class="col-sm-2">
+            <div class="col-sm-2 col-xs-12">
                 <ul class="list-group">
                     <li class="list-group-item"><a href="${basePath}/member/message">私信</a></li>
                     <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}">动态</a></li>
@@ -91,8 +89,8 @@
                     <li class="list-group-item"><a href="${basePath}/u/${loginUser.id}/home/group">关注群组</a></li>
                 </ul>
             </div>
-            <div class="col-sm-10 white-bg">
-                <div class="list list-condensed">
+            <div class="col-sm-10 col-xs-12">
+                <div class="list list-condensed white-bg p-t-5">
                     <header>
                         <h3><i class="icon-list-ul"></i> 动态</h3>
                     </header>

@@ -33,7 +33,7 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-8 col-xs-12">
                 <article class="article article-detail">
                     <header>
                         <h1 class="text-center">${article.title}</h1>
@@ -110,7 +110,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4 col-xs-12">
                 <div class="panel">
                     <div class="panel-body weibo-author">
                         <div class="avatar">

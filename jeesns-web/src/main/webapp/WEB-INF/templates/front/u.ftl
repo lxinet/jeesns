@@ -31,10 +31,10 @@
     <div class="member-banner" style="background-image: url(${basePath}/res/common/images/member_banner.png);">
         <div class="attempts"></div>
         <div class="container">
-            <div class="container content">
-                <div class="left">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12 left">
                     <div class="avatar">
-                        <img src="${basePath}${member.avatar}" class="img-circle" width="80px" height="80px"/>
+                        <img src="${basePath}${member.avatar}" class="img-circle" width="100%" height="100%"/>
                     </div>
                     <div class="info">
                         <div class="name">
@@ -47,22 +47,19 @@
                             <span class="sex"><i class="fa fa-intersex"></i></span>
                         </#if>
                             <span class="label label-danger" style="font-size: 12px;">${member.memberLevel.name}</span>
-                        </div>
-
-                        <p>${member.website}</p>
-                        <p>${member.introduce}</p>
-                        <p class="operator">
-                            <a class="label label-primary member-follows" member-id="${member.id}">
+                            <a class="label label-primary edit" member-id="${member.id}">
                                 <i class="fa fa-heart-o"></i> 关注
-                            </a>
-                            <a class="label label-primary" href="${basePath}/member/sendMessageBox?mid=${member.id}"
+                            </a>&nbsp;
+                            <a class="label label-primary edit" href="${basePath}/member/sendMessageBox?mid=${member.id}"
                                target="_jeesnsOpen" title="私信" height="285px">
                                 <i class="fa fa-comments"></i> 私信
                             </a>
-                        </p>
+                        </div>
+                        <p>${member.website}</p>
+                        <p>${member.introduce}</p>
                     </div>
                 </div>
-                <div class="right">
+                <div class="col-sm-6 col-xs-12 right">
                     <div class="follows">
                         <span>关注</span>
                         <a href="${basePath}/u/${member.id}/home/follows">${member.follows}</a>
@@ -78,7 +75,6 @@
                     <div class="login-info">
                         加入时间:${member.createTime?string('yyyy-MM-dd')}
                         最近登录:<#if member.currLoginTime??>${member.currLoginTime?string('yyyy-MM-dd')}<#else>未登陆过</#if>
-
                     </div>
                 </div>
             </div>
@@ -86,7 +82,7 @@
     </div>
     <div class="container">
         <div class="row m-t-10">
-            <div class="col-sm-2">
+            <div class="col-sm-2 col-xs-12">
                 <ul class="list-group">
                     <li class="list-group-item"><a href="${basePath}/u/${member.id}">动态</a></li>
                     <li class="list-group-item"><a href="${basePath}/picture/album/${member.id}">相册</a></li>
@@ -98,42 +94,44 @@
                     <li class="list-group-item"><a href="${basePath}/u/${member.id}/home/group">关注群组</a></li>
                 </ul>
             </div>
-            <div class="col-sm-10 white-bg">
-                <div class="list list-condensed">
-                    <header>
-                        <h3><i class="icon-list-ul"></i> 动态</h3>
-                    </header>
-                    <div class="items items-hover">
-                        <#list actionLogModel.data as actionLog>
-                        <div class="item">
-                            <div class="item-heading">
-                                <div class="pull-right"><span
-                                        class="text-muted">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</span>
+            <div class="col-sm-10 col-xs-12">
+                <div class="col-xs-12 white-bg">
+                    <div class="list list-condensed">
+                        <header>
+                            <h3><i class="icon-list-ul"></i> 动态</h3>
+                        </header>
+                        <div class="items items-hover">
+                            <#list actionLogModel.data as actionLog>
+                            <div class="item">
+                                <div class="item-heading">
+                                    <div class="pull-right"><span
+                                            class="text-muted">${actionLog.createTime?string('yyyy-MM-dd HH:mm:ss')}</span>
+                                    </div>
+                                    <h4><a href="${basePath}/u/${actionLog.member.id}"><strong>${actionLog.member.name}</strong></a> ${actionLog.action.log}：</h4>
                                 </div>
-                                <h4><a href="${basePath}/u/${actionLog.member.id}"><strong>${actionLog.member.name}</strong></a> ${actionLog.action.log}：</h4>
-                            </div>
-                            <div class="item-content">
-                                <div class="text">
-                                     <#if actionLog.type==1>
-                                         <a href="${basePath}/article/detail/${actionLog.foreignId}"
-                                            target="_blank">${actionLog.remark}</a>
-                                     <#elseif actionLog.type==2>
-                                                <p>${actionLog.remark}</p>
-                                                <a href="${weiboPath}/detail/${actionLog.foreignId}"
-                                                   target="_blank">查看</a>
-                                     <#elseif actionLog.type==4>
-                                                <a href="${groupPath}/topic/${actionLog.foreignId}"
-                                                   target="_blank">${actionLog.remark}</a>
-                                     </#if>
+                                <div class="item-content">
+                                    <div class="text">
+                                         <#if actionLog.type==1>
+                                             <a href="${basePath}/article/detail/${actionLog.foreignId}"
+                                                target="_blank">${actionLog.remark}</a>
+                                         <#elseif actionLog.type==2>
+                                                    <p>${actionLog.remark}</p>
+                                                    <a href="${weiboPath}/detail/${actionLog.foreignId}"
+                                                       target="_blank">查看</a>
+                                         <#elseif actionLog.type==4>
+                                                    <a href="${groupPath}/topic/${actionLog.foreignId}"
+                                                       target="_blank">${actionLog.remark}</a>
+                                         </#if>
+                                    </div>
                                 </div>
                             </div>
+                            </#list>
+                            <ul class="pager pagination pagination-sm no-margin pull-right"
+                                url="${basePath}/member/"
+                                currentPage="${actionLogModel.page.pageNo}"
+                                pageCount="${actionLogModel.page.totalPage}">
+                            </ul>
                         </div>
-                        </#list>
-                        <ul class="pager pagination pagination-sm no-margin pull-right"
-                            url="${basePath}/member/"
-                            currentPage="${actionLogModel.page.pageNo}"
-                            pageCount="${actionLogModel.page.totalPage}">
-                        </ul>
                     </div>
                 </div>
             </div>

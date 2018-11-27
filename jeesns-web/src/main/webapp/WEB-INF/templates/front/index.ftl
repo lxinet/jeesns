@@ -27,7 +27,7 @@
 <div class="container">
     <div class="main-content m-t-10">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-sm-8 col-xs-12">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         推荐阅读
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4 col-xs-12">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         微博
@@ -139,7 +139,7 @@
             </div>
 
 
-            <div class="col-md-12">
+            <div class="col-sm-12 col-xs-12">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         推荐群组
@@ -179,7 +179,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-sm-12 col-xs-12">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         友情链接

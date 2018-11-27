@@ -32,9 +32,10 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-md-12 white-bg m-b-10">
-                <div class="items">
-                <#list model.data as actionLog>
+            <div class="col-sm-12 col-xs-12 m-b-10">
+                <div class="white-bg p-20">
+                    <div class="items">
+                    <#list model.data as actionLog>
                     <div class="comment">
                         <a href="${basePath}/u/${actionLog.member.id}" class="avatar" target="_blank">
                             <img src="${basePath}${actionLog.member.avatar!''}" class="icon-camera-retro icon-2x">
@@ -61,13 +62,14 @@
                             </div>
                         </div>
                     </div>
-                </#list>
+                    </#list>
+                    </div>
+                    <ul class="pager pagination pagination-sm no-margin pull-right"
+                        url="${basePath}/action/list"
+                        currentPage="${model.page.pageNo}"
+                        pageCount="${model.page.totalPage}">
+                    </ul>
                 </div>
-                <ul class="pager pagination pagination-sm no-margin pull-right"
-                    url="${basePath}/action/list"
-                    currentPage="${model.page.pageNo}"
-                    pageCount="${model.page.totalPage}">
-                </ul>
             </div>
         </div>
     </div>
