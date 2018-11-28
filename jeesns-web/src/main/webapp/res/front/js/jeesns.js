@@ -73,7 +73,11 @@ var jeesns = {
                         eval(callback+"('"+json+"')");
                     }
                 }else {
-                    jeesnsDialog.errorTips(res.message);
+                    if (res.code == -99){
+                        jeesnsDialog.errorTipsForever(res.message);
+                    } else {
+                        jeesnsDialog.errorTips(res.message);
+                    }
                 }
             }
         };
@@ -221,7 +225,11 @@ var jeesns = {
                         eval(callback+"('"+json+"')");
                     }
                 }else {
-                    jeesnsDialog.errorTips(res.message);
+                    if (res.code == -99){
+                        jeesnsDialog.errorTipsForever(res.message);
+                    } else {
+                        jeesnsDialog.errorTips(res.message);
+                    }
                 }
             }
         });
@@ -283,6 +291,14 @@ var jeesnsDialog = {
 
     errorTips : function(msg) {
         jeesnsDialog.tips(msg,"error");
+    },
+
+    errorTipsForever : function(msg) {
+        new $.zui.Messager(msg, {
+            type: 'danger',
+            placement: 'center',
+            time: 0
+        }).show();
     },
 
     successTips : function(msg) {

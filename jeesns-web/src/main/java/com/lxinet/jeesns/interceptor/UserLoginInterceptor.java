@@ -23,12 +23,13 @@ public class UserLoginInterceptor implements JeesnsInterceptor {
         try {
             Member loginUser = MemberUtil.getLoginMember(request);
             if (loginUser == null || loginUser.getId() == null) {
+                String redirectUrl = request.getRequestURI();
+                String loginUrl = request.getContextPath() + "/member/login";
                 if (!isAjaxRequest(request)){
-                    String redirectUrl = request.getRequestURI();
-                    response.sendRedirect(request.getContextPath() + "/member/login?redirectUrl=" + redirectUrl);
+                    response.sendRedirect(loginUrl + "?redirectUrl=" + redirectUrl);
                 }else {
                     response.setCharacterEncoding("utf-8");
-                    out(response,"未登录");
+                    out(response,"您还没有登录，点击<a href='"+loginUrl+"' target='_blank'>此处</a>登录");
                 }
                 return false;
             }else {
@@ -62,7 +63,7 @@ public class UserLoginInterceptor implements JeesnsInterceptor {
         try {
             out = response.getWriter();
             JSONObject json = new JSONObject();
-            json.put("code",-1);
+            json.put("code",-99);
             json.put("message",msg);
             out.print(json.toString());
             out.flush();
