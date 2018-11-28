@@ -84,6 +84,7 @@
                     <li><a href="${managePath}/member/managerList" module="member"><i class="fa fa-circle-o"></i>管理员列表</a></li>
                     <li><a href="${managePath}/member/level/list" module="member"><i class="fa fa-circle-o"></i>VIP等级</a></li>
                     <li><a href="${managePath}/checkin/list" module="member"><i class="fa fa-circle-o"></i>签到管理</a></li>
+                    <li><a href="${managePath}/member/cardkey/list" module="member"><i class="fa fa-circle-o"></i>充值卡密</a></li>
                 </ul>
             </li>
             <li class="treeview" module="group">

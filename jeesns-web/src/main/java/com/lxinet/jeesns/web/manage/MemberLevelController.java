@@ -58,7 +58,7 @@ public class MemberLevelController extends BaseController {
     @GetMapping("delete/{id}")
     @ResponseBody
     public ResultModel delete(@PathVariable("id") Integer id) {
-        boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_LEVEL_CLASS+1, "deleteById",id);
+        boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_LEVEL_CLASS, "deleteById",id);
         return new ResultModel(boo);
     }
 
