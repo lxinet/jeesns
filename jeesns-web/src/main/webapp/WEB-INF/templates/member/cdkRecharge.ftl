@@ -29,7 +29,7 @@
 <div class="wrapper wrapper-content">
     <div class="container">
         <div class="row">
-            <#include "/member/common/memberMenu.ftl"/>
+            <#include "/member/common/menu.ftl"/>
             <div class="col-sm-10 col-xs-12">
                 <div class="col-xs-12 white-bg">
                     <div class="list list-condensed ">
