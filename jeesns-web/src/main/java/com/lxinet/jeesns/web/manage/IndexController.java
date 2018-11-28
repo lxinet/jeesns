@@ -87,7 +87,8 @@ public class IndexController extends BaseController {
      */
     @Clear()
     @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(){
+    public String login(Model model,@RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
+        model.addAttribute("redirectUrl",redirectUrl);
         return FTL_PATH + "/login";
     }
 
@@ -99,7 +100,7 @@ public class IndexController extends BaseController {
     @Clear()
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel login(Member member){
+    public ResultModel login(Member member, @RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
         if(member == null){
             return new ResultModel(-1,"参数错误");
         }
@@ -112,7 +113,10 @@ public class IndexController extends BaseController {
         Member loginMember = memberService.manageLogin(member,request);
         if(loginMember != null){
             MemberUtil.setLoginMember(request,loginMember);
-            return new ResultModel(2,"登录成功","index");
+            if (com.lxinet.jeesns.core.utils.StringUtils.isEmpty(redirectUrl)){
+                redirectUrl = request.getContextPath() + "/" + jeesnsConfig.getManagePath() + "/";
+            }
+            return new ResultModel(2,"登录成功",redirectUrl);
         }else {
             return new ResultModel(-1,"用户名或密码错误");
         }

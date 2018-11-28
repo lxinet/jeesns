@@ -21,9 +21,10 @@
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/common/js/jeesns.js"></script>
     <script>
-        var _success = function () {
+        var _success = function (json) {
             localStorage.removeItem("message");
-            window.location.href = '${basePath}/member/';
+            json = JSON.parse(json)
+            window.location.href = json.url;
         }
     </script>
 </head>

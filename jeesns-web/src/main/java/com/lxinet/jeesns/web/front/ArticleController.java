@@ -88,10 +88,6 @@ public class ArticleController extends BaseController {
     public String add(Model model) {
         List<ArticleCate> cateList = articleCateService.list();
         model.addAttribute("cateList",cateList);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.ARTICLE_ADD);
-        if(StringUtils.isNotEmpty(judgeLoginJump)){
-            return judgeLoginJump;
-        }
         return jeesnsConfig.getFrontTemplate() + "/cms/add";
     }
 
@@ -121,10 +117,6 @@ public class ArticleController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String edit(@PathVariable("id") int id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, RedirectUrlUtil.ARTICLE_EDIT+"/"+id);
-        if(StringUtils.isNotEmpty(judgeLoginJump)){
-            return judgeLoginJump;
-        }
         Article article = articleService.findById(id,loginMember);
         if(article.getMemberId().intValue() != loginMember.getId().intValue()){
             throw new NotFountException(Messages.ARTICLE_NOT_EXISTS);
