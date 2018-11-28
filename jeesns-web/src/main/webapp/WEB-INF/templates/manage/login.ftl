@@ -134,7 +134,7 @@
             }, 500);
 
             //登陆
-            var jsonData = {name: name, password: password};
+            var jsonData = {name: name, password: password,redirectUrl: '${redirectUrl}'};
             var url = "${managePath}/login";
             ajaxPost(url, jsonData,
                     function () {

@@ -24,7 +24,8 @@ public class UserLoginInterceptor implements JeesnsInterceptor {
             Member loginUser = MemberUtil.getLoginMember(request);
             if (loginUser == null || loginUser.getId() == null) {
                 if (!isAjaxRequest(request)){
-                    response.sendRedirect(request.getContextPath() + "/member/login");
+                    String redirectUrl = request.getRequestURI();
+                    response.sendRedirect(request.getContextPath() + "/member/login?redirectUrl=" + redirectUrl);
                 }else {
                     response.setCharacterEncoding("utf-8");
                     out(response,"未登录");

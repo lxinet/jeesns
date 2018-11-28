@@ -32,7 +32,8 @@ public class AdminLoginInterceptor implements JeesnsInterceptor {
                 out.close();
             }else {
                 JeesnsConfig jeesnsConfig = SpringContextUtil.getBean("jeesnsConfig");
-                response.sendRedirect(request.getContextPath() + "/" + jeesnsConfig.getManagePath() + "/login");
+                String redirectUrl = request.getRequestURI();
+                response.sendRedirect(request.getContextPath() + "/" + jeesnsConfig.getManagePath() + "/login?redirectUrl=" + redirectUrl);
             }
             return false;
         }

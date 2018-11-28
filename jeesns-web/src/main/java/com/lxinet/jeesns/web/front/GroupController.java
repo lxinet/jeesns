@@ -57,10 +57,6 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     @Before(UserLoginInterceptor.class)
     public String apply(Model model) {
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_APPLY);
-        if (StringUtils.isNotEmpty(judgeLoginJump)) {
-            return judgeLoginJump;
-        }
         List<GroupType> groupTypeList = groupTypeService.list();
         model.addAttribute("groupTypeList",groupTypeList);
         return jeesnsConfig.getFrontTemplate() + "/group/apply";
@@ -146,11 +142,6 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/edit/{groupId}", method = RequestMethod.GET)
     public String edit(@PathVariable("groupId") Integer groupId, Model model) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_EDIT + "/" + groupId);
-        if (StringUtils.isNotEmpty(judgeLoginJump)) {
-            return judgeLoginJump;
-        }
-
         Group group = groupService.findById(groupId);
         if (group == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1002, Const.INDEX_ERROR_FTL_PATH);
@@ -233,10 +224,6 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String post(@PathVariable("groupId") Integer groupId, Model model) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_POST + "/" + groupId);
-        if (StringUtils.isNotEmpty(judgeLoginJump)) {
-            return judgeLoginJump;
-        }
         Group group = groupService.findById(groupId);
         if (group == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1002, Const.INDEX_ERROR_FTL_PATH);
@@ -268,10 +255,6 @@ public class GroupController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String topicEdit(@PathVariable("topicId") Integer topicId, Model model) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        String judgeLoginJump = MemberUtil.judgeLoginJump(request, Const.GROUP_PATH + RedirectUrlUtil.GROUP_TOPIC_EDIT + "/" + topicId);
-        if (StringUtils.isNotEmpty(judgeLoginJump)) {
-            return judgeLoginJump;
-        }
         GroupTopic groupTopic = groupTopicService.findById(topicId, loginMember);
         if (groupTopic == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1004, Const.INDEX_ERROR_FTL_PATH);
