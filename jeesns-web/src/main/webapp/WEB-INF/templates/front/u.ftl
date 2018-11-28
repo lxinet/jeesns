@@ -47,7 +47,7 @@
                             <span class="sex"><i class="fa fa-intersex"></i></span>
                         </#if>
                             <span class="label label-danger" style="font-size: 12px;">${member.memberLevel.name}</span>
-                            <a class="label label-primary edit" member-id="${member.id}">
+                            <a class="label label-primary edit member-follows" member-id="${member.id}">
                                 <i class="fa fa-heart-o"></i> 关注
                             </a>&nbsp;
                             <a class="label label-primary edit" href="${basePath}/member/sendMessageBox?mid=${member.id}"

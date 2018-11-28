@@ -44,7 +44,7 @@
                     <#else>
                         <span class="sex"><i class="fa fa-intersex"></i></span>
                     </#if>
-                        <a class="label label-primary edit" member-id="${member.id}">
+                        <a class="label label-primary edit member-follows" member-id="${member.id}">
                             <i class="fa fa-heart-o"></i> 关注
                         </a>
                     </div>
