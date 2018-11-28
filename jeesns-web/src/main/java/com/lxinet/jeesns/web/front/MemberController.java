@@ -161,9 +161,10 @@ public class MemberController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String index(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
-        int loginMemberId = loginMember == null ? 0 : loginMember.getId();
+        Member member = memberService.findById(loginMember.getId());
         Page page = new Page(request);
-        ResultModel<ActionLog> list = actionLogService.memberActionLog(page,loginMemberId);
+        ResultModel<ActionLog> list = actionLogService.memberActionLog(page,loginMember.getId());
+        model.addAttribute("member",member);
         model.addAttribute("actionLogModel",list);
         return MEMBER_FTL_PATH + "index";
     }
@@ -357,4 +358,23 @@ public class MemberController extends BaseController {
         model.addAttribute("messageModel",messageModel);
         return MEMBER_FTL_PATH + "systemMessage";
     }
+
+    @GetMapping("/cdkRecharge")
+    @Before(UserLoginInterceptor.class)
+    public String recharge(Model model){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        Member findMember = memberService.findById(loginMember.getId());
+        model.addAttribute("member", findMember);
+        return MEMBER_FTL_PATH + "cdkRecharge";
+    }
+
+    @PostMapping("/cdkRecharge")
+    @Before(UserLoginInterceptor.class)
+    @ResponseBody
+    public ResultModel recharge(@RequestParam("cardkeyNo") String cardkeyNo){
+        ValidUtill.checkIsBlank(cardkeyNo, "卡号不能为空");
+        Member loginMember = MemberUtil.getLoginMember(request);
+        return new ResultModel(memberService.cdkRecharge(cardkeyNo, loginMember.getId()));
+    }
+
 }
