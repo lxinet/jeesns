@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>积分明细 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>财务明细 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -32,31 +32,35 @@
                 <div class="col-xs-12 white-bg">
                     <div class="list list-condensed">
                         <header>
-                            <h3><i class="icon-list-ul"></i> 积分明细</h3>
+                            <h3><i class="icon-list-ul"></i> 财务明细</h3>
                         </header>
                         <div class="items items-hover">
                             <table class="table table-hover">
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>变动积分</th>
-                                    <th>备注</th>
-                                    <th>时间</th>
-                                </tr>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>类型</th>
+                                        <th>时间</th>
+                                        <th>变动金额</th>
+                                        <th>支付方式</th>
+                                        <th>备注</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                        <#list model.data as scoreDetail>
-                        <tr>
-                            <td>${scoreDetail.id}</td>
-                            <td>${scoreDetail.score}</td>
-                            <td>${scoreDetail.remark}</td>
-                            <td>${scoreDetail.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                        </tr>
-                        </#list>
+                                    <#list model.data as financial>
+                                    <tr>
+                                        <td>${financial.id}</td>
+                                        <td>${(financial.type == 0)?string('收入','支出')}</td>
+                                        <td>${financial.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                        <td>${financial.money}</td>
+                                        <td>${financial.paymentName}</td>
+                                        <td>${financial.remark}</td>
+                                    </tr>
+                                    </#list>
                                 </tbody>
                             </table>
                             <ul class="pager pagination pagination-sm no-margin pull-right"
-                                url="${basePath}/member/scoreDetail/list"
+                                url="${basePath}/member/financial/list"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>

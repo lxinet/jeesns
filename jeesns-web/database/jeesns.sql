@@ -464,6 +464,40 @@ CREATE TABLE `tbl_member_level` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tbl_cardkey` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `member_id` INT(11),
+  `no` varchar(32),
+  `money` double(11,2),
+  `status` INT(11) default '0',
+  `expire_time` datetime,
+  `use_time` datetime,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_payment_type` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `name` varchar(32),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_financial` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime NULL DEFAULT NULL,
+  `type` int(11) NULL DEFAULT '0' COMMENT '类型，0收入，1支出',
+  `member_id` int(11) NULL DEFAULT NULL,
+  `balance` double(11, 2) NULL DEFAULT NULL,
+  `money` double(11, 2) NULL DEFAULT NULL,
+  `operator` varchar(32) DEFAULT NULL,
+  `payment_id` int(11) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `foreign_id` INT(11)  DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_archive_favor` ADD CONSTRAINT `fk_archive_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -574,3 +608,10 @@ INSERT INTO tbl_score_rule(id,create_time,update_time,name,score,remark,type,sta
 INSERT INTO `tbl_group_type` values (1,now(),'默认分类');
 
 INSERT INTO tbl_member_level(id, create_time, name) VALUES (1,now(),'普通会员');
+
+INSERT INTO tbl_payment_type(id, create_time, name) values
+  (1,now(), '余额支付'),
+  (2,now(), '卡密支付'),
+  (3,now(), '支付宝支付'),
+  (4,now(), '微信支付');
+

@@ -1,6 +1,11 @@
 package com.lxinet.jeesns.service.member.impl;
 
+import com.lxinet.jeesns.core.exception.JeeException;
+import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.model.member.Cardkey;
+import com.lxinet.jeesns.model.member.Financial;
+import com.lxinet.jeesns.service.member.*;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
@@ -12,10 +17,6 @@ import com.lxinet.jeesns.dao.member.IMemberDao;
 import com.lxinet.jeesns.utils.EmailSendUtil;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.member.ValidateCode;
-import com.lxinet.jeesns.service.member.IMemberFansService;
-import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.service.member.IScoreDetailService;
-import com.lxinet.jeesns.service.member.IValidateCodeService;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
 import com.lxinet.jeesns.utils.ActionUtil;
@@ -28,6 +29,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +51,9 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     private IMemberFansService memberFansService;
     @Resource
     private IScoreDetailService scoreDetailService;
+    @Resource
+    private IFinancialService financialService;
+    private static final String EXT_CARDKEY_SERVICE = "extCardkeyService";
 
     @Override
     public boolean login(Member member, HttpServletRequest request) {
@@ -513,6 +518,37 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
             }
         }
         return content;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class,JeeException.class})
+    public boolean cdkRecharge(String cardkeyNo, Integer memberId) {
+        Date date = new Date();
+        Cardkey cardkey = (Cardkey) JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "findByNo", cardkeyNo);
+        ValidUtill.checkIsNull(cardkey, "卡密不存在");
+        ValidUtill.checkParam(cardkey.getStatus() == 1 || cardkey.getExpireTime().before(date), "卡密无效");
+        cardkey.setStatus(1);
+        cardkey.setMemberId(memberId);
+        cardkey.setUseTime(date);
+        //更新卡密信息
+        JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "update", cardkey);
+        Member findMember = findById(memberId);
+        findMember.setMoney(findMember.getMoney() + cardkey.getMoney());
+        //更新会员账号余额
+        update(findMember);
+        //添加财务明细
+        Financial financial = new Financial();
+        financial.setBalance(findMember.getMoney());
+        financial.setCreateTime(date);
+        financial.setForeignId(cardkey.getId());
+        financial.setMemberId(memberId);
+        financial.setMoney(cardkey.getMoney());
+        //2为卡密支付
+        financial.setPaymentId(2);
+        financial.setRemark("卡号：" + cardkeyNo);
+        financial.setOperator(findMember.getName());
+        financialService.save(financial);
+        return true;
     }
 
 }

@@ -64,7 +64,7 @@ public class WeiboServiceImpl extends BaseServiceImpl<Weibo> implements IWeiboSe
         if("0".equals(request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST.toUpperCase()))){
             throw new OpeErrorException("微博已关闭");
         }
-        ValidUtill.checkIsNull(content, "内容不能为空");
+        ValidUtill.checkIsBlank(content, "内容不能为空");
         if(content.length() > Integer.parseInt((String) request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase()))){
             throw new ParamException("内容不能超过"+request.getServletContext().getAttribute(ConfigUtil.WEIBO_POST_MAXCONTENT.toUpperCase())+"字");
         }
