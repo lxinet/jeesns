@@ -176,11 +176,4 @@ public interface IMemberService extends IBaseService<Member> {
     boolean updateScore(Integer score, Integer memberId);
 
     String atFormat(String content);
-    /**
-     * 卡密充值
-     * @param cardkeyNo
-     * @param memberId
-     * @return
-     */
-    boolean cdkRecharge(String cardkeyNo, Integer memberId);
 }

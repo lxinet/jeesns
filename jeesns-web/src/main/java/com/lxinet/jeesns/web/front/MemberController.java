@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
@@ -40,6 +41,7 @@ public class MemberController extends BaseController {
     private IMessageService messageService;
     @Resource
     private JeesnsConfig jeesnsConfig;
+    private static final String EXT_CARDKEY_SERVICE = "extCardkeyService";
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(Model model,@RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
@@ -374,7 +376,8 @@ public class MemberController extends BaseController {
     public ResultModel recharge(@RequestParam("cardkeyNo") String cardkeyNo){
         ValidUtill.checkIsBlank(cardkeyNo, "卡号不能为空");
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(memberService.cdkRecharge(cardkeyNo, loginMember.getId()));
+        boolean result = (boolean) JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "recharge", cardkeyNo, loginMember.getId());
+        return new ResultModel(result);
     }
 
 }
