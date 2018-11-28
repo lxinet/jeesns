@@ -53,7 +53,6 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     private IScoreDetailService scoreDetailService;
     @Resource
     private IFinancialService financialService;
-    private static final String EXT_CARDKEY_SERVICE = "extCardkeyService";
 
     @Override
     public boolean login(Member member, HttpServletRequest request) {
@@ -520,35 +519,5 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
         return content;
     }
 
-    @Override
-    @Transactional(rollbackFor = {Exception.class,JeeException.class})
-    public boolean cdkRecharge(String cardkeyNo, Integer memberId) {
-        Date date = new Date();
-        Cardkey cardkey = (Cardkey) JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "findByNo", cardkeyNo);
-        ValidUtill.checkIsNull(cardkey, "卡密不存在");
-        ValidUtill.checkParam(cardkey.getStatus() == 1 || cardkey.getExpireTime().before(date), "卡密无效");
-        cardkey.setStatus(1);
-        cardkey.setMemberId(memberId);
-        cardkey.setUseTime(date);
-        //更新卡密信息
-        JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "update", cardkey);
-        Member findMember = findById(memberId);
-        findMember.setMoney(findMember.getMoney() + cardkey.getMoney());
-        //更新会员账号余额
-        update(findMember);
-        //添加财务明细
-        Financial financial = new Financial();
-        financial.setBalance(findMember.getMoney());
-        financial.setCreateTime(date);
-        financial.setForeignId(cardkey.getId());
-        financial.setMemberId(memberId);
-        financial.setMoney(cardkey.getMoney());
-        //2为卡密支付
-        financial.setPaymentId(2);
-        financial.setRemark("卡号：" + cardkeyNo);
-        financial.setOperator(findMember.getName());
-        financialService.save(financial);
-        return true;
-    }
 
 }
