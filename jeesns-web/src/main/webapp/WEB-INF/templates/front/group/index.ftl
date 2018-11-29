@@ -27,25 +27,22 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-sm-12 col-xs-12">
+            <div class="col-sm-6 col-xs-12">
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         最新帖子
-                        <span class="pull-right">
-                        <a class="btn btn-primary right-btn m-t-n4" href="${groupPath}/apply">申请</a>
-                    </span>
                     </div>
                     <div class="panel-body">
                         <div class="items">
-                            <div class="col-sm-4 col-xs-12">
+                            <div class="col-sm-12 col-xs-12">
                                 <div class="article-hot-list">
                                     <ul>
                                         <@group_topic_list cid=0 num=15 day=0; groupTopic>
                                             <#list groupTopicList as groupTopic>
                                                 <li><i class="main-text-color"></i> <a
                                                         href="${groupPath}/topic/${groupTopic.id}">
-                                                    <#if groupTopic.title?length &gt; 18>
-                                                        ${groupTopic.title?substring(0,18)}...
+                                                    <#if groupTopic.title?length &gt; 40>
+                                                        ${groupTopic.title?substring(0,40)}...
                                                     <#else>
                                                         ${groupTopic.title}
                                                     </#if>
@@ -55,33 +52,33 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-sm-8 col-xs-12">
-                                <div class="items">
-                                    <@group_topic_list gid=0 num=6 thumbnail=1; groupTopic>
-                                        <#list groupTopicList as groupTopic>
-                                            <div class="col-sm-4 col-xs-12">
-                                                <div class="item index-article">
-                                                    <div class="item-content">
-                                                        <div class="media">
-                                                            <a href="${groupPath}/topic/${groupTopic.id}">
-                                                                <img src="${basePath}${groupTopic.thumbnail}"
-                                                                     alt="${groupTopic.title}" height="150px" width="100%">
-                                                            </a>
-                                                        </div>
-                                                        <h4>
-                                                            <a href="${groupPath}/topic/${groupTopic.id}">${groupTopic.title}</a>
-                                                        </h4>
-                                                    </div>
-                                                    <div class="item-footer">
-                                                        <a href="${groupPath}/topic/${groupTopic.id}" class="text-muted"><i
-                                                                class="icon-comments"></i> ${groupTopic.viewCount}</a>
-                                                        &nbsp; <span
-                                                            class="text-muted">${groupTopic.createTime?string('yyyy-MM-dd HH:mm')}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </#list>
-                                    </@group_topic_list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel group-topic-list no-border">
+                    <div class="panel-heading">
+                        热门帖子
+                    </div>
+                    <div class="panel-body">
+                        <div class="items">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="article-hot-list">
+                                    <ul>
+                                        <@group_topic_list gid=0 num=15 sort='view_count' day=0; groupTopic>
+                                            <#list groupTopicList as groupTopic>
+                                                     <li><i class="main-text-color"></i> <a
+                                                             href="${groupPath}/topic/${groupTopic.id}">
+                                                            <#if groupTopic.title?length &gt; 40>
+                                                                ${groupTopic.title?substring(0,40)}...
+                                                            <#else>
+                                                                ${groupTopic.title}
+                                                            </#if>
+                                                     </a></li>
+                                            </#list>
+                                        </@group_topic_list>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -95,6 +92,11 @@
             <div class="row white-bg group-list">
                 <div class="panel-heading" style="margin-bottom: 30px">
                     ${groupType.name}
+                    <#if groupType_index == 0>
+                        <span class="pull-right">
+                            <a class="btn btn-primary right-btn m-t-n4" href="${groupPath}/apply">申请群组</a>
+                        </span>
+                    </#if>
                 </div>
                 <#list list as group>
                 <#if group.typeId == groupType.id>
