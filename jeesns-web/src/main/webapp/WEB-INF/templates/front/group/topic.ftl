@@ -90,7 +90,7 @@
                     <@ads id=2>
                         <#include "/tp/ad.ftl"/>
                     </@ads>
-                    <#if isPermission == 1 || isfollow == true>
+                    <#if groupTopic.group.followPay == 0 || isPermission == 1 || isfollow == true>
                         <section class="content">
                             ${groupTopic.content}
                         </section>
@@ -127,7 +127,7 @@
                 <@ads id=2>
                     <#include "/tp/ad.ftl"/>
                 </@ads>
-                <#if isPermission == 1 || isfollow == true>
+               <#if groupTopic.group.followPay == 0 || isPermission == 1 || isfollow == true>
                 <div class="comments panel">
                     <div class="panel-heading">帖子评论</div>
                     <header>
