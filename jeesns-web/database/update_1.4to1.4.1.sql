@@ -40,3 +40,5 @@ CREATE TABLE `tbl_financial` (
 
 ALTER TABLE `tbl_group` ADD COLUMN `follow_pay` INT DEFAULT '0' COMMENT '付费加入，0免费，1收费';
 ALTER TABLE `tbl_group` ADD COLUMN `pay_money` double(11,2) DEFAULT '0' COMMENT '付费加入金额';
+alter table `tbl_article` CHANGE `content` `content` longtext comment '内容';
+alter table `tbl_group_topic` CHANGE `content` `content` longtext comment '内容';

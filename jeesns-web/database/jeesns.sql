@@ -107,6 +107,25 @@ CREATE TABLE `tbl_article` (
   `cate_id` int(11) DEFAULT NULL COMMENT '栏目ID',
   `archive_id` int(11) DEFAULT NULL COMMENT '文章ID',
   `status` int(11) DEFAULT '0' COMMENT '状态，0未审核，1已审核',
+  `title` varchar(255) DEFAULT NULL COMMENT '文档标题',
+  `member_id` int(11) DEFAULT NULL COMMENT '会员ID',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述说明',
+  `keywords` varchar(100) DEFAULT NULL COMMENT '关键词',
+  `view_rank` int(11) DEFAULT '0' COMMENT '浏览权限，0不限制，1会员',
+  `view_count` int(11) DEFAULT '0' COMMENT '浏览次数',
+  `writer` varchar(30) DEFAULT '' COMMENT '作者',
+  `source` varchar(30) DEFAULT '' COMMENT '来源',
+  `pub_time` datetime DEFAULT NULL COMMENT '发布日期',
+  `update_time` datetime DEFAULT NULL COMMENT '最后更新时间',
+  `thumbnail` varchar(255) DEFAULT NULL COMMENT '缩略图',
+  `last_reply` datetime DEFAULT NULL COMMENT '最后回复时间',
+  `can_reply` int(1) DEFAULT '0' COMMENT '是否可以回复，0可以回复，1不可以回复',
+  `good_num` int(11) DEFAULT '0' COMMENT '点赞数量',
+  `bad_num` int(11) DEFAULT '0' COMMENT '踩数量',
+  `check_admin` int(11) DEFAULT '0' COMMENT '审核管理员id',
+  `content` longtext COMMENT '内容',
+  `favor` int(11) DEFAULT '0' COMMENT '喜欢、点赞',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -151,6 +170,8 @@ CREATE TABLE `tbl_group` (
   `topic_review` int(11) DEFAULT '0' COMMENT '帖子是否需要审核，0不需要，1需要',
   `status` int(11) DEFAULT '0' COMMENT '0未审核，1已审核，-1审核不通过',
   `type_id` int(11) DEFAULT null,
+  `follow_pay` INT DEFAULT '0' COMMENT '付费加入，0免费，1收费',
+  `pay_money` double(11,2) DEFAULT '0' COMMENT '付费加入金额',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -171,6 +192,25 @@ CREATE TABLE `tbl_group_topic` (
   `is_essence` int(11) DEFAULT '0' COMMENT '精华，0不加精，1加精',
   `is_top` int(11) DEFAULT '0' COMMENT '置顶，0不置顶，1置顶，2超级置顶',
   `type_id` int(11) DEFAULT null COMMENT '帖子分类ID',
+  `title` varchar(255) DEFAULT NULL COMMENT '文档标题',
+  `member_id` int(11) DEFAULT NULL COMMENT '会员ID',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述说明',
+  `keywords` varchar(100) DEFAULT NULL COMMENT '关键词',
+  `view_rank` int(11) DEFAULT '0' COMMENT '浏览权限，0不限制，1会员',
+  `view_count` int(11) DEFAULT '0' COMMENT '浏览次数',
+  `writer` varchar(30) DEFAULT '' COMMENT '作者',
+  `source` varchar(30) DEFAULT '' COMMENT '来源',
+  `pub_time` datetime DEFAULT NULL COMMENT '发布日期',
+  `update_time` datetime DEFAULT NULL COMMENT '最后更新时间',
+  `thumbnail` varchar(255) DEFAULT NULL COMMENT '缩略图',
+  `last_reply` datetime DEFAULT NULL COMMENT '最后回复时间',
+  `can_reply` int(1) DEFAULT '0' COMMENT '是否可以回复，0可以回复，1不可以回复',
+  `good_num` int(11) DEFAULT '0' COMMENT '点赞数量',
+  `bad_num` int(11) DEFAULT '0' COMMENT '踩数量',
+  `check_admin` int(11) DEFAULT '0' COMMENT '审核管理员id',
+  `content` longtext COMMENT '内容',
+  `favor` int(11) DEFAULT '0' COMMENT '喜欢、点赞',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -251,7 +291,7 @@ CREATE TABLE `tbl_weibo_favor` (
 
 
 CREATE TABLE `tbl_picture` (
-  `picture_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11),
   `type` INT(11) NOT NULL COMMENT '1是文章图片，2是微博图片，3是群组帖子图片',
@@ -497,6 +537,30 @@ CREATE TABLE `tbl_financial` (
   `foreign_id` INT(11)  DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tbl_article_favor`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `article_id` int(11) NULL DEFAULT 0,
+  `member_id` int(11) NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `uk_article_id_member_id`(`article_id`, `member_id`),
+  CONSTRAINT `fk_article_favor_article` FOREIGN KEY (`article_id`) REFERENCES `tbl_article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_article_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_group_topic_favor`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `group_topic_id` int(11) NULL DEFAULT 0,
+  `member_id` int(11) NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `uk_group_topic_id_member_id`(`group_topic_id`, `member_id`),
+  CONSTRAINT `fk_group_topic_favor_group_topic` FOREIGN KEY (`group_topic_id`) REFERENCES `tbl_group_topic` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_group_topic_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
