@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -42,7 +42,7 @@
                     <div class="box box-primary">
                         <div class="box-header">
                             <h3 class="box-title">
-                                <a href="${managePath}/link/add" target="_jeesnsOpen"
+                                <a href="javascript:void(0)" data-href="${managePath}/link/add" target="_jeesnsOpen"
                                    title="添加友情链接" width="800px" height="500px">
                                     <span class="label label-info">添加</span>
                                 </a>
@@ -78,23 +78,23 @@
                                     </td>
                                     <td>
                                         <#if link.status=0>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/link/enable/${link.id}" confirm="确定要启用友情链接吗？" callback="reload">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/link/enable/${link.id}" confirm="确定要启用友情链接吗？" callback="reload">
                                             <span class="label label-danger">禁用</span>
                                         </a>
                                         <#else>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/link/enable/${link.id}" confirm="确定要禁用友情链接吗？" callback="reload">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/link/enable/${link.id}" confirm="确定要禁用友情链接吗？" callback="reload">
                                             <span class="label label-success">启用</span>
                                         </a>
                                         </#if>
                                     </td>
                                     <td>${link.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
-                                        <a href="${managePath}/link/edit/${link.id}" target="_jeesnsOpen"
+                                        <a href="javascript:void(0)" data-href="${managePath}/link/edit/${link.id}" target="_jeesnsOpen"
                                            title="修改友情链接" width="800px" height="500px">
                                             <span class="label label-info">修改</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/link/delete/${link.id}" confirm="确定要删除友情链接吗？" callback="reload">
+                                           href="javascript:void(0)" data-href="${managePath}/link/delete/${link.id}" confirm="确定要删除友情链接吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

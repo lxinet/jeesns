@@ -18,7 +18,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
@@ -50,10 +50,10 @@
                                             <a href="${groupPath}/topic/${topic.id}" class="text-muted"><i
                                                     class="icon-comments"></i> ${topic.viewCount}</a> &nbsp;
                                             <span class="text-muted">${topic.createTime?string('yyyy-MM-dd HH:mm')}</span>
-                                            <a href="${groupPath}/audit/${topic.id}" class="btn-link" target="_jeesnsLink" confirm="确定审核通过该帖子吗？" callback="reload">
+                                            <a href="javascript:void(0)" data-href="${groupPath}/audit/${topic.id}" class="btn-link" target="_jeesnsLink" confirm="确定审核通过该帖子吗？" callback="reload">
                                                 <span class="label label-badge label-info">审核</span>
                                             </a>
-                                            <a href="${groupPath}/delete/${topic.id}" class="btn-link" target="_jeesnsLink" confirm="确定要删除该帖子吗？" callback="reload">
+                                            <a href="javascript:void(0)" data-href="${groupPath}/delete/${topic.id}" class="btn-link" target="_jeesnsLink" confirm="确定要删除该帖子吗？" callback="reload">
                                                 <span class="label label-badge label-danger">删除</span>
                                             </a>
                                         </p>

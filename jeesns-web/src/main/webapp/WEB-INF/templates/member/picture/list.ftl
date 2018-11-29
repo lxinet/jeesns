@@ -18,7 +18,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/front/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script>
         var basePath = "${basePath}";
@@ -33,7 +33,7 @@
                 <div class="panel-heading">
                     <a href="${basePath}/member/picture/album">${pictureAlbum.member.name}相册</a> > ${pictureAlbum.name}
                     <span class="pull-right">
-                        <a class="btn btn-primary m-t-n4" href="${basePath}/member/picture/uploadPic?albumId=${pictureAlbum.id}" target="_jeesnsOpen" height="400px" width="1200px">上传图片</a>
+                        <a class="btn btn-primary m-t-n4" href="javascript:void(0)" data-href="${basePath}/member/picture/uploadPic?albumId=${pictureAlbum.id}" target="_jeesnsOpen" height="400px" width="1200px">上传图片</a>
                     </span>
                 </div>
                 <div class="cards">
@@ -41,7 +41,7 @@
                     <div class="col-md-4 col-sm-6 col-lg-3">
                         <div class="card">
                             <div class="albumPic">
-                                <a class="picLink" href="${basePath}/picture/detail/${picture.id}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
+                                <a class="picLink" href="javascript:void(0)" data-href="${basePath}/picture/detail/${picture.id}" class="picture" target="_jeesnsOpen" title="" height="90%" width="90%">
                                     <img src="${basePath}${picture.smallPath}" class="pic">
                                 </a>
                             </div>

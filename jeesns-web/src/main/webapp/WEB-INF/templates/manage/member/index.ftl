@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -83,30 +83,30 @@
                                     <td>${member.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if member.status=-1>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/member/isenable/${member.id}" confirm="确定要启用会员吗？" callback="reload">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/member/isenable/${member.id}" confirm="确定要启用会员吗？" callback="reload">
                                             <span class="label label-danger">禁用</span>
                                         </a>
                                         <#else>
-                                        <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/member/isenable/${member.id}" confirm="确定要禁用会员吗？" callback="reload">
+                                        <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/member/isenable/${member.id}" confirm="确定要禁用会员吗？" callback="reload">
                                             <span class="label label-success">启用</span>
                                         </a>
                                         </#if>
                                     </td>
                                     <td>
-                                        <a href="${managePath}/member/level/${member.id}" target="_jeesnsOpen"
+                                        <a href="javascript:void(0)" data-href="${managePath}/member/level/${member.id}" target="_jeesnsOpen"
                                            title="设置VIP会员" width="400px" height="300px">
                                             <span class="label label-info">VIP</span>
                                         </a>
-                                        <a href="${managePath}/member/info/${member.id}" target="_jeesnsOpen"
+                                        <a href="javascript:void(0)" data-href="${managePath}/member/info/${member.id}" target="_jeesnsOpen"
                                            title="会员详情" width="1000px" height="600px">
                                             <span class="label label-info">详情</span>
                                         </a>
-                                        <a href="${managePath}/member/changepwd/${member.id}" target="_jeesnsOpen"
+                                        <a href="javascript:void(0)" data-href="${managePath}/member/changepwd/${member.id}" target="_jeesnsOpen"
                                            title="修改密码" width="400px" height="300px">
                                             <span class="label label-info">修改密码</span>
                                         </a>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/member/delete/${member.id}" confirm="确定要删除会员吗？" callback="reload">
+                                           href="javascript:void(0)" data-href="${managePath}/member/delete/${member.id}" confirm="确定要删除会员吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

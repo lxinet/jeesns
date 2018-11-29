@@ -20,7 +20,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script>
         function checkin(){
@@ -73,7 +73,7 @@
                     <div class="panel-heading">
                         连续签到排行
                         <span class="pull-right">
-                            <a  class="btn btn-primary right-btn m-t-n4" href="${basePath}/checkin/save" target="_jeesnsLink" callback="checkin">签到</a>
+                            <a  class="btn btn-primary right-btn m-t-n4" href="javascript:void(0)" data-href="${basePath}/checkin/save" target="_jeesnsLink" callback="checkin">签到</a>
                         </span>
                     </div>
                     <div class="panel-body">

@@ -19,7 +19,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script src="${basePath}/res/modules/mem.js"></script>
     <script src="${basePath}/res/plugins/emoji/js/emojis.js"></script>
@@ -50,7 +50,7 @@
                             <a class="label label-primary edit member-follows" member-id="${member.id}">
                                 <i class="fa fa-heart-o"></i> 关注
                             </a>&nbsp;
-                            <a class="label label-primary edit" href="${basePath}/member/sendMessageBox?mid=${member.id}"
+                            <a class="label label-primary edit" href="javascript:void(0)" data-href="${basePath}/member/sendMessageBox?mid=${member.id}"
                                target="_jeesnsOpen" title="私信" height="285px">
                                 <i class="fa fa-comments"></i> 私信
                             </a>

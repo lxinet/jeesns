@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -42,7 +42,7 @@
                     <div class="box box-primary">
                         <div class="box-header">
                             <h3 class="box-title">
-                                <a href="${managePath}/member/level/add" target="_jeesnsOpen"
+                                <a href="javascript:void(0)" data-href="${managePath}/member/level/add" target="_jeesnsOpen"
                                    title="添加会员VIP等级" width="400px" height="200px">
                                     <span class="label label-info">添加</span>
                                 </a>
@@ -73,12 +73,12 @@
                                     <td>${memberLevel.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if memberLevel.id != 1>
-                                            <a href="${managePath}/member/level/edit/${memberLevel.id}" target="_jeesnsOpen"
+                                            <a href="javascript:void(0)" data-href="${managePath}/member/level/edit/${memberLevel.id}" target="_jeesnsOpen"
                                                title="修改广告" width="400px" height="200px">
                                                 <span class="label label-info">修改</span>
                                             </a>
                                             <a class="marg-l-5" target="_jeesnsLink"
-                                               href="${managePath}/member/level/delete/${memberLevel.id}" confirm="确定要删除会员等级吗？" callback="reload">
+                                               href="javascript:void(0)" data-href="${managePath}/member/level/delete/${memberLevel.id}" confirm="确定要删除会员等级吗？" callback="reload">
                                                 <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                             </a>
                                         </#if>

@@ -18,7 +18,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/front/js/jeesns.js?v1.4"></script>
     <script>
         var base = "${basePath}";
         var groupPath = "${groupPath}";
@@ -62,25 +62,25 @@
 
                                         <#if loginUser?? && loginUser.isAdmin &gt; 0>
                                             <#if groupTopic.isTop = 0>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink" callback="reload">普通置顶</a></li>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink" callback="reload">超级置顶</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink" callback="reload">普通置顶</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink" callback="reload">超级置顶</a></li>
                                             <#elseif groupTopic.isTop = 1>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink" callback="reload">取消普通置顶</a></li>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink" callback="reload">超级置顶</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink" callback="reload">取消普通置顶</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/top/${groupTopic.id}?top=2" target="_jeesnsLink" callback="reload">超级置顶</a></li>
                                             <#elseif groupTopic.isTop = 2>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink" callback="reload">取消超级置顶</a></li>
-                                                <li><a href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink" callback="reload">普通置顶</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/top/${groupTopic.id}?top=0" target="_jeesnsLink" callback="reload">取消超级置顶</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/top/${groupTopic.id}?top=1" target="_jeesnsLink" callback="reload">普通置顶</a></li>
                                             </#if>
                                             <#if groupTopic.isEssence = 0>
-                                                <li><a href="${groupPath}/topic/essence/${groupTopic.id}?essence=1" target="_jeesnsLink" callback="reload">精华</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/essence/${groupTopic.id}?essence=1" target="_jeesnsLink" callback="reload">精华</a></li>
                                             <#elseif groupTopic.isEssence = 1>
-                                                <li><a href="${groupPath}/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink" callback="reload">取消精华</a></li>
+                                                <li><a href="javascript:void(0)" data-href="${groupPath}/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink" callback="reload">取消精华</a></li>
                                             </#if>
                                         </#if>
                                         <#if loginUser.id == groupTopic.memberId>
                                             <li><a href="${groupPath}/topicEdit/${groupTopic.id}">编辑</a></li>
                                         </#if>
-                                        <li><a href="${groupPath}/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink" callback="deleteSuccess">删除</a></li>
+                                        <li><a href="javascript:void(0)" data-href="${groupPath}/delete/${groupTopic.id}" confirm="确定要删除帖子吗？" target="_jeesnsLink" callback="deleteSuccess">删除</a></li>
                                     </ul>
                                 </div>
                             </#if>
@@ -114,7 +114,7 @@
                                     我还没有登录，我要先<a href="/member/login" target="_blank">登录</a>
                                     <#else>
                                     这篇帖子很重要，我要
-                                        <a title="加入" href="${groupPath}/follow/${groupTopic.group.id}"
+                                        <a title="加入" href="javascript:void(0)" data-href="${groupPath}/follow/${groupTopic.group.id}"
                                            target="_jeesnsLink" callback="reload"
                                            confirm="加入该群组收费${groupTopic.group.payMoney}元，加入后自动扣除该费用，确定要加入吗？">加入</a>
                                         群组
@@ -170,13 +170,13 @@
                             </span>
                             <span class="text-right">
                                 <#if isfollow == true>
-                                    <a title="退出" href="${groupPath}/nofollow/${groupTopic.group.id}"
+                                    <a title="退出" href="javascript:void(0)" data-href="${groupPath}/nofollow/${groupTopic.group.id}"
                                        target="_jeesnsLink" callback="reload"
                                         <#if groupTopic.group.followPay == 1>confirm="该群组是收费群，退出后重新加入需要重新付费，确定要退出吗？"</#if>>
                                         <i class="icon-minus"></i> 退出
                                     </a>
                                 <#else>
-                                    <a title="加入" href="${groupPath}/follow/${groupTopic.group.id}"
+                                    <a title="加入" href="javascript:void(0)" data-href="${groupPath}/follow/${groupTopic.group.id}"
                                        target="_jeesnsLink" callback="reload"
                                        <#if groupTopic.group.followPay == 1>confirm="加入该群组收费${groupTopic.group.payMoney}元，加入后自动扣除该费用，确定要加入吗？"</#if>>
                                         <i class="icon-plus"></i> 加入</a>

@@ -28,7 +28,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/front/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>
     <script src="${basePath}/res/common/js/jquery.timeago.js"></script>
     <script src="${basePath}/res/plugins/gallery/js/jquery.blueimp-gallery.min.js"></script>
@@ -78,7 +78,7 @@
                                     class="icon icon-thumbs-up"></i> ${weibo.favor}</a>
                         </#if>
                         <#if loginUser?? && (loginUser.id == weibo.member.id || loginUser.isAdmin &gt; 0)>
-                            <a href="${weiboPath}/delete/${weibo.id}" target="_jeesnsLink" confirm="确定要删除微博吗？" callback="deleteSuccess">删除</a>
+                            <a href="javascript:void(0)" data-href="${weiboPath}/delete/${weibo.id}" target="_jeesnsLink" confirm="确定要删除微博吗？" callback="deleteSuccess">删除</a>
                         </#if>
                         </div>
                     </div>

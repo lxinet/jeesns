@@ -23,7 +23,7 @@
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/webuploader/webuploader.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/plugins/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         $(function () {

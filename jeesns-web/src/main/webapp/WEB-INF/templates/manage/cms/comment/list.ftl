@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -85,7 +85,7 @@
                                     <td>${articleComment.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/cms/comment/delete/${articleComment.id}" confirm="确定要删除评论吗？" callback="reload">
+                                           href="javascript:void(0)" data-href="${managePath}/cms/comment/delete/${articleComment.id}" confirm="确定要删除评论吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

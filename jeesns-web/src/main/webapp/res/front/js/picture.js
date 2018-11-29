@@ -105,7 +105,7 @@ var picture = {
                                 zan += "<i class=\"icon-thumbs-up\"></i> ";
                             }
                             zan += picture.favorCount+"</a>";
-                            html += "<li class=\"item\"><a href=\""+basePath+"/picture/detail/"+picture.pictureId+"\" class=\"picture\" target=\"_jeesnsOpen\" title=\"\" height=\"680px\" width=\"1200px\"><img src=\""+basePath + picture.path + "\"></a>" +
+                            html += "<li class=\"item\"><a href=\"javascript:void(0)\" data-href=\""+basePath+"/picture/detail/"+picture.pictureId+"\" class=\"picture\" target=\"_jeesnsOpen\" title=\"\" height=\"680px\" width=\"1200px\"><img src=\""+basePath + picture.path + "\"></a>" +
                                 "<p class=\"description\">" + picture.description + "</p><div class=\"qianm clearfloat\"><span class=\"sp1\"><a href='"+basePath+"/u/"+picture.member.id+"' target='_blank'>" +picture.member.name+"</a><b>"+zan+"</b></span>" +
                                 "<span class=\"sp2\">" + picture.createTime + "</span></div></li>";
                         }

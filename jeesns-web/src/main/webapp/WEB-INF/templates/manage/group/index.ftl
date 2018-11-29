@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -83,18 +83,18 @@
                                     <td>${group.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if group.status==0>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/group/changeStatus/${group.id}" callback="reload">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/group/changeStatus/${group.id}" callback="reload">
                                                 <span class="label label-danger">未审核</span>
                                             </a>
                                         <#elseif group.status==1>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/group/changeStatus/${group.id}" callback="reload">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/group/changeStatus/${group.id}" callback="reload">
                                                 <span class="label label-success">已审核</span>
                                             </a>
                                         </#if>
                                     </td>
                                     <td>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/group/delete/${group.id}" confirm="确定要删除群组吗？删除后群组文章都会被删除！" callback="reload">
+                                           href="javascript:void(0)" data-href="${managePath}/group/delete/${group.id}" confirm="确定要删除群组吗？删除后群组文章都会被删除！" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

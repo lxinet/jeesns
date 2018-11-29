@@ -22,7 +22,7 @@
     <script src="${basePath}/res/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="${basePath}/res/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
 
 </head>
 
