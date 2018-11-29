@@ -86,13 +86,15 @@
                             <div class="item">
                                 <div class="item-content">
                                     <div class="media pull-left">
-                                        <img src="${basePath}${topic.member.avatar}" class="img-circle"
-                                             alt="${topic.member.name}" width="50px" height="50px">
+                                        <a href="${basePath}/u/${topic.member.id}" target="_blank">
+                                            <img src="${basePath}${topic.member.avatar}" class="img-circle"
+                                                 alt="${topic.member.name}" width="50px" height="50px">
+                                        </a>
                                     </div>
                                     <div class="text">
                                         <p>
                                         <h4>
-                                            <a href="${groupPath}/topic/${topic.id}">${topic.title}</a>
+                                        <a href="${groupPath}/topic/${topic.id}">${topic.title}</a>
                                         <#if topic.isTop==1>
                                             <span class="label label-badge label-primary">置顶</span>
                                         <#elseif topic.isTop==2>
@@ -104,6 +106,9 @@
                                         </h4>
                                         </p>
                                         <p>
+                                            <a href="${basePath}/u/${topic.member.id}" target="_blank">
+                                                ${topic.member.name}
+                                            </a> &nbsp;
                                             <a href="${groupPath}/topic/${topic.id}" class="text-muted"><i
                                                     class="icon-eye-open"></i> ${topic.viewCount}</a> &nbsp;
                                             <span class="text-muted">${topic.createTime?string('yyyy-MM-dd HH:mm')}</span>

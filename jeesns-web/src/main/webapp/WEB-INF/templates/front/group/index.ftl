@@ -39,14 +39,23 @@
                                     <ul>
                                         <@group_topic_list cid=0 num=15 day=0; groupTopic>
                                             <#list groupTopicList as groupTopic>
-                                                <li><i class="main-text-color"></i> <a
-                                                        href="${groupPath}/topic/${groupTopic.id}">
-                                                    <#if groupTopic.title?length &gt; 40>
-                                                        ${groupTopic.title?substring(0,40)}...
-                                                    <#else>
-                                                        ${groupTopic.title}
+                                                <li>
+                                                    <a href="${groupPath}/topic/${groupTopic.id}">
+                                                        <#if groupTopic.title?length &gt; 40>
+                                                            ${groupTopic.title?substring(0,40)}...
+                                                        <#else>
+                                                            ${groupTopic.title}
+                                                        </#if>
+                                                    </a>
+                                                    <#if groupTopic.isTop==1>
+                                                        <span class="label label-badge label-primary">置顶</span>
+                                                    <#elseif groupTopic.isTop==2>
+                                                        <span class="label label-badge label-success">超级置顶</span>
                                                     </#if>
-                                                </a></li>
+                                                    <#if groupTopic.isEssence==1>
+                                                        <span class="label label-badge label-danger">精华</span>
+                                                    </#if>
+                                                </li>
                                             </#list>
                                         </@group_topic_list>
                                     </ul>
@@ -68,14 +77,23 @@
                                     <ul>
                                         <@group_topic_list gid=0 num=15 sort='view_count' day=0; groupTopic>
                                             <#list groupTopicList as groupTopic>
-                                                     <li><i class="main-text-color"></i> <a
-                                                             href="${groupPath}/topic/${groupTopic.id}">
+                                                     <li>
+                                                         <a href="${groupPath}/topic/${groupTopic.id}">
                                                             <#if groupTopic.title?length &gt; 40>
                                                                 ${groupTopic.title?substring(0,40)}...
                                                             <#else>
                                                                 ${groupTopic.title}
                                                             </#if>
-                                                     </a></li>
+                                                        </a>
+                                                         <#if groupTopic.isTop==1>
+                                                            <span class="label label-badge label-primary">置顶</span>
+                                                         <#elseif groupTopic.isTop==2>
+                                                            <span class="label label-badge label-success">超级置顶</span>
+                                                         </#if>
+                                                         <#if groupTopic.isEssence==1>
+                                                            <span class="label label-badge label-danger">精华</span>
+                                                         </#if>
+                                                     </li>
                                             </#list>
                                         </@group_topic_list>
                                     </ul>
