@@ -38,14 +38,14 @@
                     <div class="name">
                     ${member.name}
                     <#if member.sex=='女'>
-                        <span class="sex"><i class="fa fa-venus"></i></span>
+                        <span class="sex"><i class="icon icon-venus"></i></span>
                     <#elseif member.sex=='男'>
-                        <span class="sex"><i class="fa fa-mars"></i></span>
+                        <span class="sex"><i class="icon icon-mars"></i></span>
                     <#else>
-                        <span class="sex"><i class="fa fa-intersex"></i></span>
+                        <span class="sex"><i class="icon icon-intersex"></i></span>
                     </#if>
                         <a class="label label-primary edit member-follows" member-id="${member.id}">
-                            <i class="fa fa-heart-o"></i> 关注
+                            <i class="icon icon-heart-o"></i> 关注
                         </a>
                     </div>
                     <p>${member.website}</p>

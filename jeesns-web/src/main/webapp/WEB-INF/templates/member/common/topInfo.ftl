@@ -10,18 +10,18 @@
                     <div class="name">
                     ${loginUser.name}
                     <#if loginUser.sex=='女'>
-                        <span class="sex"><i class="fa fa-venus"></i></span>
+                        <span class="sex"><i class="icon icon-venus"></i></span>
                     <#elseif loginUser.sex=='男'>
-                        <span class="sex"><i class="fa fa-mars"></i></span>
+                        <span class="sex"><i class="icon icon-mars"></i></span>
                     <#else>
-                        <span class="sex"><i class="fa fa-intersex"></i></span>
+                        <span class="sex"><i class="icon icon-intersex"></i></span>
                     </#if>
                     </div>
                     <p><a href="${loginUser.website}" target="_blank">${loginUser.website}</a></p>
                     <p>${loginUser.introduce}</p>
                     <p class="operator">
                         <a class="btn btn-info btn-outline member-follows" href="${basePath}/member/">
-                            <i class="fa fa-home"></i> 个人中心
+                            <i class="icon icon-home"></i> 个人中心
                         </a>
                     </p>
                 </div>
