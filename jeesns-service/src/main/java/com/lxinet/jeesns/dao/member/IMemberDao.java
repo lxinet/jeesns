@@ -77,6 +77,8 @@ public interface IMemberDao extends BaseMapper<Member> {
      */
     int editOtherInfo(Member member);
 
+    Member findById(@Param("id") Integer id);
+
     Member findByName(@Param("name") String name);
 
     Member findByEmail(@Param("email") String email);

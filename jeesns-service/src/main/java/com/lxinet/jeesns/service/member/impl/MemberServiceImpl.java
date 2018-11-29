@@ -1,14 +1,9 @@
 package com.lxinet.jeesns.service.member.impl;
 
-import com.lxinet.jeesns.core.exception.JeeException;
-import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
-import com.lxinet.jeesns.model.member.Cardkey;
-import com.lxinet.jeesns.model.member.Financial;
 import com.lxinet.jeesns.service.member.*;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
-import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
@@ -96,8 +91,8 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     }
 
     @Override
-    public Member findById(int id) {
-        return super.findById(id);
+    public Member findById(Integer id) {
+        return memberDao.findById(id);
     }
 
     @Override

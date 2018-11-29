@@ -90,6 +90,10 @@
         update tbl_member set is_admin = #{isAdmin} where id = #{id};
     </update>
 
+    <select id="findById" resultMap="RemberResult">
+        select * from tbl_member where id = #{id}
+    </select>
+
     <!-- 根据昵称查找 -->
     <select id="findByName" resultMap="RemberResult">
         select * from tbl_member where name = #{name}

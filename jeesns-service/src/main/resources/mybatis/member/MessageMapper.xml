@@ -62,10 +62,10 @@
     c.name as from_member_name,c.avatar as from_member_avatar,
     d.name as to_member_name,d.avatar as to_member_avatar,
     (CASE
-      WHEN (a.type &gt; 10000 AND a.type &lt; 20000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/article/detail/',a.relate_key_id,'" target="_blank">',e.title,'<![CDATA[</a>]]>》') FROM tbl_article as f left JOIN tbl_archive AS e ON f.archive_id = e.archive_id WHERE f.id=a.relate_key_id)
+      WHEN (a.type &gt; 10000 AND a.type &lt; 20000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/article/detail/',a.relate_key_id,'" target="_blank">',f.title,'<![CDATA[</a>]]>》') FROM tbl_article as f WHERE f.id=a.relate_key_id)
       WHEN (a.type &gt; 20000 AND a.type &lt; 22000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/weibo/detail/',a.relate_key_id,'" target="_blank">',content,'<![CDATA[</a>]]>》') FROM tbl_weibo WHERE id=a.relate_key_id)
       WHEN (a.type &gt; 22000 AND a.type &lt; 23000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/weibo/detail/',weibo_id,'" target="_blank">',content,'<![CDATA[</a>]]>》') FROM tbl_weibo_comment WHERE id=a.relate_key_id)
-      WHEN (a.type &gt; 31000 AND a.type &lt; 33000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/group/topic/',a.relate_key_id,'" target="_blank">',i.title,'<![CDATA[</a>]]>》') FROM tbl_group_topic as h left JOIN tbl_archive AS i ON h.archive_id = i.archive_id WHERE h.id=a.relate_key_id)
+      WHEN (a.type &gt; 31000 AND a.type &lt; 33000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/group/topic/',a.relate_key_id,'" target="_blank">',h.title,'<![CDATA[</a>]]>》') FROM tbl_group_topic as h WHERE h.id=a.relate_key_id)
       WHEN (a.type &gt; 33000 AND a.type &lt; 34000) THEN (SELECT CONCAT(a.description,'《<![CDATA[<a]]> href="',#{basePath},'/group/topic/',group_topic_id,'" target="_blank">',content,'<![CDATA[</a>]]>》') FROM tbl_group_topic_comment WHERE id=a.relate_key_id)
     END) AS description
     FROM tbl_message as a LEFT JOIN tbl_member as b ON a.member_id=b.id

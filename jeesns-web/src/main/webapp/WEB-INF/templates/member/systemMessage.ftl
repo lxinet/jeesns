@@ -88,30 +88,32 @@
                 </ul>
             </div>
             <div class="col-sm-10 col-xs-12">
-                <div class="list list-condensed white-bg">
-                    <header>
-                        <h3><i class="icon-list-ul"></i> 系统消息</h3>
-                    </header>
-                    <div class="items items-hover">
-                        <#list messageModel.data as message>
+                <div class="col-xs-12 white-bg">
+                    <div class="list list-condensed">
+                        <header>
+                            <h3><i class="icon-list-ul"></i> 系统消息</h3>
+                        </header>
+                        <div class="items items-hover">
+                            <#list messageModel.data as message>
 
-                        <div class="item">
-                            <div class="item-heading">
-                                <div class="pull-right"><span class="text-muted">${message.createTime?string('yyyy-MM-dd HH:mm:ss')}</span></div>
-                                <h4><a href="${basePath}/u/${message.member.id}"><strong>@${message.member.name} </strong></a>：${message.content}</h4>
-                            </div>
-                            <div class="item-content">
-                                <div class="text">
-                                    ${message.description}
+                            <div class="item">
+                                <div class="item-heading">
+                                    <div class="pull-right"><span class="text-muted">${message.createTime?string('yyyy-MM-dd HH:mm:ss')}</span></div>
+                                    <h4><a href="${basePath}/u/${message.member.id}"><strong>@${message.member.name} </strong></a>：${message.content}</h4>
+                                </div>
+                                <div class="item-content">
+                                    <div class="text">
+                                        ${message.description}
+                                    </div>
                                 </div>
                             </div>
+                            </#list>
+                            <ul class="pager pagination pagination-sm no-margin pull-right"
+                                url="${basePath}/member/"
+                                currentPage="${messageModel.page.pageNo}"
+                                pageCount="${messageModel.page.totalPage}">
+                            </ul>
                         </div>
-                        </#list>
-                        <ul class="pager pagination pagination-sm no-margin pull-right"
-                            url="${basePath}/member/"
-                            currentPage="${messageModel.page.pageNo}"
-                            pageCount="${messageModel.page.totalPage}">
-                        </ul>
                     </div>
                 </div>
             </div>
