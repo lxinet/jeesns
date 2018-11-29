@@ -151,7 +151,7 @@ public class WeiboServiceImpl extends BaseServiceImpl<Weibo> implements IWeiboSe
     @Transactional
     @Override
     public ResultModel favor(Member loginMember, int weiboId) {
-        ValidUtill.checkParam(weiboId != 0);
+        ValidUtill.checkParam(weiboId == 0);
         Weibo weibo = this.findById(weiboId,loginMember.getId());
         ResultModel resultModel = new ResultModel(0);
         if(weiboFavorService.find(weiboId,loginMember.getId()) == null){

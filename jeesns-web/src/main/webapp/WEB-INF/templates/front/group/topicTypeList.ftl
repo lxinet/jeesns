@@ -18,7 +18,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
@@ -30,7 +30,7 @@
                 <div class="panel group-topic-list no-border">
                     <div class="panel-heading">
                         帖子分类管理
-                        <a href="${groupPath}/topicTypeAdd/${group.id}" target="_jeesnsOpen" title="添加帖子分类">添加</a>
+                        <a href="javascript:void(0)" data-href="${groupPath}/topicTypeAdd/${group.id}" target="_jeesnsOpen" title="添加帖子分类">添加</a>
                     </div>
                     <div class="panel-body">
                         <div class="items">
@@ -47,8 +47,8 @@
                                 <tr>
                                     <td>${topicType.name}</td>
                                     <td>
-                                        <a href="${groupPath}/topicTypeEdit/${topicType.id}" target="_jeesnsOpen" title="编辑帖子分类">编辑</a>
-                                        <a href="${groupPath}/topicTypeDelete/${topicType.id}" target="_jeesnsLink" title="编辑帖子分类" confirm="确定要删除该分类吗？" callback="reload">删除</a>
+                                        <a href="javascript:void(0)" data-href="${groupPath}/topicTypeEdit/${topicType.id}" target="_jeesnsOpen" title="编辑帖子分类">编辑</a>
+                                        <a href="javascript:void(0)" data-href="${groupPath}/topicTypeDelete/${topicType.id}" target="_jeesnsLink" title="编辑帖子分类" confirm="确定要删除该分类吗？" callback="reload">删除</a>
                                     </td>
                                 </tr>
                                 </#list>

@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -42,7 +42,7 @@
                     <div class="box box-primary">
                         <div class="box-header">
                             <h3 class="box-title">
-                                <a href="${managePath}/member/cardkey/add" target="_jeesnsOpen"
+                                <a href="javascript:void(0)" data-href="${managePath}/member/cardkey/add" target="_jeesnsOpen"
                                    title="添加充值卡密" width="600px" height="400px">
                                     <span class="label label-info">添加</span>
                                 </a>
@@ -75,7 +75,7 @@
                                     <td>${cardkey.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/member/cardkey/delete/${cardkey.id}" confirm="确定要删除卡密吗？" callback="reload">
+                                           href="javascript:void(0)" data-href="${managePath}/member/cardkey/delete/${cardkey.id}" confirm="确定要删除卡密吗？" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
                                     </td>

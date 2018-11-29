@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -61,7 +61,7 @@
                                             </#if>
                                             <p><span class="sp2">${picture.createTime?string("yyyy-MM-dd HH:mm:ss")}</span></p>
                                             <span class="mailbox-attachment-size">
-                                                 <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/picture/delete/${picture.id}" confirm="确定要删除图片吗？" callback="reload">
+                                                 <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/picture/delete/${picture.id}" confirm="确定要删除图片吗？" callback="reload">
                                                     <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                                 </a>
                                             </span>

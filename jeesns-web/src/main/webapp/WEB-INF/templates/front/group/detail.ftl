@@ -18,7 +18,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
@@ -38,13 +38,13 @@
                             </span>
                             <span class="text-right">
                                 <#if isfollow == true>
-                                    <a title="退出" href="${groupPath}/nofollow/${group.id}"
+                                    <a title="退出" href="javascript:void(0)" data-href="${groupPath}/nofollow/${group.id}"
                                        target="_jeesnsLink" callback="reload"
                                         <#if group.followPay == 1>confirm="该群组是收费群，退出后重新加入需要重新付费，确定要退出吗？"</#if>>
                                         <i class="icon-minus"></i> 退出
                                     </a>
                                 <#else>
-                                    <a title="加入" href="${groupPath}/follow/${group.id}" target="_jeesnsLink" callback="reload"
+                                    <a title="加入" href="javascript:void(0)" data-href="${groupPath}/follow/${group.id}" target="_jeesnsLink" callback="reload"
                                     <#if group.followPay == 1>confirm="加入该群组收费${group.payMoney}元，加入后自动扣除该费用，确定要加入吗？"</#if>>
                                         <i class="icon-plus"></i> 加入</a>
                                 </#if>

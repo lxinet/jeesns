@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -84,17 +84,17 @@
                                     <td>${scoreRule.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <#if scoreRule.status=0>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/scoreRule/enabled/${scoreRule.id}" callback="reload">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/system/scoreRule/enabled/${scoreRule.id}" callback="reload">
                                                 <span class="label label-danger">禁用</span>
                                             </a>
                                         <#else>
-                                            <a class="marg-l-5" target="_jeesnsLink" href="${managePath}/system/scoreRule/enabled/${scoreRule.id}" callback="reload">
+                                            <a class="marg-l-5" target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/system/scoreRule/enabled/${scoreRule.id}" callback="reload">
                                                 <span class="label label-success">启用</span>
                                             </a>
                                         </#if>
                                     </td>
                                     <td>
-                                        <a href="${managePath}/system/scoreRule/edit/${scoreRule.id}" target="_jeesnsOpen" title="编辑积分规则" height="480px" callback="reload">
+                                        <a href="javascript:void(0)" data-href="${managePath}/system/scoreRule/edit/${scoreRule.id}" target="_jeesnsOpen" title="编辑积分规则" height="480px" callback="reload">
                                             <span class="label label-warning"><i class="fa fa-edit green"></i></span>
                                         </a>
                                     </td>

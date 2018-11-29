@@ -20,7 +20,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script src="${basePath}/res/modules/mem.js"></script>
     <script src="${basePath}/res/plugins/js-emoji/emoji.js"></script>

@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/plugins/My97DatePicker/WdatePicker.js"></script>
     <script src="${basePath}/res/plugins/iCheck/icheck.js"></script>
 </head>
@@ -100,7 +100,7 @@
                     <label class="col-sm-3 control-label">VIP</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" data-type="require" value="${(member.isVip==0)?string("否","是")}" disabled>
-                        <a href="${managePath}/member/level/${member.id}" target="_jeesnsOpen"
+                        <a href="javascript:void(0)" data-href="${managePath}/member/level/${member.id}" target="_jeesnsOpen"
                            title="设置VIP会员" width="400px" height="300px">
                             <span class="label label-info">设置</span>
                         </a>

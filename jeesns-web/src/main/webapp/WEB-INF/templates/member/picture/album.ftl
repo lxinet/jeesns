@@ -21,7 +21,7 @@
     <script src="${basePath}/res/common/js/zui.min.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
-    <script src="${basePath}/res/front/js/jeesns.js"></script>
+    <script src="${basePath}/res/front/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="gray-bg">
@@ -34,7 +34,7 @@
                 <div class="panel-heading">
                     相册列表
                     <span class="pull-right">
-                        <a class="btn btn-primary m-t-n4" href="${basePath}/member/picture/addAlbum" target="_jeesnsOpen" height="360px">新建相册</a>
+                        <a class="btn btn-primary m-t-n4" href="javascript:void(0)" data-href="${basePath}/member/picture/addAlbum" target="_jeesnsOpen" height="360px">新建相册</a>
                     </span>
                 </div>
                 <div class="panel-body">

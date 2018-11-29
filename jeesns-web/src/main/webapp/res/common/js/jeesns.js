@@ -148,7 +148,10 @@ var jeesns = {
 
     jeesnsLink : function (){
         $('a[target="_jeesnsLink"]').on('click',function() {
-            var url = $(this).attr('href');
+            var url = $(this).attr('data-href');
+            if (url == undefined){
+                url = $(this).attr('href');
+            }
             var title = $(this).attr('confirm');
             var callback = $(this).attr('callback');
             if (title) {
@@ -163,7 +166,10 @@ var jeesns = {
 
         $('a[target="_jeesnsOpen"]').on('click',function() {
             var browserWidth = $(window).width();
-            var url = $(this).attr('href');
+            var url = $(this).attr('data-href');
+            if (url == undefined){
+                url = $(this).attr('href');
+            }
             var title = $(this).attr('title');
             var width = $(this).attr('width');
             var height = $(this).attr('height');

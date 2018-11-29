@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -31,7 +31,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>管理员(${model.page.totalCount})
-            <a href="${managePath}/member/managerAdd" target="_jeesnsOpen" title="授权管理员">授权</a>
+            <a href="javascript:void(0)" data-href="${managePath}/member/managerAdd" target="_jeesnsOpen" title="授权管理员">授权</a>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${managePath}/index"><i class="fa fa-dashboard"></i> 主页</a></li>
@@ -82,7 +82,7 @@
                                     <td>${member.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
                                         <a class="marg-l-5" target="_jeesnsLink"
-                                           href="${managePath}/member/managerCancel/${member.id}" confirm="确定要取消管理员吗？">
+                                           href="javascript:void(0)" data-href="${managePath}/member/managerCancel/${member.id}" confirm="确定要取消管理员吗？">
                                             <span class="label label-danger">取消管理员</span>
                                         </a>
                                     </td>

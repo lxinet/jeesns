@@ -22,7 +22,7 @@
     <script src="${basePath}/res/common/js/bootstrap.min.js"></script>
     <script src="${basePath}/res/manage/js/app.js"></script>
     <script src="${basePath}/res/plugins/layer/layer.js"></script>
-    <script src="${basePath}/res/common/js/jeesns.js"></script>
+    <script src="${basePath}/res/common/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/common/js/extendPagination.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -31,7 +31,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h4>
-                <a href="${managePath}/cms/articleCate/add" target="_jeesnsOpen" title="添加栏目">
+                <a href="javascript:void(0)" data-href="${managePath}/cms/articleCate/add" target="_jeesnsOpen" title="添加栏目">
                     <label class="label label-info">添加</label>
                 </a>
             </h4>
@@ -59,11 +59,11 @@
                                     <td>${mainMenu.name}</td>
                                     <td>${mainMenu.sort}</td>
                                     <td>
-                                        <a href="${managePath}/cms/articleCate/edit/${mainMenu.id}" target="_jeesnsOpen"
+                                        <a href="javascript:void(0)" data-href="${managePath}/cms/articleCate/edit/${mainMenu.id}" target="_jeesnsOpen"
                                            title="编辑栏目">
                                             <span class="label label-warning"><i class="fa fa-edit green"></i></span>
                                         </a>
-                                        <a target="_jeesnsLink" href="${managePath}/cms/articleCate/delete/${mainMenu.id}"
+                                        <a target="_jeesnsLink" href="javascript:void(0)" data-href="${managePath}/cms/articleCate/delete/${mainMenu.id}"
                                            confirm="确定要删除栏目吗？删除后栏目下的文章将会移到未分类中！" callback="reload">
                                             <span class="label label-danger"><i class="fa fa-trash red"></i></span>
                                         </a>
