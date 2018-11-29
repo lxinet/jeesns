@@ -63,6 +63,8 @@
                                     <th style="width: 10px">#</th>
                                     <th>群组名字</th>
                                     <th>创建人</th>
+                                    <th>付费</th>
+                                    <th>付费金额</th>
                                     <th>标签</th>
                                     <th>创建时间</th>
                                     <th>状态</th>
@@ -75,6 +77,8 @@
                                     <td>${group.id}</td>
                                     <td><a href="${groupPath}/detail/${group.id}" target="_blank">${group.name}</a></td>
                                     <td>${group.creatorMember.name}</td>
+                                    <td>${(group.followPay == 0)?string('免费','收费')}</td>
+                                    <td>${group.payMoney}</td>
                                     <td>${group.tags}</td>
                                     <td>${group.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>

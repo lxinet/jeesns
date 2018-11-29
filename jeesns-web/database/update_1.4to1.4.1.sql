@@ -37,3 +37,6 @@ CREATE TABLE `tbl_financial` (
   `foreign_id` INT(11)  DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `tbl_group` ADD COLUMN `follow_pay` INT DEFAULT '0' COMMENT '付费加入，0免费，1收费';
+ALTER TABLE `tbl_group` ADD COLUMN `pay_money` double(11,2) DEFAULT '0' COMMENT '付费加入金额';

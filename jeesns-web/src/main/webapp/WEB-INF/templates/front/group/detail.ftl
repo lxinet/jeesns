@@ -38,11 +38,15 @@
                             </span>
                             <span class="text-right">
                                 <#if isfollow == true>
-                                    <a title="取消关注" href="${groupPath}/nofollow/${group.id}"
-                                       target="_jeesnsLink" callback="reload"><i class="icon-minus"></i> 取消关注</a>
+                                    <a title="退出" href="${groupPath}/nofollow/${group.id}"
+                                       target="_jeesnsLink" callback="reload"
+                                        <#if group.followPay == 1>confirm="该群组是收费群，退出后重新加入需要重新付费，确定要退出吗？"</#if>>
+                                        <i class="icon-minus"></i> 退出
+                                    </a>
                                 <#else>
-                                    <a title="添加关注" href="${groupPath}/follow/${group.id}" target="_jeesnsLink" callback="reload"><i
-                                            class="icon-plus"></i> 关注</a>
+                                    <a title="加入" href="${groupPath}/follow/${group.id}" target="_jeesnsLink" callback="reload"
+                                    <#if group.followPay == 1>confirm="加入该群组收费${group.payMoney}元，加入后自动扣除该费用，确定要加入吗？"</#if>>
+                                        <i class="icon-plus"></i> 加入</a>
                                 </#if>
                                 <#if loginUser?? && loginUser.id == group.creator>
                                    . <a href="${groupPath}/edit/${group.id}">编辑</a>
@@ -55,7 +59,7 @@
                                 </#if>
                             </span>
                         </p>
-                        <p>${model.page.totalCount}帖子 · ${groupFansList?size}关注</p>
+                        <p>${model.page.totalCount}帖子 · ${groupFansList?size}加入</p>
                         <p><a href="${basePath}/u/${group.creatorMember.id}">${group.creatorMember.name}</a>
                             创建于${group.createTime?string("yyyy-MM-dd")}</p>
                     </div>
