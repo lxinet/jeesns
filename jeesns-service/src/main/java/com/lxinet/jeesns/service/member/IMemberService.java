@@ -22,8 +22,6 @@ public interface IMemberService extends IBaseService<Member> {
 
     Member manageLogin(Member member, HttpServletRequest request);
 
-    Member findById(int id);
-
     /**
      * 注册
      * @param member
