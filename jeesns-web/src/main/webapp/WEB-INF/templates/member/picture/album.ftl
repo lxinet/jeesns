@@ -26,7 +26,7 @@
 </head>
 <body class="gray-bg">
 <#include "/${frontTemplate}/common/header.ftl"/>
-<#include "/member/common/topInfo.ftl"/>
+<#include "/member/common/memberInfo.ftl"/>
 <div class="container white-bg">
     <div class="main-content">
         <div class="row">

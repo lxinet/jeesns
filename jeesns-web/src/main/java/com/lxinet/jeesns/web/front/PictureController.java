@@ -66,6 +66,8 @@ public class PictureController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String album(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
+        Member findMember = memberService.findById(loginMember.getId());
+        model.addAttribute("member",findMember);
         ResultModel resultModel = pictureAlbumService.listByMember(loginMember.getId());
         model.addAttribute("model", resultModel);
         return MEMBER_FTL_PATH + "/picture/album";

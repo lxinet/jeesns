@@ -356,7 +356,9 @@ public class MemberController extends BaseController {
     public String systemMessage(Model model){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
+        loginMember = memberService.findById(loginMember.getId());
         ResultModel messageModel = messageService.systemMessage(page, loginMember.getId(),request.getContextPath());
+        model.addAttribute("member",loginMember);
         model.addAttribute("messageModel",messageModel);
         return MEMBER_FTL_PATH + "systemMessage";
     }
