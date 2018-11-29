@@ -37,7 +37,7 @@
                             <h3><i class="icon-list-ul"></i> 卡密充值</h3>
                         </header>
                         <div class="tab-content m-t-10">
-                            <form class="form-horizontal m-t-100 m-b-50 jeesns_form" action="${basePath}/member/cdkRecharge" method="post">
+                            <form class="form-horizontal m-t-100 m-b-50 jeesns_form" action="${basePath}/member/cdkRecharge" method="post" callback="reload">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">用户名：</label>
                                     <div class="col-sm-6">
