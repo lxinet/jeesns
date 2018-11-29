@@ -36,17 +36,17 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-sm-12 col-xs-12">
+            <div class="col-sm-22 col-xs-12">
                 <div class="article-detail">
                     <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/apply" method="post" callback="applySuccess">
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">名称</label>
+                            <label class="col-sm-2 control-label">名称</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="名称" data-type="require">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">所属分类</label>
+                            <label class="col-sm-2 control-label">所属分类</label>
                             <div class="col-sm-3">
                                 <select class="form-control" name="typeId">
                                 <#list groupTypeList as groupType>
@@ -56,8 +56,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">缩略图</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-2 control-label">缩略图</label>
+                            <div class="col-sm-20">
                                 <div id="uploader" class="wu-example">
                                     <!--用来存放文件信息-->
                                     <input type="hidden" id="thumbnail" name="logo">
@@ -69,14 +69,34 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">介绍</label>
+                            <label class="col-sm-2 control-label">付费加入</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="followPay" id="followPay">
+                                    <option value="0">免费</option>
+                                    <option value="1">收费</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                申请后无法再修改
+                            </div>
+
+                        </div>
+                        <div class="form-group pay-money-line" style="display: none">
+                            <label class="col-sm-2 control-label">加入收费金额</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="payMoney" name="payMoney" placeholder="加入收费金额">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">介绍</label>
                             <div class="col-sm-8">
                                 <textarea class="form-control" rows="3" name="introduce" alt="介绍"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">标签</label>
+                            <label class="col-sm-2 control-label">标签</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="inputtags">每个标签用空格结束
                                 <input type="hidden" class="form-control" id="tags" name="tags"/>
@@ -84,7 +104,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-offset-1 col-sm-10">
+                            <div class="col-sm-offset-2 col-sm-20">
                                 <button type="submit" class="btn btn-info jeesns-submit">申请${GROUP_ALIAS}</button>
                             </div>
                         </div>
@@ -106,6 +126,16 @@
             $('#tags').val($('#inputtags').val());
 
         }, 500);
+        $("#followPay").change(function () {
+           var val = $(this).val();
+           if (val == 0){
+               $(".pay-money-line").hide();
+               $("#payMoney").attr("data-type","");
+           } else {
+               $(".pay-money-line").show();
+               $("#payMoney").attr("data-type","require,double");
+           }
+        });
     });
 </script>
 </body>

@@ -14,17 +14,19 @@
     <result column="topic_review" jdbcType="INTEGER" property="topicReview" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="follow_pay" jdbcType="INTEGER" property="followPay" />
+    <result column="pay_money" jdbcType="DOUBLE" property="payMoney" />
   </resultMap>
 
   <select id="findById" parameterType="java.lang.Integer" resultMap="GroupResult">
     select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
-    a.can_post,a.status,a.topic_review,a.type_id,(select count(c.id) from tbl_group_topic as c where id=a.id and c.status=1) as topicCount,
+    a.can_post,a.status,a.topic_review,a.type_id,a.follow_pay,a.pay_money,(select count(c.id) from tbl_group_topic as c where id=a.id and c.status=1) as topicCount,
     (select count(*) from tbl_group_fans as d where d.group_id=a.id) as fansCount,
     b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id where a.id = #{id}
   </select>
   <select id="list" resultMap="GroupResult">
     select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
-    a.can_post,a.status,a.topic_review,a.type_id,(select count(c.id) from tbl_group_topic as c where c.group_id=a.id and c.status=1) as topicCount,
+    a.can_post,a.status,a.topic_review,a.type_id,a.follow_pay,a.pay_money,(select count(c.id) from tbl_group_topic as c where c.group_id=a.id and c.status=1) as topicCount,
     (select count(*) from tbl_group_fans as d where d.group_id=a.id) as fansCount,
     b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id
     <where>
@@ -39,7 +41,7 @@
   </select>
   <select id="listByFollow" resultMap="GroupResult">
     select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
-    a.can_post,a.status,a.topic_review,a.type_id,(select count(c.id) from tbl_group_topic as c where id=a.id and c.status=1) as topicCount,
+    a.can_post,a.status,a.topic_review,a.type_id,a.follow_pay,a.pay_money,(select count(c.id) from tbl_group_topic as c where id=a.id and c.status=1) as topicCount,
     (select count(*) from tbl_group_fans as d where d.group_id=a.id) as fansCount,
     b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id
     WHERE a.status = 1 AND d.member_id = #{memberId}
@@ -49,10 +51,10 @@
     delete from tbl_group where id = #{id}
   </delete>
   <insert id="save" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
-    insert into tbl_group(create_time,name,logo,creator,managers,tags,introduce,can_post,topic_review
+    insert into tbl_group(create_time,name,logo,creator,managers,tags,introduce,can_post,topic_review,follow_pay,pay_money
     <if test="typeId != null and typeId != ''">,type_id</if>
     )
-    values(now(),#{name},#{logo},#{creator},#{managers},#{tags},#{introduce},#{canPost},#{topicReview}
+    values(now(),#{name},#{logo},#{creator},#{managers},#{tags},#{introduce},#{canPost},#{topicReview},#{followPay},#{payMoney}
     <if test="typeId != null and typeId != ''">,#{typeId}</if>
     )
   </insert>
@@ -67,6 +69,8 @@
       <if test="canPost != null">can_post = #{canPost},</if>
       <if test="topicReview != null">topic_review = #{topicReview},</if>
       <if test="typeId != null and typeId != ''">type_id = #{typeId},</if>
+      <if test="followPay != null and followPay != ''">follow_pay = #{followPay},</if>
+      <if test="payMoney != null and payMoney != ''">pay_money = #{payMoney},</if>
     </set>
     where id = #{id}
   </update>
@@ -76,7 +80,7 @@
 
   <select id="listByCustom" resultMap="GroupResult">
     select a.id,a.create_time,a.name,a.logo,a.creator,a.creator as 'creatorMember.id',a.managers,a.tags,a.introduce,
-    a.can_post,a.status,a.topic_review,a.type_id,(select count(c.id) from tbl_group_topic as c where c.group_id=a.id and c.status=1) as topicCount,
+    a.can_post,a.status,a.topic_review,a.type_id,a.follow_pay,a.pay_money,(select count(c.id) from tbl_group_topic as c where c.group_id=a.id and c.status=1) as topicCount,
     (select count(*) from tbl_group_fans as d where d.group_id=a.id) as fansCount,
     b.name as 'creatorMember.name' from tbl_group as a left join tbl_member as b on a.creator=b.id
     <where>

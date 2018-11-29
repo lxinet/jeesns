@@ -6,11 +6,13 @@ import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.group.Group;
+import com.lxinet.jeesns.model.member.Financial;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.system.ScoreRule;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.dao.group.IGroupDao;
 import com.lxinet.jeesns.service.group.IGroupFansService;
+import com.lxinet.jeesns.service.member.IFinancialService;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.service.system.IActionLogService;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,7 @@ import java.util.Map;
  * Created by zchuanzhao on 2016/12/23.
  */
 @Service("groupService")
+@Transactional
 public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupService {
     @Resource
     private IGroupDao groupDao;
@@ -45,6 +49,8 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
     private IScoreDetailService scoreDetailService;
     @Resource
     private IScoreRuleService scoreRuleService;
+    @Resource
+    private IFinancialService financialService;
 
     @Override
     public List<Group> list(int status, String key) {
@@ -67,11 +73,52 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
         Group group = this.findById(groupId);
         ValidUtill.checkIsNull(group,"群组不存在");
         if(type == 0){
+            if (group.getFollowPay() == 1){
+                Date date = new Date();
+                loginMember = memberService.findById(loginMember.getId());
+                if (loginMember.getMoney().doubleValue() < group.getPayMoney().doubleValue()){
+                    throw new OpeErrorException("您的账户余额不足，无法加入该群，加入群需要收费"+group.getPayMoney()+"元，您的账户余额"+loginMember.getMoney()+"元");
+                }
+                //扣款
+                loginMember.setMoney(loginMember.getMoney() - group.getPayMoney());
+                memberService.update(loginMember);
+                //添加财务明细
+                Financial financial = new Financial();
+                financial.setBalance(loginMember.getMoney());
+                financial.setCreateTime(date);
+                financial.setForeignId(group.getId());
+                financial.setMemberId(loginMember.getId());
+                financial.setMoney(group.getPayMoney());
+                financial.setType(1);
+                //1为余额支付
+                financial.setPaymentId(1);
+                financial.setRemark("加入群：" + group.getName());
+                financial.setOperator(loginMember.getName());
+                financialService.save(financial);
+                //加款
+                Member findMember = memberService.findById(group.getCreator());
+                findMember.setMoney(findMember.getMoney() + group.getPayMoney());
+                memberService.update(findMember);
+                //添加财务明细
+                Financial creFinancial = new Financial();
+                creFinancial.setBalance(findMember.getMoney());
+                creFinancial.setCreateTime(date);
+                creFinancial.setForeignId(group.getId());
+                creFinancial.setMemberId(findMember.getId());
+                creFinancial.setMoney(group.getPayMoney());
+                creFinancial.setType(0);
+                //1为余额支付
+                creFinancial.setPaymentId(1);
+                creFinancial.setRemark("会员加群：" + group.getName());
+                creFinancial.setOperator(loginMember.getName());
+                financialService.save(creFinancial);
+            }
+
             return groupFansService.save(loginMember,groupId);
         }else {
             //创建者无法取消关注
             if(loginMember.getId().intValue() == group.getCreator().intValue()){
-                throw new OpeErrorException("管理员不能取消关注");
+                throw new OpeErrorException("管理员不能退出");
             }
             return groupFansService.delete(loginMember,groupId);
         }
@@ -124,6 +171,9 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
         group.setManagers(managerIds);
         group.setCanPost(1);
         group.setTopicReview(0);
+        if (group.getFollowPay() == 0){
+            group.setPayMoney(0d);
+        }
         boolean result = groupDao.save(group) == 1;
         if(result){
             //创建者默认关注群组
@@ -168,6 +218,7 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
         findGroup.setTopicReview(group.getTopicReview());
         findGroup.setIntroduce(group.getIntroduce());
         findGroup.setTypeId(group.getTypeId());
+        findGroup.setPayMoney(group.getPayMoney());
         return groupDao.update(findGroup) == 1;
     }
 

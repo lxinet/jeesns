@@ -77,8 +77,6 @@
                                                 <li><a href="${groupPath}/topic/essence/${groupTopic.id}?essence=0" target="_jeesnsLink" callback="reload">取消精华</a></li>
                                             </#if>
                                         </#if>
-
-
                                         <#if loginUser.id == groupTopic.memberId>
                                             <li><a href="${groupPath}/topicEdit/${groupTopic.id}">编辑</a></li>
                                         </#if>
@@ -92,24 +90,44 @@
                     <@ads id=2>
                         <#include "/tp/ad.ftl"/>
                     </@ads>
-                    <section class="content">
-                    ${groupTopic.content}
-                    </section>
-                    <div class="text-center">
-                    <#if groupTopic.isFavor == 0>
-                        <a class="btn btn-danger btn-article-favor btn-article-unfavor topic-favor" href="javascript:void(0)" topic-id="${groupTopic.id}">
-                            <i class="icon-heart-empty"></i> 喜欢 | ${groupTopic.favor}
-                        </a>
+                    <#if isPermission == 1 || isfollow == true>
+                        <section class="content">
+                            ${groupTopic.content}
+                        </section>
+                        <div class="text-center">
+                        <#if groupTopic.isFavor == 0>
+                            <a class="btn btn-danger btn-article-favor btn-article-unfavor topic-favor" href="javascript:void(0)" topic-id="${groupTopic.id}">
+                                <i class="icon-heart-empty"></i> 喜欢 | ${groupTopic.favor}
+                            </a>
+                        <#else>
+                            <a class="btn btn-danger btn-article-favor topic-favor" href="javascript:void(0)" topic-id="${groupTopic.id}">
+                                <i class="icon-heart"></i> 喜欢 | ${groupTopic.favor}
+                            </a>
+                        </#if>
+                        </div>
                     <#else>
-                        <a class="btn btn-danger btn-article-favor topic-favor" href="javascript:void(0)" topic-id="${groupTopic.id}">
-                            <i class="icon-heart"></i> 喜欢 | ${groupTopic.favor}
-                        </a>
+                     <section class="content">
+                        <div class="alert alert-danger">
+                            <p>该群组为<span class="label label-info">付费</span>群组，需要先加入群组才可以查看该帖子</p>
+                            <p>
+                                <#if loginUser == null>
+                                    我还没有登录，我要先<a href="/member/login" target="_blank">登录</a>
+                                    <#else>
+                                    这篇帖子很重要，我要
+                                        <a title="加入" href="${groupPath}/follow/${groupTopic.group.id}"
+                                           target="_jeesnsLink" callback="reload"
+                                           confirm="加入该群组收费${groupTopic.group.payMoney}元，加入后自动扣除该费用，确定要加入吗？">加入</a>
+                                        群组
+                                </#if>
+                            </p>
+                        </div>
+                     </section>
                     </#if>
-                    </div>
                 </article>
                 <@ads id=2>
                     <#include "/tp/ad.ftl"/>
                 </@ads>
+                <#if isPermission == 1 || isfollow == true>
                 <div class="comments panel">
                     <div class="panel-heading">帖子评论</div>
                     <header>
@@ -132,6 +150,7 @@
                             class="fa fa-arrow-down"></i> 加载更多
                     </button>
                 </div>
+            </#if>
             </div>
             <div class="col-sm-4 col-xs-12">
                 <a href="${groupPath}/post/${groupTopic.group.id}" class="btn btn-block btn-lg btn-info">发帖</a>
@@ -151,12 +170,16 @@
                             </span>
                             <span class="text-right">
                                 <#if isfollow == true>
-                                    <a title="取消关注" href="${groupPath}/nofollow/${groupTopic.group.id}"
-                                       target="_jeesnsLink" callback="reload"><i class="icon-minus"></i> 取消关注</a>
+                                    <a title="退出" href="${groupPath}/nofollow/${groupTopic.group.id}"
+                                       target="_jeesnsLink" callback="reload"
+                                        <#if groupTopic.group.followPay == 1>confirm="该群组是收费群，退出后重新加入需要重新付费，确定要退出吗？"</#if>>
+                                        <i class="icon-minus"></i> 退出
+                                    </a>
                                 <#else>
-                                    <a title="添加关注" href="${groupPath}/follow/${groupTopic.group.id}"
-                                       target="_jeesnsLink" callback="reload"><i
-                                            class="icon-plus"></i> 关注</a>
+                                    <a title="加入" href="${groupPath}/follow/${groupTopic.group.id}"
+                                       target="_jeesnsLink" callback="reload"
+                                       <#if groupTopic.group.followPay == 1>confirm="加入该群组收费${groupTopic.group.payMoney}元，加入后自动扣除该费用，确定要加入吗？"</#if>>
+                                        <i class="icon-plus"></i> 加入</a>
                                 </#if>
                                 <#if loginUser?? && loginUser.id == groupTopic.group.creator>
                                     . <a href="${groupPath}/edit/${groupTopic.group.id}">编辑</a>
@@ -171,8 +194,6 @@
                     ${groupTopic.group.introduce!''}
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
                 <div class="panel">
                     <div class="panel-body weibo-author">
                         <div class="avatar">
@@ -197,41 +218,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <@ads id=1>
-                <#include "/tp/ad.ftl"/>
-            </@ads>
-            <div class="col-md-4">
-                <div class="panel">
-                    <div class="panel-heading">
-                        最新文章
-                    </div>
-                    <div class="panel-body article-hot-list">
-                        <ul>
-                        <@cms_article_list cid=0 sort='id' num=10; article>
-                            <#list articleList as article>
-                                <li><i class="icon-hand-right main-text-color"></i> <a
-                                        href="${basePath}/article/detail/${article.id}">${article.title}</a></li>
-                            </#list>
-                        </@cms_article_list>
-                        </ul>
-                    </div>
-                </div>
-                <div class="panel">
-                    <div class="panel-heading">
-                        热门文章
-                    </div>
-                    <div class="panel-body article-hot-list">
-                        <ul>
-                        <@cms_article_list cid=0 sort='view-count' num=10 day=30; article>
-                            <#list articleList as article>
-                                <li><i class="icon-hand-right main-text-color"></i> <a
-                                        href="${basePath}/article/detail/${article.id}">${article.title}</a></li>
-                            </#list>
-                        </@cms_article_list>
-                        </ul>
-                    </div>
-                </div>
+                <@ads id=1>
+                    <#include "/tp/ad.ftl"/>
+                </@ads>
             </div>
         </div>
     </div>
@@ -241,6 +230,7 @@
 <script>
     $(document).ready(function () {
         var pageNo = 1;
+        <#if isPermission == 1 || isfollow == true>
         group.commentList(groupTopicId, pageNo);
         $("#moreComment").click(function () {
             pageNo++;
@@ -249,6 +239,7 @@
         $(".topic-favor").click(function () {
             group.favor($(this), "${basePath}")
         });
+        </#if>
     });
 </script>
 </body>

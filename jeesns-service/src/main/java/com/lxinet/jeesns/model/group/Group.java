@@ -50,6 +50,10 @@ public class Group implements Serializable {
     private Integer fansCount;
     @Column("type_id")
     private Integer typeId;
+    @Column("follow_pay")
+    private Integer followPay;
+    @Column("pay_money")
+    private Double payMoney;
 
 
     public Integer getId() {
@@ -171,5 +175,21 @@ public class Group implements Serializable {
 
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
+    }
+
+    public Integer getFollowPay() {
+        return followPay;
+    }
+
+    public void setFollowPay(Integer followPay) {
+        this.followPay = followPay;
+    }
+
+    public Double getPayMoney() {
+        return payMoney;
+    }
+
+    public void setPayMoney(Double payMoney) {
+        this.payMoney = payMoney;
     }
 }

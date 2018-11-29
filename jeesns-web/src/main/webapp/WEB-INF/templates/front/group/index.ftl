@@ -106,7 +106,9 @@
                             </a>
                         </div>
                         <div class="group-info">
-                            <h4><strong><a href="${groupPath}/detail/${group.id}">${group.name}</a></strong></h4>
+                            <h4><strong><a href="${groupPath}/detail/${group.id}">
+                                ${group.name} ${(group.followPay == 0)?string('','<span class="label label-danger">付费</span>')}
+                            </a></strong></h4>
                             <p class="text-muted" title="${group.introduce}">
                                 <#if group.introduce?length &gt; 50>
                                     ${group.introduce?substring(0,50)}...
@@ -114,7 +116,7 @@
                                     ${group.introduce}
                                 </#if>
                             </p>
-                            <small class="text-muted">${group.topicCount}篇文章 · ${group.fansCount}人关注</small>
+                            <small class="text-muted">${group.topicCount}篇文章 · ${group.fansCount}人加入</small>
                         </div>
                     </div>
                 </div>

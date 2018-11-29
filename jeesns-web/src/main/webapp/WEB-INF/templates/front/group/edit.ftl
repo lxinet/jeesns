@@ -68,6 +68,14 @@
                                 </div>
                             </div>
                         </div>
+                        <#if group.followPay == 1>
+                        <div class="form-group pay-money-line">
+                            <label class="col-sm-2 control-label">加入收费金额</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="payMoney" name="payMoney" placeholder="加入收费金额" value="${group.payMoney}" data-type="require,double">
+                            </div>
+                        </div>
+                        </#if>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">介绍</label>
                             <div class="col-sm-8">
