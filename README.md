@@ -11,7 +11,7 @@ JAVA开发框架：Spring MVC+Spring+Mybatis
 前台模板引擎：Freemarker
 
 ## 简介
-JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河，数据库使用MYSQL。
+JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河，JEESNS可以用来搭建门户、论坛、社区、微博、知识付费平台等。
 
 交流社区：[http://www.jeesns.cn](http://www.jeesns.cn/)
 
@@ -27,6 +27,7 @@ github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/je
 - JEESNS是一个稳定、安全、可扩展的社区系统，可以帮您搭建与众不同的交流社区。
 - 如果您要需要搭建一个论坛,那么您可以用JEESNS
 - 如果您需要一个群组，那么您可以用JEESNS
+- 如果您想做一个知识付费平台，那么您可以用JEESNS
 - 如果您需要因为某个话题来汇聚人群，那么您可以用JEESNS
 
 ## 功能模块
@@ -40,12 +41,17 @@ github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/je
 2. 私信会员
 3. 查看动态
 4. 查看粉丝、关注、微博、文章、帖子、群组
+5. 财务明细
+6. 积分明细
+7. 卡密充值
+8. VIP会员等级
 
 - 微博模块
 1. 支持图片类型的微博
 2. 多图画廊展示
 3. 支持添加Emoji标签
 4. 点赞功能
+5. 微博话题
 
 - 群组模块
 1. 可以关注群组
@@ -54,6 +60,7 @@ github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/je
 4. 授权管理员
 5. 帖子喜欢功能
 6. 帖子加精、置顶
+7. 付费加入群组
 
 - 文章模块
 1. 文章喜欢功能

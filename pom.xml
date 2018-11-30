@@ -7,7 +7,7 @@
     <groupId>com.lxinet</groupId>
     <artifactId>jeesns</artifactId>
     <packaging>pom</packaging>
-    <version>1.4</version>
+    <version>1.4.1</version>
     <name>jeesns</name>
 
     <modules>

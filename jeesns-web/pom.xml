@@ -6,23 +6,23 @@
 	<parent>
 		<groupId>com.lxinet</groupId>
 		<artifactId>jeesns</artifactId>
-		<version>1.4</version>
+		<version>1.4.1</version>
 	</parent>
 	<groupId>com.lxinet</groupId>
 	<artifactId>jeesns-web</artifactId>
 	<packaging>war</packaging>
-	<version>1.4</version>
+	<version>1.4.1</version>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.lxinet</groupId>
 			<artifactId>jeesns-core</artifactId>
-			<version>1.4</version>
+			<version>1.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
 			<artifactId>jeesns-service</artifactId>
-			<version>1.4</version>
+			<version>1.4.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
