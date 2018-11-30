@@ -306,7 +306,7 @@ CREATE TABLE `tbl_picture` (
   `comment_count` INT(11) DEFAULT '0',
   `favor_count` INT(11) DEFAULT '0',
   `album_id` INT(11),
-  PRIMARY KEY (picture_id)
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -591,9 +591,9 @@ ALTER TABLE `tbl_score_detail` ADD CONSTRAINT `fk_score_detail_score_rule` FOREI
 ALTER TABLE `tbl_member_token` ADD CONSTRAINT `fk_member_token_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`picture_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`picture_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_group_topic` ADD CONSTRAINT `fk_group_topic_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_topic_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `tbl_group` ADD CONSTRAINT `fk_group_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `tbl_checkin` ADD CONSTRAINT `fk_checkin_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -668,6 +668,10 @@ INSERT INTO tbl_score_rule(id,create_time,update_time,name,score,remark,type,sta
   (12,now(),now(),'群组帖子评论',1,'群组帖子评论奖励积分','unlimite',1),
   (13,now(),now(),'群组帖子收到喜欢',1,'群组帖子收到喜欢奖励积分','unlimite',1),
   (14,now(),now(),'签到',1,'签到奖励','day',1);
+
+INSERT INTO `tbl_ads`(`id`, `create_time`, `type`, `name`, `start_time`, `end_time`, `content`, `link`, `status`) VALUES (1, now(), 3, 'ad1', '2018-08-20 11:17:52', '2023-10-31 11:17:54', '<iframe src=\"http://www.vwangluo.com/ad360x300.html\" frameborder=\'0\' style=\"width:360px;height:300px;\"></iframe>', '', 1);
+INSERT INTO `tbl_ads`(`id`, `create_time`, `type`, `name`, `start_time`, `end_time`, `content`, `link`, `status`) VALUES (2, now(), 3, 'ad2', '2018-08-20 11:58:54', '2023-10-31 11:17:54', '<iframe src=\"http://www.vwangluo.com/ad728x90.html\" frameborder=\'0\' style=\"width:728px;height:90px;\"></iframe>', '', 1);
+
 
 INSERT INTO `tbl_group_type` values (1,now(),'默认分类');
 

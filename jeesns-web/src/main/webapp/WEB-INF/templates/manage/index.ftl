@@ -157,6 +157,35 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v141">v1.4.1</a><code class="pull-right">2018.11.30</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v141" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复：修复签到页面手机访问时，签到按钮显示异常问题</li>
+                                                        <li>修复：修复关注点击没有反应</li>
+                                                        <li>修复：修复登录后右上角不显示会员等级问题</li>
+                                                        <li>修复：修复不显示会员性别的问题</li>
+                                                        <li>优化：优化前台手机访问界面</li>
+                                                        <li>优化：优化未登录时发布信息提示</li>
+                                                        <li>优化：优化_jeesnsLink和_jeesnsOpen的点击事件</li>
+                                                        <li>优化：优化群组页面</li>
+                                                        <li>优化：优化会员中心界面</li>
+                                                        <li>增加：增加卡密充值功能</li>
+                                                        <li>增加：增加全局登录后重定向到前一个网页</li>
+                                                        <li>增加：增加财务明细功能</li>
+                                                        <li>增加：增加群组付费加入功能</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v14">v1.4</a><code class="pull-right">2018.11.26</code>
                                             </h5>
                                         </div>
