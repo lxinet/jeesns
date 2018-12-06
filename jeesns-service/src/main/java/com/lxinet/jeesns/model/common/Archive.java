@@ -216,7 +216,7 @@ public class Archive implements Serializable {
     }
 
     public void setContent(String content) {
-        content = HtmlUtils.htmlUnescape(content);
+//        content = HtmlUtils.htmlUnescape(content);
         this.content = content;
     }
 

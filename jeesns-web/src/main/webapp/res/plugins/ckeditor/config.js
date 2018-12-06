@@ -33,11 +33,13 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
     config.uiColor = '#ffffff';
     config.resize_dir = 'vertical';
+    config.enterMode = 2;
     config.defaultLanguage = 'zh-cn';
     config.skin = 'moono-lisa';
-    //添加插件，多个插件用逗号隔开
+    // //添加插件，多个插件用逗号隔开
     config.extraPlugins = 'codesnippet,colorbutton,font';
-    config.codeSnippet_theme = 'zenburn';
+    config.allowedContent= false;
+
     config.codeSnippet_languages = {
         apache       : 'Apache',
         bash         : 'Bash',
