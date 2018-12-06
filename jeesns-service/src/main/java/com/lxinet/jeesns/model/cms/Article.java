@@ -7,8 +7,11 @@ import com.lxinet.jeesns.core.annotation.Id;
 import com.lxinet.jeesns.core.annotation.Table;
 import com.lxinet.jeesns.core.enums.FillTime;
 import com.lxinet.jeesns.core.enums.IdType;
+import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.model.common.Archive;
 import com.lxinet.jeesns.model.member.Member;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.validation.constraints.Digits;
@@ -276,7 +279,6 @@ public class Article implements Serializable {
     }
 
     public void setContent(String content) {
-        content = HtmlUtils.htmlUnescape(content);
         this.content = content;
     }
 

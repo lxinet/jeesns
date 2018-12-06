@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label for="firstname" class="col-sm-1 control-label">内容</label>
                             <div class="col-sm-10">
-                                <textarea class="ckeditor" cols="80" id="content" name="content" rows="3">${groupTopic.content}</textarea>
+                                <textarea class="ckeditor" cols="80" id="content" name="content" rows="3">${groupTopic.content?xhtml}</textarea>
                             </div>
                         </div>
                         <div class="form-group">
