@@ -213,9 +213,13 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements IArt
         } else {
             //管理员
             findArticle.setSource(article.getSource());
-            findArticle.setViewCount(article.getViewCount());
+            if (article.getViewCount() != null && article.getViewCount() > 0){
+                findArticle.setViewCount(article.getViewCount());
+            }
             findArticle.setWriter(article.getWriter());
-            findArticle.setViewRank(article.getViewRank());
+            if (article.getViewRank() != null && article.getViewRank() > 0){
+                findArticle.setViewRank(article.getViewRank());
+            }
         }
         if (findArticle.getViewCount() == null) {
             findArticle.setViewCount(0);
