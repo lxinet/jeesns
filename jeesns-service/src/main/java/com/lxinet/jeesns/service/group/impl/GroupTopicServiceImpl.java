@@ -129,9 +129,13 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
         } else {
             //管理员
             findGroupTopic.setSource(groupTopic.getSource());
-            findGroupTopic.setViewCount(groupTopic.getViewCount());
+            if (groupTopic.getViewCount() != null && groupTopic.getViewCount() > 0){
+                findGroupTopic.setViewCount(groupTopic.getViewCount());
+            }
             findGroupTopic.setWriter(groupTopic.getWriter());
-            findGroupTopic.setViewRank(groupTopic.getViewRank());
+            if (groupTopic.getViewRank() != null && groupTopic.getViewRank() > 0){
+                findGroupTopic.setViewRank(groupTopic.getViewRank());
+            }
         }
         if (findGroupTopic.getViewCount() == null) {
             findGroupTopic.setViewCount(0);
