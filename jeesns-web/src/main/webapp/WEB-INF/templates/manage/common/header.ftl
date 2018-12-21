@@ -88,6 +88,15 @@
                     <li><a href="${managePath}/member/financial/list" module="member"><i class="fa fa-circle-o"></i>财务明细</a></li>
                 </ul>
             </li>
+            <li class="treeview" module="question">
+                <a href="#">
+                    <i class="fa fa-book"></i> <span>问答管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${managePath}/question/type/list" module="question"><i class="fa fa-circle-o"></i>问答分类</a></li>
+                </ul>
+            </li>
             <li class="treeview" module="group">
                 <a href="#">
                     <i class="fa fa-group"></i> <span>群组管理</span>
