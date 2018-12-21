@@ -24,12 +24,19 @@
         var basePath = "${basePath}";
         var questionId = ${question.id};
         var uploadServer = "${basePath}/uploadImage";
-
+        $(function () {
+            $("#content").click(function () {
+                var editor = CKEDITOR.replace('content',{height:'150px'});
+                CKEDITOR.on('instanceReady', function (e) {
+                    editor.focus();
+                })
+            })
+        });
         function deleteSuccess() {
             window.location.href = "${basePath}/question/";
         }
     </script>
-    <script src="${basePath}/res/front/js/group.js"></script>
+    <script src="${basePath}/res/front/js/question.js"></script>
 </head>
 <body class="gray-bg">
 <#include "/${frontTemplate}/common/header.ftl"/>
@@ -73,26 +80,35 @@
                     <#include "/tp/ad.ftl"/>
                 </@ads>
                 <div class="comments panel">
-                    <div class="panel-heading">回答</div>
+                    <div class="panel-heading">${answerModel.page.totalCount}个回答</div>
                     <header>
                         <div class="reply-form">
-                            <form class="form-horizontal jeesns_form"
-                                  action="${groupPath}/comment/${question.id}" method="post" callback="reload">
+                            <form class="form-horizontal jeesns_form" action="${basePath}/question/${question.id}/answer/commit" method="post" onsubmit="ckUpdate();" callback="reload">
                                 <div class="form-group">
-                                    <textarea name="content" class="ckeditor form-control new-comment-text" rows="2"></textarea>
+                                    <textarea name="content" id="content" class="form-control new-comment-text" rows="3" placeholder="我要回答"></textarea>
                                 </div>
                                 <div class="form-group comment-user">
-                                    <input type="submit" value="回复" class="pull-right btn btn-primary mg-t-10 jeesns-submit">
+                                    <input type="submit" value="回答" class="pull-right btn btn-primary mg-t-10 jeesns-submit">
                                 </div>
                             </form>
                         </div>
                     </header>
                     <section class="comments-list" id="commentList">
-
+                        <#list answerModel.data as answer>
+                            <div class="comment">
+                                <a href="${basePath}/u/${answer.member.id}" class="avatar">
+                                    <img src="${basePath}${answer.member.avatar}" class="icon-4x"/>
+                                </a>
+                                <div class="content">
+                                    <div class="pull-right text-muted">${answer.createTime?string("yyyy-MM-dd HH:mm")}</div>
+                                    <div><a href="${basePath}/u/${answer.member.id}"><strong>${answer.member.name}</strong></a></div>
+                                    <div class="text">
+                                        ${answer.content}
+                                    </div>
+                                </div>
+                            </div>
+                        </#list>
                     </section>
-                    <button class="btn btn-primary btn-block m" id="moreComment" style="display: none"><i
-                            class="fa fa-arrow-down"></i> 加载更多
-                    </button>
                 </div>
             </div>
             <div class="col-sm-4 col-xs-12">
@@ -132,16 +148,9 @@
 <script>
     $(document).ready(function () {
         var pageNo = 1;
-        <#if isPermission == 1 || isfollow == true>
-        group.commentList(questionId, pageNo);
-        $("#moreComment").click(function () {
-            pageNo++;
-            group.commentList(articleId, pageNo);
-        });
         $(".topic-favor").click(function () {
             group.favor($(this), "${basePath}")
         });
-        </#if>
     });
 </script>
 </body>
