@@ -3,6 +3,7 @@ package com.lxinet.jeesns.model.question;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.core.annotation.Column;
 import com.lxinet.jeesns.core.annotation.Id;
+import com.lxinet.jeesns.core.annotation.Table;
 import com.lxinet.jeesns.core.enums.FillTime;
 import com.lxinet.jeesns.core.enums.IdType;
 import com.lxinet.jeesns.model.member.Member;
@@ -15,6 +16,7 @@ import java.util.Date;
  * @author zchuanzhao@linewell.com
  * 2018/12/7
  */
+@Table("tbl_answer")
 public class Answer implements Serializable {
     @Id(value = "id", type = IdType.AUTO)
     private Integer id;

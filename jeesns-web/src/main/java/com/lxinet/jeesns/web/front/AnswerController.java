@@ -3,23 +3,12 @@ package com.lxinet.jeesns.web.front;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.dto.ResultModel;
-import com.lxinet.jeesns.core.enums.Messages;
-import com.lxinet.jeesns.core.exception.NotFountException;
-import com.lxinet.jeesns.core.exception.ParamException;
-import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
-import com.lxinet.jeesns.model.cms.Article;
-import com.lxinet.jeesns.model.cms.ArticleCate;
-import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.model.member.Member;
+import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.model.question.Question;
 import com.lxinet.jeesns.model.question.QuestionType;
-import com.lxinet.jeesns.service.cms.IArticleCateService;
-import com.lxinet.jeesns.service.cms.IArticleCommentService;
-import com.lxinet.jeesns.service.cms.IArticleService;
-import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.service.question.IAnswerService;
 import com.lxinet.jeesns.service.question.IQuestionService;
 import com.lxinet.jeesns.service.question.IQuestionTypeService;
@@ -27,29 +16,24 @@ import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
- * 前台问答Controller
+ * 前台问题回答Controller
  * Created by zchuanzhao on 2018/12/21.
  */
-@Controller("frontQuestionController")
-@RequestMapping("/question/")
-public class QuestionController extends BaseController {
+@Controller("frontAnswerController")
+@RequestMapping("/question/{questionId}/answer/")
+public class AnswerController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private IQuestionTypeService questionTypeService;
+    private IAnswerService answerService;
     @Resource
     private IQuestionService questionService;
-    @Resource
-    private IAnswerService answerService;
 
     @UsePage
     @RequestMapping(value={"/","list"},method = RequestMethod.GET)
@@ -60,35 +44,25 @@ public class QuestionController extends BaseController {
         return jeesnsConfig.getFrontTemplate() + "/question/list";
     }
 
-    @UsePage
     @RequestMapping(value="detail/{id}",method = RequestMethod.GET)
     public String detail(@PathVariable("id") Integer id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         Question question = questionService.findById(id);
-        ResultModel answerModel = answerService.listByQuestion(id);
         model.addAttribute("question",question);
         model.addAttribute("loginUser",loginMember);
-        model.addAttribute("answerModel",answerModel);
         return jeesnsConfig.getFrontTemplate() + "/question/detail";
     }
 
-    @RequestMapping(value="ask",method = RequestMethod.GET)
-    @Before(UserLoginInterceptor.class)
-    public String ask(Model model) {
-        List<QuestionType> list = questionTypeService.listAll();
-        model.addAttribute("questionTypeList",list);
-        return jeesnsConfig.getFrontTemplate() + "/question/ask";
-    }
-
-    @RequestMapping(value="ask",method = RequestMethod.POST)
+    @RequestMapping(value="commit",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel ask(Question question) {
+    public ResultModel commit(@PathVariable("questionId") Integer questionId, Answer answer) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        question.setMemberId(loginMember.getId());
-        questionService.save(question);
+        answer.setMemberId(loginMember.getId());
+        answer.setQuestionId(questionId);
+        answerService.save(answer);
         ResultModel resultModel = new ResultModel(0);
-        resultModel.setData(question.getId());
+        resultModel.setData(answer.getId());
         return resultModel;
     }
 
