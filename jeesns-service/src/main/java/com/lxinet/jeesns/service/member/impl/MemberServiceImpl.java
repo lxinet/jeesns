@@ -502,6 +502,17 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
         return memberDao.updateScore(score,memberId) == 1;
     }
 
+    /**
+     * 更新会员余额
+     * @param money
+     * @param memberId
+     * @return
+     */
+    @Override
+    public boolean updateMoney(Double money, Integer memberId) {
+        return memberDao.updateMoney(money,memberId) == 1;
+    }
+
     @Override
     public String atFormat(String content) {
         List<String> nameList = AtUtil.getAtNameList(content);

@@ -7,7 +7,7 @@ CREATE TABLE `tbl_question` (
   `content` longtext COMMENT '内容',
   `description` varchar(255) DEFAULT NULL COMMENT '描述说明',
   `view_count` int(11) DEFAULT '0' COMMENT '浏览次数',
-  `status` int(11) DEFAULT '0' COMMENT '状态，默认0，0是未解决，1是已解决',
+  `status` int(11) DEFAULT '0' COMMENT '状态，默认0，0是未解决，1是已解决, -1关闭问题',
   `answer_id` int(11) DEFAULT null COMMENT '最佳答案ID',
   `answer_count` int(11) DEFAULT '0' COMMENT '回答数量',
   `bonus` int(11) DEFAULT '0' COMMENT '奖励积分',
@@ -52,3 +52,6 @@ CREATE TABLE `tbl_answer_comment` (
   `content` longtext COMMENT '内容',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+alter table `tbl_score_detail` drop foreign key `fk_score_detail_score_rule`;

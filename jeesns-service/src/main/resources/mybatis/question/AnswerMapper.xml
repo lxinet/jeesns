@@ -41,6 +41,8 @@
     select <include refid="select_all_column"/>
     from tbl_answer as a
     left join tbl_member as d on a.member_id = d.id
+    where a.question_id = #{questionId} and a.id !=
+    ifnull((select b.answer_id from tbl_question as b where b.id = #{questionId}), 0)
     order by a.id DESC
   </select>
 

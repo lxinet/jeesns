@@ -13,10 +13,7 @@ import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -34,8 +31,8 @@ public class QuestionController extends BaseController {
 
     @GetMapping("list")
     @UsePage
-    public String list(Model model){
-        ResultModel<QuestionType> resultModel = questionService.list();
+    public String list(Model model, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer typeId){
+        ResultModel<QuestionType> resultModel = questionService.list(typeId);
         model.addAttribute("resultModel",resultModel);
         return MANAGE_FTL_PATH + "list";
     }

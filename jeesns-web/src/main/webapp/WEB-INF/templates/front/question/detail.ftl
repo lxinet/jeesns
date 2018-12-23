@@ -20,6 +20,7 @@
     <script src="${basePath}/res/common/js/jquery.form.js"></script>
     <script src="${basePath}/res/front/js/jeesns.js?v1.4"></script>
     <script src="${basePath}/res/plugins/ckeditor/ckeditor.js"></script>
+    <script src="${basePath}/res/common/js/extendPagination.js"></script>
     <script>
         var basePath = "${basePath}";
         var questionId = ${question.id};
@@ -32,6 +33,11 @@
                 })
             })
         });
+        function commentSuccess() {
+            window.location.reload();
+            var t = $("#comments").offset().top;
+            $(window).scrollTop(t);
+        }
         function deleteSuccess() {
             window.location.href = "${basePath}/question/";
         }
@@ -53,6 +59,16 @@
                             <dt></dt>
                             <dd>${question.createTime?string('yyyy-MM-dd HH:mm')}</dd>
                             <span class="label label-danger"><i class="icon-eye-open"></i> ${question.viewCount}</span>
+
+                            <#if question.status == 0>
+                                <span class="label label-info">待解决</span>
+                            <#elseif question.status == 1>
+                                <span class="label label-success">已解决</span>
+                            <#elseif question.status == -1>
+                                <span class="label label-danger">已关闭</span>
+
+                            </#if>
+
                             <dt></dt>
                             <dd class="pull-right">
                             <#if loginUser?? && (loginUser.id == question.memberId || loginUser.isAdmin &gt; 0)>
@@ -61,8 +77,9 @@
                                     <ul class="dropdown-menu">
                                         <#if loginUser.id == question.memberId>
                                             <li><a href="${basePath}/question/edit/${question.id}">编辑</a></li>
+                                            <li><a href="javascript:void(0)" data-href="${basePath}/question/close/${question.id}" target="_jeesnsLink" callback="reload">关闭问题</a></li>
                                         </#if>
-                                        <li><a href="javascript:void(0)" data-href="${basePath}/question/delete/${question.id}" confirm="确定要删除该问答吗？" target="_jeesnsLink" callback="deleteSuccess">删除</a></li>
+                                        <li><a href="javascript:void(0)" data-href="${basePath}/question/delete/${question.id}" confirm="确定要删除该问答吗？删除后悬赏金额将不会返还，请慎重考虑哦。" target="_jeesnsLink" callback="deleteSuccess">删除</a></li>
                                     </ul>
                                 </div>
                             </#if>
@@ -79,11 +96,13 @@
                 <@ads id=2>
                     <#include "/tp/ad.ftl"/>
                 </@ads>
-                <div class="comments panel">
-                    <div class="panel-heading">${answerModel.page.totalCount}个回答</div>
+                <#if question.status != -1>
+                <div class="comments panel" id="comments">
+                    <div class="panel-heading">${question.answerCount}个回答</div>
+                    <#if question.status == 0>
                     <header>
                         <div class="reply-form">
-                            <form class="form-horizontal jeesns_form" action="${basePath}/question/${question.id}/answer/commit" method="post" onsubmit="ckUpdate();" callback="reload">
+                            <form class="form-horizontal jeesns_form" action="${basePath}/question/${question.id}/answer/commit" method="post" onsubmit="ckUpdate();" callback="commentSuccess">
                                 <div class="form-group">
                                     <textarea name="content" id="content" class="form-control new-comment-text" rows="3" placeholder="我要回答"></textarea>
                                 </div>
@@ -93,7 +112,23 @@
                             </form>
                         </div>
                     </header>
+                    </#if>
+
                     <section class="comments-list" id="commentList">
+                        <#if question.answerId??>
+                            <div class="comment alert alert-success">
+                                <a href="${basePath}/u/${bestAnswer.member.id}" class="avatar">
+                                    <img src="${basePath}${bestAnswer.member.avatar}" class="icon-4x"/>
+                                </a>
+                                <div class="content">
+                                    <div class="pull-right text-muted">${bestAnswer.createTime?string("yyyy-MM-dd HH:mm")}</div>
+                                    <div><a href="${basePath}/u/${bestAnswer.member.id}"><strong>${bestAnswer.member.name}</strong></a></div>
+                                    <div class="text">
+                                        ${bestAnswer.content}
+                                    </div>
+                                </div>
+                            </div>
+                        </#if>
                         <#list answerModel.data as answer>
                             <div class="comment">
                                 <a href="${basePath}/u/${answer.member.id}" class="avatar">
@@ -105,11 +140,22 @@
                                     <div class="text">
                                         ${answer.content}
                                     </div>
+                                    <#if question.status == 0 && loginUser.id == question.memberId>
+                                         <div class="actions">
+                                             <a href="javascript:void(0)" data-href="${basePath}/question/bestAnswer/${question.id}/${answer.id}" target="_jeesnsLink" callback="reload"><i class="icon icon-check"></i> 采用该答案</a>
+                                         </div>
+                                    </#if>
                                 </div>
                             </div>
                         </#list>
+                        <ul class="pager pagination pagination-sm no-margin pull-right"
+                            url="${basePath}/question/detail/${question.id}"
+                            currentPage="${answerModel.page.pageNo}"
+                            pageCount="${answerModel.page.totalPage}">
+                        </ul>
                     </section>
                 </div>
+                </#if>
             </div>
             <div class="col-sm-4 col-xs-12">
                 <div class="panel">
@@ -146,11 +192,8 @@
 </div>
 <#include "/${frontTemplate}/common/footer.ftl"/>
 <script>
-    $(document).ready(function () {
-        var pageNo = 1;
-        $(".topic-favor").click(function () {
-            group.favor($(this), "${basePath}")
-        });
+    $(function () {
+        $(".pagination").jeesns_page("jeesnsPageForm");
     });
 </script>
 </body>

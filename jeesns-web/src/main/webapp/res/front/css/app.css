@@ -561,6 +561,12 @@ a {
     min-height: 265px;
 }
 
+
+.bonus-input {
+    width: 100px;
+    display: inline;
+}
+
 @-webkit-keyframes progressmove {
     0% {
         background-position: 0 0;

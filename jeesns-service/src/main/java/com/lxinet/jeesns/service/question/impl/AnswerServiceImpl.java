@@ -1,19 +1,12 @@
 package com.lxinet.jeesns.service.question.impl;
 
-import com.lxinet.jeesns.core.conditions.SqlWrapper;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
-import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
-import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.PageUtil;
-import com.lxinet.jeesns.core.utils.StringUtils;
-import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.dao.question.IAnswerDao;
-import com.lxinet.jeesns.dao.question.IQuestionDao;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.question.Answer;
-import com.lxinet.jeesns.model.question.Question;
 import com.lxinet.jeesns.service.question.IAnswerService;
 import com.lxinet.jeesns.service.question.IQuestionService;
 import org.springframework.stereotype.Service;
@@ -29,6 +22,8 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer> implements IAnswe
 
     @Resource
     private IAnswerDao answerDao;
+    @Resource
+    private IQuestionService questionService;
 
 
     @Override
@@ -41,12 +36,14 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer> implements IAnswe
 
     @Override
     public Answer findById(Integer id) {
-        return super.findById(id);
+        return answerDao.findById(id);
     }
 
     @Override
     public boolean save(Answer answer) {
-        return super.save(answer);
+        super.save(answer);
+        questionService.updateAnswerCount(answer.getQuestionId());
+        return true;
     }
 
     @Override
