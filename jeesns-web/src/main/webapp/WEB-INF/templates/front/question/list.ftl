@@ -65,7 +65,7 @@
                         </span>
                     </div>
                     <div class="panel-body">
-                        <a href="${basePath}/article/list" class="btn btn-primary">全部</a>
+                        <a href="${basePath}/question/" class="btn btn-primary">全部</a>
                         <#list questionTypeList as questionType>
                             <a href="${basePath}/question/list?tid=${questionType.id}" class="btn btn-primary">${questionType.name}</a>
                         </#list>

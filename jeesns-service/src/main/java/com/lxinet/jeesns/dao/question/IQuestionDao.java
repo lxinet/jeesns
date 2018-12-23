@@ -14,7 +14,13 @@ import java.util.List;
  */
 public interface IQuestionDao extends BaseMapper<Question> {
 
-    List<Question> list(@Param("page") Page page);
+    List<Question> list(@Param("page") Page page, @Param("typeId") Integer typeId);
 
     Question findById(@Param("id") Integer id);
+
+    Integer updateStatus(@Param("status") Integer status, @Param("id") Integer id);
+
+    Integer setBestAnswer(@Param("answerId") Integer answerId, @Param("id") Integer id);
+
+    Integer updateAnswerCount(@Param("id") Integer id);
 }

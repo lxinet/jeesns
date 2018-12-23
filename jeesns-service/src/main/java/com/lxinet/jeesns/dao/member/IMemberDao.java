@@ -136,4 +136,12 @@ public interface IMemberDao extends BaseMapper<Member> {
      */
     int updateScore(@Param("score") Integer score, @Param("id") Integer id);
 
+    /**
+     * 更新会员余额
+     * @param money
+     * @param id
+     * @return
+     */
+    int updateMoney(@Param("money") Double money, @Param("id") Integer id);
+
 }

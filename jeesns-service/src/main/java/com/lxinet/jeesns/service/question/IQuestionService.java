@@ -13,10 +13,20 @@ import com.lxinet.jeesns.model.question.Question;
 public interface IQuestionService extends IBaseService<Question> {
 
 
-    ResultModel list();
+    ResultModel list(Integer typeId);
 
     boolean update(Member loginMember, Question question);
 
     boolean delete(Member loginMember, Integer id);
+
+    void close(Member loginMember, Integer id);
+
+    void bestAnswer(Member loginMember, Integer answerId, Integer id);
+
+    void updateStatus(Integer status, Question question);
+
+    Integer updateAnswerCount(Integer id);
+
+    Integer setBestAnswer(Integer answerId, Integer id);
 
 }

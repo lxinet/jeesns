@@ -14,6 +14,7 @@ import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.model.member.Member;
+import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.model.question.Question;
 import com.lxinet.jeesns.model.question.QuestionType;
 import com.lxinet.jeesns.service.cms.IArticleCateService;
@@ -53,10 +54,12 @@ public class QuestionController extends BaseController {
 
     @UsePage
     @RequestMapping(value={"/","list"},method = RequestMethod.GET)
-    public String list(String key, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer tid,
+    public String list(String key, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer typeId,
                        @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
-        ResultModel<Question> resultModel = questionService.list();
+        ResultModel<Question> resultModel = questionService.list(typeId);
+        List<QuestionType> questionTypeList = questionTypeService.listAll();
         model.addAttribute("model", resultModel);
+        model.addAttribute("questionTypeList", questionTypeList);
         return jeesnsConfig.getFrontTemplate() + "/question/list";
     }
 
@@ -65,9 +68,11 @@ public class QuestionController extends BaseController {
     public String detail(@PathVariable("id") Integer id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         Question question = questionService.findById(id);
+        Answer bestAnswer = answerService.findById(question.getAnswerId());
         ResultModel answerModel = answerService.listByQuestion(id);
         model.addAttribute("question",question);
         model.addAttribute("loginUser",loginMember);
+        model.addAttribute("bestAnswer",bestAnswer);
         model.addAttribute("answerModel",answerModel);
         return jeesnsConfig.getFrontTemplate() + "/question/detail";
     }
@@ -110,32 +115,6 @@ public class QuestionController extends BaseController {
         return resultModel;
     }
 
-    /**
-     * 评论文章
-     * @return
-     */
-//    @RequestMapping(value="/comment/{articleId}",method = RequestMethod.POST)
-//    @ResponseBody
-//    @Before(UserLoginInterceptor.class)
-//    public ResultModel comment(@PathVariable("articleId") Integer articleId, String content){
-//        Member loginMember = MemberUtil.getLoginMember(request);
-//        return new ResultModel(articleCommentService.save(loginMember,content,articleId));
-//    }
-
-
-//    @RequestMapping(value="/commentList/{articleId}.json",method = RequestMethod.GET)
-//    @ResponseBody
-//    public ResultModel commentList(@PathVariable("articleId") Integer articleId){
-//        Page page = new Page(request);
-//        if(articleId == null){
-//            articleId = 0;
-//        }
-//        List<ArticleComment> list = articleCommentService.listByPage(page,articleId, null);
-//        ResultModel resultModel = new ResultModel(0,page);
-//        resultModel.setData(list);
-//        return resultModel;
-//    }
-
 
     @RequestMapping(value="delete/{id}",method = RequestMethod.GET)
     @ResponseBody
@@ -144,6 +123,24 @@ public class QuestionController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         ResultModel resultModel = new ResultModel(questionService.delete(loginMember, id));
         return resultModel;
+    }
+
+    @RequestMapping(value="close/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    @Before(UserLoginInterceptor.class)
+    public ResultModel close(@PathVariable("id") Integer id){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        questionService.close(loginMember, id);
+        return new ResultModel(0);
+    }
+
+    @RequestMapping(value="bestAnswer/{id}/{answerId}",method = RequestMethod.GET)
+    @ResponseBody
+    @Before(UserLoginInterceptor.class)
+    public ResultModel bestAnswer(@PathVariable("id") Integer id, @PathVariable("answerId") Integer answerId){
+        Member loginMember = MemberUtil.getLoginMember(request);
+        questionService.bestAnswer(loginMember, answerId, id);
+        return new ResultModel(0);
     }
 
 }

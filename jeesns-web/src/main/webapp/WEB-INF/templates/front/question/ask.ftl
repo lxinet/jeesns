@@ -32,6 +32,7 @@
         }
     </script>
     <script src="${basePath}/res/plugins/webuploader/upload.js"></script>
+    <script src="${basePath}/res/front/js/question.js"></script>
 </head>
 <body class="gray-bg">
 <#include "/${frontTemplate}/common/header.ftl"/>
@@ -50,9 +51,9 @@
                         <div class="form-group">
                             <label class="col-sm-1 control-label">问答板块</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="typeId">
+                                <select class="form-control" name="typeId" id="typeId" onchange="changeBonusType()">
                                     <#list questionTypeList as type>
-                                    <option value="${type.id}">${type.name}</option>
+                                    <option value="${type.id}" bonus-type="${type.bonusType}">${type.name}</option>
                                     </#list>
                                 </select>
                             </div>
@@ -66,13 +67,14 @@
                         <div class="form-group">
                             <label class="col-sm-1 control-label">悬赏</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="bonus" name="bonus" placeholder="悬赏" data-type="require,double">
+                                <input type="text" class="form-control bonus-input" id="bonus" name="bonus" placeholder="悬赏" data-type="require,integer" value="0">
+                                <span id="bonus-type">积分</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-10">
                                 <button type="submit" class="btn btn-info jeesns-submit">保存</button>
-                                <a href="/article/list" class="btn btn-default jeesns-submit">取消</a>
+                                <a href="javascript:history.go(-1)" class="btn btn-default jeesns-submit">取消</a>
                             </div>
                         </div>
                     </form>
@@ -82,5 +84,14 @@
     </div>
 </div>
 <#include "/${frontTemplate}/common/footer.ftl"/>
+<script>
+    $(document).ready(function () {
+        changeBonusType();
+    })
+
+    function changeBonusType() {
+        question.changeBonusType($("#typeId").find('option:selected').attr('bonus-type'))
+    }
+</script>
 </body>
 </html>

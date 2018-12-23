@@ -53,6 +53,11 @@
     select <include refid="select_common_column"/>
     from tbl_question as a left join tbl_question_type as b on a.type_id = b.id
     left join tbl_member as d on a.member_id = d.id
+    <if test="typeId &gt; 0">
+      <where>
+        a.type_id = #{typeId}
+      </where>
+    </if>
     order by a.id DESC
   </select>
 
@@ -62,4 +67,22 @@
     left join tbl_member as d on a.member_id = d.id
     where a.id = #{id}
   </select>
+
+
+  <update id="updateViewCount">
+    update tbl_question set view_count=view_count+1 where id=${id}
+  </update>
+
+
+  <update id="updateStatus">
+    update tbl_question set status=#{status} where id=${id}
+  </update>
+
+  <update id="updateAnswerCount">
+    update tbl_question set answer_count=(select count(*) count from tbl_answer where question_id = ${id}) where id=${id}
+  </update>
+
+  <update id="setBestAnswer">
+    update tbl_question set answer_id=#{answerId},status=1 where id=${id}
+  </update>
 </mapper>

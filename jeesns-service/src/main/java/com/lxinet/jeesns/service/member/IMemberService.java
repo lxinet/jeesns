@@ -173,5 +173,13 @@ public interface IMemberService extends IBaseService<Member> {
      */
     boolean updateScore(Integer score, Integer memberId);
 
+    /**
+     * 更新会员余额
+     * @param money
+     * @param memberId
+     * @return
+     */
+    boolean updateMoney(Double money, Integer memberId);
+
     String atFormat(String content);
 }

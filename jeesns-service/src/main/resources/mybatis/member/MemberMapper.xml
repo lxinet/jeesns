@@ -173,6 +173,11 @@
         update tbl_member set score=score+#{score} where id = #{id}
     </update>
 
+    <!-- 更新会员余额 -->
+    <update id="updateMoney">
+        update tbl_member set money=money+#{money} where id = #{id}
+    </update>
+
     <!-- 获取私信中的联系人ID列表 -->
     <select id="listContactMemberIds" resultMap="RemberResult">
         select distinct(member_id) as id from

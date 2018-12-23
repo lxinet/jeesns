@@ -39,7 +39,7 @@ public class AnswerController extends BaseController {
     @RequestMapping(value={"/","list"},method = RequestMethod.GET)
     public String list(String key, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer tid,
                        @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
-        ResultModel<Question> resultModel = questionService.list();
+        ResultModel<Question> resultModel = questionService.list(tid);
         model.addAttribute("model", resultModel);
         return jeesnsConfig.getFrontTemplate() + "/question/list";
     }
