@@ -160,7 +160,7 @@
                                                    href="#v142">v1.4.2</a><code class="pull-right">2018.12.24</code>
                                             </h5>
                                         </div>
-                                        <div id="v141" class="panel-collapse collapse">
+                                        <div id="v142" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <div class="alert alert-success">
                                                     <ul>
