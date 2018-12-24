@@ -11,7 +11,7 @@ JAVA开发框架：Spring MVC+Spring+Mybatis
 前台模板引擎：Freemarker
 
 ## 简介
-JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河，JEESNS可以用来搭建门户、论坛、社区、微博、知识付费平台等。
+JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企业级JAVA的高效、安全、稳定等优势，开创国内JAVA版开源SNS先河，JEESNS可以用来搭建门户、论坛、社区、微博、问答、知识付费平台等。
 
 交流社区：[http://www.jeesns.cn](http://www.jeesns.cn/)
 
@@ -21,12 +21,13 @@ github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/je
 
 
 ## 应用场景
-- JEESNS是一个企业级的开源社区系统，是一个可以用来搭建门户、群组、论坛和微博的社区系统。
+- JEESNS是一个企业级的开源社区系统，是一个可以用来搭建门户、群组、论坛、微博和问答等知识付费社区平台系统。
 - JEESNS是将SNS社会化网络元素，人和群组结合在一起的新型的社交系统。
 - JEESNS以人为中心，通过用户的需求和行为将最有价值的信息得以不断整合。
 - JEESNS是一个稳定、安全、可扩展的社区系统，可以帮您搭建与众不同的交流社区。
 - 如果您要需要搭建一个论坛,那么您可以用JEESNS
 - 如果您需要一个群组，那么您可以用JEESNS
+- 如果您想做一个类似于知乎的知识问答平台，那么您可以用JEESNS
 - 如果您想做一个知识付费平台，那么您可以用JEESNS
 - 如果您需要因为某个话题来汇聚人群，那么您可以用JEESNS
 
@@ -68,13 +69,17 @@ github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/je
 3. 文章审核功能开关
 4. 文章评论
 
+- 问答模块
+1. 问答悬赏
+2. 问答回答
+
 - 动态模块
 1. 洞悉一切
 
 ## 环境要求
 
-- JDK7或更高版本
-- Tomcat7.0或更高版本
+- JDK8或更高版本
+- Tomcat8.0或更高版本
 - MySQL5.1或更高版本
 
 ## 部署说明
