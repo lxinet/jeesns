@@ -6,7 +6,7 @@
                 ${SITE_NAME}
                 </div>
                 <div class="text-center">
-                    <strong>Powered By <a href="http://www.jeesns.cn" target="_blank">JEESNS v1.4.1</a> ${SITE_COPYRIGHT} ${SITE_ICP}</strong>
+                    <strong>Powered By <a href="http://www.jeesns.cn" target="_blank">JEESNS v1.4.2</a> ${SITE_COPYRIGHT} ${SITE_ICP}</strong>
                     ${SITE_TONGJI}
                 </div>
             </div>

@@ -157,6 +157,26 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v142">v1.4.2</a><code class="pull-right">2018.12.24</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v141" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>修复：修复文章和帖子修改后，点击次数会变成0</li>
+                                                        <li>优化：优化富文本编辑器</li>
+                                                        <li>优化：优化XSS攻击处理</li>
+                                                        <li>增加：增加问答模块</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v141">v1.4.1</a><code class="pull-right">2018.11.30</code>
                                             </h5>
                                         </div>

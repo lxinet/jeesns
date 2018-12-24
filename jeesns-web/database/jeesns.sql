@@ -587,14 +587,6 @@ CREATE TABLE `tbl_question_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_question_tag` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `question_id` INT (11),
-  `tag_id` INT (11),
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 CREATE TABLE `tbl_answer` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
@@ -604,15 +596,6 @@ CREATE TABLE `tbl_answer` (
   `content` longtext COMMENT '内容',
   `comment_count` int(11) DEFAULT '0' COMMENT '评论数量',
   `favor_count` int(11) DEFAULT '0' COMMENT '点赞',
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `tbl_answer_comment` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
-  `member_id` INT(11) COMMENT '会员',
-  `answer_id` int(11) DEFAULT NULL COMMENT '回答ID',
-  `content` longtext COMMENT '内容',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -642,7 +625,6 @@ ALTER TABLE `tbl_weibo_favor` ADD CONSTRAINT `fk_weibo_favor_weibo` FOREIGN KEY 
 ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_from_member` FOREIGN KEY (`from_member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_to_member` FOREIGN KEY (`to_member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_score_detail` ADD CONSTRAINT `fk_score_detail_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-# ALTER TABLE `tbl_score_detail` ADD CONSTRAINT `fk_score_detail_score_rule` FOREIGN KEY (`score_rule_id`) REFERENCES `tbl_score_rule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_member_token` ADD CONSTRAINT `fk_member_token_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

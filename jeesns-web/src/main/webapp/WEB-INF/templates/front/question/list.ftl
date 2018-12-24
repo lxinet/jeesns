@@ -28,6 +28,12 @@
         <div class="row">
             <div class="col-sm-8 col-xs-12">
                 <div class="items white-bg">
+                    <div class="panel-heading">
+                        <a href="${basePath}/question/list"><span class="btn btn-info">全部</span></a>
+                        <a href="${basePath}/question/list-unsolved"><span class="btn btn-info">待解决</span></a>
+                        <a href="${basePath}/question/list-solved"><span class="btn btn-info">已解决</span></a>
+                        <a href="${basePath}/question/list-close"><span class="btn btn-info">已关闭</span></a>
+                    </div>
                     <#list model.data as question>
                     <div class="item">
                         <div class="item-content article">
@@ -39,11 +45,21 @@
                             </div>
                             <div class="item-footer">
                                 <i class="icon-eye-open"></i> ${question.viewCount} &nbsp;
+                                <#if question.status == 0>
+                                <span class="label label-info">待解决</span>
+                                <#elseif question.status == 1>
+                                <span class="label label-success">已解决</span>
+                                <#elseif question.status == -1>
+                                <span class="label label-danger">已关闭</span>
+                                </#if>
                                 <span class="text-muted">${question.createTime?string('yyyy-MM-dd HH:mm')}</span>
-                                <a href="${basePath}/question/list?tid=${question.questionType.id}">
+                                <#if question.bonus &gt; 0>
                                     <div class="pull-right label label-success">
-                                        ${question.questionType.name}
+                                        悬赏：${question.bonus}${(question.questionType.bonusType==0)?string('积分','元现金')}
                                     </div>
+                                </#if>
+                                <a href="${basePath}/question/list?tid=${question.questionType.id}">
+
                                 </a>
                             </div>
                         </div>
@@ -67,7 +83,7 @@
                     <div class="panel-body">
                         <a href="${basePath}/question/" class="btn btn-primary">全部</a>
                         <#list questionTypeList as questionType>
-                            <a href="${basePath}/question/list?tid=${questionType.id}" class="btn btn-primary">${questionType.name}</a>
+                            <a href="${basePath}/question/list<#if statusName??>-${statusName}</#if>?tid=${questionType.id}" class="btn btn-primary">${questionType.name}</a>
                         </#list>
                     </div>
                 </div>

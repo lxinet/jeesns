@@ -29,11 +29,13 @@ public class QuestionController extends BaseController {
     @Resource
     private IQuestionService questionService;
 
-    @GetMapping("list")
+    @GetMapping({"list","list-{statusName}"})
     @UsePage
-    public String list(Model model, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer typeId){
-        ResultModel<QuestionType> resultModel = questionService.list(typeId);
-        model.addAttribute("resultModel",resultModel);
+    public String list(Model model, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer typeId,
+                       @PathVariable(value = "statusName", required = false) String statusName){
+        ResultModel<QuestionType> resultModel = questionService.list(typeId, statusName);
+        model.addAttribute("model",resultModel);
+        model.addAttribute("statusName",statusName);
         return MANAGE_FTL_PATH + "list";
     }
 
