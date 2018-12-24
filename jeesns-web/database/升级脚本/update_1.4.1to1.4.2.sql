@@ -24,13 +24,6 @@ CREATE TABLE `tbl_question_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_question_tag` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `question_id` INT (11),
-  `tag_id` INT (11),
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `tbl_answer` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -41,15 +34,6 @@ CREATE TABLE `tbl_answer` (
   `content` longtext COMMENT '内容',
   `comment_count` int(11) DEFAULT '0' COMMENT '评论数量',
   `favor_count` int(11) DEFAULT '0' COMMENT '点赞',
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `tbl_answer_comment` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
-  `member_id` INT(11) COMMENT '会员',
-  `answer_id` int(11) DEFAULT NULL COMMENT '回答ID',
-  `content` longtext COMMENT '内容',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

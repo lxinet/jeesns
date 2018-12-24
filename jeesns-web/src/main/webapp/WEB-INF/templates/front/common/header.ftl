@@ -15,6 +15,7 @@
                 <li><a href="${basePath}/article/list">文章</a></li>
                 <li><a href="${weiboPath}/list">${WEIBO_ALIAS}</a></li>
                 <li><a href="${groupPath}/">${GROUP_ALIAS}</a></li>
+                <li><a href="${basePath}/question/">问答</a></li>
                 <li><a href="${basePath}/action/list">动态</a></li>
                 <li><a href="${basePath}/picture/">图库</a></li>
                 <li><a href="${basePath}/checkin/">签到</a></li>

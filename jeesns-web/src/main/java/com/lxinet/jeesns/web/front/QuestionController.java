@@ -53,13 +53,16 @@ public class QuestionController extends BaseController {
     private IAnswerService answerService;
 
     @UsePage
-    @RequestMapping(value={"/","list"},method = RequestMethod.GET)
+    @RequestMapping(value={"/","list","list-{statusName}"},method = RequestMethod.GET)
     public String list(String key, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer typeId,
-                       @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
-        ResultModel<Question> resultModel = questionService.list(typeId);
+                       @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId,
+                       @PathVariable(value = "statusName", required = false) String statusName,
+                       Model model) {
+        ResultModel<Question> resultModel = questionService.list(typeId, statusName);
         List<QuestionType> questionTypeList = questionTypeService.listAll();
         model.addAttribute("model", resultModel);
         model.addAttribute("questionTypeList", questionTypeList);
+        model.addAttribute("statusName", statusName);
         return jeesnsConfig.getFrontTemplate() + "/question/list";
     }
 
@@ -70,10 +73,14 @@ public class QuestionController extends BaseController {
         Question question = questionService.findById(id);
         Answer bestAnswer = answerService.findById(question.getAnswerId());
         ResultModel answerModel = answerService.listByQuestion(id);
+        List<QuestionType> questionTypeList = questionTypeService.listAll();
+        //更新访问次数
+        questionService.updateViewCount(id);
         model.addAttribute("question",question);
         model.addAttribute("loginUser",loginMember);
         model.addAttribute("bestAnswer",bestAnswer);
         model.addAttribute("answerModel",answerModel);
+        model.addAttribute("questionTypeList", questionTypeList);
         return jeesnsConfig.getFrontTemplate() + "/question/detail";
     }
 

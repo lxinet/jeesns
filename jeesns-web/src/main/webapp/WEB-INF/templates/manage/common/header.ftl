@@ -95,6 +95,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="${managePath}/question/type/list" module="question"><i class="fa fa-circle-o"></i>问答分类</a></li>
+                    <li><a href="${managePath}/question/list" module="question"><i class="fa fa-circle-o"></i>问答管理</a></li>
                 </ul>
             </li>
             <li class="treeview" module="group">

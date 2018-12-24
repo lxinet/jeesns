@@ -32,26 +32,7 @@ public class AnswerController extends BaseController {
     private JeesnsConfig jeesnsConfig;
     @Resource
     private IAnswerService answerService;
-    @Resource
-    private IQuestionService questionService;
 
-    @UsePage
-    @RequestMapping(value={"/","list"},method = RequestMethod.GET)
-    public String list(String key, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer tid,
-                       @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
-        ResultModel<Question> resultModel = questionService.list(tid);
-        model.addAttribute("model", resultModel);
-        return jeesnsConfig.getFrontTemplate() + "/question/list";
-    }
-
-    @RequestMapping(value="detail/{id}",method = RequestMethod.GET)
-    public String detail(@PathVariable("id") Integer id, Model model){
-        Member loginMember = MemberUtil.getLoginMember(request);
-        Question question = questionService.findById(id);
-        model.addAttribute("question",question);
-        model.addAttribute("loginUser",loginMember);
-        return jeesnsConfig.getFrontTemplate() + "/question/detail";
-    }
 
     @RequestMapping(value="commit",method = RequestMethod.POST)
     @ResponseBody
@@ -63,60 +44,6 @@ public class AnswerController extends BaseController {
         answerService.save(answer);
         ResultModel resultModel = new ResultModel(0);
         resultModel.setData(answer.getId());
-        return resultModel;
-    }
-
-    @RequestMapping(value="/edit/{id}",method = RequestMethod.GET)
-    @Before(UserLoginInterceptor.class)
-    public String edit(@PathVariable("id") int id, Model model){
-        Question question = questionService.findById(id);
-        model.addAttribute("question",question);
-        return jeesnsConfig.getFrontTemplate() + "/question/edit";
-    }
-
-    @RequestMapping(value="/update",method = RequestMethod.POST)
-    @ResponseBody
-    @Before(UserLoginInterceptor.class)
-    public ResultModel update(Question question) {
-        Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(questionService.update(loginMember,question));
-        resultModel.setData(question.getId());
-        return resultModel;
-    }
-
-    /**
-     * 评论文章
-     * @return
-     */
-//    @RequestMapping(value="/comment/{articleId}",method = RequestMethod.POST)
-//    @ResponseBody
-//    @Before(UserLoginInterceptor.class)
-//    public ResultModel comment(@PathVariable("articleId") Integer articleId, String content){
-//        Member loginMember = MemberUtil.getLoginMember(request);
-//        return new ResultModel(articleCommentService.save(loginMember,content,articleId));
-//    }
-
-
-//    @RequestMapping(value="/commentList/{articleId}.json",method = RequestMethod.GET)
-//    @ResponseBody
-//    public ResultModel commentList(@PathVariable("articleId") Integer articleId){
-//        Page page = new Page(request);
-//        if(articleId == null){
-//            articleId = 0;
-//        }
-//        List<ArticleComment> list = articleCommentService.listByPage(page,articleId, null);
-//        ResultModel resultModel = new ResultModel(0,page);
-//        resultModel.setData(list);
-//        return resultModel;
-//    }
-
-
-    @RequestMapping(value="delete/{id}",method = RequestMethod.GET)
-    @ResponseBody
-    @Before(UserLoginInterceptor.class)
-    public ResultModel delete(@PathVariable("id") Integer id){
-        Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(questionService.delete(loginMember, id));
         return resultModel;
     }
 

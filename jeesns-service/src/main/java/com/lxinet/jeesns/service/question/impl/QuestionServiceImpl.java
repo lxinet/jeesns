@@ -49,8 +49,16 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements IQ
 
 
     @Override
-    public ResultModel<Question> list(Integer typeId) {
-        List<Question> list = questionDao.list(PageUtil.getPage(), typeId);
+    public ResultModel<Question> list(Integer typeId, String statusName) {
+        Integer status = -2;
+        if ("close".equalsIgnoreCase(statusName)){
+            status = -1;
+        }else if ("unsolved".equalsIgnoreCase(statusName)){
+            status = 0;
+        }else if ("solved".equalsIgnoreCase(statusName)){
+            status = 1;
+        }
+        List<Question> list = questionDao.list(PageUtil.getPage(), typeId, status);
         ResultModel model = new ResultModel(0,PageUtil.getPage());
         model.setData(list);
         return model;
@@ -232,7 +240,7 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements IQ
 
     @Override
     public void updateStatus(Integer status, Question question) {
-        ValidUtill.checkParam(question.getStatus() == 0, "该问题当前状态无法改变");
+        ValidUtill.checkParam(question.getStatus() != 0, "该问题当前状态无法改变");
         questionDao.updateStatus(status, question.getId());
     }
 
@@ -246,4 +254,8 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements IQ
         return questionDao.setBestAnswer(answerId, id);
     }
 
+    @Override
+    public void updateViewCount(Integer id) {
+        questionDao.updateViewCount(id);
+    }
 }

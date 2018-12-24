@@ -13,7 +13,7 @@ import com.lxinet.jeesns.model.question.Question;
 public interface IQuestionService extends IBaseService<Question> {
 
 
-    ResultModel list(Integer typeId);
+    ResultModel list(Integer typeId, String statusName);
 
     boolean update(Member loginMember, Question question);
 
@@ -29,4 +29,5 @@ public interface IQuestionService extends IBaseService<Question> {
 
     Integer setBestAnswer(Integer answerId, Integer id);
 
+    void updateViewCount(Integer id);
 }

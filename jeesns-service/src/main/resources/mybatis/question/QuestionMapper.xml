@@ -17,8 +17,8 @@
     <association property="questionType" column="type_id" javaType="QuestionType">
       <result column="t_id" jdbcType="INTEGER" property="id" />
       <result column="t_name" jdbcType="VARCHAR" property="name" />
-      <result column="c_bonus_type" jdbcType="INTEGER" property="bonusType" />
-      <result column="c_sort" jdbcType="INTEGER" property="sort" />
+      <result column="t_bonus_type" jdbcType="INTEGER" property="bonusType" />
+      <result column="t_sort" jdbcType="INTEGER" property="sort" />
     </association>
     <association property="member" column="member_id" javaType="Member">
       <result column="m_id" property="id"/>
@@ -56,6 +56,11 @@
     <if test="typeId &gt; 0">
       <where>
         a.type_id = #{typeId}
+      </where>
+    </if>
+    <if test="status &gt; -2">
+      <where>
+        a.status = #{status}
       </where>
     </if>
     order by a.id DESC

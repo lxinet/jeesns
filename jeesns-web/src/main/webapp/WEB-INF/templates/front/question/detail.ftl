@@ -57,18 +57,29 @@
                         </h1>
                         <dl class="dl-inline">
                             <dt></dt>
-                            <dd>${question.createTime?string('yyyy-MM-dd HH:mm')}</dd>
+                            <a href="${basePath}/question/list?tid=${question.questionType.id}">
+                                <span class="label label-warning"><i class="icon icon-list-ul"></i> ${question.questionType.name}</span>
+                            </a>
                             <span class="label label-danger"><i class="icon-eye-open"></i> ${question.viewCount}</span>
-
                             <#if question.status == 0>
                                 <span class="label label-info">待解决</span>
                             <#elseif question.status == 1>
                                 <span class="label label-success">已解决</span>
                             <#elseif question.status == -1>
                                 <span class="label label-danger">已关闭</span>
-
                             </#if>
-
+                            <dd>
+                                <a href="${basePath}/u/${question.member.id}">
+                                    <strong>${question.member.name}</strong>
+                                </a>
+                                提问于
+                                ${question.createTime?string('yyyy-MM-dd HH:mm')}
+                            </dd>
+                             <#if question.bonus &gt; 0>
+                                 <div class="label label-success">
+                                     悬赏：${question.bonus}${(question.questionType.bonusType==0)?string('积分','元现金')}
+                                 </div>
+                             </#if>
                             <dt></dt>
                             <dd class="pull-right">
                             <#if loginUser?? && (loginUser.id == question.memberId || loginUser.isAdmin &gt; 0)>
@@ -77,7 +88,9 @@
                                     <ul class="dropdown-menu">
                                         <#if loginUser.id == question.memberId>
                                             <li><a href="${basePath}/question/edit/${question.id}">编辑</a></li>
+                                            <#if question.status == 0>
                                             <li><a href="javascript:void(0)" data-href="${basePath}/question/close/${question.id}" target="_jeesnsLink" callback="reload">关闭问题</a></li>
+                                            </#if>
                                         </#if>
                                         <li><a href="javascript:void(0)" data-href="${basePath}/question/delete/${question.id}" confirm="确定要删除该问答吗？删除后悬赏金额将不会返还，请慎重考虑哦。" target="_jeesnsLink" callback="deleteSuccess">删除</a></li>
                                     </ul>
@@ -158,6 +171,20 @@
                 </#if>
             </div>
             <div class="col-sm-4 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        问答分类
+                        <span class="pull-right">
+                            <a class="btn btn-primary right-btn m-t-n4" href="${basePath}/question/ask">我要提问</a>
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        <a href="${basePath}/question/" class="btn btn-primary">全部</a>
+                        <#list questionTypeList as questionType>
+                            <a href="${basePath}/question/list?tid=${questionType.id}" class="btn btn-primary">${questionType.name}</a>
+                        </#list>
+                    </div>
+                </div>
                 <div class="panel">
                     <div class="panel-body weibo-author">
                         <div class="avatar">
