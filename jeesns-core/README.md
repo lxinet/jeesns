@@ -6,13 +6,13 @@
 
 ## 使用说明
 
-将jeesns-core-1.4.jar放到硬盘中，如：D:\jeesns-core-1.4.jar
+将jeesns-core.jar放到硬盘中，如：D:\jeesns-core-1.4.2.jar
 
 在命令行中输入以下命令
 
-`mvn install:install-file -Dfile=D:\jeesns-core-1.4.jar -DgroupId=com.lxinet -DartifactId=jeesns-core -Dversion=1.4 -Dpackaging=jar`
+`mvn install:install-file -Dfile=D:\jeesns-core-1.4.2.jar -DgroupId=com.lxinet -DartifactId=jeesns-core -Dversion=1.4.2 -Dpackaging=jar`
 
-执行成功后，jeesns-core-1.4.jar会自动添加到本地maven仓库中。
+执行成功后，jeesns-core-1.4.2.jar会自动添加到本地maven仓库中。
 
 
 ## 相关网站
