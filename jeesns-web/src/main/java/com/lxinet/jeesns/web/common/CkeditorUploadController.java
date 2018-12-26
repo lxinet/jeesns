@@ -29,13 +29,22 @@ public class CkeditorUploadController extends BaseController {
      */
     @RequestMapping(value = "/uploadImage")
     public void uploadImage(@RequestParam MultipartFile[] upload) {
+        //回调函数的序号
         String callback = request.getParameter("CKEditorFuncNum");
+
         PrintWriter out = null;
         try {
             response.setCharacterEncoding("utf-8");
             out = response.getWriter();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        try {
+            Integer.parseInt(callback);
+        }catch (NumberFormatException e){
+            out.print("<script type='text/javascript'>alert('参数错误');</script>");
+            out.flush();
+            out.close();
         }
         if (!ServletFileUpload.isMultipartContent(request)) {
             out.print("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(" + callback + ",''," + "'请选择文件');</script>");
