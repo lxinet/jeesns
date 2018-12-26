@@ -78,6 +78,7 @@
     <!-- 配置freeMarker的模板路径 -->
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="freemarkerSettings" ref="freemarkerConfiguration"/>
+        <property name="preferFileSystemAccess" value="false"/>
         <property name="templateLoaderPath">
             <value>/WEB-INF/templates/</value>
         </property>
