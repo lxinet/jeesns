@@ -1,20 +1,19 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
-import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.core.utils.StringUtils;
-import com.lxinet.jeesns.model.system.ActionLog;
-import com.lxinet.jeesns.service.system.IActionLogService;
+import com.lxinet.jeesns.model.member.Member;
+import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * 插件
@@ -22,8 +21,6 @@ import javax.annotation.Resource;
  */
 @Controller("pluginController")
 public class PluginController extends BaseController {
-    @Resource
-    private JeesnsConfig jeesnsConfig;
 
     /**
      * get请求
@@ -33,18 +30,26 @@ public class PluginController extends BaseController {
      * @param model
      * @return
      */
-    @GetMapping("/plugin/{beanName}/{methodName}/{params}")
+    @GetMapping({"/plugin/{beanName}/{methodName}","/plugin/{beanName}/{methodName}/{params}"})
     public String plugin(@PathVariable("beanName") String beanName,
                        @PathVariable("methodName") String methodName,
-                       @PathVariable("params") String params,
+                       @PathVariable(value = "params", required = false) String params,
                        Model model){
-        String[] paramsArr = new String[0];
+        Object[] paramsArr = new Object[0];
         if (StringUtils.isNotBlank(params)){
             paramsArr = params.split("&\\|;");
         }
-        Object obj = JeesnsInvoke.invoke(beanName, methodName, paramsArr);
-        model.addAttribute("model", obj);
-        return jeesnsConfig.getFrontTemplate() + "/plugin/" + beanName + "/" + methodName;
+        try {
+            Object obj = JeesnsInvoke.invoke(beanName, methodName, paramsArr);
+            model.addAttribute("model", obj);
+        } catch (NotLoginException e1) {
+            try {
+                response.sendRedirect(Const.PROJECT_PATH + "/member/login");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "/plugin/" + beanName + "/" + methodName;
     }
 
     /**
@@ -59,13 +64,15 @@ public class PluginController extends BaseController {
     public ResultModel plugin(@PathVariable("beanName") String beanName,
                        @PathVariable("methodName") String methodName,
                        @Param("params") String params){
-        String[] paramsArr = new String[0];
+        Object[] paramsArr = new Object[0];
         if (StringUtils.isNotBlank(params)){
             paramsArr = params.split("&\\|;");
         }
-        ResultModel resultModel = (ResultModel) JeesnsInvoke.invoke(beanName, methodName, paramsArr);
-        return resultModel;
+        try {
+            ResultModel resultModel = (ResultModel) JeesnsInvoke.invoke(beanName, methodName, paramsArr);
+            return resultModel;
+        } catch (NotLoginException e1) {
+            return new ResultModel(-99,"请先登录");
+        }
     }
-
-
 }
