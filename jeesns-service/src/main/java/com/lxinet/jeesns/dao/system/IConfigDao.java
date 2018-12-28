@@ -14,5 +14,5 @@ public interface IConfigDao extends BaseMapper<Config> {
 
     boolean update(@Param("key") String key,@Param("value") String value);
 
-    String getValue(@Param("key") String key);
+    Config selectByKey(@Param("key") String key);
 }

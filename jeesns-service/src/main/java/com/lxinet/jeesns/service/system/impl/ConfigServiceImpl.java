@@ -1,6 +1,5 @@
 package com.lxinet.jeesns.service.system.impl;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.dao.system.IConfigDao;
@@ -40,6 +39,10 @@ public class ConfigServiceImpl extends BaseServiceImpl<Config> implements IConfi
 
     @Override
     public String getValue(String key) {
+        Config config = configDao.selectByKey(key);
+        if (config != null){
+            return config.getJvalue();
+        }
         return null;
     }
 

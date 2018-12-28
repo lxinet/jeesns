@@ -11,7 +11,7 @@
     update tbl_config set jvalue=#{value} where jkey = #{key}
   </update>
 
-  <select id="getValue" parameterType="String">
-    select jvalue from tbl_config WHERE  jkey = #{key}
+  <select id="selectByKey" parameterType="String" resultMap="ConfigResult">
+    select * from tbl_config WHERE  jkey = #{key}
   </select>
 </mapper>
