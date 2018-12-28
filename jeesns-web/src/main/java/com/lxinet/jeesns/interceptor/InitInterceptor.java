@@ -1,12 +1,10 @@
 package com.lxinet.jeesns.interceptor;
 
+import com.lxinet.jeesns.core.annotation.*;
 import com.lxinet.jeesns.core.interceptor.JeesnsInterceptor;
 import com.lxinet.jeesns.core.utils.SpringContextUtil;
 import com.lxinet.jeesns.utils.ConfigUtil;
 import com.lxinet.jeesns.utils.MemberUtil;
-import com.lxinet.jeesns.core.annotation.After;
-import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.annotation.Clear;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMessageService;
 import org.springframework.web.method.HandlerMethod;
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +57,20 @@ public class InitInterceptor implements HandlerInterceptor {
             List<Annotation> annotationList = new ArrayList<>();
             if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
                 Class clazz = ((HandlerMethod) handler).getMethod().getDeclaringClass();
+                Annotation userLogin = ((HandlerMethod) handler).getMethod().getAnnotation(UserLogin.class);
+                if (userLogin != null){
+                    boolean result = this.invoke(UserLoginInterceptor.class, request, response, handler);
+                    if (!result){
+                        return result;
+                    }
+                }
+                Annotation adminLogin = ((HandlerMethod) handler).getMethod().getAnnotation(AdminLogin.class);
+                if (adminLogin != null){
+                    boolean result = this.invoke(AdminLoginInterceptor.class, request, response, handler);
+                    if (!result){
+                        return result;
+                    }
+                }
                 Annotation[] classAnnotations = clazz.getAnnotations();
                 for (Annotation annotation : classAnnotations) {
                     annotationList.add(annotation);
@@ -93,11 +106,7 @@ public class InitInterceptor implements HandlerInterceptor {
                         //在@Before注解后面如果有@Clear注解，该注解就无效
                         if (!hasClear) {
                             Class<? extends JeesnsInterceptor> interceptorlll = before.value();
-                            Object object = Class.forName(interceptorlll.getCanonicalName()).newInstance();
-                            Class[] clazzs = new Class[]{HttpServletRequest.class, HttpServletResponse.class, Object.class};
-                            Method method = object.getClass().getMethod("interceptor", clazzs);
-                            Object[] params = new Object[]{request, response, handler};
-                            boolean result = (boolean) method.invoke(object, params);
+                            boolean result = this.invoke(interceptorlll, request, response, handler);
                             return result;
                         }
                     }
@@ -113,7 +122,7 @@ public class InitInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler, Exception e) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
         if (handler != null) {
             List<Annotation> annotationList = new ArrayList<>();
             if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
@@ -153,15 +162,20 @@ public class InitInterceptor implements HandlerInterceptor {
                         //在@After注解后面如果有@Clear注解，该注解就无效
                         if (!hasClear) {
                             Class<? extends JeesnsInterceptor> interceptorlll = after.value();
-                            Object object = Class.forName(interceptorlll.getCanonicalName()).newInstance();
-                            Class[] clazzs = new Class[]{HttpServletRequest.class, HttpServletResponse.class, Object.class};
-                            Method method = object.getClass().getMethod("interceptor", clazzs);
-                            Object[] params = new Object[]{httpServletRequest, httpServletResponse, handler};
-                            method.invoke(object, params);
+                            this.invoke(interceptorlll, request, response, handler);
                         }
                     }
                 }
             }
         }
+    }
+
+    private boolean invoke(Class<?> interceptorlll, HttpServletRequest request, HttpServletResponse response, Object handler) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+        Object object = Class.forName(interceptorlll.getCanonicalName()).newInstance();
+        Class[] clazzs = new Class[]{HttpServletRequest.class, HttpServletResponse.class, Object.class};
+        Method method = object.getClass().getMethod("interceptor", clazzs);
+        Object[] params = new Object[]{request, response, handler};
+        boolean result = (boolean) method.invoke(object, params);
+        return result;
     }
 }
