@@ -117,7 +117,7 @@
                         <div class="reply-form">
                             <form class="form-horizontal jeesns_form" action="${basePath}/question/${question.id}/answer/commit" method="post" onsubmit="ckUpdate();" callback="commentSuccess">
                                 <div class="form-group">
-                                    <textarea name="content" id="content" class="form-control new-comment-text" rows="3" placeholder="我要回答"></textarea>
+                                    <textarea name="content" id="content" class="form-control new-comment-text" rows="3"  data-type="require" placeholder="回答"></textarea>
                                 </div>
                                 <div class="form-group comment-user">
                                     <input type="submit" value="回答" class="pull-right btn btn-primary mg-t-10 jeesns-submit">

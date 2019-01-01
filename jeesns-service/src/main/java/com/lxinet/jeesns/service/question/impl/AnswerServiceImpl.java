@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.PageUtil;
+import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.dao.question.IAnswerDao;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.question.Answer;
@@ -41,6 +42,7 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer> implements IAnswe
 
     @Override
     public boolean save(Answer answer) {
+        ValidUtill.checkIsBlank(answer.getContent(), "回答不能为空");
         super.save(answer);
         questionService.updateAnswerCount(answer.getQuestionId());
         return true;
