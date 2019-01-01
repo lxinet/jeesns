@@ -101,7 +101,6 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
                     feePercent = Double.parseDouble(feeStr);
                 }catch (Exception e){
                 }
-
                 double fee = payMoney * feePercent;
                 payMoney -= fee;
                 //加款
@@ -121,19 +120,21 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
                 creFinancial.setRemark("会员加群：" + group.getName());
                 creFinancial.setOperator(loginMember.getName());
                 financialService.save(creFinancial);
-                //添加财务明细
-                Financial creFeeFinancial = new Financial();
-                creFeeFinancial.setBalance(findMember.getMoney() + payMoney);
-                creFeeFinancial.setCreateTime(date);
-                creFeeFinancial.setForeignId(group.getId());
-                creFeeFinancial.setMemberId(findMember.getId());
-                creFeeFinancial.setMoney(fee);
-                creFeeFinancial.setType(1);
-                //1为余额支付
-                creFeeFinancial.setPaymentId(1);
-                creFeeFinancial.setRemark("会员加群手续费：" + group.getName());
-                creFeeFinancial.setOperator(findMember.getName());
-                financialService.save(creFeeFinancial);
+                if (fee != 0d){
+                    //添加财务明细
+                    Financial creFeeFinancial = new Financial();
+                    creFeeFinancial.setBalance(findMember.getMoney() + payMoney);
+                    creFeeFinancial.setCreateTime(date);
+                    creFeeFinancial.setForeignId(group.getId());
+                    creFeeFinancial.setMemberId(findMember.getId());
+                    creFeeFinancial.setMoney(fee);
+                    creFeeFinancial.setType(1);
+                    //1为余额支付
+                    creFeeFinancial.setPaymentId(1);
+                    creFeeFinancial.setRemark("会员加群手续费：" + group.getName());
+                    creFeeFinancial.setOperator(findMember.getName());
+                    financialService.save(creFeeFinancial);
+                }
             }
 
             return groupFansService.save(loginMember,groupId);
