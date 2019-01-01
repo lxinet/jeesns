@@ -92,7 +92,7 @@
                         <div class="reply-form">
                             <form class="form-horizontal jeesns_form" action="${weiboPath}/comment/${weibo.id}" method="post" callback="reload">
                                 <div class="form-group">
-                                    <textarea name="content" class="form-control new-comment-text" rows="2" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}"></textarea>
+                                    <textarea name="content" class="form-control new-comment-text" rows="2" id="weibo-content" maxlength="${WEIBO_POST_MAXCONTENT}" data-type="require" placeholder="评论内容"></textarea>
                                 </div>
                                 <div class="form-group comment-user">
                                     <span id="weibo-words" class="mg-r-5">0/${WEIBO_POST_MAXCONTENT}</span>

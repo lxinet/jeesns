@@ -10,6 +10,7 @@ public class ConfigUtil {
     public static final String GROUP_ALIAS = "group_alias";
     public static final String GROUP_APPLY = "group_apply";
     public static final String GROUP_APPLY_REVIEW = "group_apply_review";
+    public static final String GROUP_FOLLOW_PAY_FEE = "group_follow_pay_fee";
     public static final String MEMBER_EMAIL_VALID = "member_email_valid";
     public static final String MEMBER_LOGIN_OPEN = "member_login_open";
     public static final String MEMBER_REGISTER_OPEN = "member_register_open";

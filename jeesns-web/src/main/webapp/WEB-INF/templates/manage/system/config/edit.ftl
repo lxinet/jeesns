@@ -277,6 +277,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-1 control-label">付费群组手续费</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="group_follow_pay_fee" name="group_follow_pay_fee" placeholder="付费群组手续费" value="${group_follow_pay_fee}" data-type="require,double">
+                                        如0.1表示收取10%手续费
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <div class="col-sm-offset-1 col-sm-10">
                                         <button type="submit" class="btn btn-info jeesns-submit">保存</button>
                                     </div>

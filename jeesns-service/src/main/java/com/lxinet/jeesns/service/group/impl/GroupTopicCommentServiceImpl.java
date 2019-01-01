@@ -50,7 +50,7 @@ public class GroupTopicCommentServiceImpl extends BaseServiceImpl<GroupTopicComm
     public boolean save(Member loginMember, String content, Integer groupTopicId, Integer commentId) {
         GroupTopic groupTopic = groupTopicService.findById(groupTopicId,loginMember);
         ValidUtill.checkIsNull(groupTopic, "帖子不存在");
-        ValidUtill.checkIsNull(content, "内容不能为空");
+        ValidUtill.checkIsBlank(content, "内容不能为空");
         GroupTopicComment groupTopicComment = new GroupTopicComment();
         groupTopicComment.setMemberId(loginMember.getId());
         groupTopicComment.setGroupTopicId(groupTopicId);

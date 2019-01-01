@@ -80,11 +80,10 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
                     throw new OpeErrorException("您的账户余额不足，无法加入该群，加入群需要收费"+group.getPayMoney()+"元，您的账户余额"+loginMember.getMoney()+"元");
                 }
                 //扣款
-                loginMember.setMoney(loginMember.getMoney() - group.getPayMoney());
-                memberService.update(loginMember);
+                memberService.updateMoney(-group.getPayMoney(), loginMember.getId());
                 //添加财务明细
                 Financial financial = new Financial();
-                financial.setBalance(loginMember.getMoney());
+                financial.setBalance(loginMember.getMoney() - group.getPayMoney());
                 financial.setCreateTime(date);
                 financial.setForeignId(group.getId());
                 financial.setMemberId(loginMember.getId());
@@ -95,13 +94,22 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
                 financial.setRemark("加入群：" + group.getName());
                 financial.setOperator(loginMember.getName());
                 financialService.save(financial);
+                double payMoney = group.getPayMoney();
+                String feeStr = configService.getValue(ConfigUtil.GROUP_FOLLOW_PAY_FEE);
+                double feePercent = 0d;
+                try {
+                    feePercent = Double.parseDouble(feeStr);
+                }catch (Exception e){
+                }
+                double fee = payMoney * feePercent;
+                payMoney -= fee;
                 //加款
                 Member findMember = memberService.findById(group.getCreator());
-                findMember.setMoney(findMember.getMoney() + group.getPayMoney());
-                memberService.update(findMember);
+                findMember.setMoney(findMember.getMoney() + payMoney);
+                memberService.updateMoney(payMoney, findMember.getId());
                 //添加财务明细
                 Financial creFinancial = new Financial();
-                creFinancial.setBalance(findMember.getMoney());
+                creFinancial.setBalance(findMember.getMoney() + group.getPayMoney());
                 creFinancial.setCreateTime(date);
                 creFinancial.setForeignId(group.getId());
                 creFinancial.setMemberId(findMember.getId());
@@ -112,6 +120,21 @@ public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupSe
                 creFinancial.setRemark("会员加群：" + group.getName());
                 creFinancial.setOperator(loginMember.getName());
                 financialService.save(creFinancial);
+                if (fee != 0d){
+                    //添加财务明细
+                    Financial creFeeFinancial = new Financial();
+                    creFeeFinancial.setBalance(findMember.getMoney() + payMoney);
+                    creFeeFinancial.setCreateTime(date);
+                    creFeeFinancial.setForeignId(group.getId());
+                    creFeeFinancial.setMemberId(findMember.getId());
+                    creFeeFinancial.setMoney(fee);
+                    creFeeFinancial.setType(1);
+                    //1为余额支付
+                    creFeeFinancial.setPaymentId(1);
+                    creFeeFinancial.setRemark("会员加群手续费：" + group.getName());
+                    creFeeFinancial.setOperator(findMember.getName());
+                    financialService.save(creFeeFinancial);
+                }
             }
 
             return groupFansService.save(loginMember,groupId);
