@@ -87,7 +87,7 @@ public class ConfigController extends BaseController {
 
     @RequestMapping(value = "groupUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel groupUpdate(String group_apply,String group_apply_review,String group_alias){
+    public ResultModel groupUpdate(String group_apply,String group_apply_review,String group_alias,String group_follow_pay_fee){
         Map<String,String> params = new HashMap<>();
         if(StringUtils.isEmpty(group_alias)){
             group_alias = "群组";
@@ -95,6 +95,7 @@ public class ConfigController extends BaseController {
         params.put("group_alias",group_alias);
         params.put("group_apply",group_apply);
         params.put("group_apply_review",group_apply_review);
+        params.put("group_follow_pay_fee",group_follow_pay_fee);
         return new ResultModel(configService.update(params,request));
     }
 
