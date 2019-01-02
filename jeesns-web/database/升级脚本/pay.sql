@@ -17,5 +17,5 @@ INSERT INTO `tbl_config` (`jkey`, `jvalue`, `description`)
 VALUES
   ('alipay_app_id','','支付宝应用ID'),
   ('alipay_merchant_private_key','','支付宝商户私钥'),
-  ('alipay_alipay_public_key','','支付宝公钥');
+  ('alipay_public_key','','支付宝公钥');
 

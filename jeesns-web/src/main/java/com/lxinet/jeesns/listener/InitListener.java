@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.listener;
 
+import com.lxinet.jeesns.core.consts.PluginExists;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.core.utils.SpringContextUtil;
@@ -34,6 +35,10 @@ public class InitListener implements ServletContextListener {
             sce.getServletContext().setAttribute("managePath",managePath);
             sce.getServletContext().setAttribute("groupPath",Const.GROUP_PATH);
             sce.getServletContext().setAttribute("weiboPath",Const.WEIBO_PATH);
+            sce.getServletContext().setAttribute("payExists",PluginExists.PAY);
+            sce.getServletContext().setAttribute("extExists",PluginExists.EXT);
+            sce.getServletContext().setAttribute("systemVersion",Const.SYSTEM_VERSION);
+            sce.getServletContext().setAttribute("systemName",Const.SYSTEM_NAME);
             IConfigService configService = SpringContextUtil.getBean("configService");
             List<Config> configList = configService.allList();
             for (Config config : configList) {

@@ -1,11 +1,11 @@
 package com.lxinet.jeesns.web.manage.group;
 
 import com.lxinet.jeesns.core.annotation.Before;
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.group.GroupType;
 import com.lxinet.jeesns.service.group.IGroupTypeService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
