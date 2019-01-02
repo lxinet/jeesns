@@ -1,13 +1,13 @@
 package com.lxinet.jeesns.web.manage.common;
 
 import com.lxinet.jeesns.core.annotation.Before;
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.DateFormatUtil;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.common.Ads;
 import com.lxinet.jeesns.service.common.IAdsService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("/${managePath}/ads")
 @Before(AdminLoginInterceptor.class)
-public class AdsController extends BaseController{
+public class AdsController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/ads/";
     @Resource
     private IAdsService adsService;

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.manage;
 
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
@@ -10,7 +11,6 @@ import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.common.ICommonService;
 import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

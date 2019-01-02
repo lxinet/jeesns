@@ -2,6 +2,7 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.PageUtil;
@@ -12,7 +13,6 @@ import com.lxinet.jeesns.model.member.ScoreDetail;
 import com.lxinet.jeesns.service.member.IFinancialService;
 import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.utils.MemberUtil;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

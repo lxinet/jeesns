@@ -1,13 +1,13 @@
 package com.lxinet.jeesns.web.manage.question;
 
 import com.lxinet.jeesns.core.annotation.Before;
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.question.QuestionType;
 import com.lxinet.jeesns.service.question.IQuestionTypeService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -150,7 +150,7 @@ CREATE TABLE `tbl_article_comment` (
 
 CREATE TABLE `tbl_config` (
   `jkey` varchar(100) NOT NULL DEFAULT '',
-  `jvalue` varchar(500) DEFAULT '',
+  `jvalue` varchar(2000) DEFAULT '',
   `description` varchar(255) DEFAULT '',
   PRIMARY KEY (`jkey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -599,6 +599,19 @@ CREATE TABLE `tbl_answer` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `tbl_pay` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
+  `no` varchar(32) COMMENT '订单号',
+  `member_id` INT(11) COMMENT '会员',
+  `money` double(11,2) COMMENT '充值金额',
+  `fee` double(11,2) DEFAULT '0' COMMENT '手续费',
+  `act_money` double(11,2) DEFAULT '0' COMMENT '实充金额',
+  `type` int(11) COMMENT '类型，1支付宝，2微信',
+  `status` int(11) DEFAULT '0' COMMENT '状态，0未付款，1已付款，2已退款，3已关闭',
+  `trade_no` varchar(32)  COMMENT '支付宝交易号',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -645,6 +658,7 @@ VALUES
   ('group_alias','群组','群组别名'),
   ('group_apply','1','群组是否可以申请，0不可以，1可以'),
   ('group_apply_review','0','群组申请是否需要审核，0需要审核，1不需要审核'),
+  ('group_follow_pay_fee','0','付费群组收取手续费'),
   ('member_email_valid','0','邮箱验证，0不需要验证，1需要验证'),
   ('member_login_open','1','会员登录开关，0关闭，1开启'),
   ('member_register_open','1','会员注册开关，0关闭，1开启'),
@@ -658,11 +672,14 @@ VALUES
   ('site_send_email_smtp','','发送邮箱SMTP服务器地址'),
   ('site_seo_title','又一个JEESNS社区','SEO标题'),
   ('site_icp','闽ICP备12013573号','备案号'),
-  ('site_copyright','Copyright © 2012 - 2017.','版权说明'),
+  ('site_copyright','Copyright © 2017 - 2019.','版权说明'),
   ('site_tongji','<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6e79d941db914e4195f4a839b06f2567";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>','统计代码'),
   ('weibo_alias','微博','微博别名'),
   ('weibo_post','1','微博发布，0不可以发布，1可以发布'),
-  ('weibo_post_maxcontent','140','微博内容字数');
+  ('weibo_post_maxcontent','140','微博内容字数'),
+  ('alipay_app_id','','支付宝应用ID'),
+  ('alipay_merchant_private_key','','支付宝商户私钥'),
+  ('alipay_public_key','','支付宝公钥');
 
 
 INSERT INTO `tbl_member` (`id`, `group_id`, `name`, `email`, `phone`, `password`, `sex`, `avatar`, `create_time`, `regip`, `login_count`, `curr_login_time`, `curr_login_ip`, `last_login_time`, `last_login_ip`, `update_time`, `money`, `score`, `is_active`, `status`, `birthday`, `addprovince`, `addcity`, `addarea`, `address`, `qq`, `wechat`, `contact_phone`, `contact_email`, `website`, `introduce`, `is_admin`)

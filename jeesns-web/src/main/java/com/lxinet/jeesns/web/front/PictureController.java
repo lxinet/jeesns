@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -15,7 +16,6 @@ import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.picture.IPictureAlbumService;
 import com.lxinet.jeesns.service.picture.IPictureCommentService;
 import com.lxinet.jeesns.service.picture.IPictureService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

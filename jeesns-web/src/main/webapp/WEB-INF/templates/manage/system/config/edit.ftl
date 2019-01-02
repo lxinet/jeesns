@@ -52,6 +52,7 @@
                     <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">CMS设置</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">微博设置</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">群组设置</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-6" aria-expanded="false">支付设置</a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane active">
@@ -283,6 +284,37 @@
                                         如0.1表示收取10%手续费
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <button type="submit" class="btn btn-info jeesns-submit">保存</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tab-6" class="tab-pane">
+                        <div class="panel-body">
+                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/system/config/payUpdate" method="post">
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">支付宝APPID</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="alipay_app_id" name="alipay_app_id" placeholder="支付宝APPID" value="${alipay_app_id}">
+                                    </div>
+                                </div>
+                               <div class="form-group">
+                                    <label class="col-sm-1 control-label">支付宝商户私钥</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" rows="5" name="alipay_merchant_private_key" alt="支付宝商户私钥">${alipay_merchant_private_key}</textarea>
+                                    </div>
+                                </div>
+                               <div class="form-group">
+                                    <label class="col-sm-1 control-label">支付宝公钥</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" rows="5" name="alipay_public_key" alt="支付宝公钥">${alipay_public_key}</textarea>
+                                        这里填写的是支付宝公钥，不是支付宝应用公钥
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <div class="col-sm-offset-1 col-sm-10">
                                         <button type="submit" class="btn btn-info jeesns-submit">保存</button>

@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.manage.member;
 
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.core.utils.ValidUtill;
@@ -11,7 +12,6 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

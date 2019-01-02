@@ -1,14 +1,11 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.core.utils.Const;
-import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.core.utils.StringUtils;
-import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.utils.MemberUtil;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

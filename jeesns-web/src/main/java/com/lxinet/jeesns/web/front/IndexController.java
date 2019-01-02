@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.front;
 
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.service.common.IArchiveService;
@@ -15,7 +16,6 @@ import com.lxinet.jeesns.service.group.IGroupFansService;
 import com.lxinet.jeesns.service.group.IGroupService;
 import com.lxinet.jeesns.service.group.IGroupTopicService;
 import com.lxinet.jeesns.service.member.IMemberFansService;
-import com.lxinet.jeesns.web.common.BaseController;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.model.system.ActionLog;
@@ -34,7 +34,7 @@ import java.io.PrintWriter;
  */
 @Controller("indexController")
 @RequestMapping("/")
-public class IndexController extends BaseController{
+public class IndexController extends BaseController {
     @Resource
     private IArticleService articleService;
     @Resource

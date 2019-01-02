@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.web.manage.cms;
 
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -10,7 +11,6 @@ import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.service.cms.IArticleCateService;
 import com.lxinet.jeesns.service.cms.IArticleService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

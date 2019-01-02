@@ -1,20 +1,22 @@
 package com.lxinet.jeesns.web.manage.common;
 
 import com.lxinet.jeesns.core.annotation.Before;
+import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Config;
 import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.service.system.IConfigService;
-import com.lxinet.jeesns.web.common.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -115,5 +117,27 @@ public class ConfigController extends BaseController {
         return new ResultModel(configService.update(params,request));
     }
 
+    @RequestMapping(value = "payUpdate",method = RequestMethod.POST)
+    @ResponseBody
+    public ResultModel payUpdate(){
+        Map<String,String> params = getParams(request);
+        return new ResultModel(configService.update(params,request));
+    }
+
+    private Map<String,String> getParams(HttpServletRequest request){
+        Map<String,String> params = new HashMap<>();
+        Map<String,String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+            String name = iter.next();
+            String[] values = requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            params.put(name, valueStr);
+        }
+        return params;
+    }
 
 }
