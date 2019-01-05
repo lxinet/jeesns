@@ -26,6 +26,9 @@ public class ConfigUtil {
     public static final String WEIBO_ALIAS = "weibo_alias";
     public static final String WEIBO_POST = "weibo_post";
     public static final String WEIBO_POST_MAXCONTENT = "weibo_post_maxcontent";
+    public static final String MEMBER_RECOMMEND = "member_recommend";
+    public static final String MEMBER_RECOMMEND_REWARD_SCORE = "member_recommend_reward_score";
+    public static final String MEMBER_RECOMMEND_REWARD_MONEY = "member_recommend_reward_money";
 
     private ConfigUtil(){
 

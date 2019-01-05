@@ -83,6 +83,8 @@ public interface IMemberDao extends BaseMapper<Member> {
 
     Member findByEmail(@Param("email") String email);
 
+    Member findByPhone(@Param("phone") String phone);
+
     Member findByNameAndEmail(@Param("name") String name, @Param("email") String email);
 
     /**
