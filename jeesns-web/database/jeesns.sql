@@ -49,6 +49,7 @@ CREATE TABLE `tbl_member` (
   `fans` INT(11) DEFAULT '0' comment '粉丝数量',
   `member_level_id` INT(11) DEFAULT '1' comment '会员等级ID',
   `is_vip` INT(11) DEFAULT '0' comment '0普通会员，1VIP',
+  `super_member_id` INT(11) DEFAULT null comment '上级用户ID',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
@@ -679,7 +680,10 @@ VALUES
   ('weibo_post_maxcontent','140','微博内容字数'),
   ('alipay_app_id','','支付宝应用ID'),
   ('alipay_merchant_private_key','','支付宝商户私钥'),
-  ('alipay_public_key','','支付宝公钥');
+  ('alipay_public_key','','支付宝公钥'),
+  ('member_recommend','0','会员推荐注册，0关闭，1开启'),
+  ('member_recommend_reward_score','0','推荐注册奖励积分'),
+  ('member_recommend_reward_money','0','推荐注册奖励金额');
 
 
 INSERT INTO `tbl_member` (`id`, `group_id`, `name`, `email`, `phone`, `password`, `sex`, `avatar`, `create_time`, `regip`, `login_count`, `curr_login_time`, `curr_login_ip`, `last_login_time`, `last_login_ip`, `update_time`, `money`, `score`, `is_active`, `status`, `birthday`, `addprovince`, `addcity`, `addarea`, `address`, `qq`, `wechat`, `contact_phone`, `contact_email`, `website`, `introduce`, `is_admin`)

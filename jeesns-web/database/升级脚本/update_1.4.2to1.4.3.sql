@@ -20,6 +20,12 @@ VALUES
  ('alipay_app_id','','支付宝应用ID'),
   ('alipay_merchant_private_key','','支付宝商户私钥'),
   ('alipay_public_key','','支付宝公钥'),
-  ('group_follow_pay_fee','0','付费群组收取手续费');
+  ('group_follow_pay_fee','0','付费群组收取手续费'),
+  ('member_recommend','0','会员推荐注册，0关闭，1开启'),
+  ('member_recommend_reward_score','0','推荐注册奖励积分'),
+  ('member_recommend_reward_money','0','推荐注册奖励金额');
+
+
+ALTER TABLE `tbl_member` ADD COLUMN `super_member_id` INT DEFAULT null;
 
 

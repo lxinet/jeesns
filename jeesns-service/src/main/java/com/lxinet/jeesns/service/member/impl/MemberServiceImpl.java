@@ -104,6 +104,21 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
         if(memberDao.findByEmail(member.getEmail()) != null){
             throw new OpeErrorException("邮箱已存在");
         }
+        if(memberDao.findByPhone(member.getPhone()) != null){
+            throw new OpeErrorException("手机号已存在");
+        }
+        Member superMember = null;
+        if (member.getSuperMemberId() != null){
+            superMember = findById(member.getSuperMemberId());
+            if (superMember != null) {
+                if (superMember.getStatus() == -1) {
+                    throw new OpeErrorException("上级用户已被禁用，无法注册");
+                }
+            }else {
+                member.setSuperMemberId(null);
+            }
+
+        }
         member.setRegip(IpUtil.getIpAddress(request));
         member.setPassword(Md5Util.getMD5Code(member.getPassword()));
         member.setAvatar(Const.DEFAULT_AVATAR);
@@ -111,6 +126,32 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
             actionLogService.save(member.getRegip(),member.getId(),ActionUtil.MEMBER_REG);
             //注册奖励
             scoreDetailService.scoreBonus(member.getId(),ScoreRuleConsts.REG_INIT);
+            //上级奖励
+            if (superMember != null && "1".equals(configService.getValue(ConfigUtil.MEMBER_RECOMMEND))){
+                Integer rewardScore = 0;
+                Double rewardMoney = 0d;
+                try {
+                    rewardScore = Integer.parseInt(configService.getValue(ConfigUtil.MEMBER_RECOMMEND_REWARD_SCORE));
+                }catch (Exception e){
+
+                }
+                try {
+                    rewardMoney = Double.parseDouble(configService.getValue(ConfigUtil.MEMBER_RECOMMEND_REWARD_MONEY));
+                }catch (Exception e){
+
+                }
+                //奖励积分
+                if (rewardScore > 0){
+                    updateScore(rewardScore, superMember.getId());
+                    scoreDetailService.save(0, superMember.getId(),null,rewardScore, "推荐用户奖励，推荐用户名："+member.getName());
+                }
+                //奖励金额
+                if (rewardMoney > 0){
+                    updateMoney(rewardMoney, superMember.getId());
+                    financialService.save(superMember.getId(), rewardMoney, superMember.getMoney() + rewardMoney,0,1,null,"推荐用户奖励，推荐用户名："+member.getName(),member.getName());
+                }
+
+            }
             return new ResultModel(2,"注册成功",request.getServletContext().getContextPath()+"/member/login");
         }
         return new ResultModel(-1,"注册失败");
@@ -325,6 +366,16 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     @Override
     public Member findByName(String name) {
         return memberDao.findByName(name);
+    }
+
+    @Override
+    public Member findByEmail(String email) {
+        return memberDao.findByName(email);
+    }
+
+    @Override
+    public Member findByPhone(String phone) {
+        return memberDao.findByName(phone);
     }
 
     @Override

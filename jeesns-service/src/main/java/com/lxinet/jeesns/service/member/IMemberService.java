@@ -117,6 +117,10 @@ public interface IMemberService extends IBaseService<Member> {
 
     Member findByName(String name);
 
+    Member findByEmail(String email);
+
+    Member findByPhone(String phone);
+
     ResultModel sendEmailActiveValidCode(Member loginMember, HttpServletRequest request);
 
     /**
