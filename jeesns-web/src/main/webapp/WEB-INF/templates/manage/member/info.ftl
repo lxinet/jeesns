@@ -82,6 +82,10 @@
                     <label class="col-sm-3 control-label">余额</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" data-type="require" value="${member.money}" disabled>
+                        <a href="javascript:void(0)" data-href="${managePath}/member/increaseMoney/${member.id}" target="_jeesnsOpen"
+                           title="加/扣款" width="600px" height="400px">
+                            <span class="label label-info">加/扣款</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -90,6 +94,10 @@
                     <label class="col-sm-3 control-label">积分</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" data-type="require" value="${member.score}" disabled>
+                        <a href="javascript:void(0)" data-href="${managePath}/member/increaseScore/${member.id}" target="_jeesnsOpen"
+                           title="加/减积分" width="600px" height="400px">
+                            <span class="label label-info">加/减积分</span>
+                        </a>
                     </div>
                 </div>
             </div>
