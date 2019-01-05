@@ -161,7 +161,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">状态</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" data-type="require" value="${(member.status==0)?string("禁用","正常")}" disabled>
+                        <input type="text" class="form-control" data-type="require" value="${(member.status==-1)?string("禁用","正常")}" disabled>
                     </div>
                 </div>
             </div>
