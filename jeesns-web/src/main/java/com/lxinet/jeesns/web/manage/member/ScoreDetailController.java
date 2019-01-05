@@ -11,10 +11,7 @@ import com.lxinet.jeesns.service.member.IScoreDetailService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -29,11 +26,8 @@ public class ScoreDetailController extends BaseController {
     @Resource
     private IScoreDetailService scoreDetailService;
 
-    @GetMapping(value = {"/list","/list/{memberId}"})
-    public String list(@PathVariable(value = "memberId",required = false) Integer memberId, Model model){
-        if (memberId == null){
-            memberId = 0;
-        }
+    @GetMapping(value = {"/list"})
+    public String list(@RequestParam(value = "memberId",required = false, defaultValue = "0")  Integer memberId, Model model){
         Page page = new Page(request);
         ResultModel<ScoreDetail> resultModel = scoreDetailService.list(page,memberId);
         model.addAttribute("model", resultModel);
