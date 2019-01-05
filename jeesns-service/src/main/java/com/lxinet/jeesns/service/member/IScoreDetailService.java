@@ -39,5 +39,13 @@ public interface IScoreDetailService extends IBaseService<ScoreDetail> {
 
     void scoreCancelBonus(int memberId, int scoreRuleId, int foreignId);
 
+    /**
+     * 保存积分明细
+     * @param type 类型，0加积分，1减积分
+     * @param memberId
+     * @param foreignId
+     * @param score
+     * @param remark
+     */
     void save(Integer type, Integer memberId, Integer foreignId, Integer score, String remark);
 }
