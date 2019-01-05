@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>财务明细 - ${SITE_NAME} - JEESNS后台管理系统 - Powered By JEESNS</title>
+    <title>积分明细 - ${SITE_NAME} - JEESNS后台管理系统 - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -33,7 +33,7 @@
             <h1>财务明细(${model.page.totalCount})</h1>
             <ol class="breadcrumb">
                 <li><a href="${managePath}/index"><i class="fa fa-dashboard"></i> 主页</a></li>
-                <li class="active">财务明细</li>
+                <li class="active">积分明细</li>
             </ol>
         </section>
         <section class="content">
@@ -46,25 +46,21 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th>类型</th>
-                                    <th>时间</th>
                                     <th>会员</th>
-                                    <th>变动金额</th>
-                                    <th>支付方式</th>
-                                    <th>操作人</th>
+                                    <th>变动积分</th>
                                     <th>备注</th>
+                                    <th>时间</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <#list model.data as financial>
+                                <#list model.data as scoreDetail>
                                 <tr>
-                                    <td>${financial.id}</td>
-                                    <td>${(financial.type == 0)?string('收入','支出')}</td>
-                                    <td>${financial.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                    <td>${financial.member.name}</td>
-                                    <td>${financial.money}</td>
-                                    <td>${financial.paymentName}</td>
-                                    <td>${financial.operator}</td>
-                                    <td>${financial.remark}</td>
+                                    <td>${scoreDetail.id}</td>
+                                    <td>${(scoreDetail.type == 0)?string('收入','支出')}</td>
+                                    <td>${scoreDetail.member.name}</td>
+                                    <td>${scoreDetail.score}</td>
+                                    <td>${scoreDetail.remark}</td>
+                                    <td>${scoreDetail.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                 </tr>
                                 </#list>
                                 </tbody>
@@ -72,7 +68,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/member/financial/list"
+                                url="${managePath}/member/scoreDetail/list"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>
