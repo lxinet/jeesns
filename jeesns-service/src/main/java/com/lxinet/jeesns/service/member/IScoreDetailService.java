@@ -38,4 +38,6 @@ public interface IScoreDetailService extends IBaseService<ScoreDetail> {
     void scoreBonus(int memberId, int scoreRuleId, int foreignId);
 
     void scoreCancelBonus(int memberId, int scoreRuleId, int foreignId);
+
+    void save(Integer type, Integer memberId, Integer foreignId, Integer score, String remark);
 }

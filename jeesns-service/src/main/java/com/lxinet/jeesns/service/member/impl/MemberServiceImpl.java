@@ -525,5 +525,38 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
         return content;
     }
 
+    @Override
+    public void increaseMoney(Double money, Integer memberId) {
+        ValidUtill.checkParam(money == 0, "输入金额不能为0");
+        Member loginMember = MemberUtil.getLoginMember(ContextHolderUtil.getRequest());
+        Integer type = 0;
+        String remark = "管理员加款";
+        Member findMember = findById(memberId);
+        if (money < 0){
+            type = 1;
+            remark = "管理员扣款";
+            if (findMember.getMoney().doubleValue() < Math.abs(money)){
+                throw new OpeErrorException("账户余额不足，无法扣款");
+            }
+        }
+        updateMoney(money, memberId);
+        financialService.save(memberId, Math.abs(money), findMember.getMoney() + money, type, 1, null, remark, loginMember.getName());
+    }
+
+    @Override
+    public void increaseScore(Integer score, Integer memberId) {
+        ValidUtill.checkParam(score == 0, "输入积分不能为0");
+        Integer type = 0;
+        if (score < 0){
+            type = 1;
+            Member findMember = findById(memberId);
+            if (findMember.getScore().intValue() < Math.abs(score)){
+                throw new OpeErrorException("账户积分不足，无法扣积分");
+            }
+        }
+        updateScore(score, memberId);
+        scoreDetailService.save(type, memberId, null, score, "管理员操作");
+    }
+
 
 }
