@@ -296,6 +296,15 @@
                         <div class="panel-body">
                             <form class="form-horizontal jeesns_form" role="form" action="${managePath}/system/config/payUpdate" method="post">
                                 <div class="form-group">
+                                    <label class="col-sm-1 control-label">支付宝支付</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="alipay_open">
+                                            <option value="0" <#if alipay_open==0>selected</#if>>关闭</option>
+                                            <option value="1" <#if alipay_open==1>selected</#if>>开启</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-1 control-label">支付宝APPID</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="alipay_app_id" name="alipay_app_id" placeholder="支付宝APPID" value="${alipay_app_id}">
@@ -312,6 +321,27 @@
                                     <div class="col-sm-8">
                                         <textarea class="form-control" rows="5" name="alipay_public_key" alt="支付宝公钥">${alipay_public_key}</textarea>
                                         这里填写的是支付宝公钥，不是支付宝应用公钥
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">PAYJS微信支付</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="payjs_open">
+                                            <option value="0" <#if payjs_open==0>selected</#if>>关闭</option>
+                                            <option value="1" <#if payjs_open==1>selected</#if>>开启</option>
+                                        </select>
+                                    </div>
+                                </div>
+                               <div class="form-group">
+                                    <label class="col-sm-1 control-label">PAYJS商户号</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="payjs_mchid" name="payjs_mchid" placeholder="PAYJS商户号" value="${payjs_mchid}">
+                                    </div>
+                                </div>
+                               <div class="form-group">
+                                    <label class="col-sm-1 control-label">PAYJS通信密钥</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="payjs_key" name="payjs_key" placeholder="PAYJS通信密钥" value="${payjs_key}">
                                     </div>
                                 </div>
 
