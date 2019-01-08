@@ -104,6 +104,21 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
         if(memberDao.findByEmail(member.getEmail()) != null){
             throw new OpeErrorException("邮箱已存在");
         }
+        if(memberDao.findByPhone(member.getPhone()) != null){
+            throw new OpeErrorException("手机号已存在");
+        }
+        Member superMember = null;
+        if (member.getSuperMemberId() != null){
+            superMember = findById(member.getSuperMemberId());
+            if (superMember != null) {
+                if (superMember.getStatus() == -1) {
+                    throw new OpeErrorException("上级用户已被禁用，无法注册");
+                }
+            }else {
+                member.setSuperMemberId(null);
+            }
+
+        }
         member.setRegip(IpUtil.getIpAddress(request));
         member.setPassword(Md5Util.getMD5Code(member.getPassword()));
         member.setAvatar(Const.DEFAULT_AVATAR);
@@ -111,6 +126,32 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
             actionLogService.save(member.getRegip(),member.getId(),ActionUtil.MEMBER_REG);
             //注册奖励
             scoreDetailService.scoreBonus(member.getId(),ScoreRuleConsts.REG_INIT);
+            //上级奖励
+            if (superMember != null && "1".equals(configService.getValue(ConfigUtil.MEMBER_RECOMMEND))){
+                Integer rewardScore = 0;
+                Double rewardMoney = 0d;
+                try {
+                    rewardScore = Integer.parseInt(configService.getValue(ConfigUtil.MEMBER_RECOMMEND_REWARD_SCORE));
+                }catch (Exception e){
+
+                }
+                try {
+                    rewardMoney = Double.parseDouble(configService.getValue(ConfigUtil.MEMBER_RECOMMEND_REWARD_MONEY));
+                }catch (Exception e){
+
+                }
+                //奖励积分
+                if (rewardScore > 0){
+                    updateScore(rewardScore, superMember.getId());
+                    scoreDetailService.save(0, superMember.getId(),null,rewardScore, "推荐用户奖励，推荐用户名："+member.getName());
+                }
+                //奖励金额
+                if (rewardMoney > 0){
+                    updateMoney(rewardMoney, superMember.getId());
+                    financialService.save(superMember.getId(), rewardMoney, superMember.getMoney() + rewardMoney,0,1,null,"推荐用户奖励，推荐用户名："+member.getName(),member.getName());
+                }
+
+            }
             return new ResultModel(2,"注册成功",request.getServletContext().getContextPath()+"/member/login");
         }
         return new ResultModel(-1,"注册失败");
@@ -328,6 +369,16 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
     }
 
     @Override
+    public Member findByEmail(String email) {
+        return memberDao.findByName(email);
+    }
+
+    @Override
+    public Member findByPhone(String phone) {
+        return memberDao.findByName(phone);
+    }
+
+    @Override
     public ResultModel sendEmailActiveValidCode(Member loginMember, HttpServletRequest request) {
         loginMember = this.findById(loginMember.getId());
         if(loginMember.getIsActive() == 1){
@@ -523,6 +574,39 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
             }
         }
         return content;
+    }
+
+    @Override
+    public void increaseMoney(Double money, Integer memberId) {
+        ValidUtill.checkParam(money == 0, "输入金额不能为0");
+        Member loginMember = MemberUtil.getLoginMember(ContextHolderUtil.getRequest());
+        Integer type = 0;
+        String remark = "管理员加款";
+        Member findMember = findById(memberId);
+        if (money < 0){
+            type = 1;
+            remark = "管理员扣款";
+            if (findMember.getMoney().doubleValue() < Math.abs(money)){
+                throw new OpeErrorException("账户余额不足，无法扣款");
+            }
+        }
+        updateMoney(money, memberId);
+        financialService.save(memberId, Math.abs(money), findMember.getMoney() + money, type, 1, null, remark, loginMember.getName());
+    }
+
+    @Override
+    public void increaseScore(Integer score, Integer memberId) {
+        ValidUtill.checkParam(score == 0, "输入积分不能为0");
+        Integer type = 0;
+        if (score < 0){
+            type = 1;
+            Member findMember = findById(memberId);
+            if (findMember.getScore().intValue() < Math.abs(score)){
+                throw new OpeErrorException("账户积分不足，无法扣积分");
+            }
+        }
+        updateScore(score, memberId);
+        scoreDetailService.save(type, memberId, null, score, "管理员操作");
     }
 
 

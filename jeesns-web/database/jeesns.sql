@@ -49,6 +49,7 @@ CREATE TABLE `tbl_member` (
   `fans` INT(11) DEFAULT '0' comment '粉丝数量',
   `member_level_id` INT(11) DEFAULT '1' comment '会员等级ID',
   `is_vip` INT(11) DEFAULT '0' comment '0普通会员，1VIP',
+  `super_member_id` INT(11) DEFAULT null comment '上级用户ID',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `email` (`email`)
@@ -609,8 +610,7 @@ CREATE TABLE `tbl_pay` (
   `act_money` double(11,2) DEFAULT '0' COMMENT '实充金额',
   `type` int(11) COMMENT '类型，1支付宝，2微信',
   `status` int(11) DEFAULT '0' COMMENT '状态，0未付款，1已付款，2已退款，3已关闭',
-  `trade_no` varchar(32)  COMMENT '商家交易号',
-  `qrcode` varchar(128)  COMMENT '微信二维码',
+  `trade_no` varchar(32)  COMMENT '支付宝交易号',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -680,11 +680,7 @@ VALUES
   ('weibo_post_maxcontent','140','微博内容字数'),
   ('alipay_app_id','','支付宝应用ID'),
   ('alipay_merchant_private_key','','支付宝商户私钥'),
-  ('alipay_public_key','','支付宝公钥'),
-  ('alipay_open','0','支付宝支付是否开启，0关闭，1开启'),
-  ('payjs_open','0','PAYJS微信支付是否开启，0关闭，1开启'),
-  ('payjs_mchid','','PAYJS商户号'),
-  ('payjs_key','','PAYJS通信密钥');
+  ('alipay_public_key','','支付宝公钥');
 
 
 INSERT INTO `tbl_member` (`id`, `group_id`, `name`, `email`, `phone`, `password`, `sex`, `avatar`, `create_time`, `regip`, `login_count`, `curr_login_time`, `curr_login_ip`, `last_login_time`, `last_login_ip`, `update_time`, `money`, `score`, `is_active`, `status`, `birthday`, `addprovince`, `addcity`, `addarea`, `address`, `qq`, `wechat`, `contact_phone`, `contact_email`, `website`, `introduce`, `is_admin`)

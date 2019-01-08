@@ -27,4 +27,6 @@ VALUES
   ('payjs_key','','PAYJS通信密钥'),
   ('group_follow_pay_fee','0','付费群组收取手续费');
 
+ALTER TABLE `tbl_member` ADD COLUMN `super_member_id` INT DEFAULT null;
+
 

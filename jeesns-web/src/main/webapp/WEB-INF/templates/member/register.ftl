@@ -63,6 +63,21 @@
                             <input type="password" name="repassword" class="form-control" placeholder="确认密码" data-type="require" data-rule="equal[password]">
                         </div>
                     </div>
+                    <#if MEMBER_RECOMMEND == 1>
+                        <div class="form-group m-b-30">
+                            <label class="col-sm-3">上级会员</label>
+                            <div class="col-md-8 col-sm-10">
+                            <#if superMember??>
+                                <input type="text" class="form-control" placeholder="上级会员" value="${superMember.name}" readonly>
+                                <input type="hidden" class="form-control" name="superMemberId" placeholder="上级会员" value="${superMember.id}">
+                            <#else>
+                                <input type="text" class="form-control" id="superMemberName" placeholder="上级会员用户名或者邮箱" value="${superMember.name}">
+                                <input type="hidden" class="form-control" id="superMemberId" name="superMemberId" placeholder="上级会员">
+                            </#if>
+                            </div>
+                        </div>
+                    </#if>
+
                     <div class="form-group m-b-20">
                         <label class="col-sm-3"></label>
                         <div class="col-md-8 col-sm-10">
@@ -81,6 +96,32 @@
     </div>
 </div>
 <#include "/${frontTemplate}/common/footer.ftl"/>
+<script>
+    $(document).ready(function () {
+        $("#superMemberName").blur(function(){
+            var superMemberName = $(this).val();
+            if (superMemberName != ""){
+                jeesnsDialog.loading();
+                $.ajax({
+                    url: "${basePath}/member/validSuperMember/"+superMemberName,
+                    type: "post",
+                    cache: false,
+                    dataType: "json",
+                    timeout: 20000,
+                    success:function(data){
+                        jeesnsDialog.closeAll();
+                        if (data.code >= 0){
+                            $("#superMemberId").val(data.data);
+                        }else {
+                            jeesnsDialog.errorTips(data.message);
+                            $("#superMemberName").val("");
+                            $("#superMemberId").val("");
+                        }
+                    }
+                });
+            }
+        });
+    })
+</script>
 </body>
-
 </html>

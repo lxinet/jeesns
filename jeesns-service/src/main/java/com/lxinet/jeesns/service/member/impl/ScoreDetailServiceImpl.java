@@ -133,4 +133,15 @@ public class ScoreDetailServiceImpl extends BaseServiceImpl<ScoreDetail> impleme
             this.save(scoreDetailCancel);
         }
     }
+
+    @Override
+    public void save(Integer type, Integer memberId, Integer foreignId, Integer score, String remark) {
+        ScoreDetail scoreDetail = new ScoreDetail();
+        scoreDetail.setType(type);
+        scoreDetail.setMemberId(memberId);
+        scoreDetail.setForeignId(foreignId);
+        scoreDetail.setScore(score);
+        scoreDetail.setRemark(remark);
+        save(scoreDetail);
+    }
 }
