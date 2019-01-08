@@ -193,6 +193,16 @@
                 <artifactId>aspectjweaver</artifactId>
                 <version>1.9.2</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.30</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -11,15 +11,20 @@ CREATE TABLE `tbl_pay` (
   `act_money` double(11,2) DEFAULT '0' COMMENT '实充金额',
   `type` int(11) COMMENT '类型，1支付宝，2微信',
   `status` int(11) DEFAULT '0' COMMENT '状态，0未付款，1已付款，2已退款，3已关闭',
-  `trade_no` varchar(32)  COMMENT '支付宝交易号',
+  `trade_no` varchar(32)  COMMENT '商家交易号',
+  `qrcode` varchar(128)  COMMENT '微信二维码',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `tbl_config` (`jkey`, `jvalue`, `description`)
 VALUES
- ('alipay_app_id','','支付宝应用ID'),
+  ('alipay_open','0','支付宝支付是否开启，0关闭，1开启'),
+  ('alipay_app_id','','支付宝应用ID'),
   ('alipay_merchant_private_key','','支付宝商户私钥'),
   ('alipay_public_key','','支付宝公钥'),
+  ('payjs_open','0','PAYJS微信支付是否开启，0关闭，1开启'),
+  ('payjs_mchid','','PAYJS商户号'),
+  ('payjs_key','','PAYJS通信密钥'),
   ('group_follow_pay_fee','0','付费群组收取手续费');
 
 
