@@ -38,6 +38,7 @@
         <result column="fans" jdbcType="INTEGER" property="fans" />
         <result column="is_vip" jdbcType="INTEGER" property="isVip" />
         <result column="member_level_id" jdbcType="INTEGER" property="memberLevelId" />
+        <result column="super_member_id" jdbcType="INTEGER" property="superMemberId" />
         <association property="memberLevel" column="member_level_id"  select="selectMemberLevel"></association>
     </resultMap>
     <resultMap id="memberWithMessageResult" type="Member">
@@ -104,6 +105,12 @@
         select * from tbl_member where email = #{email}
     </select>
 
+
+    <!-- 根据手机号查找 -->
+    <select id="findByPhone" resultMap="RemberResult">
+        select * from tbl_member where phone = #{phone}
+    </select>
+
     <!-- 根据昵称和邮箱查找 -->
     <select id="findByNameAndEmail" resultMap="RemberResult">
         select * from tbl_member where name = #{name} and email = #{email}
@@ -125,8 +132,8 @@
 
     <!-- 注册 -->
     <insert id="register" parameterType="Member" keyProperty="id" useGeneratedKeys="true">
-    insert into tbl_member (name, email, password, avatar, create_time, regip,last_login_time,last_login_ip,curr_login_time,curr_login_ip)
-    values (#{name}, #{email}, #{password}, #{avatar}, now(),#{regip},now(),#{regip},now(),#{regip})
+    insert into tbl_member (name, email, password, avatar, create_time, regip,last_login_time,last_login_ip,curr_login_time,curr_login_ip, super_member_id)
+    values (#{name}, #{email}, #{password}, #{avatar}, now(),#{regip},now(),#{regip},now(),#{regip},#{superMemberId})
     </insert>
 
     <!-- 修改基本信息 -->

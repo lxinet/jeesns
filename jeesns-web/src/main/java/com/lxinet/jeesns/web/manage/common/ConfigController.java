@@ -68,13 +68,10 @@ public class ConfigController extends BaseController {
         return new ResultModel(configService.update(params,request));
     }
 
-    @RequestMapping(value = "memberUpdate",method = RequestMethod.POST)
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel memberUpdate(String member_login_open,String member_register_open,String member_email_valid){
-        Map<String,String> params = new HashMap<>();
-        params.put("member_login_open",member_login_open);
-        params.put("member_register_open",member_register_open);
-        params.put("member_email_valid",member_email_valid);
+    public ResultModel update(){
+        Map<String,String> params = getParams(request);
         return new ResultModel(configService.update(params,request));
     }
 

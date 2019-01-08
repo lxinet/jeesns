@@ -183,4 +183,52 @@ public class MemberController extends BaseController {
         boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_CLASS, "setMemberLevel", id, memberLevelId);
         return new ResultModel(boo);
     }
+
+    /**
+     * 加/扣款
+     * @param id
+     * @return
+     */
+    @GetMapping("${managePath}/member/increaseMoney/{id}")
+    public String increaseMoney(@PathVariable("id") Integer id, Model model) {
+        Member findMember = memberService.findById(id);
+        model.addAttribute("member", findMember);
+        return MANAGE_FTL_PATH + "increaseMoney";
+    }
+
+    /**
+     * 加/扣款
+     * @param id
+     * @return
+     */
+    @PostMapping("${managePath}/member/increaseMoney/{id}")
+    @ResponseBody
+    public ResultModel increaseMoney(@PathVariable("id") Integer id, @RequestParam(value = "money", defaultValue = "0") Double money) {
+        memberService.increaseMoney(money, id);
+        return new ResultModel(0);
+    }
+
+    /**
+     * 加/减积分
+     * @param id
+     * @return
+     */
+    @GetMapping("${managePath}/member/increaseScore/{id}")
+    public String increaseScore(@PathVariable("id") Integer id, Model model) {
+        Member findMember = memberService.findById(id);
+        model.addAttribute("member", findMember);
+        return MANAGE_FTL_PATH + "increaseScore";
+    }
+
+    /**
+     * 加/减积分
+     * @param id
+     * @return
+     */
+    @PostMapping("${managePath}/member/increaseScore/{id}")
+    @ResponseBody
+    public ResultModel increaseScore(@PathVariable("id") Integer id, @RequestParam(value = "score", defaultValue = "0") Integer score) {
+        memberService.increaseScore(score, id);
+        return new ResultModel(0);
+    }
 }

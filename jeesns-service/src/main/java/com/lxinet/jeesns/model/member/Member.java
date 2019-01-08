@@ -162,6 +162,13 @@ public class Member implements Serializable {
 	private MemberLevel memberLevel;
 
 
+	//上级会员ID
+	@Column("super_member_id")
+	private Integer superMemberId;
+
+	private Member superMember;
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -465,5 +472,21 @@ public class Member implements Serializable {
 
 	public void setMemberLevel(MemberLevel memberLevel) {
 		this.memberLevel = memberLevel;
+	}
+
+	public Integer getSuperMemberId() {
+		return superMemberId;
+	}
+
+	public void setSuperMemberId(Integer superMemberId) {
+		this.superMemberId = superMemberId;
+	}
+
+	public Member getSuperMember() {
+		return superMember;
+	}
+
+	public void setSuperMember(Member superMember) {
+		this.superMember = superMember;
 	}
 }

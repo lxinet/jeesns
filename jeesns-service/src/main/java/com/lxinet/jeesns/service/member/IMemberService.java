@@ -117,6 +117,10 @@ public interface IMemberService extends IBaseService<Member> {
 
     Member findByName(String name);
 
+    Member findByEmail(String email);
+
+    Member findByPhone(String phone);
+
     ResultModel sendEmailActiveValidCode(Member loginMember, HttpServletRequest request);
 
     /**
@@ -182,4 +186,18 @@ public interface IMemberService extends IBaseService<Member> {
     boolean updateMoney(Double money, Integer memberId);
 
     String atFormat(String content);
+
+    /**
+     * 加扣款
+     * @param money
+     * @param memberId
+     */
+    void increaseMoney(Double money, Integer memberId);
+
+    /**
+     * 加扣积分
+     * @param score
+     * @param memberId
+     */
+    void increaseScore(Integer score, Integer memberId);
 }

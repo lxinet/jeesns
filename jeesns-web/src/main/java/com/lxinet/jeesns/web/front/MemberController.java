@@ -16,6 +16,7 @@ import com.lxinet.jeesns.model.system.ActionLog;
 import com.lxinet.jeesns.service.system.IActionLogService;
 import com.lxinet.jeesns.service.system.IConfigService;
 import com.lxinet.jeesns.utils.ConfigUtil;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -65,8 +66,13 @@ public class MemberController extends BaseController {
         return resultModel;
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.GET)
-    public String register(){
+    @RequestMapping(value = {"/register","/reg/{superMemberId}"},method = RequestMethod.GET)
+    public String register(@PathVariable(value = "superMemberId", required = false) Integer superMemberId,
+                           Model model){
+        if (superMemberId != null){
+            Member superMember = memberService.findById(superMemberId);
+            model.addAttribute("superMember", superMember);
+        }
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember != null){
             return "redirect:/member/";
@@ -379,6 +385,30 @@ public class MemberController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         boolean result = (boolean) JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "recharge", cardkeyNo, loginMember.getId());
         return new ResultModel(result);
+    }
+
+
+    @PostMapping("/validSuperMember/{name}")
+    @ResponseBody
+    public ResultModel validSuperMember(@PathVariable("name") String name){
+        Member findMember = null;
+        if (StringUtils.isNotBlank(name)){
+            findMember = memberService.findByName(name);
+            if (findMember == null){
+                findMember = memberService.findByEmail(name);
+                if (findMember == null){
+                    findMember = memberService.findByPhone(name);
+                }
+            }
+        }
+        if (findMember != null){
+            ResultModel resultModel = new ResultModel(0,"");
+            resultModel.setData(findMember.getId());
+            return resultModel;
+        }else {
+            return new ResultModel(-1, "上级会员不存在");
+        }
+
     }
 
 }

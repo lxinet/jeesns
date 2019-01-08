@@ -23,4 +23,19 @@ public class FinancialServiceImpl extends BaseServiceImpl<Financial> implements 
         return list;
     }
 
+    @Override
+    public void save(Integer memberId, Double money, Double balance, Integer type, Integer paymentId, Integer foreignId, String remark, String operator) {
+        //添加财务明细
+        Financial financial = new Financial();
+        financial.setBalance(balance);
+        financial.setForeignId(foreignId);
+        financial.setMemberId(memberId);
+        financial.setMoney(money);
+        financial.setType(type);
+        financial.setPaymentId(paymentId);
+        financial.setRemark(remark);
+        financial.setOperator(operator);
+        this.save(financial);
+    }
+
 }

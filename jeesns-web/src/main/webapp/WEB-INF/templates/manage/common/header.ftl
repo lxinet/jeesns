@@ -86,6 +86,7 @@
                     <li><a href="${managePath}/checkin/list" module="member"><i class="fa fa-circle-o"></i>签到管理</a></li>
                     <li><a href="${managePath}/member/cardkey/list" module="member"><i class="fa fa-circle-o"></i>充值卡密</a></li>
                     <li><a href="${managePath}/member/financial/list" module="member"><i class="fa fa-circle-o"></i>财务明细</a></li>
+                    <li><a href="${managePath}/member/scoreDetail/list" module="member"><i class="fa fa-circle-o"></i>积分明细</a></li>
                 </ul>
             </li>
             <li class="treeview" module="question">

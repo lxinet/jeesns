@@ -151,7 +151,7 @@
                     </div>
                     <div id="tab-2" class="tab-pane">
                         <div class="panel-body">
-                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/system/config/memberUpdate" method="post">
+                            <form class="form-horizontal jeesns_form" role="form" action="${managePath}/system/config/update" method="post">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">会员登录</label>
                                     <div class="col-sm-8">
@@ -177,6 +177,29 @@
                                             <option value="0" <#if member_email_valid==0>selected</#if>>不需要验证</option>
                                             <option value="1" <#if member_email_valid==1>selected</#if>>需要验证</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">推荐注册</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="member_recommend">
+                                            <option value="0" <#if member_recommend==0>selected</#if>>关闭</option>
+                                            <option value="1" <#if member_recommend==1>selected</#if>>开启</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">推荐注册奖励积分</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="member_recommend_reward_score" name="member_recommend_reward_score" placeholder="推荐注册奖励积分" value="${member_recommend_reward_score}">
+                                        推荐注册开启才生效
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label">推荐注册奖励金额</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="member_recommend_reward_money" name="member_recommend_reward_money" placeholder="推荐注册奖励金额" value="${member_recommend_reward_money}">
+                                        推荐注册开启才生效
                                     </div>
                                 </div>
                                 <div class="form-group">
