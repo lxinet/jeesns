@@ -370,12 +370,12 @@ public class MemberServiceImpl extends BaseServiceImpl<Member> implements IMembe
 
     @Override
     public Member findByEmail(String email) {
-        return memberDao.findByName(email);
+        return memberDao.findByEmail(email);
     }
 
     @Override
     public Member findByPhone(String phone) {
-        return memberDao.findByName(phone);
+        return memberDao.findByPhone(phone);
     }
 
     @Override
