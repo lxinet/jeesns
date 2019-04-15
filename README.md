@@ -15,7 +15,7 @@ JEESNS是一款基于JAVA企业级平台研发的社交管理系统，依托企�
 
 交流社区：[http://www.jeesns.cn](http://www.jeesns.cn/)
 
-官方网址：[http://www.lxinet.com](http://www.lxinet.com/)
+官方网址：[http://www.jeesns.cn](http://www.jeesns.cn/)
 
 github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/jeesns/)
 
