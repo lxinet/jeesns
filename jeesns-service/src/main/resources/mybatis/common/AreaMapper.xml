@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.common.IAreaDao">
+    <resultMap id="AreaResult" type="Area">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="code" jdbcType="VARCHAR" property="code" />
+      <result column="fcode" jdbcType="VARCHAR" property="fcode" />
+    </resultMap>
+
+  <select id="provinceList" resultMap="AreaResult">
+    select * from tbl_area where fcode = '' order by id DESC
+  </select>
+
+  <select id="cityList" resultMap="AreaResult">
+    select * from tbl_area where fcode = #{provinceCode} order by id DESC
+  </select>
+
+  <select id="areaList" resultMap="AreaResult">
+    select * from tbl_area where fcode = #{cityCode} order by id DESC
+  </select>
+
+</mapper>
