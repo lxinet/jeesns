@@ -42,7 +42,7 @@
                     <form class="form-horizontal jeesns_form" role="form" action="${groupPath}/topicUpdate" method="post" onsubmit="ckUpdate();" callback="_success">
                         <input type="hidden" class="form-control" name="id" value="${groupTopic.id}">
                         <div class="form-group">
-                            <label for="firstname" class="col-sm-1 control-label">标题</label>
+                            <label class="col-sm-1 control-label">标题</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="title" name="title" placeholder="标题" data-type="require" value="${groupTopic.title}">
                             </div>
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="firstname" class="col-sm-1 control-label">缩略图</label>
+                            <label class="col-sm-1 control-label">缩略图</label>
                             <div class="col-sm-10">
                                 <div id="uploader">
                                     <!--用来存放文件信息-->
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="firstname" class="col-sm-1 control-label">内容</label>
+                            <label class="col-sm-1 control-label">内容</label>
                             <div class="col-sm-10">
                                 <textarea class="ckeditor" cols="80" id="content" name="content" rows="3">${groupTopic.content?xhtml}</textarea>
                             </div>

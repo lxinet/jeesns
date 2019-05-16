@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>发布文章 - ${SITE_NAME} - JEESNS后台管理系统 - Powered By JEESNS</title>
+    <title>发布商品 - ${SITE_NAME} - JEESNS后台管理系统 - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -39,15 +39,20 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/cms/article/save" method="post" onsubmit="ckUpdate();" callback="parentReload">
+                <form class="form-horizontal jeesns_form" role="form" action="${managePath}/shop/goods/save" method="post" onsubmit="ckUpdate();" callback="parentReload">
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">栏目</label>
+                        <label class="col-sm-1 control-label">分类</label>
                         <div class="col-sm-3">
-                            <select class="form-control" name="cateId" data-type="selected" alt="栏目">
-                                <option value="" selected>=请选择栏目=</option>
-                            <#list cateList as mainMenu>
-                                <option value="${mainMenu.id}">${mainMenu.name}</option>
-                            </#list>
+                            <select class="form-control" name="cateId" data-type="selected" alt="分类">
+                                <option value="" selected>=请选择分类=</option>
+                                <#list topList as topCate>
+                                    <option value="${topCate.id}" disabled>${topCate.name}</option>
+                                    <#list sonList as sonCate>
+                                        <#if sonCate.fid == topCate.id>
+                                            <option value="${sonCate.id}">&nbsp;&nbsp;&nbsp;&nbsp;${sonCate.name}</option>
+                                        </#if>
+                                    </#list>
+                                </#list>
                             </select>
                         </div>
                     </div>
@@ -58,7 +63,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">缩略图</label>
+                        <label class="col-sm-1 control-label">副标题</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="副标题" data-type="require">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">商品编号</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="no" name="no" placeholder="商品编号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">价格</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="price" name="price" placeholder="价格" data-type="require,double">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">库存</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="stock" name="stock" placeholder="库存" data-type="require,integer">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">商品图</label>
                         <div class="col-sm-10">
                             <div id="uploader" class="wu-example">
                                 <!--用来存放文件信息-->
@@ -78,6 +107,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-1 control-label">关键词</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="keywords" name="keywords" placeholder="关键词">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-1 control-label">内容</label>
                         <div class="col-sm-10">
                             <textarea class="ckeditor" cols="80" id="content" name="content" rows="10"></textarea>
@@ -85,21 +120,24 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">来源</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="source" name="source">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">作者</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="writer" name="writer">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-1 control-label">浏览数</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="viewCount" name="viewCount" placeholder="浏览数" value="0" data-type="integer">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">序号</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="sort" name="sort" placeholder="序号" value="50" data-type="integer">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">状态</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="status" data-type="selected">
+                                <option value="0">下架</option>
+                                <option value="1" selected>上架</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

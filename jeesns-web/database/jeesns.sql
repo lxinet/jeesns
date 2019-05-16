@@ -614,6 +614,49 @@ CREATE TABLE `tbl_pay` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+CREATE TABLE `tbl_goods_cate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL COMMENT '分类名称',
+  `fid` int(1) DEFAULT '0' COMMENT '父类ID',
+  `level` int(1) DEFAULT '1' COMMENT '层级',
+  `status` int(1) DEFAULT '0' COMMENT '0正常，1隐藏',
+  `sort` int(11) DEFAULT '50' COMMENT '排序，越大越靠前',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cate_id` int(11) DEFAULT null COMMENT '所属分类',
+  `title` varchar(255) DEFAULT NULL COMMENT '商品名称',
+  `subtitle` varchar(255) DEFAULT NULL COMMENT '副标题',
+  `no` varchar(64) DEFAULT NULL COMMENT '商品编号',
+  `content` text DEFAULT NULL COMMENT '商品描述',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述说明',
+  `keywords` varchar(100) DEFAULT NULL COMMENT '关键词',
+  `view_count` int(11) DEFAULT '0' COMMENT '浏览次数',
+  `pub_time` datetime DEFAULT NULL COMMENT '上架时间',
+  `update_time` datetime DEFAULT NULL COMMENT '最后更新时间',
+  `thumbnail` varchar(255) DEFAULT NULL COMMENT '缩略图',
+  `price` double(11,4) DEFAULT '0' COMMENT '价格',
+  `stock` int(11) DEFAULT '0' COMMENT '库存',
+  `status` int(1) DEFAULT '0' COMMENT '状态，0下架，1正常',
+  `sort` int(11) DEFAULT '50' COMMENT '排序，越大越靠前',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbl_area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(6) DEFAULT NULL COMMENT '地区代码',
+  `name` varchar(255) DEFAULT NULL COMMENT '地区名称',
+  `fcode` varchar(6) DEFAULT '' COMMENT '上级地区代码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_archive_favor` ADD CONSTRAINT `fk_archive_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
