@@ -9,15 +9,15 @@
     </resultMap>
 
   <select id="provinceList" resultMap="AreaResult">
-    select * from tbl_area where fcode = '' order by id DESC
+    select * from tbl_area where fcode = '' order by id ASC
   </select>
 
   <select id="cityList" resultMap="AreaResult">
-    select * from tbl_area where fcode = #{provinceCode} order by id DESC
+    select * from tbl_area where fcode = #{provinceCode} order by id ASC
   </select>
 
   <select id="areaList" resultMap="AreaResult">
-    select * from tbl_area where fcode = #{cityCode} order by id DESC
+    select * from tbl_area where fcode = #{cityCode} order by id ASC
   </select>
 
 </mapper>
