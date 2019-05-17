@@ -656,6 +656,21 @@ CREATE TABLE `tbl_area` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `tbl_delivery_address`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime(0) NOT NULL,
+  `member_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(32) NOT NULL DEFAULT '',
+  `province` varchar(32)NOT NULL DEFAULT '',
+  `city` varchar(32) NOT NULL DEFAULT '',
+  `area` varchar(32) NOT NULL DEFAULT '',
+  `address` varchar(128) NOT NULL DEFAULT '',
+  `zip` varchar(6) NOT NULL DEFAULT '',
+  `phone` varchar(11) NOT NULL DEFAULT '',
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8;
+
 
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

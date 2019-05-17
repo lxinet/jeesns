@@ -89,7 +89,7 @@ public class ArticleController extends BaseController {
     @ResponseBody
     public ResultModel update(@Valid Article article,BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            new ResultModel(-1,getErrorMessages(bindingResult));
+            return new ResultModel(-1,getErrorMessages(bindingResult));
         }
         if(article.getId() == null){
             return new ResultModel(-2);

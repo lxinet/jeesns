@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>财务明细 - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>收货地址 - ${SITE_NAME} - Powered By JEESNS</title>
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
@@ -32,38 +32,45 @@
                 <div class="col-xs-12 white-bg">
                     <div class="list list-condensed">
                         <header>
-                            <h3><i class="icon-list-ul"></i> 财务明细</h3>
+                            <h3>
+                                <i class="icon-list-ul"></i> 收货地址
+                                <span class="pull-right">
+                                    <a class="btn btn-primary right-btn m-t-n4" href="${basePath}/member/deliveryAddress/add">添加</a>
+                                </span>
+                            </h3>
                         </header>
                         <div class="items items-hover">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>类型</th>
-                                        <th>时间</th>
-                                        <th>变动金额</th>
-                                        <th>支付方式</th>
-                                        <th>备注</th>
+                                        <th>收件人</th>
+                                        <th>手机号</th>
+                                        <th>邮政编码</th>
+                                        <th width="50%">地址</th>
+                                        <th width="80px">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <#list model.data as financial>
+                                    <#list deliveryAddressList as deliveryAddress>
                                     <tr>
-                                        <td>${financial.id}</td>
-                                        <td>${(financial.type == 0)?string('收入','支出')}</td>
-                                        <td>${financial.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                        <td>${financial.money}</td>
-                                        <td>${financial.paymentName}</td>
-                                        <td>${financial.remark}</td>
+                                        <td>${deliveryAddress.name}</td>
+                                        <td>${deliveryAddress.phone}</td>
+                                        <td>${deliveryAddress.zip}</td>
+                                        <td>
+                                            ${deliveryAddress.province}
+                                            ${deliveryAddress.city}
+                                            ${deliveryAddress.area}
+                                            ${deliveryAddress.address}
+                                            ${(deliveryAddress.isDefault == 1)?string("<span class='label label-success'>默认</span>","")}
+                                        </td>
+                                        <td>
+                                            <a href="${basePath}/member/deliveryAddress/edit/${deliveryAddress.id}">修改</a>
+                                            <a target="_jeesnsLink" href="javascript:void(0)" data-href="${basePath}/member/deliveryAddress/delete/${deliveryAddress.id}" confirm="确定要删除该地址吗？" callback="reload">删除</a>
+                                        </td>
                                     </tr>
                                     </#list>
                                 </tbody>
                             </table>
-                            <ul class="pager pagination pagination-sm no-margin pull-right"
-                                url="${basePath}/member/financial/list"
-                                currentPage="${model.page.pageNo}"
-                                pageCount="${model.page.totalPage}">
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -72,10 +79,5 @@
     </div>
 </div>
 <#include "/${frontTemplate}/common/footer.ftl"/>
-<script type="text/javascript">
-    $(function () {
-        $(".pagination").jeesns_page("jeesnsPageForm");
-    });
-</script>
 </body>
 </html>

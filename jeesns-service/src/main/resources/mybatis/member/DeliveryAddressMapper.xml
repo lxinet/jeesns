@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.member.IDeliveryAddressDao">
+
+  <select id="listByMemberId" parameterType="java.lang.Integer" resultType="DeliveryAddress">
+    select * from tbl_delivery_address where member_id = #{memberId} order by id desc
+  </select>
+
+  <update id="dealDefault">
+    update tbl_delivery_address set is_default = 0 where id != #{id}
+  </update>
+</mapper>

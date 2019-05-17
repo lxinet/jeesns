@@ -8,7 +8,7 @@
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="${basePath}/favicon.ico">
     <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
     <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -40,25 +40,25 @@
                       callback="_success">
                     <input type="hidden" name="redirectUrl" value="${redirectUrl}">
                     <div class="form-group m-b-30">
-                        <label class="col-sm-3">用户名</label>
+                        <label class="col-sm-3 required">用户名</label>
                         <div class="col-md-8 col-sm-10">
                             <input type="text" name="name" class="form-control" placeholder="用户名" data-type="require">
                         </div>
                     </div>
                     <div class="form-group m-b-30">
-                        <label class="col-sm-3">邮箱</label>
+                        <label class="col-sm-3 required">邮箱</label>
                         <div class="col-md-8 col-sm-10">
                             <input type="email" name="email" class="form-control" placeholder="邮箱" data-type="require,email">
                         </div>
                     </div>
                     <div class="form-group m-b-30">
-                        <label class="col-sm-3">密码</label>
+                        <label class="col-sm-3 required">密码</label>
                         <div class="col-md-8 col-sm-10">
                             <input type="password" id="password" class="form-control" name="password" placeholder="密码" data-type="require">
                         </div>
                     </div>
                     <div class="form-group m-b-30">
-                        <label class="col-sm-3">确认密码</label>
+                        <label class="col-sm-3 required">确认密码</label>
                         <div class="col-md-8 col-sm-10">
                             <input type="password" name="repassword" class="form-control" placeholder="确认密码" data-type="require" data-rule="equal[password]">
                         </div>

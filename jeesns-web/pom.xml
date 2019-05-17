@@ -167,7 +167,11 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 		</dependency>
-	</dependencies>
+        <dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<finalName>jeesns-web</finalName>

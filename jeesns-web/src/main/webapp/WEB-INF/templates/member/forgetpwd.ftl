@@ -8,7 +8,7 @@
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="${basePath}/favicon.ico">
     <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
     <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -34,14 +34,14 @@
                 </header>
                 <form class="form-horizontal jeesns_form" action="${basePath}/member/forgetpwd" method="post" callback="reload">
                     <div class="form-group m-b-30">
-                        <label class="col-sm-3">用户名</label>
+                        <label class="col-sm-3 required">用户名</label>
                         <div class="col-md-8 col-sm-10">
                             <input type="text" class="form-control" name="name" placeholder="用户名"
                                    data-type="require">
                         </div>
                     </div>
                     <div class="form-group m-b-30">
-                        <label class="col-sm-3">邮箱</label>
+                        <label class="col-sm-3 required">邮箱</label>
                         <div class="col-md-8 col-sm-10">
                              <input type="email" class="form-control" name="email" placeholder="邮箱" data-type="require,email">
                         </div>

@@ -115,21 +115,6 @@
 
     <bean class="com.lxinet.jeesns.core.utils.SpringContextUtil" lazy-init="false"/>
 
-    <mvc:annotation-driven/>
-    <mvc:default-servlet-handler/>
-    <mvc:resources location="/res/" mapping="/res/**"/>
-    <mvc:resources location="/manage/" mapping="/manage/**"/>
-    <mvc:interceptors>
-        <!-- 配置全局拦截器 -->
-        <bean class="com.lxinet.jeesns.interceptor.InitInterceptor"/>
-    </mvc:interceptors>
-
-    <mvc:annotation-driven validator="validator"/>
-
-    <mvc:cors>
-        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
-    </mvc:cors>
-
     <!-- 国际化资源文件 -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:i18n/messages" />
@@ -146,11 +131,22 @@
     </bean>
     <bean id="controllerAop" class="com.lxinet.jeesns.aop.ControllerAop"></bean>
 
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+    <mvc:resources location="/res/" mapping="/res/**"/>
+    <mvc:resources location="/manage/" mapping="/manage/**"/>
+    <mvc:interceptors>
+        <!-- 配置全局拦截器 -->
+        <bean class="com.lxinet.jeesns.interceptor.InitInterceptor"/>
+    </mvc:interceptors>
+
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+    </mvc:cors>
+
     <aop:aspectj-autoproxy />
     <aop:config>
         <aop:aspect id="controllerAop" ref="controllerAop">
-            <!--<aop:pointcut id="target" expression="execution(public com.lxinet.jeesns.core.dto.ResultModel *(..)) ||-->
-                    <!--execution(public * com.lxinet.jeesns.web..*.*(..))" />-->
             <aop:pointcut id="target" expression="execution(public com.lxinet.jeesns.core.dto.ResultModel *(..))" />
             <aop:around method="handlerController" pointcut-ref="target" />
         </aop:aspect>
