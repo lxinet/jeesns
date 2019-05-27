@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.shop.IShopCartDao">
+
+  <select id="listByMemberId" parameterType="java.lang.Integer" resultType="ShopCart">
+    select a.*,b.title as 'goods.title' from tbl_shop_cart as a left join tbl_goods as b on a.goods_id = b.id where a.member_id = #{memberId} order by a.id desc
+  </select>
+
+  <update id="updateNum">
+    update tbl_shop_cart set num = #{num} where id = #{id}} and member_id = #{memberId}
+  </update>
+
+  <delete id="delete">
+    delete from tbl_shop_cart where id = #{id} and member_id = #{memberId}
+  </delete>
+
+  <delete id="deleteByMemberId">
+    delete from tbl_shop_cart where member_id = #{memberId}
+  </delete>
+</mapper>
