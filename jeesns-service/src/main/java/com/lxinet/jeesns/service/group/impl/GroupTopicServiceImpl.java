@@ -320,7 +320,9 @@ public class GroupTopicServiceImpl extends BaseServiceImpl<GroupTopic> implement
     }
 
     public GroupTopic atFormat(GroupTopic groupTopic){
-        groupTopic.setContent(memberService.atFormat(groupTopic.getContent()));
+        if (groupTopic != null){
+            groupTopic.setContent(memberService.atFormat(groupTopic.getContent()));
+        }
         return groupTopic;
     }
 }
