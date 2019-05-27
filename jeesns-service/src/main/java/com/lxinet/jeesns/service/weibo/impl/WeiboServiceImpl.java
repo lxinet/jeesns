@@ -202,14 +202,18 @@ public class WeiboServiceImpl extends BaseServiceImpl<Weibo> implements IWeiboSe
     }
 
     public Weibo formatWeibo(Weibo weibo){
-        weibo.setContent(memberService.atFormat(weibo.getContent()));
-        weibo.setContent(TopicUtil.formatTopic(weibo.getContent()));
+        if (weibo != null){
+            weibo.setContent(memberService.atFormat(weibo.getContent()));
+            weibo.setContent(TopicUtil.formatTopic(weibo.getContent()));
+        }
         return weibo;
     }
 
     public List<Weibo> formatWeibo(List<Weibo> weiboList){
-        for (Weibo weibo : weiboList){
-            formatWeibo(weibo);
+        if (weiboList != null && !weiboList.isEmpty()){
+            for (Weibo weibo : weiboList){
+                formatWeibo(weibo);
+            }
         }
         return weiboList;
     }
