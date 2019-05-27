@@ -266,7 +266,9 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article> implements IArt
     }
 
     public Article atFormat(Article article){
-        article.setContent(memberService.atFormat(article.getContent()));
+        if (article != null){
+            article.setContent(memberService.atFormat(article.getContent()));
+        }
         return article;
     }
 }
