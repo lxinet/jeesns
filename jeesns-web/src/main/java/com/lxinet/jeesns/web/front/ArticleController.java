@@ -64,6 +64,7 @@ public class ArticleController extends BaseController {
         model.addAttribute("articleCateList",articleCateList);
         ArticleCate articleCate = articleCateService.findById(cid);
         model.addAttribute("articleCate",articleCate);
+        model.addAttribute("key",key);
         return jeesnsConfig.getFrontTemplate() + "/cms/list";
     }
 
