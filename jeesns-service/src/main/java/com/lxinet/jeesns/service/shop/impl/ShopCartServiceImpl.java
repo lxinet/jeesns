@@ -1,5 +1,7 @@
 package com.lxinet.jeesns.service.shop.impl;
 
+import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.dao.shop.IShopCartDao;
@@ -20,8 +22,11 @@ public class ShopCartServiceImpl extends BaseServiceImpl<ShopCart> implements IS
     private IShopCartDao shopCartDao;
 
     @Override
-    public List<ShopCart> listByMemberId(Integer memberId) {
-        return shopCartDao.listByMemberId(memberId);
+    public ResultModel listByMemberId(Page page, Integer memberId) {
+        List<ShopCart> list =  shopCartDao.listByMemberId(page, memberId);
+        ResultModel model = new ResultModel(0,page);
+        model.setData(list);
+        return model;
     }
 
     @Override

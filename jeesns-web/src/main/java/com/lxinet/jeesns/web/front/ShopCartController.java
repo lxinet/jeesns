@@ -26,7 +26,7 @@ import java.util.List;
  * Created by zchuanzhao on 2019/5/27.
  */
 @Controller("frontShopCartController")
-@RequestMapping("/member/shopcart")
+@RequestMapping("/member/shopCart")
 @Before(UserLoginInterceptor.class)
 public class ShopCartController extends BaseController {
     private static final String SHOP_CART_FTL_PATH = "/member/shopCart";
@@ -58,9 +58,10 @@ public class ShopCartController extends BaseController {
     @GetMapping("/list")
     public String cart(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
+        Page page = new Page(request);
         model.addAttribute("member",loginMember);
-        List<ShopCart> shopCartList = shopCartService.listByMemberId(loginMember.getId());
-        model.addAttribute("shopCartList", shopCartList);
+        ResultModel resultModel = shopCartService.listByMemberId(page, loginMember.getId());
+        model.addAttribute("model", resultModel);
         return SHOP_CART_FTL_PATH + "/list";
     }
 

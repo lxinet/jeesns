@@ -1,5 +1,6 @@
 <div class="col-sm-2 col-xs-12">
     <ul class="list-group">
+        <li class="list-group-item"><a href="${basePath}/member/shopCart/list">购物车</a></li>
         <li class="list-group-item"><a href="${basePath}/member/financial/list">财务明细</a></li>
         <li class="list-group-item"><a href="${basePath}/member/scoreDetail/list">积分明细</a></li>
         <#if payExists == true>

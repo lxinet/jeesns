@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.service.shop;
 
 
+import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.service.IBaseService;
 import com.lxinet.jeesns.model.shop.GoodsCate;
 import com.lxinet.jeesns.model.shop.ShopCart;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public interface IShopCartService extends IBaseService<ShopCart> {
 
-    List<ShopCart> listByMemberId(Integer memberId);
+    ResultModel listByMemberId(Page page, Integer memberId);
 
     Boolean updateNum(Integer id, Integer num, Integer memberId);
 
