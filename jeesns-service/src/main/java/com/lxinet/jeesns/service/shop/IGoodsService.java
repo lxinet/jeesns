@@ -3,6 +3,7 @@ package com.lxinet.jeesns.service.shop;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.service.IBaseService;
+import com.lxinet.jeesns.enums.GoodsStatue;
 import com.lxinet.jeesns.model.shop.Goods;
 import java.util.List;
 

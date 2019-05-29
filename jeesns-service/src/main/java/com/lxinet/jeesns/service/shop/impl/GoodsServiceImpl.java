@@ -9,6 +9,7 @@ import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.dao.shop.IGoodsDao;
+import com.lxinet.jeesns.enums.GoodsStatue;
 import com.lxinet.jeesns.model.shop.Goods;
 import com.lxinet.jeesns.service.shop.IGoodsService;
 import org.jsoup.Jsoup;
@@ -71,7 +72,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements IGoodsSe
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
-        List<Goods> list = goodsDao.list(page, key,cateid,status);
+        List<Goods> list = goodsDao.list(page, key,cateid, status);
         ResultModel model = new ResultModel(0,page);
         model.setData(list);
         return model;

@@ -24,13 +24,14 @@
 <body class="gray-bg">
 <#include "/${frontTemplate}/common/header.ftl"/>
 <div class="container">
-    <div class="main-content">
+    <div class="main-content shop">
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel-heading">
-                    <div class="dropdown">
+                    <div class="dropdown dropdown-hover">
                         <button class="btn" type="button" data-toggle="dropdown">全部商品分类 <span class="caret"></span></button>
                         <ul class="dropdown-menu">
+                            <li><a href="${basePath}/shop/list">全部</a></li>
                             <#list topCateList as topCate>
                             <li class="dropdown-submenu">
                                 <a href="#">${topCate.name}</a>
@@ -45,42 +46,39 @@
                             </#list>
                         </ul>
                     </div>
+                    <span class="pull-right">
+                        <a class="btn btn-success right-btn m-t-n4" href="${basePath}/">购物车</a>
+                    </span>
                 </div>
             </div>
-            <div class="col-sm-10 col-xs-12">
+            <div class="col-xs-12">
                 <div class="items white-bg">
-                    <#list model.data as article>
-                    <div class="item">
-                        <div class="item-content article">
-                            <div class="media pull-left">
-                            <#if article.thumbnail??>
-                                <a href="${basePath}/article/detail/${article.id}">
-                                    <img src="${basePath}${article.thumbnail}" alt="${article.title}" height="150px" width="220px">
-                                </a>
-                            </#if>
-                            </div>
-                            <div class="item-heading">
-                                <h3><a class="title" href="${basePath}/article/detail/${article.id}">${article.title}</a></h3>
-                            </div>
-                            <div class="text word-break">
-                                ${article.description}
-                            </div>
-                            <div class="item-footer">
-                                <i class="icon-eye-open"></i> ${article.viewCount} &nbsp;
-                                <span class="text-muted">${article.createTime?string('yyyy-MM-dd HH:mm')}</span>
-                                <a href="${basePath}/article/list?cid=${article.articleCate.id}">
-                                    <div class="pull-right label label-success">
-                                        ${article.articleCate.name}
+                    <#list goodsResultModel.data as goods>
+                        <div class="col-sm-3">
+                            <div class="item">
+                                <div class="item-content goods">
+                                    <div class="media pull-left thumbnail">
+                                        <#if goods.thumbnail??>
+                                            <a href="${basePath}/goods/detail/${goods.id}">
+                                                <img src="${basePath}${goods.thumbnail}" alt="${goods.title}" height="150px" width="220px">
+                                            </a>
+                                        </#if>
                                     </div>
-                                </a>
+                                    <div class="pull-left item-heading">
+                                        <h3><a class="title" href="${basePath}/goods/detail/${goods.id}">${goods.title}</a></h3>
+                                    </div>
+                                    <div class="pull-left item-footer">
+                                        <i class="icon-eye-open"></i> 库存:${goods.stock} &nbsp;
+                                        <span class="text-muted"><a class="btn btn-success">购买</a></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </#list>
                         <ul class="pager pagination pagination-sm no-margin pull-right"
-                            url="${basePath}/article/list?<#if articleCate??>cid=${articleCate.id}&</#if><#if key??>key=${key}&</#if>"
-                            currentPage="${model.page.pageNo}"
-                            pageCount="${model.page.totalPage}">
+                            url="${basePath}/shop/list?<#if goodsCate??>cid=${goodsCate.id}&</#if><#if key??>key=${key}&</#if>"
+                            currentPage="${goodsResultModel.page.pageNo}"
+                            pageCount="${goodsResultModel.page.totalPage}">
                         </ul>
                 </div>
             </div>

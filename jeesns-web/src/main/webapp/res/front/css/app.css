@@ -1328,6 +1328,32 @@ a {
     color: #0499e2;
 }
 
+.shop .dropdown,.shop dropdown-hover{
+    width: 200px;
+}
+.shop .goods .title{
+    font-size: 18px;
+    max-height: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 22px;
+    color: #3d464d;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+}
+.shop .goods .thumbnail{
+    width: 100%;
+    height: 100%;
+}
+
+.shop .goods .title:hover{
+    color: #0499e2;
+}
+
 /*webkit内核浏览器*/
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
