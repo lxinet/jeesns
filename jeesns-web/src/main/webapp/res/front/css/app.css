@@ -1328,8 +1328,21 @@ a {
     color: #0499e2;
 }
 
+.shop .cate{
+    width: 200px;
+}
+.shop .cart{
+    width: 100px;
+    float: right;
+    text-align: right;
+    margin-right: -5px;
+}
+
 .shop .dropdown,.shop dropdown-hover{
     width: 200px;
+}
+.shop .goods {
+    background: #FFFFFF;
 }
 .shop .goods .title{
     font-size: 18px;
@@ -1346,12 +1359,35 @@ a {
     -webkit-line-clamp: 2;
 }
 .shop .goods .thumbnail{
-    width: 100%;
-    height: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 15vw !important;
+    margin-top: -10px !important;
+}
+.shop .goods .thumbnail img{
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .shop .goods .title:hover{
     color: #0499e2;
+}
+
+.shop .goods .content{
+    width: 100%;
+    float: left;
+}
+
+.shop .goods .content .price{
+    width: 50%;
+    float: left;
+    font-size: 20px;
+    color: red;
+}
+.shop .goods .content .buy{
+    width: 50%;
+    text-align: right;
+    float: left;
 }
 
 /*webkit内核浏览器*/
