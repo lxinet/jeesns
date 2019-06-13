@@ -61,13 +61,13 @@
                                 <div class="item-content">
                                     <div class="media pull-left thumbnail">
                                         <#if goods.thumbnail??>
-                                            <a href="${basePath}/goods/detail/${goods.id}">
+                                            <a href="${basePath}/shop/detail/${goods.id}">
                                                 <img src="${basePath}${goods.thumbnail}" alt="${goods.title}">
                                             </a>
                                         </#if>
                                     </div>
                                     <div class="content">
-                                        <h4><a class="title" href="${basePath}/goods/detail/${goods.id}">${goods.title}</a></h4>
+                                        <h4><a class="title" href="${basePath}/shop/detail/${goods.id}">${goods.title}</a></h4>
                                     </div>
                                     <div class="content pull-right">
                                         <div class="price">￥${goods.price?string("#.00")}</div>

@@ -1384,11 +1384,37 @@ a {
     font-size: 20px;
     color: red;
 }
+
 .shop .goods .content .buy{
     width: 50%;
     text-align: right;
     float: left;
 }
+
+
+.shop .goods-detail .head{
+    background-color: #FFFFFF;
+    float: left;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.shop .goods-detail .info{
+    margin-top: -15px;
+    padding-left: 30px;
+}
+
+
+.shop .goods-detail .detail-info div{
+    margin-top: 20px;
+}
+
+.shop .goods-detail .detail-info .price span{
+    font-size: 20px;
+    color: red;
+}
+
 
 /*webkit内核浏览器*/
 /* 设置滚动条的样式 */

@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.enums.GoodsStatue;
+import com.lxinet.jeesns.model.shop.Goods;
 import com.lxinet.jeesns.model.shop.GoodsCate;
 import com.lxinet.jeesns.service.shop.IGoodsCateService;
 import com.lxinet.jeesns.service.shop.IGoodsService;
@@ -42,6 +43,14 @@ public class ShopController extends BaseController {
         model.addAttribute("goodsCate", goodsCate);
         model.addAttribute("goodsResultModel", goodsResultModel);
         return jeesnsConfig.getFrontTemplate() + "/shop/list";
+    }
+
+
+    @GetMapping("detail/{id}")
+    public String detail(@PathVariable(value = "id") Integer id, Model model){
+        Goods goods = goodsService.findById(id);
+        model.addAttribute("goods", goods);
+        return jeesnsConfig.getFrontTemplate() + "/shop/detail";
     }
 
 
