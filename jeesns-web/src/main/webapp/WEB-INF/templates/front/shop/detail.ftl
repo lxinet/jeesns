@@ -30,7 +30,7 @@
 <div class="container">
     <div class="main-content">
         <div class="row">
-            <div class="col-sm-12 col-xs-12 shop">
+            <div class="col-xs-12 shop">
                 <div class="goods-detail">
                     <div class="head">
                         <div class="col-sm-4">
@@ -49,12 +49,12 @@
                                 </div>
                                 <div class="buy">
                                     <a href="${basePath}/article/list" class="btn btn-info jeesns-submit">立即购买</a>
-                                    <a href="${basePath}/article/list" class="btn btn-default jeesns-submit">加入购物车</a>
+                                    <a href="javascript:void(0)" data-href="${basePath}/member/shopCart/save" data-method="post" data-data="{goodsId:'${goods.id}',num:'1'}" target="_jeesnsLink" class="btn btn-default">加入购物车</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 panel">
+                    <div class="panel">
                         <div class="panel-heading">
                            详细介绍
                         </div>
@@ -71,18 +71,5 @@
 
 </div>
 <#include "/${frontTemplate}/common/footer.ftl"/>
-<script>
-    $(document).ready(function () {
-        var pageNo = 1;
-        cms.commentList(goodsId, pageNo);
-        $("#moreComment").click(function () {
-            pageNo++;
-            cms.commentList(goodsId, pageNo);
-        });
-        $(".goods-favor").click(function () {
-            cms.favor($(this), "${basePath}")
-        });
-    });
-</script>
 </body>
 </html>

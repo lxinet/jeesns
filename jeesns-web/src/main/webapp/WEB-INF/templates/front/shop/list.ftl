@@ -56,7 +56,7 @@
             <div class="col-xs-12">
                 <div class="items white-bg">
                     <#list goodsResultModel.data as goods>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 col-xs-6">
                             <div class="item goods">
                                 <div class="item-content">
                                     <div class="media pull-left thumbnail">

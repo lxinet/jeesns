@@ -1336,6 +1336,7 @@ a {
     float: right;
     text-align: right;
     margin-right: -5px;
+    margin-top: -35px;
 }
 
 .shop .dropdown,.shop dropdown-hover{
@@ -1343,6 +1344,10 @@ a {
 }
 .shop .goods {
     background: #FFFFFF;
+    height: 390px;
+}
+.shop .goods .content {
+    padding: 10px;
 }
 .shop .goods .title{
     font-size: 18px;
@@ -1361,7 +1366,7 @@ a {
 .shop .goods .thumbnail{
     max-width: 100% !important;
     width: 100% !important;
-    height: 15vw !important;
+    height: auto;
     margin-top: -10px !important;
 }
 .shop .goods .thumbnail img{
@@ -1415,7 +1420,37 @@ a {
     color: red;
 }
 
+@media (max-width: 2800px) {
+    .shop .goods {
+        height: 420px !important;
+    }
+}
 
+
+
+@media (max-width: 1920px) {
+    .shop .goods {
+        height: 390px !important;
+    }
+}
+
+@media (max-width: 1280px) {
+    .shop .goods {
+        height: 390px !important;
+    }
+}
+@media (max-width: 992px) {
+    .shop .goods {
+        height: 290px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .shop .goods {
+        height: 300px !important;
+    }
+
+}
 /*webkit内核浏览器*/
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
