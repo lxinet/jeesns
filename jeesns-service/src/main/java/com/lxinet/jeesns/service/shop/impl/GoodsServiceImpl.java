@@ -64,7 +64,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements IGoodsSe
             }
         }
         boolean result = super.save(goods);
-        return true;
+        return result;
     }
 
     @Override

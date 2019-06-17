@@ -39,12 +39,9 @@ public class ShopCartController extends BaseController {
     @ResponseBody
     public ResultModel save(ShopCart shopCart){
         Member loginMember = MemberUtil.getLoginMember(request);
-        Goods goods = goodsService.findById(shopCart.getGoodsId());
         shopCart.setMemberId(loginMember.getId());
-        shopCart.setUnitPrice(goods.getPrice());
-        shopCart.setTotalPrice(goods.getPrice() * shopCart.getNum());
-        boolean result = shopCartService.save(shopCart);
-        return new ResultModel(result);
+        shopCartService.save(shopCart);
+        return new ResultModel(0, "加入购物车成功");
     }
 
     @PostMapping("/updateNum")

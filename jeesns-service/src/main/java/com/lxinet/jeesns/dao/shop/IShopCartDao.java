@@ -11,6 +11,8 @@ public interface IShopCartDao extends BaseMapper<ShopCart> {
 
     List<ShopCart> listByMemberId(@Param("page") Page page, @Param("memberId") Integer memberId);
 
+    ShopCart find(@Param("goodsId") Integer goodsId, @Param("memberId") Integer memberId);
+
     Integer updateNum(@Param("id") Integer id, @Param("num") Integer num, @Param("memberId") Integer memberId);
 
     Integer delete(@Param("id") Integer id, @Param("memberId") Integer memberId);

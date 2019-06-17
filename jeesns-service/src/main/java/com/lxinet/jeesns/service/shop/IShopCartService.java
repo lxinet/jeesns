@@ -18,6 +18,8 @@ public interface IShopCartService extends IBaseService<ShopCart> {
 
     ResultModel listByMemberId(Page page, Integer memberId);
 
+    ShopCart find(Integer goodsId, Integer memberId);
+
     Boolean updateNum(Integer id, Integer num, Integer memberId);
 
     Boolean delete(Integer id, Integer memberId);

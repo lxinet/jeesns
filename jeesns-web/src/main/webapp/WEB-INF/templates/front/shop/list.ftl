@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="content pull-right">
                                         <div class="price">￥${goods.price?string("#.00")}</div>
-                                        <div class="buy"><a class="btn btn-success">购买</a></div>
+                                        <div class="buy"><a class="btn btn-success" href="${basePath}/shop/detail/${goods.id}">购买</a></div>
                                     </div>
                                 </div>
                             </div>

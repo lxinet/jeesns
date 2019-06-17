@@ -3,6 +3,7 @@ package com.lxinet.jeesns.model.shop;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lxinet.jeesns.core.annotation.Column;
 import com.lxinet.jeesns.core.annotation.Id;
+import com.lxinet.jeesns.core.annotation.Table;
 import com.lxinet.jeesns.core.enums.FillTime;
 import com.lxinet.jeesns.core.enums.IdType;
 import com.lxinet.jeesns.model.member.Member;
@@ -14,6 +15,7 @@ import java.util.Date;
  * 购物车
  * Created by zchuanzhao on 2019/5/27.
  */
+@Table("tbl_shop_cart")
 public class ShopCart implements Serializable {
     @Id(value = "id", type = IdType.AUTO)
     private Integer id;

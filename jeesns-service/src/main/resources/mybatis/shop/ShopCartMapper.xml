@@ -6,6 +6,10 @@
     select a.*,b.title as 'goods.title' from tbl_shop_cart as a left join tbl_goods as b on a.goods_id = b.id where a.member_id = #{memberId} order by a.id desc
   </select>
 
+  <select id="find" parameterType="java.lang.Integer" resultType="ShopCart">
+    select a.*,b.title as 'goods.title' from tbl_shop_cart as a left join tbl_goods as b on a.goods_id = b.id where a.goods_id = #{goodsId} and a.member_id = #{memberId}
+  </select>
+
   <update id="updateNum">
     update tbl_shop_cart set num = #{num} where id = #{id}} and member_id = #{memberId}
   </update>
