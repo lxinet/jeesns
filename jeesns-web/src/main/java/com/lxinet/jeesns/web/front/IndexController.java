@@ -2,8 +2,16 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.utils.StringUtils;
-import com.lxinet.jeesns.service.cms.IArticleService;
-import com.lxinet.jeesns.service.common.IArchiveService;
+import com.lxinet.jeesns.service.cms.ArticleService;
+import com.lxinet.jeesns.service.common.ArchiveService;
+import com.lxinet.jeesns.service.common.LinkService;
+import com.lxinet.jeesns.service.group.GroupFansService;
+import com.lxinet.jeesns.service.group.GroupService;
+import com.lxinet.jeesns.service.group.GroupTopicService;
+import com.lxinet.jeesns.service.member.MemberFansService;
+import com.lxinet.jeesns.service.member.MemberService;
+import com.lxinet.jeesns.service.system.ActionLogService;
+import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.EmojiUtil;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -11,16 +19,8 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.service.common.ILinkService;
-import com.lxinet.jeesns.service.group.IGroupFansService;
-import com.lxinet.jeesns.service.group.IGroupService;
-import com.lxinet.jeesns.service.group.IGroupTopicService;
-import com.lxinet.jeesns.service.member.IMemberFansService;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.member.IMemberService;
 import com.lxinet.jeesns.model.system.ActionLog;
-import com.lxinet.jeesns.service.system.IActionLogService;
-import com.lxinet.jeesns.service.weibo.IWeiboService;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,27 +36,27 @@ import java.io.PrintWriter;
 @RequestMapping("/")
 public class IndexController extends BaseController {
     @Resource
-    private IArticleService articleService;
+    private ArticleService articleService;
     @Resource
-    private IGroupTopicService groupTopicService;
+    private GroupTopicService groupTopicService;
     @Resource
-    private IGroupService groupService;
+    private GroupService groupService;
     @Resource
-    private IWeiboService weiboService;
+    private WeiboService weiboService;
     @Resource
-    private IMemberService memberService;
+    private MemberService memberService;
     @Resource
-    private IArchiveService archiveService;
+    private ArchiveService archiveService;
     @Resource
-    private IActionLogService actionLogService;
+    private ActionLogService actionLogService;
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private IGroupFansService groupFansService;
+    private GroupFansService groupFansService;
     @Resource
-    private IMemberFansService memberFansService;
+    private MemberFansService memberFansService;
     @Resource
-    private ILinkService linkService;
+    private LinkService linkService;
 
     @RequestMapping(value={"/", "index"},method = RequestMethod.GET)
     public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Integer cateid,Model model) {

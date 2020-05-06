@@ -3,7 +3,7 @@ package com.lxinet.jeesns.directive;
 import com.lxinet.jeesns.core.directive.BaseDirective;
 import com.lxinet.jeesns.core.handler.DirectiveHandler;
 import com.lxinet.jeesns.model.common.Ads;
-import com.lxinet.jeesns.service.common.IAdsService;
+import com.lxinet.jeesns.service.common.AdsService;
 import freemarker.template.TemplateException;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
@@ -16,7 +16,7 @@ import java.io.IOException;
 public class AdsDirective extends BaseDirective {
 
     @Resource
-    private IAdsService adsService;
+    private AdsService adsService;
     @Override
     public void execute(DirectiveHandler handler) throws TemplateException, IOException {
         Integer id = handler.getInteger("id",0);

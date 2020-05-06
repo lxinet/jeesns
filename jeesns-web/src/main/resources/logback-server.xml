@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{80} [%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="rollfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${catalina.base:-.}/logs/shop.log</File>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] %-5level %logger{80} [%line] - %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base:-.}/logs/jeesns-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+	</appender>
+	
+	<logger name="org.springframework" level="warn"/>
+
+	<root level="INFO">
+		<appender-ref ref="stdout" />
+	</root>
+	
+</configuration>

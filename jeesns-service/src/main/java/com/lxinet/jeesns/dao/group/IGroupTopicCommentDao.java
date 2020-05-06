@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.GroupTopicComment;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 16/12/27.
  */
+@Mapper
 public interface IGroupTopicCommentDao extends BaseMapper<GroupTopicComment> {
 
     List<GroupTopicComment> listByGroupTopic(@Param("page") Page page, @Param("groupTopicId") Integer groupTopicId);

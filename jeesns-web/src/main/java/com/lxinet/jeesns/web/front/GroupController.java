@@ -1,18 +1,18 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.common.ArchiveService;
+import com.lxinet.jeesns.service.group.*;
+import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.group.*;
-import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
-import com.lxinet.jeesns.service.group.*;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.member.IMemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,21 +30,21 @@ public class GroupController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private IGroupService groupService;
+    private GroupService groupService;
     @Resource
-    private IGroupTopicService groupTopicService;
+    private GroupTopicService groupTopicService;
     @Resource
-    private IGroupFansService groupFansService;
+    private GroupFansService groupFansService;
     @Resource
-    private IGroupTopicCommentService groupTopicCommentService;
+    private GroupTopicCommentService groupTopicCommentService;
     @Resource
-    private IGroupTopicTypeService groupTopicTypeService;
+    private GroupTopicTypeService groupTopicTypeService;
     @Resource
-    private IArchiveService archiveService;
+    private ArchiveService archiveService;
     @Resource
-    private IMemberService memberService;
+    private MemberService memberService;
     @Resource
-    private IGroupTypeService groupTypeService;
+    private GroupTypeService groupTypeService;
 
     @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String index(String key, Model model) {

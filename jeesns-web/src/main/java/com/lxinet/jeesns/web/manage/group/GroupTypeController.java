@@ -5,7 +5,7 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.group.GroupType;
-import com.lxinet.jeesns.service.group.IGroupTypeService;
+import com.lxinet.jeesns.service.group.GroupTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.List;
 public class GroupTypeController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/group/type/";
     @Resource
-    private IGroupTypeService groupTypeService;
+    private GroupTypeService groupTypeService;
 
     @RequestMapping(value = "${managePath}/group/type/list")
     public String index(Model model) {

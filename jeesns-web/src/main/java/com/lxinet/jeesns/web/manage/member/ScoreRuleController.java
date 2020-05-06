@@ -5,7 +5,7 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.ScoreRule;
-import com.lxinet.jeesns.service.system.IScoreRuleService;
+import com.lxinet.jeesns.service.system.ScoreRuleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.List;
 public class ScoreRuleController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/system/scoreRule/";
     @Resource
-    private IScoreRuleService scoreRuleService;
+    private ScoreRuleService scoreRuleService;
 
     @RequestMapping("list")
     public String actionList(Model model){

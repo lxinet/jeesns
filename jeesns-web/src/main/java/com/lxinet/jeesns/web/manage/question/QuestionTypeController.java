@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.question.QuestionType;
-import com.lxinet.jeesns.service.question.IQuestionTypeService;
+import com.lxinet.jeesns.service.question.QuestionTypeService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +25,7 @@ import java.util.List;
 public class QuestionTypeController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/question/type/";
     @Resource
-    private IQuestionTypeService questionTypeService;
+    private QuestionTypeService questionTypeService;
 
     @GetMapping("list")
     public String list(Model model){

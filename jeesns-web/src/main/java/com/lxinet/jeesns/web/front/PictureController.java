@@ -1,6 +1,10 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.member.MemberService;
+import com.lxinet.jeesns.service.picture.PictureAlbumService;
+import com.lxinet.jeesns.service.picture.PictureCommentService;
+import com.lxinet.jeesns.service.picture.PictureService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -12,10 +16,6 @@ import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.model.picture.PictureAlbum;
-import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.service.picture.IPictureAlbumService;
-import com.lxinet.jeesns.service.picture.IPictureCommentService;
-import com.lxinet.jeesns.service.picture.IPictureService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,13 +42,13 @@ import java.util.UUID;
 public class PictureController extends BaseController {
     private static final String MEMBER_FTL_PATH = "/member/";
     @Resource
-    private IPictureAlbumService pictureAlbumService;
+    private PictureAlbumService pictureAlbumService;
     @Resource
-    private IPictureService pictureService;
+    private PictureService pictureService;
     @Resource
-    private IPictureCommentService pictureCommentService;
+    private PictureCommentService pictureCommentService;
     @Resource
-    private IMemberService memberService;
+    private MemberService memberService;
     @Resource
     private JeesnsConfig jeesnsConfig;
 

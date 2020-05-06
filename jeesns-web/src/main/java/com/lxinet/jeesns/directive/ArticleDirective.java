@@ -1,9 +1,9 @@
 package com.lxinet.jeesns.directive;
 
 import com.lxinet.jeesns.model.cms.Article;
-import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.core.directive.BaseDirective;
 import com.lxinet.jeesns.core.handler.DirectiveHandler;
+import com.lxinet.jeesns.service.cms.ArticleService;
 import freemarker.template.*;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class ArticleDirective extends BaseDirective {
     @Resource
-    private IArticleService articleService;
+    private ArticleService articleService;
     @Override
     public void execute(DirectiveHandler handler) throws TemplateException, IOException {
         int cid = handler.getInteger("cid",0);

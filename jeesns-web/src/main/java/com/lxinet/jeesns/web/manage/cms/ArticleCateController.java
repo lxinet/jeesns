@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.cms.ArticleCate;
-import com.lxinet.jeesns.service.cms.IArticleCateService;
+import com.lxinet.jeesns.service.cms.ArticleCateService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ import java.util.List;
 public class ArticleCateController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/cms/articleCate";
     @Resource
-    private IArticleCateService articleCateService;
+    private ArticleCateService articleCateService;
 
     @RequestMapping("${managePath}/cms/articleCate/list")
     public String list(Model model){

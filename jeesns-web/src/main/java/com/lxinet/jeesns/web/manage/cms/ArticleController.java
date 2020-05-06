@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.web.manage.cms;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.cms.ArticleCateService;
+import com.lxinet.jeesns.service.cms.ArticleService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -9,8 +11,6 @@ import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.cms.IArticleCateService;
-import com.lxinet.jeesns.service.cms.IArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,9 +29,9 @@ import java.util.List;
 public class ArticleController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/cms/article/";
     @Resource
-    private IArticleCateService articleCateService;
+    private ArticleCateService articleCateService;
     @Resource
-    private IArticleService articleService;
+    private ArticleService articleService;
 
     @RequestMapping("${managePath}/cms/index")
     @Before(AdminLoginInterceptor.class)

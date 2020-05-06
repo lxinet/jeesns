@@ -10,9 +10,9 @@ import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.model.question.Question;
 import com.lxinet.jeesns.model.question.QuestionType;
-import com.lxinet.jeesns.service.question.IAnswerService;
-import com.lxinet.jeesns.service.question.IQuestionService;
-import com.lxinet.jeesns.service.question.IQuestionTypeService;
+import com.lxinet.jeesns.service.question.AnswerService;
+import com.lxinet.jeesns.service.question.QuestionService;
+import com.lxinet.jeesns.service.question.QuestionTypeService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +31,11 @@ public class QuestionController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private IQuestionTypeService questionTypeService;
+    private QuestionTypeService questionTypeService;
     @Resource
-    private IQuestionService questionService;
+    private QuestionService questionService;
     @Resource
-    private IAnswerService answerService;
+    private AnswerService answerService;
 
     @UsePage
     @RequestMapping(value={"/","list","list-{statusName}"},method = RequestMethod.GET)

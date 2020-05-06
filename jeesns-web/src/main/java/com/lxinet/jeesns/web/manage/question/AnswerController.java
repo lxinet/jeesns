@@ -6,8 +6,8 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.model.question.Question;
-import com.lxinet.jeesns.service.question.IAnswerService;
-import com.lxinet.jeesns.service.question.IQuestionService;
+import com.lxinet.jeesns.service.question.AnswerService;
+import com.lxinet.jeesns.service.question.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +25,9 @@ public class AnswerController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private IAnswerService answerService;
+    private AnswerService answerService;
     @Resource
-    private IQuestionService questionService;
+    private QuestionService questionService;
 
 
     @UsePage

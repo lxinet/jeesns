@@ -4,20 +4,16 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
-import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.PageUtil;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Financial;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.model.member.ScoreDetail;
-import com.lxinet.jeesns.service.member.IFinancialService;
-import com.lxinet.jeesns.service.member.IScoreDetailService;
+import com.lxinet.jeesns.service.member.FinancialService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,7 +27,7 @@ import java.util.List;
 public class FinancialController extends BaseController {
     private static final String INDEX_FTL_PATH = "/member/financial/";
     @Resource
-    private IFinancialService financialService;
+    private FinancialService financialService;
 
     @UsePage
     @GetMapping("list")

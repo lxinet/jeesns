@@ -8,8 +8,8 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Action;
 import com.lxinet.jeesns.model.system.ActionLog;
-import com.lxinet.jeesns.service.system.IActionLogService;
-import com.lxinet.jeesns.service.system.IActionService;
+import com.lxinet.jeesns.service.system.ActionLogService;
+import com.lxinet.jeesns.service.system.ActionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +26,9 @@ import java.util.List;
 public class ActionController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/system/action/";
     @Resource
-    private IActionService actionService;
+    private ActionService actionService;
     @Resource
-    private IActionLogService actionLogService;
+    private ActionLogService actionLogService;
 
     @RequestMapping("list")
     public String actionList(Model model){

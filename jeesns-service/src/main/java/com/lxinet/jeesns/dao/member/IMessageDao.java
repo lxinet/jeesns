@@ -4,6 +4,7 @@ import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Message;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * 会员私信DAO
  * Created by zchuanzhao on 17/3/9.
  */
+@Mapper
 public interface IMessageDao extends BaseMapper<Message> {
     List<Message> list(@Param("page") Page page, @Param("fromMemberId") Integer fromMemberId, @Param("toMemberId") Integer toMemberId);
 

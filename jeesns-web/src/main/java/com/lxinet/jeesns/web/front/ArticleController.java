@@ -1,22 +1,22 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.cms.ArticleCateService;
+import com.lxinet.jeesns.service.cms.ArticleCommentService;
+import com.lxinet.jeesns.service.cms.ArticleService;
+import com.lxinet.jeesns.service.common.ArchiveService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.NotFountException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.cms.ArticleComment;
-import com.lxinet.jeesns.service.common.IArchiveService;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.cms.Article;
-import com.lxinet.jeesns.service.cms.IArticleCateService;
-import com.lxinet.jeesns.service.cms.IArticleCommentService;
-import com.lxinet.jeesns.service.cms.IArticleService;
 import com.lxinet.jeesns.model.member.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,13 +38,13 @@ public class ArticleController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private IArticleCateService articleCateService;
+    private ArticleCateService articleCateService;
     @Resource
-    private IArticleService articleService;
+    private ArticleService articleService;
     @Resource
-    private IArchiveService archiveService;
+    private ArchiveService archiveService;
     @Resource
-    private IArticleCommentService articleCommentService;
+    private ArticleCommentService articleCommentService;
 
     @RequestMapping(value="/list",method = RequestMethod.GET)
     public String list(String key, @RequestParam(value = "cid",defaultValue = "0",required = false) Integer cid,
