@@ -5,7 +5,7 @@ import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.core.utils.SpringContextUtil;
 import com.lxinet.jeesns.model.system.Config;
-import com.lxinet.jeesns.service.system.IConfigService;
+import com.lxinet.jeesns.service.system.ConfigService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -39,7 +39,7 @@ public class InitListener implements ServletContextListener {
             sce.getServletContext().setAttribute("extExists",PluginExists.EXT);
             sce.getServletContext().setAttribute("systemVersion",Const.SYSTEM_VERSION);
             sce.getServletContext().setAttribute("systemName",Const.SYSTEM_NAME);
-            IConfigService configService = SpringContextUtil.getBean("configService");
+            ConfigService configService = SpringContextUtil.getBean(ConfigService.class);
             List<Config> configList = configService.allList();
             for (Config config : configList) {
                 sce.getServletContext().setAttribute(config.getJkey().toUpperCase(),config.getJvalue());

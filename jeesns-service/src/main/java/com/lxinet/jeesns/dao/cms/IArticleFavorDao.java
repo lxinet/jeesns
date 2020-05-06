@@ -2,15 +2,13 @@ package com.lxinet.jeesns.dao.cms;
 
 import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.model.cms.ArticleFavor;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * 文章点赞DAO接口
  * Created by zchuanzhao on 2017/2/9.
  */
+@Mapper
 public interface IArticleFavorDao extends BaseMapper<ArticleFavor> {
 
     @Select("select * from tbl_article_favor where article_id = #{articleId} and member_id = #{memberId}")

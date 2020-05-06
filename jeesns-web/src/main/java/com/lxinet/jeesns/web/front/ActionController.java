@@ -5,7 +5,7 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.model.system.ActionLog;
-import com.lxinet.jeesns.service.system.IActionLogService;
+import com.lxinet.jeesns.service.system.ActionLogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @RequestMapping("/action/")
 public class ActionController extends BaseController {
     @Resource
-    private IActionLogService actionLogService;
+    private ActionLogService actionLogService;
     @Resource
     private JeesnsConfig jeesnsConfig;
 

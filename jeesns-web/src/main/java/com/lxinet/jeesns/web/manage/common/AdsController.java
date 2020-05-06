@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.DateFormatUtil;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.common.Ads;
-import com.lxinet.jeesns.service.common.IAdsService;
+import com.lxinet.jeesns.service.common.AdsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 public class AdsController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/ads/";
     @Resource
-    private IAdsService adsService;
+    private AdsService adsService;
 
     @RequestMapping("/list")
     public String list(Model model){

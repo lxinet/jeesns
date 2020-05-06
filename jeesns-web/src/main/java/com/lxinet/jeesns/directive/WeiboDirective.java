@@ -1,11 +1,11 @@
 package com.lxinet.jeesns.directive;
 
+import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.directive.BaseDirective;
 import com.lxinet.jeesns.core.handler.DirectiveHandler;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
-import com.lxinet.jeesns.service.weibo.IWeiboService;
 import freemarker.template.TemplateException;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
@@ -22,7 +22,7 @@ public class WeiboDirective extends BaseDirective {
     private HttpServletRequest request;
 
     @Resource
-    private IWeiboService weiboService;
+    private WeiboService weiboService;
     @Override
     public void execute(DirectiveHandler handler) throws TemplateException, IOException {
         int num = handler.getInteger("num",0);

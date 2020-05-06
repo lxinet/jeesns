@@ -6,8 +6,8 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Config;
-import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.service.system.IConfigService;
+import com.lxinet.jeesns.service.member.MemberService;
+import com.lxinet.jeesns.service.system.ConfigService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +29,9 @@ import java.util.Map;
 public class ConfigController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/system/config/";
     @Resource
-    private IConfigService configService;
+    private ConfigService configService;
     @Resource
-    private IMemberService memberService;
+    private MemberService memberService;
 
     @RequestMapping("edit")
     public String edit(Model model){

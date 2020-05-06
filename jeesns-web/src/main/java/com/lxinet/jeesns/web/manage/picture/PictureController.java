@@ -6,8 +6,8 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
-import com.lxinet.jeesns.service.picture.IPictureService;
-import com.lxinet.jeesns.service.system.ITagService;
+import com.lxinet.jeesns.service.picture.PictureService;
+import com.lxinet.jeesns.service.system.TagService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +28,9 @@ import javax.annotation.Resource;
 public class PictureController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/picture/";
     @Resource
-    private IPictureService pictureService;
+    private PictureService pictureService;
     @Resource
-    private ITagService tagService;
+    private TagService tagService;
 
     @RequestMapping("/tagList")
     public String tagList(Model model){

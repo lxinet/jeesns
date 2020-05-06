@@ -6,7 +6,7 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Checkin;
-import com.lxinet.jeesns.service.member.ICheckinService;
+import com.lxinet.jeesns.service.member.CheckinService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 public class CheckinController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/checkin/";
     @Resource
-    private ICheckinService checkinService;
+    private CheckinService checkinService;
 
     @RequestMapping("list")
     public String list(Model model){

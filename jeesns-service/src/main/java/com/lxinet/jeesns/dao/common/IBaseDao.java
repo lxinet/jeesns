@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.dao.common;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/9/26.
  * @param <T>
  */
+@Mapper
 public interface IBaseDao<T> {
 
     T findById(@Param("id") Integer id);

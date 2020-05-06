@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.web.manage.cms;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.cms.ArticleCommentService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
@@ -8,7 +9,6 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.cms.IArticleCommentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ import java.util.List;
 public class ArticleCommentController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/cms/comment/";
     @Resource
-    private IArticleCommentService articleCommentService;
+    private ArticleCommentService articleCommentService;
 
     @RequestMapping("/list")
     public String list(String key, @RequestParam(value = "articleId",defaultValue = "0",required = false) Integer articleId, Model model) {

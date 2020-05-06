@@ -1,6 +1,8 @@
 package com.lxinet.jeesns.web.manage;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.common.CommonService;
+import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.Clear;
@@ -9,8 +11,6 @@ import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.common.ICommonService;
-import com.lxinet.jeesns.service.member.IMemberService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +27,11 @@ import java.util.Properties;
 public class IndexController extends BaseController {
     private static final String FTL_PATH = "/manage";
     @Resource
-    private IMemberService memberService;
+    private MemberService memberService;
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private ICommonService commonService;
+    private CommonService commonService;
 
     @RequestMapping(value = {"/", "/index"})
     public String index(Model model){

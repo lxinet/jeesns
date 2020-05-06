@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.PageUtil;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Financial;
-import com.lxinet.jeesns.service.member.IFinancialService;
+import com.lxinet.jeesns.service.member.FinancialService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,7 @@ import java.util.List;
 public class FinancialController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/member/financial/";
     @Resource
-    private IFinancialService financialService;
+    private FinancialService financialService;
 
     @UsePage
     @RequestMapping("list")

@@ -3,6 +3,7 @@ package com.lxinet.jeesns.dao.group;
 import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.GroupTopic;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Created by zchuanzhao on 16/12/26.
  */
+@Mapper
 public interface IGroupTopicDao extends BaseMapper<GroupTopic> {
 
     List<GroupTopic> list(@Param("page") Page page, @Param("key") String key, @Param("groupId") Integer groupId, @Param("status") Integer status, @Param("memberId") Integer memberId, @Param("typeId") Integer typeId);

@@ -1,25 +1,18 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.question.Answer;
-import com.lxinet.jeesns.model.question.Question;
-import com.lxinet.jeesns.model.question.QuestionType;
-import com.lxinet.jeesns.service.question.IAnswerService;
-import com.lxinet.jeesns.service.question.IQuestionService;
-import com.lxinet.jeesns.service.question.IQuestionTypeService;
+import com.lxinet.jeesns.service.question.AnswerService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 前台问题回答Controller
@@ -31,7 +24,7 @@ public class AnswerController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;
     @Resource
-    private IAnswerService answerService;
+    private AnswerService answerService;
 
 
     @RequestMapping(value="commit",method = RequestMethod.POST)

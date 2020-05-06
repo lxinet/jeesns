@@ -7,7 +7,7 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Tag;
-import com.lxinet.jeesns.service.system.ITagService;
+import com.lxinet.jeesns.service.system.TagService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 public class TagController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/tag/";
     @Resource
-    private ITagService tagService;
+    private TagService tagService;
 
     @RequestMapping("/list/{funcType}")
     public String list(Model model,@PathVariable("funcType") Integer funcType){

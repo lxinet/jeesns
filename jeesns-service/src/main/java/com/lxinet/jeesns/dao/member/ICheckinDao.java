@@ -5,6 +5,7 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.model.member.Checkin;
 import com.lxinet.jeesns.model.member.Message;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * 会员签到DAO
  * Created by zchuanzhao on 18/8/20.
  */
+@Mapper
 public interface ICheckinDao extends BaseMapper<Checkin> {
     List<Checkin> list(@Param("page") Page page, @Param("memberId") Integer memberId);
 

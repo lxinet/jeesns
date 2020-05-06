@@ -2,6 +2,10 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
+import com.lxinet.jeesns.service.member.MemberService;
+import com.lxinet.jeesns.service.member.MessageService;
+import com.lxinet.jeesns.service.system.ActionLogService;
+import com.lxinet.jeesns.service.system.ConfigService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
@@ -10,13 +14,8 @@ import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.member.IMemberService;
-import com.lxinet.jeesns.service.member.IMessageService;
 import com.lxinet.jeesns.model.system.ActionLog;
-import com.lxinet.jeesns.service.system.IActionLogService;
-import com.lxinet.jeesns.service.system.IConfigService;
 import com.lxinet.jeesns.utils.ConfigUtil;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +31,13 @@ import java.util.Map;
 public class MemberController extends BaseController {
     private static final String MEMBER_FTL_PATH = "/member/";
     @Resource
-    private IMemberService memberService;
+    private MemberService memberService;
     @Resource
-    private IConfigService configService;
+    private ConfigService configService;
     @Resource
-    private IActionLogService actionLogService;
+    private ActionLogService actionLogService;
     @Resource
-    private IMessageService messageService;
+    private MessageService messageService;
     @Resource
     private JeesnsConfig jeesnsConfig;
     private static final String EXT_CARDKEY_SERVICE = "extCardkeyService";

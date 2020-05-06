@@ -3,6 +3,7 @@ package com.lxinet.jeesns.dao.weibo;
 import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.weibo.WeiboComment;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * 微博评论DAO接口
  * Created by zchuanzhao on 16/12/22.
  */
+@Mapper
 public interface IWeiboCommentDao extends BaseMapper<WeiboComment> {
 
     WeiboComment findById(@Param("id") Integer id);

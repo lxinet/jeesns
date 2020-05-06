@@ -3,12 +3,14 @@ package com.lxinet.jeesns.dao.member;
 import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.dao.common.IBaseDao;
 import com.lxinet.jeesns.model.member.ValidateCode;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
  * 验证码DAO接口
  * Created by zchuanzhao on 17/01/20.
  */
+@Mapper
 public interface IValidateCodeDao extends BaseMapper<ValidateCode> {
 
     /**

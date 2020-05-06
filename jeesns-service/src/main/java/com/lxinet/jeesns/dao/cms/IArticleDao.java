@@ -3,6 +3,7 @@ package com.lxinet.jeesns.dao.cms;
 import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.cms.Article;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * 文章DAO接口
  * Created by zchuanzhao on 2016/11/26.
  */
+@Mapper
 public interface IArticleDao extends BaseMapper<Article> {
 
     List<Article> list(@Param("page") Page page, @Param("key") String key, @Param("cateid") Integer cateid, @Param("status") Integer status, @Param("memberId") Integer memberId);

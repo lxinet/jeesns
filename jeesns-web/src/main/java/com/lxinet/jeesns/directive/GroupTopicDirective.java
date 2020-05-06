@@ -3,7 +3,7 @@ package com.lxinet.jeesns.directive;
 import com.lxinet.jeesns.core.directive.BaseDirective;
 import com.lxinet.jeesns.core.handler.DirectiveHandler;
 import com.lxinet.jeesns.model.group.GroupTopic;
-import com.lxinet.jeesns.service.group.IGroupTopicService;
+import com.lxinet.jeesns.service.group.GroupTopicService;
 import freemarker.template.TemplateException;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class GroupTopicDirective extends BaseDirective {
     @Resource
-    private IGroupTopicService groupTopicService;
+    private GroupTopicService groupTopicService;
     @Override
     public void execute(DirectiveHandler handler) throws TemplateException, IOException {
         int gid = handler.getInteger("gid",0);

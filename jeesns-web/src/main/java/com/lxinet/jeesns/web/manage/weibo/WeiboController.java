@@ -1,13 +1,13 @@
 package com.lxinet.jeesns.web.manage.weibo;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.weibo.IWeiboService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ import javax.annotation.Resource;
 public class WeiboController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/weibo/";
     @Resource
-    private IWeiboService weiboService;
+    private WeiboService weiboService;
 
     @RequestMapping("${managePath}/weibo/index")
     @Before(AdminLoginInterceptor.class)
