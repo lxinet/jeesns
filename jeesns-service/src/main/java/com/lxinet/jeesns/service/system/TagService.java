@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.system;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.system.ITagDao;
@@ -21,9 +21,9 @@ public class TagService {
         return tagDao.saveObj(tag) == 1;
     }
 
-    public ResultModel listByPage(Page page, int funcType) {
+    public Result listByPage(Page page, int funcType) {
         List<Tag> list = tagDao.list(page,funcType);
-        ResultModel model = new ResultModel(0, page);
+        Result model = new Result(0, page);
         model.setData(list);
         return model;
     }

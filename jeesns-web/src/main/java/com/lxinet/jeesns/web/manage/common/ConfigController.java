@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage.common;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Config;
@@ -44,7 +44,7 @@ public class ConfigController extends BaseController {
 
     @RequestMapping(value = "baseUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel baseUpdate(String site_name, String site_seo_title, String site_domain, String site_keys, String site_description,
+    public Result baseUpdate(String site_name, String site_seo_title, String site_domain, String site_keys, String site_description,
                                   String site_logo, String site_send_email_account, String site_send_email_password,
                                   String site_send_email_smtp, String site_icp, String site_copyright, String site_tongji){
         Map<String,String> params = new HashMap<>();
@@ -65,28 +65,28 @@ public class ConfigController extends BaseController {
         if(StringUtils.isNotEmpty(site_send_email_password)){
             params.put("site_send_email_password",site_send_email_password);
         }
-        return new ResultModel(configService.update(params,request));
+        return new Result(configService.update(params,request));
     }
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel update(){
+    public Result update(){
         Map<String,String> params = getParams(request);
-        return new ResultModel(configService.update(params,request));
+        return new Result(configService.update(params,request));
     }
 
     @RequestMapping(value = "cmsUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel cmsUpdate(String cms_post,String cms_post_review){
+    public Result cmsUpdate(String cms_post,String cms_post_review){
         Map<String,String> params = new HashMap<>();
         params.put("cms_post",cms_post);
         params.put("cms_post_review",cms_post_review);
-        return new ResultModel(configService.update(params,request));
+        return new Result(configService.update(params,request));
     }
 
     @RequestMapping(value = "groupUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel groupUpdate(String group_apply,String group_apply_review,String group_alias,String group_follow_pay_fee){
+    public Result groupUpdate(String group_apply,String group_apply_review,String group_alias,String group_follow_pay_fee){
         Map<String,String> params = new HashMap<>();
         if(StringUtils.isEmpty(group_alias)){
             group_alias = "群组";
@@ -95,14 +95,14 @@ public class ConfigController extends BaseController {
         params.put("group_apply",group_apply);
         params.put("group_apply_review",group_apply_review);
         params.put("group_follow_pay_fee",group_follow_pay_fee);
-        return new ResultModel(configService.update(params,request));
+        return new Result(configService.update(params,request));
     }
 
     @RequestMapping(value = "weiboUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel weiboUpdate(String weibo_post,String weibo_post_maxcontent,String weibo_alias){
+    public Result weiboUpdate(String weibo_post,String weibo_post_maxcontent,String weibo_alias){
         if(Integer.parseInt(weibo_post_maxcontent) > 500){
-            return new ResultModel(-1,"微博最大字数不能超过500");
+            return new Result(-1,"微博最大字数不能超过500");
         }
         Map<String,String> params = new HashMap<>();
         if(StringUtils.isEmpty(weibo_alias)){
@@ -111,14 +111,14 @@ public class ConfigController extends BaseController {
         params.put("weibo_alias",weibo_alias);
         params.put("weibo_post",weibo_post);
         params.put("weibo_post_maxcontent",weibo_post_maxcontent);
-        return new ResultModel(configService.update(params,request));
+        return new Result(configService.update(params,request));
     }
 
     @RequestMapping(value = "payUpdate",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel payUpdate(){
+    public Result payUpdate(){
         Map<String,String> params = getParams(request);
-        return new ResultModel(configService.update(params,request));
+        return new Result(configService.update(params,request));
     }
 
     private Map<String,String> getParams(HttpServletRequest request){

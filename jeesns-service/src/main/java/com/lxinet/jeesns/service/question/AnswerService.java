@@ -1,8 +1,8 @@
 package com.lxinet.jeesns.service.question;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.PageUtil;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.dao.question.IAnswerDao;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/12/21.
  */
 @Service("answerService")
-public class AnswerService extends BaseServiceImpl<Answer> {
+public class AnswerService extends BaseService<Answer> {
 
     @Resource
     private IAnswerDao answerDao;
@@ -25,9 +25,9 @@ public class AnswerService extends BaseServiceImpl<Answer> {
     private QuestionService questionService;
 
 
-    public ResultModel<Answer> listByQuestion(Integer questionId) {
+    public Result<Answer> listByQuestion(Integer questionId) {
         List<Answer> list = answerDao.listByQuestion(PageUtil.getPage(), questionId);
-        ResultModel model = new ResultModel(0,PageUtil.getPage());
+        Result model = new Result(0,PageUtil.getPage());
         model.setData(list);
         return model;
     }

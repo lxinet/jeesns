@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.picture;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.StringUtils;
@@ -18,16 +18,16 @@ public class PictureAlbumService{
     @Resource
     private IPictureAlbumDao pictureAlbumDao;
 
-    public ResultModel listByMember(Integer memberId) {
+    public Result listByMember(Integer memberId) {
         List<PictureAlbum> list = pictureAlbumDao.listByMember(memberId);
-        ResultModel model = new ResultModel(0);
+        Result model = new Result(0);
         model.setData(list);
         return model;
     }
 
-    public ResultModel<PictureAlbum> listByPage(Page page) {
+    public Result<PictureAlbum> listByPage(Page page) {
         List<PictureAlbum> list = pictureAlbumDao.list(page);
-        ResultModel model = new ResultModel(0, page);
+        Result model = new Result(0, page);
         model.setData(list);
         return model;
     }

@@ -2,7 +2,7 @@ package com.lxinet.jeesns.service.cms;
 
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.cms.IArticleCateDao;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by zchuanzhao on 16/9/29.
  */
 @Service("articleCateService")
-public class ArticleCateService extends BaseServiceImpl<ArticleCate> {
+public class ArticleCateService extends BaseService<ArticleCate> {
 
     @Resource
     private IArticleCateDao articleCateDao;

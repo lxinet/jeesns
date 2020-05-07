@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.member.MessageService;
@@ -12,7 +12,7 @@ import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
@@ -34,7 +34,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/26.
  */
 @Service("groupTopicService")
-public class GroupTopicService extends BaseServiceImpl<GroupTopic> {
+public class GroupTopicService extends BaseService<GroupTopic> {
     @Resource
     private IGroupTopicDao groupTopicDao;
     @Resource
@@ -90,12 +90,12 @@ public class GroupTopicService extends BaseServiceImpl<GroupTopic> {
         return result == 1;
     }
 
-    public ResultModel listByPage(Page page, String key, int groupId, int status, int memberId, int typeId) {
+    public Result listByPage(Page page, String key, int groupId, int status, int memberId, int typeId) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
         List<GroupTopic> list = groupTopicDao.list(page, key,groupId,status,memberId,typeId);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }
@@ -264,12 +264,12 @@ public class GroupTopicService extends BaseServiceImpl<GroupTopic> {
     }
 
 
-    public ResultModel favor(Member loginMember, int id) {
+    public Result favor(Member loginMember, int id) {
         GroupTopic groupTopic = this.findById(id);
         ValidUtill.checkIsNull(groupTopic, "帖子不存在");
         int favor = groupTopic.getFavor();
         String message;
-        ResultModel<Integer> resultModel;
+        Result<Integer> result;
         if(groupTopicFavorService.find(id,loginMember.getId()) == null){
             //增加
             groupTopicDao.favor(id,1);
@@ -291,9 +291,9 @@ public class GroupTopicService extends BaseServiceImpl<GroupTopic> {
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.GROUP_TOPIC_RECEIVED_LIKE, id);
         }
-        resultModel = new ResultModel(0,message);
-        resultModel.setData(favor);
-        return resultModel;
+        result = new Result(0,message);
+        result.setData(favor);
+        return result;
     }
 
     public List<GroupTopic> listByCustom(int gid, String sort, int num, int day,int thumbnail) {

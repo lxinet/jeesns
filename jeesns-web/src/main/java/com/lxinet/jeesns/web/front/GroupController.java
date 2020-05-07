@@ -9,7 +9,7 @@ import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.group.*;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
@@ -90,8 +90,8 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow", true);
         }
         //获取群组帖子列表
-        ResultModel resultModel = groupTopicService.listByPage(page, null, groupId, 1, 0, typeId);
-        model.addAttribute("model", resultModel);
+        Result result = groupTopicService.listByPage(page, null, groupId, 1, 0, typeId);
+        model.addAttribute("model", result);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();
         if (StringUtils.isNotEmpty(managerIds)) {
@@ -133,9 +133,9 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel apply(Group group) {
+    public Result apply(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(groupService.save(loginMember, group));
+        return new Result(groupService.save(loginMember, group));
     }
 
 
@@ -174,9 +174,9 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel update(Group group) {
+    public Result update(Group group) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(groupService.update(loginMember, group));
+        return new Result(groupService.update(loginMember, group));
     }
 
     @RequestMapping(value = "/topic/{topicId}", method = RequestMethod.GET)
@@ -244,11 +244,11 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel post(GroupTopic groupTopic) {
+    public Result post(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(groupTopicService.save(loginMember, groupTopic));
-        resultModel.setData(groupTopic.getId());
-        return resultModel;
+        Result result = new Result(groupTopicService.save(loginMember, groupTopic));
+        result.setData(groupTopic.getId());
+        return result;
     }
 
     @RequestMapping(value = "/topicEdit/{topicId}", method = RequestMethod.GET)
@@ -272,15 +272,15 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/topicUpdate", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel topicUpdate(GroupTopic groupTopic) {
+    public Result topicUpdate(GroupTopic groupTopic) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        boolean result = groupTopicService.update(loginMember, groupTopic);
-        ResultModel resultModel = new ResultModel(result);
-        if (result) {
-            resultModel.setCode(2);
-            resultModel.setUrl(Const.GROUP_PATH + "/topic/" + groupTopic.getId());
+        boolean flag = groupTopicService.update(loginMember, groupTopic);
+        Result result = new Result(flag);
+        if (flag) {
+            result.setCode(2);
+            result.setUrl(Const.GROUP_PATH + "/topic/" + groupTopic.getId());
         }
-        return resultModel;
+        return result;
     }
 
     /**
@@ -292,9 +292,9 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/follow/{groupId}", method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel follow(@PathVariable("groupId") Integer groupId) {
+    public Result follow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(groupService.follow(loginMember, groupId, 0));
+        return new Result(groupService.follow(loginMember, groupId, 0));
     }
 
     /**
@@ -306,9 +306,9 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/nofollow/{groupId}", method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel nofollow(@PathVariable("groupId") Integer groupId) {
+    public Result nofollow(@PathVariable("groupId") Integer groupId) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(groupService.follow(loginMember, groupId, 1));
+        return new Result(groupService.follow(loginMember, groupId, 1));
     }
 
     /**
@@ -321,15 +321,15 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/comment/{groupTopicId}", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel comment(@PathVariable("groupTopicId") Integer groupTopicId, String content, Integer groupTopicCommentId) {
+    public Result comment(@PathVariable("groupTopicId") Integer groupTopicId, String content, Integer groupTopicCommentId) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(groupTopicCommentService.save(loginMember, content, groupTopicId, groupTopicCommentId));
+        return new Result(groupTopicCommentService.save(loginMember, content, groupTopicId, groupTopicCommentId));
     }
 
 
     @RequestMapping(value = "/commentList/{groupTopicId}.json", method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel commentList(@PathVariable("groupTopicId") Integer groupTopicId) {
+    public Result commentList(@PathVariable("groupTopicId") Integer groupTopicId) {
         Page page = new Page(request);
         if (groupTopicId == null) {
             groupTopicId = 0;
@@ -340,10 +340,10 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") int id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(groupTopicService.indexDelete(request, loginMember, id));
-        return resultModel;
+        Result result = new Result(groupTopicService.indexDelete(request, loginMember, id));
+        return result;
     }
 
     /**
@@ -371,8 +371,8 @@ public class GroupController extends BaseController {
             model.addAttribute("isfollow", true);
         }
         //获取群组帖子列表
-        ResultModel resultModel = groupTopicService.listByPage(page, null, groupId, 0, 0, 0);
-        model.addAttribute("model", resultModel);
+        Result result = groupTopicService.listByPage(page, null, groupId, 0, 0, 0);
+        model.addAttribute("model", result);
         String managerIds = group.getManagers();
         List<Member> managerList = new ArrayList<>();
         if (StringUtils.isNotEmpty(managerIds)) {
@@ -393,10 +393,10 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/audit/{id}", method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel audit(@PathVariable("id") Integer id) {
+    public Result audit(@PathVariable("id") Integer id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(groupTopicService.audit(loginMember, id));
-        return resultModel;
+        Result result = new Result(groupTopicService.audit(loginMember, id));
+        return result;
     }
 
     @RequestMapping(value = "/fans/{groupId}", method = RequestMethod.GET)
@@ -408,8 +408,8 @@ public class GroupController extends BaseController {
         }
         model.addAttribute("group", group);
         //获取群组粉丝列表,第一页，20条数据
-        ResultModel<GroupFans> resultModel = groupFansService.listByPage(page, groupId);
-        model.addAttribute("model", resultModel);
+        Result<GroupFans> result = groupFansService.listByPage(page, groupId);
+        model.addAttribute("model", result);
         return jeesnsConfig.getFrontTemplate() + "/group/fans";
     }
 
@@ -423,10 +423,10 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/topic/top/{id}", method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel top(@PathVariable("id") Integer id, @RequestParam("top") Integer top) {
+    public Result top(@PathVariable("id") Integer id, @RequestParam("top") Integer top) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(groupTopicService.top(loginMember, id, top));
-        return resultModel;
+        Result result = new Result(groupTopicService.top(loginMember, id, top));
+        return result;
     }
 
     /**
@@ -439,10 +439,10 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/topic/essence/{id}", method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel essence(@PathVariable("id") Integer id, @RequestParam("essence") Integer essence) {
+    public Result essence(@PathVariable("id") Integer id, @RequestParam("essence") Integer essence) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(groupTopicService.essence(loginMember, id, essence));
-        return resultModel;
+        Result result = new Result(groupTopicService.essence(loginMember, id, essence));
+        return result;
     }
 
 
@@ -455,13 +455,13 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/topic/favor/{id}", method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel favor(@PathVariable("id") Integer id) {
+    public Result favor(@PathVariable("id") Integer id) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if (id == null) {
-            return new ResultModel(-1, "非法操作");
+            return new Result(-1, "非法操作");
         }
-        ResultModel resultModel = groupTopicService.favor(loginMember, id);
-        return resultModel;
+        Result result = groupTopicService.favor(loginMember, id);
+        return result;
     }
 
     @RequestMapping(value = "/topicTypeList/{groupId}", method = RequestMethod.GET)
@@ -501,18 +501,18 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/topicTypeSave", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel topicTypeSave(GroupTopicType groupTopicType) {
+    public Result topicTypeSave(GroupTopicType groupTopicType) {
         Member loginMember = MemberUtil.getLoginMember(request);
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = new ResultModel(groupTopicTypeService.save(groupTopicType));
-        if (resultModel.getCode() == 0) {
-            resultModel.setCode(3);
+        Result result = new Result(groupTopicTypeService.save(groupTopicType));
+        if (result.getCode() == 0) {
+            result.setCode(3);
         }
-        return resultModel;
+        return result;
     }
 
     @RequestMapping(value = "/topicTypeEdit/{typeId}", method = RequestMethod.GET)
@@ -535,18 +535,18 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/topicTypeUpdate", method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel topicTypeUpdate(GroupTopicType groupTopicType) {
+    public Result topicTypeUpdate(GroupTopicType groupTopicType) {
         Member loginMember = MemberUtil.getLoginMember(request);
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = new ResultModel(groupTopicTypeService.update(groupTopicType));
-        if (resultModel.getCode() == 0) {
-            resultModel.setCode(3);
+        Result result = new Result(groupTopicTypeService.update(groupTopicType));
+        if (result.getCode() == 0) {
+            result.setCode(3);
         }
-        return resultModel;
+        return result;
     }
 
     @RequestMapping(value = "/topicTypeDelete/{typeId}", method = RequestMethod.GET)
@@ -556,18 +556,18 @@ public class GroupController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         GroupTopicType groupTopicType = groupTopicTypeService.findById(typeId);
         if (groupTopicType == null) {
-            return new ResultModel(-1, "帖子分类不存在");
+            return new Result(-1, "帖子分类不存在");
         }
         Group group = groupService.findById(groupTopicType.getGroupId());
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             throw new ParamException();
         }
-        ResultModel resultModel = new ResultModel(groupTopicTypeService.deleteById(typeId));
-        if (resultModel.getCode() == 0) {
-            resultModel.setCode(3);
+        Result result = new Result(groupTopicTypeService.deleteById(typeId));
+        if (result.getCode() == 0) {
+            result.setCode(3);
         }
-        return resultModel;
+        return result;
     }
 
 }

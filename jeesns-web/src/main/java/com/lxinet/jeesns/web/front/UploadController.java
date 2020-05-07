@@ -7,7 +7,7 @@ import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.picture.PictureAlbumService;
 import com.lxinet.jeesns.service.picture.PictureService;
 import com.lxinet.jeesns.utils.MemberUtil;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.model.picture.PictureAlbum;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ImageUtil;
@@ -95,7 +95,7 @@ public class UploadController extends BaseController {
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
 		if(suffix == null || (!".png".equals(suffix.toLowerCase()) && !".jpg".equals(suffix.toLowerCase()) && !".gif".equals(suffix.toLowerCase()) && !".jpeg".equals(suffix.toLowerCase()) && !".bmp".equals(suffix.toLowerCase()))) {
-			return new ResultModel(-1,"格式不支持");
+			return new Result(-1,"格式不支持");
 		}
 		String newFileName = UUID.randomUUID() + suffix;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -159,7 +159,7 @@ public class UploadController extends BaseController {
 		}else {
 			url = path + newFileName;
 		}
-		return new ResultModel(0,"上传成功",url);
+		return new Result(0,"上传成功",url);
 	}
 
 	/**
@@ -193,12 +193,12 @@ public class UploadController extends BaseController {
 		if(findMember != null){
 			String oldAvatar = findMember.getAvatar();
 			findMember.setAvatar(filePath + fileName);
-			ResultModel resultModel = memberService.updateAvatar(findMember,oldAvatar,request);
-			if (resultModel.getCode() == 0){
+			Result avaResult = memberService.updateAvatar(findMember,oldAvatar,request);
+			if (avaResult.getCode() == 0){
 				MemberUtil.setLoginMember(request, findMember);
 			}
-			result.put("success", resultModel.getCode() == 0);
-			result.put("msg", resultModel.getMessage());
+			result.put("success", avaResult.getCode() == 0);
+			result.put("msg", avaResult.getMessage());
 		}else {
 			result.put("success",true);
 			result.put("msg","会员不存在!");

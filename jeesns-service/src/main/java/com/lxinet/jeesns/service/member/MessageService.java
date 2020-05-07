@@ -1,9 +1,9 @@
 package com.lxinet.jeesns.service.member;
 
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.AtUtil;
 import com.lxinet.jeesns.dao.member.IMessageDao;
 import com.lxinet.jeesns.model.member.Member;
@@ -17,27 +17,27 @@ import java.util.List;
  * Created by zchuanzhao on 2017/3/9.
  */
 @Service("messageService")
-public class MessageService extends BaseServiceImpl<Message> {
+public class MessageService extends BaseService<Message> {
     @Resource
     private IMessageDao messageDao;
     @Resource
     private MemberService memberService;
 
-    public ResultModel sentMsg(Integer fromMemberId, Integer toMemberId, String content) {
+    public Result sentMsg(Integer fromMemberId, Integer toMemberId, String content) {
         if(fromMemberId.intValue() == toMemberId.intValue()){
-            return new ResultModel(-1, "不能发信息给自己");
+            return new Result(-1, "不能发信息给自己");
         }
         Message message = new Message();
         message.setFromMemberId(fromMemberId);
         message.setToMemberId(toMemberId);
         message.setContent(content);
         if(messageDao.sentMsg(message) == 1){
-            return new ResultModel(0, "信息发送成功");
+            return new Result(0, "信息发送成功");
         }
-        return new ResultModel(-1, "信息发送失败");
+        return new Result(-1, "信息发送失败");
     }
 
-    public ResultModel systemMsgSave(Integer toMemberId, String content, Integer appTag, Integer type, Integer relateKeyId, Integer loginMemberId, String description) {
+    public Result systemMsgSave(Integer toMemberId, String content, Integer appTag, Integer type, Integer relateKeyId, Integer loginMemberId, String description) {
         Message message = new Message();
         message.setToMemberId(toMemberId);
         message.setContent(content);
@@ -47,30 +47,30 @@ public class MessageService extends BaseServiceImpl<Message> {
         message.setMemberId(loginMemberId);
         message.setDescription(description);
         if(messageDao.systemMsgSave(message) == 1){
-            return new ResultModel(0, "信息发送成功");
+            return new Result(0, "信息发送成功");
         }
-        return new ResultModel(-1, "信息发送失败");
+        return new Result(-1, "信息发送失败");
     }
 
-    public ResultModel<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId) {
+    public Result<Message> listByPage(Page page, Integer fromMemberId, Integer toMemberId) {
         List<Message> list = messageDao.list(page,fromMemberId, toMemberId);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }
 
-    public ResultModel<Message> messageRecords(Page page, Integer fromMemberId, Integer toMemberId) {
+    public Result<Message> messageRecords(Page page, Integer fromMemberId, Integer toMemberId) {
         List<Message> list = messageDao.messageRecords(page, fromMemberId, toMemberId);
-        ResultModel model = new ResultModel(0, page);
+        Result model = new Result(0, page);
         model.setData(list);
         //设置该会员聊天记录为已读
         this.setRead(fromMemberId,toMemberId);
         return model;
     }
 
-    public ResultModel<Message> systemMessage(Page page, Integer toMemberId, String basePath) {
+    public Result<Message> systemMessage(Page page, Integer toMemberId, String basePath) {
         List<Message> list = messageDao.systemMessage(page, toMemberId,basePath);
-        ResultModel model = new ResultModel(0, page);
+        Result model = new Result(0, page);
         model.setData(list);
         //设置该会员聊天记录为已读
         this.setRead(null,toMemberId);

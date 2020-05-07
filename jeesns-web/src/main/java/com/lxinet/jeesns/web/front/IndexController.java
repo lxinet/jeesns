@@ -14,7 +14,7 @@ import com.lxinet.jeesns.service.system.ActionLogService;
 import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.EmojiUtil;
 import com.lxinet.jeesns.utils.MemberUtil;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
@@ -66,7 +66,7 @@ public class IndexController extends BaseController {
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResultModel linkModel = linkService.recommentList();
+        Result linkModel = linkService.recommentList();
         page.setPageSize(50);
         model.addAttribute("linkModel",linkModel);
 
@@ -83,7 +83,7 @@ public class IndexController extends BaseController {
         model.addAttribute("member",member);
         Member loginMember = MemberUtil.getLoginMember(request);
         model.addAttribute("loginMember", loginMember);
-        ResultModel<ActionLog> list = actionLogService.memberActionLog(page,id);
+        Result<ActionLog> list = actionLogService.memberActionLog(page,id);
         model.addAttribute("actionLogModel",list);
         return jeesnsConfig.getFrontTemplate() + "/u";
     }
@@ -167,7 +167,7 @@ public class IndexController extends BaseController {
      */
     @RequestMapping(value={"/link"},method = RequestMethod.GET)
     public String link(Model model) {
-        ResultModel linkModel = linkService.allList();
+        Result linkModel = linkService.allList();
         model.addAttribute("linkModel",linkModel);
         return jeesnsConfig.getFrontTemplate() + "/link";
     }

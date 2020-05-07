@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.utils.*;
@@ -31,7 +31,7 @@ import java.util.Map;
  */
 @Service("groupService")
 @Transactional
-public class GroupService extends BaseServiceImpl<Group> {
+public class GroupService extends BaseService<Group> {
     @Resource
     private IGroupDao groupDao;
     @Resource

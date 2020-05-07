@@ -7,7 +7,7 @@ import com.lxinet.jeesns.service.picture.PictureCommentService;
 import com.lxinet.jeesns.service.picture.PictureService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
@@ -56,8 +56,8 @@ public class PictureController extends BaseController {
     @Before(UserLoginInterceptor.class)
     public String album(Model model,@PathVariable("memberId") Integer memberId){
         Member findMember = memberService.findById(memberId);
-        ResultModel resultModel = pictureAlbumService.listByMember(memberId);
-        model.addAttribute("model", resultModel);
+        Result result = pictureAlbumService.listByMember(memberId);
+        model.addAttribute("model", result);
         model.addAttribute("member",findMember);
         return jeesnsConfig.getFrontTemplate() + "/picture/album";
     }
@@ -68,8 +68,8 @@ public class PictureController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         Member findMember = memberService.findById(loginMember.getId());
         model.addAttribute("member",findMember);
-        ResultModel resultModel = pictureAlbumService.listByMember(loginMember.getId());
-        model.addAttribute("model", resultModel);
+        Result result = pictureAlbumService.listByMember(loginMember.getId());
+        model.addAttribute("model", result);
         return MEMBER_FTL_PATH + "/picture/album";
     }
 
@@ -82,13 +82,13 @@ public class PictureController extends BaseController {
     @RequestMapping(value = "/member/picture/saveAlbum",method = RequestMethod.POST)
     @Before(UserLoginInterceptor.class)
     @ResponseBody
-    public ResultModel saveAlbum(PictureAlbum pictureAlbum){
+    public Result saveAlbum(PictureAlbum pictureAlbum){
         if (StringUtils.isEmpty(pictureAlbum.getName())){
-            return new ResultModel(-1,"相册名称不能为空");
+            return new Result(-1,"相册名称不能为空");
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         pictureAlbum.setMemberId(loginMember.getId());
-        return new ResultModel(pictureAlbumService.save(pictureAlbum));
+        return new Result(pictureAlbumService.save(pictureAlbum));
     }
 
     @RequestMapping(value = "/picture/list/{memberId}-{albumId}",method = RequestMethod.GET)
@@ -103,8 +103,8 @@ public class PictureController extends BaseController {
         if (pictureAlbum.getJuri() != 0){
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1012, Const.INDEX_ERROR_FTL_PATH);
         }
-        ResultModel resultModel = pictureService.listByAlbum(page,albumId,loginMemberId);
-        model.addAttribute("model", resultModel);
+        Result result = pictureService.listByAlbum(page,albumId,loginMemberId);
+        model.addAttribute("model", result);
         model.addAttribute("pictureAlbum",pictureAlbum);
         return jeesnsConfig.getFrontTemplate() + "/picture/list";
     }
@@ -122,8 +122,8 @@ public class PictureController extends BaseController {
         if (pictureAlbum == null || memberId.intValue() != pictureAlbum.getMemberId().intValue()){
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1010, Const.INDEX_ERROR_FTL_PATH);
         }
-        ResultModel resultModel = pictureService.listByAlbum(page,albumId,loginMemberId);
-        model.addAttribute("model", resultModel);
+        Result result = pictureService.listByAlbum(page,albumId,loginMemberId);
+        model.addAttribute("model", result);
         model.addAttribute("pictureAlbum",pictureAlbum);
         return MEMBER_FTL_PATH + "/picture/list";
     }
@@ -133,19 +133,19 @@ public class PictureController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Page page = new Page(request);
-        ResultModel resultModel = pictureService.listByPage(page,loginMemberId);
-        model.addAttribute("model", resultModel);
+        Result result = pictureService.listByPage(page,loginMemberId);
+        model.addAttribute("model", result);
         return jeesnsConfig.getFrontTemplate() + "/picture/index";
     }
 
     @RequestMapping(value = "/picture/indexData",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel indexData(){
+    public Result indexData(){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResultModel resultModel = pictureService.listByPage(page,loginMemberId);
-        return resultModel;
+        Result result = pictureService.listByPage(page,loginMemberId);
+        return result;
     }
 
     @RequestMapping(value = "/picture/detail/{pictureId}",method = RequestMethod.GET)
@@ -164,20 +164,20 @@ public class PictureController extends BaseController {
     @RequestMapping(value="/picture/comment/{pictureId}",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel comment(@PathVariable("pictureId") Integer pictureId, String content) throws NotLoginException {
+    public Result comment(@PathVariable("pictureId") Integer pictureId, String content) throws NotLoginException {
         Member loginMember = MemberUtil.getLoginMember(request);
         if(StringUtils.isEmpty(content)){
-            return new ResultModel(-1,"内容不能为空");
+            return new Result(-1,"内容不能为空");
         }
         if(content.length() > 500){
-            return new ResultModel(-1,"评论内容不能超过500长度");
+            return new Result(-1,"评论内容不能超过500长度");
         }
-        return new ResultModel(pictureCommentService.save(loginMember,content,pictureId));
+        return new Result(pictureCommentService.save(loginMember,content,pictureId));
     }
 
     @RequestMapping(value="/picture/commentList/{pictureId}.json",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel commentList(@PathVariable("pictureId") Integer pictureId){
+    public Result commentList(@PathVariable("pictureId") Integer pictureId){
         Page page = new Page(request);
         if(pictureId == null){
             pictureId = 0;
@@ -188,7 +188,7 @@ public class PictureController extends BaseController {
     @RequestMapping(value="/picture/favor/{pictureId}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel favor(@PathVariable("pictureId") Integer pictureId) throws NotLoginException, ParamException {
+    public Result favor(@PathVariable("pictureId") Integer pictureId) throws NotLoginException, ParamException {
         Member loginMember = MemberUtil.getLoginMember(request);
         if(pictureId == null) {
             throw new ParamException();
@@ -214,12 +214,12 @@ public class PictureController extends BaseController {
     @RequestMapping(value="/member/picture/uploadPic/{albumId}")
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel uploadPic(@RequestParam(value = "file", required = false) MultipartFile file, @PathVariable("albumId") Integer albumId) {
+    public Result uploadPic(@RequestParam(value = "file", required = false) MultipartFile file, @PathVariable("albumId") Integer albumId) {
         Member loginMember = MemberUtil.getLoginMember(request);
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
         if(suffix == null || (!".png".equals(suffix.toLowerCase()) && !".jpg".equals(suffix.toLowerCase()) && !".gif".equals(suffix.toLowerCase()) && !".jpeg".equals(suffix.toLowerCase()) && !".bmp".equals(suffix.toLowerCase()))) {
-            return new ResultModel(-1,"格式不支持");
+            return new Result(-1,"格式不支持");
         }
         String newFileName = UUID.randomUUID() + suffix;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -241,7 +241,7 @@ public class PictureController extends BaseController {
         try {
             PictureAlbum pictureAlbum = pictureAlbumService.findById(albumId);
             if (pictureAlbum == null){
-                return new ResultModel(-1,"相册不存在");
+                return new Result(-1,"相册不存在");
             }
 
             BufferedImage sourceImg = ImageIO.read(new FileInputStream(targetFile));
@@ -265,6 +265,6 @@ public class PictureController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResultModel(0,"上传成功");
+        return new Result(0,"上传成功");
     }
 }

@@ -4,7 +4,7 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.service.group.GroupService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.group.Group;
@@ -39,15 +39,15 @@ public class GroupController extends BaseController {
 
     @RequestMapping(value = "${managePath}/group/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") int id){
+    public Result delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(groupService.delete(loginMember,id));
+        return new Result(groupService.delete(loginMember,id));
     }
 
     @RequestMapping(value = "${managePath}/group/changeStatus/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel changeStatus(@PathVariable("id") int id){
-        return new ResultModel(groupService.changeStatus(id));
+    public Result changeStatus(@PathVariable("id") int id){
+        return new Result(groupService.changeStatus(id));
     }
 
 

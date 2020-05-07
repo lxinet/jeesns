@@ -1,8 +1,8 @@
 package com.lxinet.jeesns.service.member;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.member.IScoreDetailDao;
 import com.lxinet.jeesns.model.member.ScoreDetail;
 import com.lxinet.jeesns.model.system.ScoreRule;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/21.
  */
 @Service
-public class ScoreDetailService extends BaseServiceImpl<ScoreDetail> {
+public class ScoreDetailService extends BaseService<ScoreDetail> {
     @Resource
     private IScoreDetailDao scoreDetailDao;
     @Resource
@@ -23,9 +23,9 @@ public class ScoreDetailService extends BaseServiceImpl<ScoreDetail> {
     @Resource
     private MemberService memberService;
 
-    public ResultModel<ScoreDetail> list(Page page, Integer memberId) {
+    public Result<ScoreDetail> list(Page page, Integer memberId) {
         List<ScoreDetail> list = scoreDetailDao.list(page,memberId);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }

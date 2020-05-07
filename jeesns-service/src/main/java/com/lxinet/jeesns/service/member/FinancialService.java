@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.member;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.PageUtil;
 import com.lxinet.jeesns.dao.member.IFinancialDao;
 import com.lxinet.jeesns.model.member.Financial;
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/11/28.
  */
 @Service
-public class FinancialService extends BaseServiceImpl<Financial> {
+public class FinancialService extends BaseService<Financial> {
     @Resource
     private IFinancialDao financialDao;
 

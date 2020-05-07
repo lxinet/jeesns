@@ -14,8 +14,8 @@
     <link href="${basePath}/res/plugins/webuploader/webuploader.css" rel="stylesheet">
     <link href="${basePath}/res/plugins/layer/skin/layer.css" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="${basePath}/res/common/js/html5shiv.js"></script>
-    <script src="${basePath}/res/common/js/respond.min.js"></script>
+    <script src=${basePath}"/res/common/js/html5shiv.js"></script>
+    <script src=${basePath}"/res/common/js/respond.min.js"></script>
     <![endif]-->
     <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
     <script src="${basePath}/res/common/js/jquery.form.js"></script>

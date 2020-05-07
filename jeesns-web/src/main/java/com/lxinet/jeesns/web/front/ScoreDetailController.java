@@ -5,7 +5,7 @@ import com.lxinet.jeesns.service.member.ScoreDetailService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.member.ScoreDetail;
@@ -31,8 +31,8 @@ public class ScoreDetailController extends BaseController {
     public String list(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         Page page = new Page(request);
-        ResultModel<ScoreDetail> resultModel = scoreDetailService.list(page,loginMember.getId());
-        model.addAttribute("model", resultModel);
+        Result<ScoreDetail> result = scoreDetailService.list(page,loginMember.getId());
+        model.addAttribute("model", result);
         return INDEX_FTL_PATH + "list";
     }
 }

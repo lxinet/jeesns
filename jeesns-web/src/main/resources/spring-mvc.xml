@@ -149,9 +149,9 @@
     <aop:aspectj-autoproxy />
     <aop:config>
         <aop:aspect id="controllerAop" ref="controllerAop">
-            <!--<aop:pointcut id="target" expression="execution(public com.lxinet.jeesns.core.dto.ResultModel *(..)) ||-->
+            <!--<aop:pointcut id="target" expression="execution(public com.lxinet.jeesns.core.dto.Result *(..)) ||-->
                     <!--execution(public * com.lxinet.jeesns.web..*.*(..))" />-->
-            <aop:pointcut id="target" expression="execution(public com.lxinet.jeesns.core.dto.ResultModel *(..))" />
+            <aop:pointcut id="target" expression="execution(public com.lxinet.jeesns.core.dto.Result *(..))" />
             <aop:around method="handlerController" pointcut-ref="target" />
         </aop:aspect>
     </aop:config>

@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage.member;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.MemberLevel;
@@ -36,9 +36,9 @@ public class MemberLevelController extends BaseController {
 
     @PostMapping("save")
     @ResponseBody
-    public ResultModel save(MemberLevel memberLevel) {
+    public Result save(MemberLevel memberLevel) {
         boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_LEVEL_CLASS, "save",memberLevel);
-        return new ResultModel(boo);
+        return new Result(boo);
     }
 
     @GetMapping("edit/{id}")
@@ -50,16 +50,16 @@ public class MemberLevelController extends BaseController {
 
     @PostMapping("update")
     @ResponseBody
-    public ResultModel update(MemberLevel memberLevel) {
+    public Result update(MemberLevel memberLevel) {
         boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_LEVEL_CLASS, "update",memberLevel);
-        return new ResultModel(boo);
+        return new Result(boo);
     }
 
     @GetMapping("delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id) {
+    public Result delete(@PathVariable("id") Integer id) {
         boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_LEVEL_CLASS, "deleteById",id);
-        return new ResultModel(boo);
+        return new Result(boo);
     }
 
 

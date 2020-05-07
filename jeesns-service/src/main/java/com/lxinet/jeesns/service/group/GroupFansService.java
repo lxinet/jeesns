@@ -1,9 +1,9 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.model.group.Group;
 import com.lxinet.jeesns.model.group.GroupFans;
 import com.lxinet.jeesns.model.member.Member;
@@ -18,13 +18,13 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/26.
  */
 @Service("groupFansService")
-public class GroupFansService extends BaseServiceImpl<GroupFans> {
+public class GroupFansService extends BaseService<GroupFans> {
     @Resource
     private IGroupFansDao groupFansDao;
 
-    public ResultModel listByPage(Page page, Integer groupId) {
+    public Result listByPage(Page page, Integer groupId) {
         List<GroupFans> list = groupFansDao.list(page, groupId);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }
@@ -57,9 +57,9 @@ public class GroupFansService extends BaseServiceImpl<GroupFans> {
     }
 
 
-    public ResultModel listByMember(Page page, Integer memberId) {
+    public Result listByMember(Page page, Integer memberId) {
         List<Group> list = groupFansDao.listByMember(page, memberId);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }

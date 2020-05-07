@@ -4,7 +4,7 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.service.cms.ArticleCommentService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.cms.ArticleComment;
@@ -31,9 +31,9 @@ public class ArticleCommentController extends BaseController {
     public String list(String key, @RequestParam(value = "articleId",defaultValue = "0",required = false) Integer articleId, Model model) {
         Page page = new Page(request);
         List<ArticleComment> list = articleCommentService.listByPage(page, articleId, key);
-        ResultModel resultModel = new ResultModel(0, page);
-        resultModel.setData(list);
-        model.addAttribute("model", resultModel);
+        Result result = new Result(0, page);
+        result.setData(list);
+        model.addAttribute("model", result);
         model.addAttribute("key",key);
         return MANAGE_FTL_PATH + "list";
     }
@@ -41,9 +41,9 @@ public class ArticleCommentController extends BaseController {
 
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
+    public Result delete(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(articleCommentService.delete(loginMember,id));
+        return new Result(articleCommentService.delete(loginMember,id));
     }
 
 }

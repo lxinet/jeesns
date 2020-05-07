@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage.question;
 
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.model.question.Question;
@@ -35,7 +35,7 @@ public class AnswerController extends BaseController {
     public String list(@PathVariable("questionId") Integer questionId, Model model) {
         Question question = questionService.findById(questionId);
         Answer bestAnswer = answerService.findById(question.getAnswerId());
-        ResultModel answerModel = answerService.listByQuestion(questionId);
+        Result answerModel = answerService.listByQuestion(questionId);
         model.addAttribute("question",question);
         model.addAttribute("bestAnswer",bestAnswer);
         model.addAttribute("model",answerModel);
@@ -44,7 +44,7 @@ public class AnswerController extends BaseController {
 
     @GetMapping("delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(answerService.deleteById(id));
+    public Result delete(@PathVariable("id") Integer id){
+        return new Result(answerService.deleteById(id));
     }
 }

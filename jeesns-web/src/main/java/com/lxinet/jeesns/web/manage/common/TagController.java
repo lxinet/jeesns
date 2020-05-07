@@ -3,7 +3,7 @@ package com.lxinet.jeesns.web.manage.common;
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.system.Tag;
@@ -30,9 +30,9 @@ public class TagController extends BaseController {
     @RequestMapping("/list/{funcType}")
     public String list(Model model,@PathVariable("funcType") Integer funcType){
         Page page = new Page(request);
-        ResultModel resultModel = tagService.listByPage(page,funcType);
+        Result result = tagService.listByPage(page,funcType);
         model.addAttribute("funcType",funcType);
-        model.addAttribute("model", resultModel);
+        model.addAttribute("model", result);
         return MANAGE_FTL_PATH + "list";
     }
 
@@ -44,8 +44,8 @@ public class TagController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public ResultModel save(Tag tag){
-        return new ResultModel(tagService.save(tag));
+    public Result save(Tag tag){
+        return new Result(tagService.save(tag));
     }
 
 
@@ -58,15 +58,15 @@ public class TagController extends BaseController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public ResultModel update(Tag tag){
+    public Result update(Tag tag){
         ValidUtill.checkIsNull(tag);
-        return new ResultModel(tagService.update(tag));
+        return new Result(tagService.update(tag));
     }
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(tagService.delete(id));
+    public Result delete(@PathVariable("id") Integer id){
+        return new Result(tagService.delete(id));
     }
 
 }
