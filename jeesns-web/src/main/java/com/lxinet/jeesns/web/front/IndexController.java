@@ -66,10 +66,7 @@ public class IndexController extends BaseController {
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        Result linkModel = linkService.recommentList();
         page.setPageSize(50);
-        model.addAttribute("linkModel",linkModel);
-
         return jeesnsConfig.getFrontTemplate() + "/index";
     }
 

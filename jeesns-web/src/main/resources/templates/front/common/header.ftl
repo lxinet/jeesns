@@ -22,30 +22,31 @@
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <div class="nav navbar-nav navbar-nav-right">
-                <#if loginUser == null>
-                    <li><a href="${basePath}/member/login">登录</a></li>
-                    <li><a href="${basePath}/member/register">注册</a></li>
-                <#else>
-                <li class="dropdown">
-                    <a href="${basePath}/member/" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="${basePath}${loginUser.avatar}" class="img-circle" width="25px" height="25px" style="margin-top: 1px;margin-right:5px;"/>
+                <#if loginUser??>
+
+                    <li class="dropdown">
+                        <a href="${basePath}/member/" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="${basePath}${loginUser.avatar}" class="img-circle" width="25px" height="25px" style="margin-top: 1px;margin-right:5px;"/>
                             ${loginUser.name}<span class="label label-danger">${loginUser.memberLevel.name}</span>
                             <#if unReadMessageNum+systemUnReadMessageNum &gt; 0><i class="icon-comments"></i></#if>
-                        <b class="caret"></b>
-                    </a>
+                            <b class="caret"></b>
+                        </a>
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="${basePath}/member/">个人中心</a></li>
-                        <li><a href="${basePath}/member/systemMessage">系统信息 ${(systemUnReadMessageNum > 0)?string("("+systemUnReadMessageNum+")","")}</a></li>
-                        <li><a href="${basePath}/member/message">私信 ${(unReadMessageNum > 0)?string("("+unReadMessageNum+")","")}</a></li>
-                        <li><a href="${basePath}/member/editInfo">设置</a></li>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="${basePath}/member/">个人中心</a></li>
+                            <li><a href="${basePath}/member/systemMessage">系统信息 ${(systemUnReadMessageNum > 0)?string("("+systemUnReadMessageNum+")","")}</a></li>
+                            <li><a href="${basePath}/member/message">私信 ${(unReadMessageNum > 0)?string("("+unReadMessageNum+")","")}</a></li>
+                            <li><a href="${basePath}/member/editInfo">设置</a></li>
                             <#if loginUser?? && loginUser.isAdmin &gt; 0>
                                 <li><a href="${managePath}/" target="_blank">管理</a></li>
                             </#if>
-                        <li class="divider"></li>
-                        <li><a href="${basePath}/member/logout">退出</a></li>
-                    </ul>
-                </li>
+                            <li class="divider"></li>
+                            <li><a href="${basePath}/member/logout">退出</a></li>
+                        </ul>
+                    </li>
+                <#else>
+                    <li><a href="${basePath}/member/login">登录</a></li>
+                    <li><a href="${basePath}/member/register">注册</a></li>
                 </#if>
                 </div>
             </ul>
