@@ -1,8 +1,7 @@
-package com.lxinet.jeesns;
+package com.lxinet.jeesns.configurer;
 
 import com.lxinet.jeesns.directive.*;
 import freemarker.template.Configuration;
-import freemarker.template.TemplateException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

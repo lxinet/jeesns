@@ -73,7 +73,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/system/action/memberActionLog?key=${key}"
+                                url="${managePath}/system/action/memberActionLog"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>
