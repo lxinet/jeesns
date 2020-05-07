@@ -4,11 +4,11 @@ import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.cms.IArticleDao;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.service.member.MemberService;
@@ -30,7 +30,7 @@ import java.util.Map;
  * Created by zchuanzhao on 2016/10/14.
  */
 @Service("articleService")
-public class ArticleService extends BaseServiceImpl<Article> {
+public class ArticleService extends BaseService<Article> {
     @Resource
     private IArticleDao articleDao;
     @Resource
@@ -112,12 +112,12 @@ public class ArticleService extends BaseServiceImpl<Article> {
         return true;
     }
 
-    public ResultModel listByPage(Page page, String key, int cateid, int status, int memberId) {
+    public Result listByPage(Page page, String key, int cateid, int status, int memberId) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
         List<Article> list = articleDao.list(page, key,cateid,status,memberId);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }
@@ -141,12 +141,12 @@ public class ArticleService extends BaseServiceImpl<Article> {
         return true;
     }
 
-    public ResultModel favor(Member loginMember, int articleId) {
+    public Result favor(Member loginMember, int articleId) {
         Article article = this.findById(articleId);
         ValidUtill.checkIsNull(article, "文章不存在");
         int favor = article.getFavor();
         String message;
-        ResultModel<Integer> resultModel;
+        Result<Integer> result;
         if(articleFavorService.find(articleId,loginMember.getId()) == null){
             //增加
             articleDao.favor(articleId,1);
@@ -166,9 +166,9 @@ public class ArticleService extends BaseServiceImpl<Article> {
             //取消喜欢，扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.ARTICLE_RECEIVED_LIKE, articleId);
         }
-        resultModel = new ResultModel(0,message);
-        resultModel.setData(favor);
-        return resultModel;
+        result = new Result(0,message);
+        result.setData(favor);
+        return result;
     }
 
     public List<Article> listByCustom(int cid, String sort, int num, int day,int thumbnail) {

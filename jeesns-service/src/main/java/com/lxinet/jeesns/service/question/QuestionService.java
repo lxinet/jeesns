@@ -1,8 +1,8 @@
 package com.lxinet.jeesns.service.question;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.PageUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
@@ -27,7 +27,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/12/7.
  */
 @Service("questionService")
-public class QuestionService extends BaseServiceImpl<Question> {
+public class QuestionService extends BaseService<Question> {
 
     @Resource
     private IQuestionDao questionDao;
@@ -43,7 +43,7 @@ public class QuestionService extends BaseServiceImpl<Question> {
     private AnswerService answerService;
 
 
-    public ResultModel<Question> list(Integer typeId, String statusName) {
+    public Result<Question> list(Integer typeId, String statusName) {
         Integer status = -2;
         if ("close".equalsIgnoreCase(statusName)){
             status = -1;
@@ -53,7 +53,7 @@ public class QuestionService extends BaseServiceImpl<Question> {
             status = 1;
         }
         List<Question> list = questionDao.list(PageUtil.getPage(), typeId, status);
-        ResultModel model = new ResultModel(0,PageUtil.getPage());
+        Result model = new Result(0,PageUtil.getPage());
         model.setData(list);
         return model;
     }

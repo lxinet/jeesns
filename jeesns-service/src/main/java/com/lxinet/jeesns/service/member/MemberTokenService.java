@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.member;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.member.IMemberTokenDao;
 import com.lxinet.jeesns.model.member.MemberToken;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by zchuanzhao on 16/9/29.
  */
 @Service("memberTokenService")
-public class MemberTokenService extends BaseServiceImpl<MemberToken>{
+public class MemberTokenService extends BaseService<MemberToken>{
     @Resource
     private IMemberTokenDao memberTokenDao;
 

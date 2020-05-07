@@ -1,10 +1,10 @@
 package com.lxinet.jeesns.service.weibo;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.member.Member;
@@ -26,7 +26,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/22.
  */
 @Service("weiboCommentService")
-public class WeiboCommentService extends BaseServiceImpl<WeiboComment> {
+public class WeiboCommentService extends BaseService<WeiboComment> {
     @Resource
     private IWeiboCommentDao weiboCommentDao;
     @Resource
@@ -77,10 +77,10 @@ public class WeiboCommentService extends BaseServiceImpl<WeiboComment> {
         return result == 1;
     }
 
-    public ResultModel listByWeibo(Page page, int weiboId) {
+    public Result listByWeibo(Page page, int weiboId) {
         List<WeiboComment> list = weiboCommentDao.listByWeibo(page, weiboId);
         atFormat(list);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }

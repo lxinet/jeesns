@@ -3,7 +3,7 @@ package com.lxinet.jeesns.web.front;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.utils.PageUtil;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Financial;
@@ -34,9 +34,9 @@ public class FinancialController extends BaseController {
     public String list(Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         List<Financial> list = financialService.list(loginMember.getId());
-        ResultModel resultModel = new ResultModel(0, PageUtil.getPage());
-        resultModel.setData(list);
-        model.addAttribute("model", resultModel);
+        Result result = new Result(0, PageUtil.getPage());
+        result.setData(list);
+        model.addAttribute("model", result);
         return INDEX_FTL_PATH + "list";
     }
 }

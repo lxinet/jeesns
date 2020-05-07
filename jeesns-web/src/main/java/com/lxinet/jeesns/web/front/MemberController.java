@@ -10,7 +10,7 @@ import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
@@ -54,15 +54,15 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel<Member> login(Member member, @RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
-        ResultModel resultModel = new ResultModel(memberService.login(member,request));
-        resultModel.setCode(3);
-        if (StringUtils.isNotEmpty(redirectUrl) && resultModel.getCode() >= 0){
-            resultModel.setUrl(redirectUrl);
+    public Result<Member> login(Member member, @RequestParam(value = "redirectUrl",required = false,defaultValue = "") String redirectUrl){
+        Result result = new Result(memberService.login(member,request));
+        result.setCode(3);
+        if (StringUtils.isNotEmpty(redirectUrl) && result.getCode() >= 0){
+            result.setUrl(redirectUrl);
         }else {
-            resultModel.setUrl(request.getContextPath() + "/member/");
+            result.setUrl(request.getContextPath() + "/member/");
         }
-        return resultModel;
+        return result;
     }
 
     @RequestMapping(value = {"/register","/reg/{superMemberId}"},method = RequestMethod.GET)
@@ -81,28 +81,28 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel register(Member member, String repassword){
+    public Result register(Member member, String repassword){
         Map<String,String> config = configService.getConfigToMap();
         if("0".equals(config.get(ConfigUtil.MEMBER_REGISTER_OPEN))){
-            return new ResultModel(-1,"注册功能已关闭");
+            return new Result(-1,"注册功能已关闭");
         }
         if(member == null){
             throw new ParamException();
         }
         if(member.getName().length() < 6){
-            return new ResultModel(-1,"用户名长度最少6位");
+            return new Result(-1,"用户名长度最少6位");
         }
         if(!StringUtils.checkNickname(member.getName())){
-            return new ResultModel(-1,"用户名只能由中文、字母、数字、下划线(_)或者短横线(-)组成");
+            return new Result(-1,"用户名只能由中文、字母、数字、下划线(_)或者短横线(-)组成");
         }
         if(!StringUtils.isEmail(member.getEmail())){
-            return new ResultModel(-1,"邮箱格式错误");
+            return new Result(-1,"邮箱格式错误");
         }
         if(member.getPassword().length() < 6){
-            return new ResultModel(-1,"密码长度最少6位");
+            return new Result(-1,"密码长度最少6位");
         }
         if(!member.getPassword().equals(repassword)){
-            return new ResultModel(-1,"两次密码输入不一致");
+            return new Result(-1,"两次密码输入不一致");
         }
         return memberService.register(member,request);
     }
@@ -116,7 +116,7 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/active",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel active(String randomCode){
+    public Result active(String randomCode){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.active(loginMember,randomCode,request);
     }
@@ -124,7 +124,7 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/sendEmailActiveValidCode",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel sendEmailActiveValidCode(){
+    public Result sendEmailActiveValidCode(){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.sendEmailActiveValidCode(loginMember, request);
     }
@@ -136,7 +136,7 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/forgetpwd",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel forgetpwd(String name, String email){
+    public Result forgetpwd(String name, String email){
         return memberService.forgetpwd(name, email, request);
     }
 
@@ -149,15 +149,15 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/resetpwd",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel resetpwd(String email, String token, String password, String repassword){
+    public Result resetpwd(String email, String token, String password, String repassword){
         if(StringUtils.isEmpty(password)){
-            return new ResultModel(-1,"新密码不能为空");
+            return new Result(-1,"新密码不能为空");
         }
         if(password.length() < 6){
-            return new ResultModel(-1,"密码不能少于6个字符");
+            return new Result(-1,"密码不能少于6个字符");
         }
         if(!password.equals(repassword)){
-            return new ResultModel(-1,"两次密码输入不一致");
+            return new Result(-1,"两次密码输入不一致");
         }
         return memberService.resetpwd(email,token,password,request);
     }
@@ -169,7 +169,7 @@ public class MemberController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         Member member = memberService.findById(loginMember.getId());
         Page page = new Page(request);
-        ResultModel<ActionLog> list = actionLogService.memberActionLog(page,loginMember.getId());
+        Result<ActionLog> list = actionLogService.memberActionLog(page,loginMember.getId());
         model.addAttribute("member",member);
         model.addAttribute("actionLogModel",list);
         return MEMBER_FTL_PATH + "index";
@@ -184,14 +184,14 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/editBaseInfo",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel editBaseInfo(String name, String sex, String introduce){
+    public Result editBaseInfo(String name, String sex, String introduce){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.editBaseInfo(loginMember,name,sex,introduce);
     }
 
     @RequestMapping(value = "/editOtherInfo",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel editOtherInfo(String birthday, String qq, String wechat, String contactPhone,
+    public Result editOtherInfo(String birthday, String qq, String wechat, String contactPhone,
                                      String contactEmail, String website){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.editOtherInfo(loginMember,birthday,qq,wechat,contactPhone,contactEmail,website);
@@ -211,15 +211,15 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "/password",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel password(String oldPassword, String newPassword, String renewPassword){
+    public Result password(String oldPassword, String newPassword, String renewPassword){
         if(StringUtils.isEmpty(oldPassword)){
-            return new ResultModel(-1,"旧密码不能为空");
+            return new Result(-1,"旧密码不能为空");
         }
         if(StringUtils.isEmpty(newPassword)){
-            return new ResultModel(-1,"新密码不能为空");
+            return new Result(-1,"新密码不能为空");
         }
         if(!newPassword.equals(renewPassword)){
-            return new ResultModel(-1,"两次密码输入不一致");
+            return new Result(-1,"两次密码输入不一致");
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.changepwd(loginMember,oldPassword,newPassword);
@@ -239,7 +239,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/follows/{followWhoId}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel follows(@PathVariable(value = "followWhoId") Integer followWhoId){
+    public Result follows(@PathVariable(value = "followWhoId") Integer followWhoId){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.follows(loginMember,followWhoId);
     }
@@ -251,7 +251,7 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "/isFollowed/{followWhoId}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel isFollowed(@PathVariable(value = "followWhoId") Integer followWhoId){
+    public Result isFollowed(@PathVariable(value = "followWhoId") Integer followWhoId){
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.isFollowed(loginMember,followWhoId);
     }
@@ -286,11 +286,11 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/listContactMembers",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel listContactMembers(){
+    public Result listContactMembers(){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
         //获取联系人
-        ResultModel contactMembers = memberService.listContactMembers(page, loginMember.getId());
+        Result contactMembers = memberService.listContactMembers(page, loginMember.getId());
         return contactMembers;
     }
 
@@ -302,10 +302,10 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/messageRecords/{memberId}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel messageRecords(@PathVariable("memberId") Integer memberId){
+    public Result messageRecords(@PathVariable("memberId") Integer memberId){
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
+        Result messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
         return messageRecords;
     }
 
@@ -338,14 +338,14 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "/sendMessage",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel sendMessage(String content,Integer memberId){
+    public Result sendMessage(String content,Integer memberId){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(memberId == null){
-            return new ResultModel(-1,"请选择发送对象");
+            return new Result(-1,"请选择发送对象");
         }
         Member findMember= memberService.findById(memberId);
         if(findMember == null){
-            return new ResultModel(-1,"会员不存在");
+            return new Result(-1,"会员不存在");
         }
         return messageService.sentMsg(loginMember.getId(), memberId, content);
     }
@@ -361,7 +361,7 @@ public class MemberController extends BaseController {
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
         loginMember = memberService.findById(loginMember.getId());
-        ResultModel messageModel = messageService.systemMessage(page, loginMember.getId(),request.getContextPath());
+        Result messageModel = messageService.systemMessage(page, loginMember.getId(),request.getContextPath());
         model.addAttribute("member",loginMember);
         model.addAttribute("messageModel",messageModel);
         return MEMBER_FTL_PATH + "systemMessage";
@@ -379,17 +379,17 @@ public class MemberController extends BaseController {
     @PostMapping("/cdkRecharge")
     @Before(UserLoginInterceptor.class)
     @ResponseBody
-    public ResultModel recharge(@RequestParam("cardkeyNo") String cardkeyNo){
+    public Result recharge(@RequestParam("cardkeyNo") String cardkeyNo){
         ValidUtill.checkIsBlank(cardkeyNo, "卡号不能为空");
         Member loginMember = MemberUtil.getLoginMember(request);
         boolean result = (boolean) JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "recharge", cardkeyNo, loginMember.getId());
-        return new ResultModel(result);
+        return new Result(result);
     }
 
 
     @PostMapping("/validSuperMember/{name}")
     @ResponseBody
-    public ResultModel validSuperMember(@PathVariable("name") String name){
+    public Result validSuperMember(@PathVariable("name") String name){
         Member findMember = null;
         if (StringUtils.isNotBlank(name)){
             findMember = memberService.findByName(name);
@@ -401,11 +401,11 @@ public class MemberController extends BaseController {
             }
         }
         if (findMember != null){
-            ResultModel resultModel = new ResultModel(0,"");
-            resultModel.setData(findMember.getId());
-            return resultModel;
+            Result result = new Result(0,"");
+            result.setData(findMember.getId());
+            return result;
         }else {
-            return new ResultModel(-1, "上级会员不存在");
+            return new Result(-1, "上级会员不存在");
         }
 
     }

@@ -18,7 +18,7 @@
     </script>
     <!--[if lt IE 9]>
     <script src="${basePath}/res/common/js/html5shiv.min.js"></script>
-    <script src="${basePath}/res/common/js/respond.min.js"></script>
+    <script src=${basePath}"/res/common/js/respond.min.js"></script>
     <![endif]-->
     <script src="${basePath}/res/common/js/jquery-2.1.1.min.js"></script>
     <script src="${basePath}/res/common/js/zui.min.js"></script>

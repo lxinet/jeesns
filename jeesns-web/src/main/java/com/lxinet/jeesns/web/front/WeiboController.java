@@ -5,7 +5,7 @@ import com.lxinet.jeesns.service.weibo.WeiboCommentService;
 import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.NotFountException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
@@ -39,9 +39,9 @@ public class WeiboController extends BaseController {
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel publish(String content, String pictures){
+    public Result publish(String content, String pictures){
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(weiboService.save(request, loginMember,content, pictures));
+        return new Result(weiboService.save(request, loginMember,content, pictures));
     }
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
@@ -49,8 +49,8 @@ public class WeiboController extends BaseController {
         Page page = new Page(request);
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResultModel resultModel = weiboService.listByPage(page,0,loginMemberId,key);
-        model.addAttribute("model", resultModel);
+        Result result = weiboService.listByPage(page,0,loginMemberId,key);
+        model.addAttribute("model", result);
         List<Weibo> hotList = weiboService.hotList(loginMemberId);
         model.addAttribute("hotList",hotList);
         model.addAttribute("loginUser", loginMember);
@@ -73,29 +73,29 @@ public class WeiboController extends BaseController {
     @RequestMapping(value="/delete/{weiboId}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel delete(@PathVariable("weiboId") Integer weiboId){
+    public Result delete(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        boolean result = weiboService.userDelete(request, loginMember,weiboId);
-        ResultModel resultModel = new ResultModel(result);
-        if(resultModel.getCode() >= 0){
-            resultModel.setCode(2);
-            resultModel.setUrl(Const.WEIBO_PATH + "/list");
+        boolean flag = weiboService.userDelete(request, loginMember,weiboId);
+        Result result = new Result(flag);
+        if(result.getCode() >= 0){
+            result.setCode(2);
+            result.setUrl(Const.WEIBO_PATH + "/list");
         }
-        return resultModel;
+        return result;
     }
 
 
     @RequestMapping(value="/comment/{weiboId}",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
+    public Result comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
         Member loginMember = MemberUtil.getLoginMember(request);
         ValidLoginUtill.checkLogin(loginMember);
-        return new ResultModel(weiboCommentService.save(loginMember,content,weiboId,weiboCommentId));
+        return new Result(weiboCommentService.save(loginMember,content,weiboId,weiboCommentId));
     }
 
     @RequestMapping(value="/commentList/{weiboId}.json",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel commentList(@PathVariable("weiboId") Integer weiboId){
+    public Result commentList(@PathVariable("weiboId") Integer weiboId){
         Page page = new Page(request);
         return weiboCommentService.listByWeibo(page,weiboId);
     }
@@ -103,10 +103,10 @@ public class WeiboController extends BaseController {
     @RequestMapping(value="/favor/{weiboId}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel favor(@PathVariable("weiboId") Integer weiboId){
+    public Result favor(@PathVariable("weiboId") Integer weiboId){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = weiboService.favor(loginMember,weiboId);
-        return resultModel;
+        Result result = weiboService.favor(loginMember,weiboId);
+        return result;
     }
 
 
@@ -120,9 +120,9 @@ public class WeiboController extends BaseController {
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
-        ResultModel resultModel = null;
-        resultModel = weiboService.listByTopic(page,loginMemberId,topicName);
-        model.addAttribute("model", resultModel);
+        Result result = null;
+        result = weiboService.listByTopic(page,loginMemberId,topicName);
+        model.addAttribute("model", result);
         List<Weibo> hotList = weiboService.hotList(loginMemberId);
         model.addAttribute("hotList",hotList);
         model.addAttribute("loginUser", loginMember);

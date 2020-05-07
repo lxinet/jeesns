@@ -2,7 +2,7 @@ package com.lxinet.jeesns.service.picture;
 
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.model.Page;
@@ -53,10 +53,10 @@ public class PictureCommentService {
         return result == 1;
     }
 
-    public ResultModel listByPicture(Page page, int pictureId) {
+    public Result listByPicture(Page page, int pictureId) {
         List<PictureComment> list = pictureCommentDao.listByPicture(page, pictureId);
         atFormat(list);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }

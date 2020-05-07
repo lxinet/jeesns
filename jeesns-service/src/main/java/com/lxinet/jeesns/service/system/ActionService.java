@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.service.system;
 
 import com.lxinet.jeesns.core.exception.OpeErrorException;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.system.IActionDao;
 import com.lxinet.jeesns.model.system.Action;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/2/14.
  */
 @Service("actionService")
-public class ActionService extends BaseServiceImpl<Action> {
+public class ActionService extends BaseService<Action> {
     @Resource
     private IActionDao actionDao;
 

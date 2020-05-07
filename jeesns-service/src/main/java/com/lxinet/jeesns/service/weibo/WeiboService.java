@@ -2,11 +2,11 @@ package com.lxinet.jeesns.service.weibo;
 
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
@@ -30,7 +30,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/11/25.
  */
 @Service("weiboService")
-public class WeiboService extends BaseServiceImpl<Weibo> {
+public class WeiboService extends BaseService<Weibo> {
     @Resource
     private IWeiboDao weiboDao;
     @Resource
@@ -99,13 +99,13 @@ public class WeiboService extends BaseServiceImpl<Weibo> {
         return result == 1;
     }
 
-    public ResultModel<Weibo> listByPage(Page page, int memberId, int loginMemberId, String key) {
+    public Result<Weibo> listByPage(Page page, int memberId, int loginMemberId, String key) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key.trim()+"%";
         }
         List<Weibo> list = weiboDao.list(page, memberId,loginMemberId,key);
         list = this.formatWeibo(list);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }
@@ -139,10 +139,10 @@ public class WeiboService extends BaseServiceImpl<Weibo> {
     }
 
     @Transactional
-    public ResultModel favor(Member loginMember, int weiboId) {
+    public Result favor(Member loginMember, int weiboId) {
         ValidUtill.checkParam(weiboId == 0);
         Weibo weibo = this.findById(weiboId,loginMember.getId());
-        ResultModel resultModel = new ResultModel(0);
+        Result Result = new Result(0);
         if(weiboFavorService.find(weiboId,loginMember.getId()) == null){
             //增加
             weiboDao.favor(weiboId,1);
@@ -159,10 +159,10 @@ public class WeiboService extends BaseServiceImpl<Weibo> {
             weiboFavorService.delete(weiboId,loginMember.getId());
             //扣除积分
             scoreDetailService.scoreCancelBonus(loginMember.getId(),ScoreRuleConsts.WEIBO_RECEIVED_THUMBUP,weiboId);
-            resultModel.setCode(1);
+            Result.setCode(1);
         }
-        resultModel.setData(weibo.getFavor());
-        return resultModel;
+        Result.setData(weibo.getFavor());
+        return Result;
     }
 
     public List<Weibo> listByCustom(int loginMemberId, String sort, int num, int day) {
@@ -171,7 +171,7 @@ public class WeiboService extends BaseServiceImpl<Weibo> {
         return list;
     }
 
-    public ResultModel<Weibo> listByTopic(Page page, int loginMemberId, String topicName) {
+    public Result<Weibo> listByTopic(Page page, int loginMemberId, String topicName) {
         WeiboTopic weiboTopic = weiboTopicService.findByName(topicName);
         List<Weibo> list;
         if (weiboTopic == null){
@@ -183,7 +183,7 @@ public class WeiboService extends BaseServiceImpl<Weibo> {
             list = weiboDao.listByTopic(page, loginMemberId, weiboTopic.getId());
             list = this.formatWeibo(list);
         }
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }

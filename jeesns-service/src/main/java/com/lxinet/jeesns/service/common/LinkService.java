@@ -1,8 +1,8 @@
 package com.lxinet.jeesns.service.common;
 
 import com.lxinet.jeesns.core.conditions.SqlWrapper;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.service.BaseService;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.common.ILinkDao;
 import com.lxinet.jeesns.model.common.Link;
@@ -14,27 +14,27 @@ import java.util.List;
  * Created by zchuanzhao on 2017-10-13.
  */
 @Service("linkService")
-public class LinkService extends BaseServiceImpl<Link> {
+public class LinkService extends BaseService<Link> {
     @Resource
     private ILinkDao linkDao;
 
-    public ResultModel listByPage(Page page) {
+    public Result listByPage(Page page) {
         List<Link> list = linkDao.list(page);
-        ResultModel model = new ResultModel(0, page);
+        Result model = new Result(0, page);
         model.setData(list);
         return model;
     }
 
-    public ResultModel allList() {
+    public Result allList() {
         List<Link> list = linkDao.listAll(new SqlWrapper<>(Link.class));
-        ResultModel model = new ResultModel(0);
+        Result model = new Result(0);
         model.setData(list);
         return model;
     }
 
-    public ResultModel recommentList() {
+    public Result recommentList() {
         List<Link> list = linkDao.recommentList();
-        ResultModel model = new ResultModel(0);
+        Result model = new Result(0);
         model.setData(list);
         return model;
     }

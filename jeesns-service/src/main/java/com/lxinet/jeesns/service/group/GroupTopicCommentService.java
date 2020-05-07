@@ -1,10 +1,10 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.model.group.GroupTopic;
 import com.lxinet.jeesns.model.group.GroupTopicComment;
@@ -24,7 +24,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/27.
  */
 @Service("groupTopicCommentService")
-public class GroupTopicCommentService extends BaseServiceImpl<GroupTopicComment> {
+public class GroupTopicCommentService extends BaseService<GroupTopicComment> {
     @Resource
     private IGroupTopicCommentDao groupTopicCommentDao;
     @Resource
@@ -68,10 +68,10 @@ public class GroupTopicCommentService extends BaseServiceImpl<GroupTopicComment>
         return result == 1;
     }
 
-    public ResultModel listByGroupTopic(Page page, int groupTopicId) {
+    public Result listByGroupTopic(Page page, int groupTopicId) {
         List<GroupTopicComment> list = groupTopicCommentDao.listByGroupTopic(page, groupTopicId);
         this.atFormat(list);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }

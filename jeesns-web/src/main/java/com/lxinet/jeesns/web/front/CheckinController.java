@@ -4,7 +4,7 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.service.member.CheckinService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
@@ -34,9 +34,9 @@ public class CheckinController extends BaseController {
     public String index(Model model){
         Page page = new Page<Checkin>(request);
         List<Checkin> list = checkinService.todayList(page);
-        ResultModel resultModel = new ResultModel(0, page);
-        resultModel.setData(list);
-        model.addAttribute("model",resultModel);
+        Result result = new Result(0, page);
+        result.setData(list);
+        model.addAttribute("model",result);
         model.addAttribute("todayContinueList",checkinService.todayContinueList());
         return jeesnsConfig.getFrontTemplate() + "/checkin/index";
     }
@@ -44,8 +44,8 @@ public class CheckinController extends BaseController {
     @RequestMapping("save")
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel save(){
+    public Result save(){
         Member member = MemberUtil.getLoginMember(request);
-        return new ResultModel<>(checkinService.save(member.getId()));
+        return new Result<>(checkinService.save(member.getId()));
     }
 }

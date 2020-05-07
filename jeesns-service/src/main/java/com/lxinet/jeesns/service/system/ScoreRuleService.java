@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.system;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.system.IScoreRuleDao;
 import com.lxinet.jeesns.model.system.ScoreRule;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/3/24.
  */
 @Service
-public class ScoreRuleService extends BaseServiceImpl<ScoreRule> {
+public class ScoreRuleService extends BaseService<ScoreRule> {
     @Resource
     private IScoreRuleDao scoreRuleDao;
 

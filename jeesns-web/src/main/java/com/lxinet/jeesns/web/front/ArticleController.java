@@ -12,7 +12,7 @@ import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.cms.ArticleComment;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.model.cms.ArticleCate;
@@ -57,8 +57,8 @@ public class ArticleController extends BaseController {
             }
         }
         Page page = new Page(request);
-        ResultModel resultModel = articleService.listByPage(page,key,cid,1,memberId);
-        model.addAttribute("model", resultModel);
+        Result result = articleService.listByPage(page,key,cid,1,memberId);
+        model.addAttribute("model", result);
         List<ArticleCate> articleCateList = articleCateService.list();
         model.addAttribute("articleCateList",articleCateList);
         ArticleCate articleCate = articleCateService.findById(cid);
@@ -94,23 +94,23 @@ public class ArticleController extends BaseController {
     @RequestMapping(value="/save",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel save(@Valid Article article, BindingResult bindingResult) {
+    public Result save(@Valid Article article, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return new ResultModel(-1,getErrorMessages(bindingResult));
+            return new Result(-1,getErrorMessages(bindingResult));
         }
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(articleService.save(loginMember,article));
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(2);
+        Result result = new Result(articleService.save(loginMember,article));
+        if(result.getCode() == 0){
+            result.setCode(2);
             //文章需要审核就跳转到列表页面
             if(article.getStatus() == 0){
-                resultModel.setMessage("文章发布成功，请等待审核");
-                resultModel.setUrl(request.getContextPath()+"/article/list");
+                result.setMessage("文章发布成功，请等待审核");
+                result.setUrl(request.getContextPath()+"/article/list");
             }else {
-                resultModel.setUrl(request.getContextPath()+"/article/detail/"+article.getId());
+                result.setUrl(request.getContextPath()+"/article/detail/"+article.getId());
             }
         }
-        return resultModel;
+        return result;
     }
 
     @RequestMapping(value="/edit/{id}",method = RequestMethod.GET)
@@ -130,20 +130,20 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value="/update",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel update(@Valid Article article,BindingResult bindingResult) {
+    public Result update(@Valid Article article,BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            new ResultModel(-1,getErrorMessages(bindingResult));
+            new Result(-1,getErrorMessages(bindingResult));
         }
         if(article.getId() == null){
-            return new ResultModel(-2);
+            return new Result(-2);
         }
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(articleService.update(loginMember,article));
-        if(resultModel.getCode() == 0){
-            resultModel.setCode(2);
-            resultModel.setUrl(request.getContextPath() + "/article/detail/"+article.getId());
+        Result result = new Result(articleService.update(loginMember,article));
+        if(result.getCode() == 0){
+            result.setCode(2);
+            result.setUrl(request.getContextPath() + "/article/detail/"+article.getId());
         }
-        return resultModel;
+        return result;
     }
 
     /**
@@ -155,40 +155,40 @@ public class ArticleController extends BaseController {
     @RequestMapping(value="/comment/{articleId}",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel comment(@PathVariable("articleId") Integer articleId, String content){
+    public Result comment(@PathVariable("articleId") Integer articleId, String content){
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(articleCommentService.save(loginMember,content,articleId));
+        return new Result(articleCommentService.save(loginMember,content,articleId));
     }
 
 
     @RequestMapping(value="/commentList/{articleId}.json",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel commentList(@PathVariable("articleId") Integer articleId){
+    public Result commentList(@PathVariable("articleId") Integer articleId){
         Page page = new Page(request);
         if(articleId == null){
             articleId = 0;
         }
         List<ArticleComment> list = articleCommentService.listByPage(page,articleId, null);
-        ResultModel resultModel = new ResultModel(0,page);
-        resultModel.setData(list);
-        return resultModel;
+        Result result = new Result(0,page);
+        result.setData(list);
+        return result;
     }
 
 
     @RequestMapping(value="/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel delete(@PathVariable("id") int id){
+    public Result delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getIsAdmin() == 0){
-            return new ResultModel(-1,"权限不足");
+            return new Result(-1,"权限不足");
         }
-        ResultModel resultModel = new ResultModel(articleService.delete(loginMember,id));
-        if(resultModel.getCode() > 0){
-            resultModel.setCode(2);
-            resultModel.setUrl(request.getContextPath() + "/article/list");
+        Result result = new Result(articleService.delete(loginMember,id));
+        if(result.getCode() > 0){
+            result.setCode(2);
+            result.setUrl(request.getContextPath() + "/article/list");
         }
-        return resultModel;
+        return result;
     }
 
 
@@ -200,12 +200,12 @@ public class ArticleController extends BaseController {
     @RequestMapping(value="/favor/{id}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel favor(@PathVariable("id") Integer id){
+    public Result favor(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
         if(id == null) {
             throw new ParamException();
         }
-        ResultModel resultModel = articleService.favor(loginMember,id);
-        return resultModel;
+        Result result = articleService.favor(loginMember,id);
+        return result;
     }
 }

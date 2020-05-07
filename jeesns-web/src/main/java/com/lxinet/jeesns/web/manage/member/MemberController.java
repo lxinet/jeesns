@@ -8,7 +8,7 @@ import com.lxinet.jeesns.model.member.MemberLevel;
 import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
@@ -37,8 +37,8 @@ public class MemberController extends BaseController {
     @Before(AdminLoginInterceptor.class)
     public String index(String key,Model model) {
         Page page = new Page(request);
-        ResultModel resultModel = memberService.listByPage(page,key);
-        model.addAttribute("model", resultModel);
+        Result result = memberService.listByPage(page,key);
+        model.addAttribute("model", result);
         model.addAttribute("key",key);
         return MANAGE_FTL_PATH + "index";
     }
@@ -59,13 +59,13 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "${managePath}/member/isenable/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel isenable(@PathVariable("id") int id) {
+    public Result isenable(@PathVariable("id") int id) {
         return memberService.isenable(id);
     }
 
     @RequestMapping(value = "${managePath}/member/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") int id) {
         return memberService.delete(id);
     }
 
@@ -81,7 +81,7 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "${managePath}/member/changepwd", method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel changepwd(int id, String password) {
+    public Result changepwd(int id, String password) {
         Member loginMember = MemberUtil.getLoginMember(request);
         return memberService.changepwd(loginMember,id, password);
     }
@@ -104,8 +104,8 @@ public class MemberController extends BaseController {
             return errorModel(model, "没有权限");
         }
         Page page = new Page(request);
-        ResultModel resultModel = memberService.managerList(page,key);
-        model.addAttribute("model", resultModel);
+        Result result = memberService.managerList(page,key);
+        model.addAttribute("model", result);
         model.addAttribute("key",key);
         return MANAGE_FTL_PATH + "managerList";
     }
@@ -131,10 +131,10 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "${managePath}/member/managerAdd",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel managerAdd(String name) {
+    public Result managerAdd(String name) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getId() != 1 && loginMember.getIsAdmin() == 1){
-            return new ResultModel(-1,"没有权限");
+            return new Result(-1,"没有权限");
         }
         //管理员授权，只能授权普通管理员
         return memberService.managerAdd(loginMember, name);
@@ -147,13 +147,13 @@ public class MemberController extends BaseController {
      */
     @RequestMapping(value = "${managePath}/member/managerCancel/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel managerCancel(@PathVariable("id") Integer id) {
+    public Result managerCancel(@PathVariable("id") Integer id) {
         if(id == null){
-            return new ResultModel(-1,"参数错误");
+            return new Result(-1,"参数错误");
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getIsAdmin() == 1){
-            return new ResultModel(-1,"没有权限");
+            return new Result(-1,"没有权限");
         }
         return memberService.managerCancel(loginMember, id);
     }
@@ -178,10 +178,10 @@ public class MemberController extends BaseController {
      */
     @PostMapping("${managePath}/member/setLevel")
     @ResponseBody
-    public ResultModel setLevel(@Param("id") Integer id,@Param("memberLevelId") Integer memberLevelId) {
+    public Result setLevel(@Param("id") Integer id,@Param("memberLevelId") Integer memberLevelId) {
         ValidUtill.checkIsNull(id, Messages.PARAM_ERROR);
         boolean boo = (boolean) JeesnsInvoke.invoke(EXT_MEMBER_CLASS, "setMemberLevel", id, memberLevelId);
-        return new ResultModel(boo);
+        return new Result(boo);
     }
 
     /**
@@ -203,9 +203,9 @@ public class MemberController extends BaseController {
      */
     @PostMapping("${managePath}/member/increaseMoney/{id}")
     @ResponseBody
-    public ResultModel increaseMoney(@PathVariable("id") Integer id, @RequestParam(value = "money", defaultValue = "0") Double money) {
+    public Result increaseMoney(@PathVariable("id") Integer id, @RequestParam(value = "money", defaultValue = "0") Double money) {
         memberService.increaseMoney(money, id);
-        return new ResultModel(0);
+        return new Result(0);
     }
 
     /**
@@ -227,8 +227,8 @@ public class MemberController extends BaseController {
      */
     @PostMapping("${managePath}/member/increaseScore/{id}")
     @ResponseBody
-    public ResultModel increaseScore(@PathVariable("id") Integer id, @RequestParam(value = "score", defaultValue = "0") Integer score) {
+    public Result increaseScore(@PathVariable("id") Integer id, @RequestParam(value = "score", defaultValue = "0") Integer score) {
         memberService.increaseScore(score, id);
-        return new ResultModel(0);
+        return new Result(0);
     }
 }

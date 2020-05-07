@@ -2,7 +2,7 @@ package com.lxinet.jeesns.service.common;
 
 import com.lxinet.jeesns.dao.common.IArchiveDao;
 import com.lxinet.jeesns.model.common.Archive;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.model.member.Member;
@@ -59,25 +59,25 @@ public class ArchiveService {
     }
 
     @Transactional
-    public ResultModel favor(Member loginMember, int archiveId) {
+    public Result favor(Member loginMember, int archiveId) {
         String message;
-        ResultModel<Integer> resultModel;
+        Result<Integer> result;
         if(archiveFavorService.find(archiveId,loginMember.getId()) == null){
             //增加
             archiveDao.favor(archiveId,1);
             archiveFavorService.save(archiveId,loginMember.getId());
             message = "喜欢成功";
-            resultModel = new ResultModel(0,message);
+            result = new Result(0,message);
         }else {
             //减少
             archiveDao.favor(archiveId,-1);
             archiveFavorService.delete(archiveId,loginMember.getId());
             message = "取消喜欢成功";
-            resultModel = new ResultModel(1,message);
+            result = new Result(1,message);
         }
         Archive findArchive = this.findByArchiveId(archiveId);
-        resultModel.setData(findArchive.getFavor());
-        return resultModel;
+        result.setData(findArchive.getFavor());
+        return result;
     }
 
     public boolean update(Member member, Archive archive) {

@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.cms;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.enums.MessageType;
@@ -27,7 +27,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/10/14.
  */
 @Service("articleCommentService")
-public class ArticleCommentService extends BaseServiceImpl<ArticleComment> {
+public class ArticleCommentService extends BaseService<ArticleComment> {
     @Resource
     private IArticleCommentDao articleCommentDao;
     @Resource

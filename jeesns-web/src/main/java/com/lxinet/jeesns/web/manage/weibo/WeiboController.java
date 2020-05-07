@@ -4,7 +4,7 @@ import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
@@ -29,15 +29,15 @@ public class WeiboController extends BaseController {
     @Before(AdminLoginInterceptor.class)
     public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Model model) {
         Page page = new Page(request);
-        ResultModel resultModel = weiboService.listByPage(page,0,0,key);
-        model.addAttribute("model", resultModel);
+        Result result = weiboService.listByPage(page,0,0,key);
+        model.addAttribute("model", result);
         return MANAGE_FTL_PATH + "index";
     }
 
     @RequestMapping(value = "${managePath}/weibo/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") int id) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(weiboService.delete(request, loginMember,id));
+        return new Result(weiboService.delete(request, loginMember,id));
     }
 }

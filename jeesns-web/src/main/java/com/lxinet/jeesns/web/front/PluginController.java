@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.core.utils.Const;
@@ -58,7 +58,7 @@ public class PluginController extends BaseController {
      */
     @PostMapping("/plugin/{beanName}/{methodName}")
     @ResponseBody
-    public ResultModel plugin(@PathVariable("beanName") String beanName,
+    public Result plugin(@PathVariable("beanName") String beanName,
                        @PathVariable("methodName") String methodName,
                        @Param("params") String params){
         Object[] paramsArr = new Object[0];
@@ -66,10 +66,10 @@ public class PluginController extends BaseController {
             paramsArr = params.split("&\\|;");
         }
         try {
-            ResultModel resultModel = (ResultModel) JeesnsInvoke.invoke(beanName, methodName, paramsArr);
-            return resultModel;
+            Result result = (Result) JeesnsInvoke.invoke(beanName, methodName, paramsArr);
+            return result;
         } catch (NotLoginException e1) {
-            return new ResultModel(-99,"请先登录");
+            return new Result(-99,"请先登录");
         }
     }
 }

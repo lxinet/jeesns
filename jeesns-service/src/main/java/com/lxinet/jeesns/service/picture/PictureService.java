@@ -1,7 +1,7 @@
 package com.lxinet.jeesns.service.picture;
 
 import com.lxinet.jeesns.core.consts.AppTag;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.enums.MessageType;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.dao.picture.IPictureDao;
@@ -39,16 +39,16 @@ public class PictureService {
         return pictureDao.findById(pictureId,loginMemberId);
     }
 
-    public ResultModel<Picture> listByPage(Page page, int loginMemberId) {
+    public Result<Picture> listByPage(Page page, int loginMemberId) {
         List<Picture> list = pictureDao.list(page,loginMemberId);
-        ResultModel model = new ResultModel(0, page);
+        Result model = new Result(0, page);
         model.setData(list);
         return model;
     }
 
-    public ResultModel<Picture> listByAlbum(Page page, Integer pictureAlbumId, int loginMemberId) {
+    public Result<Picture> listByAlbum(Page page, Integer pictureAlbumId, int loginMemberId) {
         List<Picture> list = pictureDao.listByAlbum(page,pictureAlbumId,loginMemberId);
-        ResultModel model = new ResultModel(0, page);
+        Result model = new Result(0, page);
         model.setData(list);
         return model;
     }
@@ -78,9 +78,9 @@ public class PictureService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultModel favor(Member loginMember, int pictureId) {
+    public Result favor(Member loginMember, int pictureId) {
         String message;
-        ResultModel<Integer> resultModel;
+        Result<Integer> result;
         Picture picture = this.findById(pictureId,loginMember.getId());
         if(pictureFavorService.find(pictureId,loginMember.getId()) == null){
             //增加
@@ -88,7 +88,7 @@ public class PictureService {
             picture.setFavorCount(picture.getFavorCount() + 1);
             pictureFavorService.save(pictureId,loginMember.getId());
             message = "点赞成功";
-            resultModel = new ResultModel(0,message);
+            result = new Result(0,message);
             //点赞之后发送系统信息
             messageService.diggDeal(loginMember.getId(),picture.getMemberId(), AppTag.PICTURE, MessageType.PICTURE_ZAN,pictureId);
         }else {
@@ -97,9 +97,9 @@ public class PictureService {
             picture.setFavorCount(picture.getFavorCount() - 1);
             pictureFavorService.delete(pictureId,loginMember.getId());
             message = "取消赞成功";
-            resultModel = new ResultModel(1,message);
+            result = new Result(1,message);
         }
-        resultModel.setData(picture.getFavorCount());
-        return resultModel;
+        result.setData(picture.getFavorCount());
+        return result;
     }
 }

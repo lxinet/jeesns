@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.group;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.group.IGroupTopicTypeDao;
 import com.lxinet.jeesns.model.group.GroupTopicType;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
  * @date: 2018/5/9 下午1:17
  */
 @Service
-public class GroupTopicTypeService extends BaseServiceImpl<GroupTopicType> {
+public class GroupTopicTypeService extends BaseService<GroupTopicType> {
     @Resource
     private IGroupTopicTypeDao groupTopicTypeDao;
 

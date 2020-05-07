@@ -3,7 +3,7 @@ package com.lxinet.jeesns.web.manage.picture;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.consts.AppTag;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.service.picture.PictureService;
@@ -35,8 +35,8 @@ public class PictureController extends BaseController {
     @RequestMapping("/tagList")
     public String tagList(Model model){
         Page page = new Page(request);
-        ResultModel resultModel = tagService.listByPage(page, AppTag.PICTURE);
-        model.addAttribute("model", resultModel);
+        Result result = tagService.listByPage(page, AppTag.PICTURE);
+        model.addAttribute("model", result);
         return MANAGE_FTL_PATH + "tagList";
     }
 
@@ -44,15 +44,15 @@ public class PictureController extends BaseController {
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public String list(Model model){
         Page page = new Page(request);
-        ResultModel resultModel = pictureService.listByPage(page,0);
-        model.addAttribute("model", resultModel);
+        Result result = pictureService.listByPage(page,0);
+        model.addAttribute("model", result);
         return MANAGE_FTL_PATH + "list";
     }
 
     @RequestMapping(value = "/delete/{pictureId}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel delete(@PathVariable("pictureId") Integer pictureId){
-        return new ResultModel(pictureService.delete(request,pictureId));
+    public Result delete(@PathVariable("pictureId") Integer pictureId){
+        return new Result(pictureService.delete(request,pictureId));
     }
 
 }

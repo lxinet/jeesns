@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage.common;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.DateFormatUtil;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
@@ -30,8 +30,8 @@ public class AdsController extends BaseController {
     @RequestMapping("/list")
     public String list(Model model){
         Page page = new Page(request);
-        ResultModel resultModel = adsService.listByPage(page);
-        model.addAttribute("model", resultModel);
+        Result result = adsService.listByPage(page);
+        model.addAttribute("model", result);
         return MANAGE_FTL_PATH + "list";
     }
 
@@ -42,13 +42,13 @@ public class AdsController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public ResultModel save(Ads ads){
+    public Result save(Ads ads){
         String startTimeStr = getParam("startDateTime");
         String endTimeStr = getParam("endDateTime");
         ads.setStartTime(DateFormatUtil.formatDateTime(startTimeStr));
         ads.setEndTime(DateFormatUtil.formatDateTime(endTimeStr));
         ads.setContent(ads.getContent().replace("&lt;","<").replace("&gt;",">").replace("&#47;","/"));
-        return new ResultModel(adsService.save(ads));
+        return new Result(adsService.save(ads));
     }
 
 
@@ -61,25 +61,25 @@ public class AdsController extends BaseController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public ResultModel update(Ads ads){
+    public Result update(Ads ads){
         String startTimeStr = getParam("startDateTime");
         String endTimeStr = getParam("endDateTime");
         ads.setStartTime(DateFormatUtil.formatDateTime(startTimeStr));
         ads.setEndTime(DateFormatUtil.formatDateTime(endTimeStr));
         ads.setContent(ads.getContent().replace("&lt;","<").replace("&gt;",">").replace("&#47;","/"));
-        return new ResultModel(adsService.update(ads));
+        return new Result(adsService.update(ads));
     }
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(adsService.deleteById(id));
+    public Result delete(@PathVariable("id") Integer id){
+        return new Result(adsService.deleteById(id));
     }
 
     @RequestMapping("/enable/{id}")
     @ResponseBody
-    public ResultModel enable(@PathVariable("id") Integer id){
-        return new ResultModel(adsService.enable(id));
+    public Result enable(@PathVariable("id") Integer id){
+        return new Result(adsService.enable(id));
     }
 
 

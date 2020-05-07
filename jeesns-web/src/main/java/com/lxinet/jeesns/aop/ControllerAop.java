@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.aop;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.JeeException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,17 +22,17 @@ import java.io.IOException;
 public class ControllerAop {
 
     public Object handlerController(ProceedingJoinPoint pjp){
-        ResultModel<?> result;
+        Result<?> result;
         try {
-            result = (ResultModel) pjp.proceed();
+            result = (Result) pjp.proceed();
         } catch (Throwable e) {
             result = handlerExceotion(pjp, e);
         }
         return result;
     }
 
-    private ResultModel<?> handlerExceotion(ProceedingJoinPoint pjp, Throwable e){
-        ResultModel<?> result = new ResultModel();
+    private Result<?> handlerExceotion(ProceedingJoinPoint pjp, Throwable e){
+        Result<?> result = new Result();
         if (e instanceof JeeException && null != ((JeeException) e).getJeeMessage()){
             result.setMessage(((JeeException)e).getJeeMessage());
         }else {

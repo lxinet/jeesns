@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage.question;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
@@ -41,14 +41,14 @@ public class QuestionTypeController extends BaseController {
 
     @PostMapping("save")
     @ResponseBody
-    public ResultModel save(QuestionType questionType){
+    public Result save(QuestionType questionType){
         if(questionType == null){
             throw new ParamException();
         }
         if(StringUtils.isEmpty(questionType.getName())){
             throw new ParamException(Messages.NAME_NOT_EMPTY);
         }
-        return new ResultModel(questionTypeService.save(questionType));
+        return new Result(questionTypeService.save(questionType));
     }
 
     @GetMapping("edit/{id}")
@@ -60,20 +60,20 @@ public class QuestionTypeController extends BaseController {
 
     @PostMapping("update")
     @ResponseBody
-    public ResultModel update(QuestionType questionType){
+    public Result update(QuestionType questionType){
         if(questionType == null){
             throw new ParamException();
         }
         if(StringUtils.isEmpty(questionType.getName())){
             throw new ParamException(Messages.NAME_NOT_EMPTY);
         }
-        return new ResultModel(questionTypeService.update(questionType));
+        return new Result(questionTypeService.update(questionType));
     }
 
 
     @GetMapping("delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(questionTypeService.deleteById(id));
+    public Result delete(@PathVariable("id") Integer id){
+        return new Result(questionTypeService.deleteById(id));
     }
 }

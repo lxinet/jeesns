@@ -4,7 +4,7 @@ import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.conditions.SqlWrapper;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.invoke.JeesnsInvoke;
 import com.lxinet.jeesns.core.utils.PageUtil;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
@@ -33,9 +33,9 @@ public class CardkeyController extends BaseController {
         SqlWrapper<Cardkey> sqlWrapper = new SqlWrapper<>(Cardkey.class);
         sqlWrapper.order("id", SqlWrapper.DESC);
         List<MemberLevel> list = (List<MemberLevel>) JeesnsInvoke.invoke(EXT_CARDKEY_CLASS, "listByPage", PageUtil.getPage(), sqlWrapper);
-        ResultModel resultModel = new ResultModel(0,PageUtil.getPage());
-        resultModel.setData(list);
-        model.addAttribute("model", resultModel);
+        Result result = new Result(0,PageUtil.getPage());
+        result.setData(list);
+        model.addAttribute("model", result);
         return MANAGE_FTL_PATH + "list";
     }
 
@@ -46,17 +46,17 @@ public class CardkeyController extends BaseController {
 
     @PostMapping("save")
     @ResponseBody
-    public ResultModel save(@Param("num") Integer num, @Param("money") Double money, @Param("expireTime") String expireTime) {
+    public Result save(@Param("num") Integer num, @Param("money") Double money, @Param("expireTime") String expireTime) {
         boolean boo = (boolean) JeesnsInvoke.invoke(EXT_CARDKEY_CLASS, "save",num, money, expireTime);
-        return new ResultModel(boo);
+        return new Result(boo);
     }
 
 
     @GetMapping("delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id) {
+    public Result delete(@PathVariable("id") Integer id) {
         boolean boo = (boolean) JeesnsInvoke.invoke(EXT_CARDKEY_CLASS, "deleteById",id);
-        return new ResultModel(boo);
+        return new Result(boo);
     }
 
 

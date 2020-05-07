@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
@@ -30,14 +30,14 @@ public class AnswerController extends BaseController {
     @RequestMapping(value="commit",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel commit(@PathVariable("questionId") Integer questionId, Answer answer) {
+    public Result commit(@PathVariable("questionId") Integer questionId, Answer answer) {
         Member loginMember = MemberUtil.getLoginMember(request);
         answer.setMemberId(loginMember.getId());
         answer.setQuestionId(questionId);
         answerService.save(answer);
-        ResultModel resultModel = new ResultModel(0);
-        resultModel.setData(answer.getId());
-        return resultModel;
+        Result result = new Result(0);
+        result.setData(answer.getId());
+        return result;
     }
 
 }

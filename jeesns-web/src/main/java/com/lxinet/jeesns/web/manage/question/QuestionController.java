@@ -3,7 +3,7 @@ package com.lxinet.jeesns.web.manage.question;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.question.Question;
 import com.lxinet.jeesns.model.question.QuestionType;
@@ -29,15 +29,15 @@ public class QuestionController extends BaseController {
     @UsePage
     public String list(Model model, @RequestParam(value = "tid",defaultValue = "0",required = false) Integer typeId,
                        @PathVariable(value = "statusName", required = false) String statusName){
-        ResultModel<Question> resultModel = questionService.list(typeId, statusName);
-        model.addAttribute("model",resultModel);
+        Result<Question> result = questionService.list(typeId, statusName);
+        model.addAttribute("model",result);
         model.addAttribute("statusName",statusName);
         return MANAGE_FTL_PATH + "list";
     }
 
     @GetMapping("delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(questionService.deleteById(id));
+    public Result delete(@PathVariable("id") Integer id){
+        return new Result(questionService.deleteById(id));
     }
 }

@@ -3,7 +3,7 @@ package com.lxinet.jeesns.web.front;
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
@@ -43,9 +43,9 @@ public class QuestionController extends BaseController {
                        @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId,
                        @PathVariable(value = "statusName", required = false) String statusName,
                        Model model) {
-        ResultModel<Question> resultModel = questionService.list(typeId, statusName);
+        Result<Question> result = questionService.list(typeId, statusName);
         List<QuestionType> questionTypeList = questionTypeService.listAll();
-        model.addAttribute("model", resultModel);
+        model.addAttribute("model", result);
         model.addAttribute("questionTypeList", questionTypeList);
         model.addAttribute("statusName", statusName);
         return jeesnsConfig.getFrontTemplate() + "/question/list";
@@ -57,7 +57,7 @@ public class QuestionController extends BaseController {
         Member loginMember = MemberUtil.getLoginMember(request);
         Question question = questionService.findById(id);
         Answer bestAnswer = answerService.findById(question.getAnswerId());
-        ResultModel answerModel = answerService.listByQuestion(id);
+        Result answerModel = answerService.listByQuestion(id);
         List<QuestionType> questionTypeList = questionTypeService.listAll();
         //更新访问次数
         questionService.updateViewCount(id);
@@ -80,13 +80,13 @@ public class QuestionController extends BaseController {
     @RequestMapping(value="ask",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel ask(Question question) {
+    public Result ask(Question question) {
         Member loginMember = MemberUtil.getLoginMember(request);
         question.setMemberId(loginMember.getId());
         questionService.save(question);
-        ResultModel resultModel = new ResultModel(0);
-        resultModel.setData(question.getId());
-        return resultModel;
+        Result result = new Result(0);
+        result.setData(question.getId());
+        return result;
     }
 
     @RequestMapping(value="/edit/{id}",method = RequestMethod.GET)
@@ -100,39 +100,39 @@ public class QuestionController extends BaseController {
     @RequestMapping(value="/update",method = RequestMethod.POST)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel update(Question question) {
+    public Result update(Question question) {
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(questionService.update(loginMember,question));
-        resultModel.setData(question.getId());
-        return resultModel;
+        Result result = new Result(questionService.update(loginMember,question));
+        result.setData(question.getId());
+        return result;
     }
 
 
     @RequestMapping(value="delete/{id}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel delete(@PathVariable("id") Integer id){
+    public Result delete(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
-        ResultModel resultModel = new ResultModel(questionService.delete(loginMember, id));
-        return resultModel;
+        Result result = new Result(questionService.delete(loginMember, id));
+        return result;
     }
 
     @RequestMapping(value="close/{id}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel close(@PathVariable("id") Integer id){
+    public Result close(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
         questionService.close(loginMember, id);
-        return new ResultModel(0);
+        return new Result(0);
     }
 
     @RequestMapping(value="bestAnswer/{id}/{answerId}",method = RequestMethod.GET)
     @ResponseBody
     @Before(UserLoginInterceptor.class)
-    public ResultModel bestAnswer(@PathVariable("id") Integer id, @PathVariable("answerId") Integer answerId){
+    public Result bestAnswer(@PathVariable("id") Integer id, @PathVariable("answerId") Integer answerId){
         Member loginMember = MemberUtil.getLoginMember(request);
         questionService.bestAnswer(loginMember, answerId, id);
-        return new ResultModel(0);
+        return new Result(0);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.lxinet.jeesns.service.member;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.utils.ScoreRuleConsts;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.model.Page;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by zchuanzhao on 18/8/20.
  */
 @Service
-public class CheckinService extends BaseServiceImpl<Checkin> {
+public class CheckinService extends BaseService<Checkin> {
     @Resource
     private ICheckinDao checkinDao;
     @Resource

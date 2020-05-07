@@ -2,7 +2,7 @@ package com.lxinet.jeesns.web.manage.common;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.common.Link;
@@ -29,8 +29,8 @@ public class LinkController extends BaseController {
     @RequestMapping("/list")
     public String list(Model model){
         Page page = new Page(request);
-        ResultModel resultModel = linkService.listByPage(page);
-        model.addAttribute("model", resultModel);
+        Result result = linkService.listByPage(page);
+        model.addAttribute("model", result);
         return MANAGE_FTL_PATH + "list";
     }
 
@@ -41,8 +41,8 @@ public class LinkController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public ResultModel save(Link link){
-        return new ResultModel(linkService.save(link));
+    public Result save(Link link){
+        return new Result(linkService.save(link));
     }
 
 
@@ -55,20 +55,20 @@ public class LinkController extends BaseController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public ResultModel update(Link link){
-        return new ResultModel(linkService.update(link));
+    public Result update(Link link){
+        return new Result(linkService.update(link));
     }
 
     @RequestMapping("/delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
-        return new ResultModel(linkService.deleteById(id));
+    public Result delete(@PathVariable("id") Integer id){
+        return new Result(linkService.deleteById(id));
     }
 
     @RequestMapping("/enable/{id}")
     @ResponseBody
-    public ResultModel enable(@PathVariable("id") Integer id){
-        return new ResultModel(linkService.enable(id));
+    public Result enable(@PathVariable("id") Integer id){
+        return new Result(linkService.enable(id));
     }
 
 
