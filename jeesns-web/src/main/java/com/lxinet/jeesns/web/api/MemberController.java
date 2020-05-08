@@ -27,7 +27,7 @@ import java.util.Map;
  * @author zhangchuanzhao
  * @date 2020/5/8 12:46
  */
-@RestController("apiIndexController")
+@RestController("apiMemberController")
 @RequestMapping("/api/member")
 public class MemberController extends BaseController {
     private static final String MEMBER_FTL_PATH = "/member/";

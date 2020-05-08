@@ -75,7 +75,7 @@
                                 <#list model.data as member>
                                 <tr>
                                     <td>${member.id}</td>
-                                    <td>${(member.name || member.email)?string(member.name,member.email)}</td>
+                                    <td>${member.name}</td>
                                     <td>${member.email}</td>
                                     <td>${(member.isVip == 0)?string("否","是")}</td>
                                     <td>${member.phone}</td>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/member/index?key=${key}"
+                                url="${managePath}/member/index?key=${key?default("")}"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>

@@ -49,7 +49,7 @@
                         </div>
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
-                                <li <#if cateid=="">class="active"</#if>>
+                                <li <#if cateid?length == 0>class="active"</#if>>
                                     <a href="${managePath}/cms/index"><i
                                             class="fa fa-circle-o text-light-blue"></i>全部</a>
                                 </li>
@@ -140,7 +140,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/cms/index?key=${key}"
+                                url="${managePath}/cms/index?key=${key?default("")}"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>
