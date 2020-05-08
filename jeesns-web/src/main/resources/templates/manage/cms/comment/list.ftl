@@ -46,7 +46,7 @@
                                 <form method="get" action="${managePath}/cms/comment/list">
                                     <div class="input-group input-group-sm" style="width: 350px;">
                                         <input type="text" name="key" class="form-control pull-right"
-                                               placeholder="请输入关键词" value="${key}">
+                                               placeholder="请输入关键词" value="${key?default("")}">
                                         <div class="input-group-btn">
                                             <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
                                             </button>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/cms/comment/list?key=${key}"
+                                url="${managePath}/cms/comment/list?key=${key?default("")}"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>
