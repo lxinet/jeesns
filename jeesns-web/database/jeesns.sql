@@ -1,5 +1,5 @@
 ##开始创建表
-CREATE TABLE `tbl_action` (
+CREATE TABLE IF NOT EXISTS `tbl_action` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `tbl_action` (
 
 
 
-CREATE TABLE `tbl_member` (
+CREATE TABLE IF NOT EXISTS `tbl_member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_id` int(11) DEFAULT '0' COMMENT '分组ID',
   `name` varchar(50) DEFAULT NULL COMMENT '会员名称',
@@ -55,7 +55,7 @@ CREATE TABLE `tbl_member` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_action_log` (
+CREATE TABLE IF NOT EXISTS `tbl_action_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
@@ -64,10 +64,13 @@ CREATE TABLE `tbl_action_log` (
   `type` tinyint(2) DEFAULT '0',
   `foreign_id` int(11) DEFAULT '0',
   `action_ip` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  key(`member_id`),
+  key(`action_id`),
+  key(`foreign_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_archive` (
+CREATE TABLE IF NOT EXISTS `tbl_archive` (
   `archive_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_type` int(11) DEFAULT '0' COMMENT '发布类型，1是普通文章，2是群组文章',
   `title` varchar(255) DEFAULT NULL COMMENT '文档标题',
@@ -89,11 +92,12 @@ CREATE TABLE `tbl_archive` (
   `check_admin` int(11) DEFAULT '0' COMMENT '审核管理员id',
   `content` text COMMENT '内容',
   `favor` int(11) DEFAULT '0' COMMENT '喜欢、点赞',
-  PRIMARY KEY (`archive_id`)
+  PRIMARY KEY (`archive_id`),
+  key(`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_archive_favor` (
+CREATE TABLE IF NOT EXISTS `tbl_archive_favor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `archive_id` int(11) DEFAULT '0',
@@ -102,7 +106,7 @@ CREATE TABLE `tbl_archive_favor` (
   UNIQUE KEY `uk_archive_id_member_id` (`archive_id`,`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_article` (
+CREATE TABLE IF NOT EXISTS `tbl_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `collect_time` datetime DEFAULT NULL,
   `cate_id` int(11) DEFAULT NULL COMMENT '栏目ID',
@@ -127,10 +131,13 @@ CREATE TABLE `tbl_article` (
   `check_admin` int(11) DEFAULT '0' COMMENT '审核管理员id',
   `content` longtext COMMENT '内容',
   `favor` int(11) DEFAULT '0' COMMENT '喜欢、点赞',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  key(`cate_id`),
+  key(`archive_id`),
+  key(`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_article_cate` (
+CREATE TABLE IF NOT EXISTS `tbl_article_cate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fid` int(11) DEFAULT '0' COMMENT '上级类目ID，顶级栏目为0',
   `name` varchar(30) DEFAULT NULL COMMENT '栏目名称',
@@ -140,7 +147,7 @@ CREATE TABLE `tbl_article_cate` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_article_comment` (
+CREATE TABLE IF NOT EXISTS `tbl_article_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `article_id` int(11) DEFAULT NULL,
@@ -149,7 +156,7 @@ CREATE TABLE `tbl_article_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_config` (
+CREATE TABLE IF NOT EXISTS `tbl_config` (
   `jkey` varchar(100) NOT NULL DEFAULT '',
   `jvalue` varchar(2000) DEFAULT '',
   `description` varchar(255) DEFAULT '',
@@ -158,7 +165,7 @@ CREATE TABLE `tbl_config` (
 
 
 
-CREATE TABLE `tbl_group` (
+CREATE TABLE IF NOT EXISTS `tbl_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL COMMENT '群组名字',
@@ -177,14 +184,14 @@ CREATE TABLE `tbl_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_group_fans` (
+CREATE TABLE IF NOT EXISTS `tbl_group_fans` (
   `create_time` datetime DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
   UNIQUE KEY `uk_group_id_member_id` (`group_id`,`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_group_topic` (
+CREATE TABLE IF NOT EXISTS `tbl_group_topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `collect_time` datetime DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
@@ -215,7 +222,7 @@ CREATE TABLE `tbl_group_topic` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_group_topic_comment` (
+CREATE TABLE IF NOT EXISTS `tbl_group_topic_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `group_topic_id` int(11) DEFAULT NULL,
@@ -226,7 +233,7 @@ CREATE TABLE `tbl_group_topic_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_member_fans` (
+CREATE TABLE IF NOT EXISTS `tbl_member_fans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `follow_who` int(11) DEFAULT '0',
@@ -236,7 +243,7 @@ CREATE TABLE `tbl_member_fans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_memgroup` (
+CREATE TABLE IF NOT EXISTS `tbl_memgroup` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `isadmin` int(1) DEFAULT '0' COMMENT '是否是管理组，0不是，1是',
   `name` varchar(50) DEFAULT '' COMMENT '分组名称',
@@ -246,7 +253,7 @@ CREATE TABLE `tbl_memgroup` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_validate_code` (
+CREATE TABLE IF NOT EXISTS `tbl_validate_code` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime NOT NULL,
   `email` varchar(32) NOT NULL DEFAULT '',
@@ -257,7 +264,7 @@ CREATE TABLE `tbl_validate_code` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_weibo` (
+CREATE TABLE IF NOT EXISTS `tbl_weibo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime NOT NULL,
   `member_id` int(11) NOT NULL,
@@ -270,7 +277,7 @@ CREATE TABLE `tbl_weibo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_weibo_comment` (
+CREATE TABLE IF NOT EXISTS `tbl_weibo_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime NOT NULL,
   `member_id` int(11) NOT NULL DEFAULT '0',
@@ -281,7 +288,7 @@ CREATE TABLE `tbl_weibo_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_weibo_favor` (
+CREATE TABLE IF NOT EXISTS `tbl_weibo_favor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `weibo_id` int(11) DEFAULT '0',
@@ -291,7 +298,7 @@ CREATE TABLE `tbl_weibo_favor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_picture` (
+CREATE TABLE IF NOT EXISTS `tbl_picture` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11),
@@ -311,7 +318,7 @@ CREATE TABLE `tbl_picture` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_message` (
+CREATE TABLE IF NOT EXISTS `tbl_message` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `from_member_id` INT(11) DEFAULT '0',
@@ -329,7 +336,7 @@ CREATE TABLE `tbl_message` (
 
 
 ##积分规则表
-CREATE TABLE `tbl_score_rule` (
+CREATE TABLE IF NOT EXISTS `tbl_score_rule` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
@@ -342,7 +349,7 @@ CREATE TABLE `tbl_score_rule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ##积分明细表
-CREATE TABLE `tbl_score_detail` (
+CREATE TABLE IF NOT EXISTS `tbl_score_detail` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11) DEFAULT '0' COMMENT '会员ID',
@@ -357,7 +364,7 @@ CREATE TABLE `tbl_score_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ##会员登录TOKEN表
-CREATE TABLE `tbl_member_token` (
+CREATE TABLE IF NOT EXISTS `tbl_member_token` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11) DEFAULT '0' COMMENT '会员ID',
@@ -369,7 +376,7 @@ CREATE TABLE `tbl_member_token` (
 
 
 ##广告表
-CREATE TABLE `tbl_ads` (
+CREATE TABLE IF NOT EXISTS `tbl_ads` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `type` INT(11) NOT NULL COMMENT '1是图片链接，2是文字链接，3是代码',
@@ -384,7 +391,7 @@ CREATE TABLE `tbl_ads` (
 
 
 ##友情链接表
-CREATE TABLE `tbl_link` (
+CREATE TABLE IF NOT EXISTS `tbl_link` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `name` VARCHAR(100) COMMENT '网站名称',
@@ -395,7 +402,7 @@ CREATE TABLE `tbl_link` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_picture_album` (
+CREATE TABLE IF NOT EXISTS `tbl_picture_album` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
@@ -410,7 +417,7 @@ CREATE TABLE `tbl_picture_album` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_picture_album_comment` (
+CREATE TABLE IF NOT EXISTS `tbl_picture_album_comment` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11),
@@ -420,7 +427,7 @@ CREATE TABLE `tbl_picture_album_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_picture_album_favor` (
+CREATE TABLE IF NOT EXISTS `tbl_picture_album_favor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `picture_album_id` int(11),
@@ -429,7 +436,7 @@ CREATE TABLE `tbl_picture_album_favor` (
   UNIQUE KEY `uk_picture_album_id_member_id` (`picture_album_id`,`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_tag` (
+CREATE TABLE IF NOT EXISTS `tbl_tag` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `func_type` INT (11),
   `name` VARCHAR (32),
@@ -437,7 +444,7 @@ CREATE TABLE `tbl_tag` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_picture_tag` (
+CREATE TABLE IF NOT EXISTS `tbl_picture_tag` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `picture_id` INT (11),
   `tag_id` INT (11),
@@ -445,7 +452,7 @@ CREATE TABLE `tbl_picture_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_picture_comment` (
+CREATE TABLE IF NOT EXISTS `tbl_picture_comment` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11),
@@ -455,7 +462,7 @@ CREATE TABLE `tbl_picture_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_picture_favor` (
+CREATE TABLE IF NOT EXISTS `tbl_picture_favor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `picture_id` int(11),
@@ -464,7 +471,7 @@ CREATE TABLE `tbl_picture_favor` (
   UNIQUE KEY `uk_picture_album_id_member_id` (`picture_id`,`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_group_topic_type` (
+CREATE TABLE IF NOT EXISTS `tbl_group_topic_type` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `group_id` INT(11),
@@ -473,14 +480,14 @@ CREATE TABLE `tbl_group_topic_type` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_group_type` (
+CREATE TABLE IF NOT EXISTS `tbl_group_type` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `name` VARCHAR (32),
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_checkin` (
+CREATE TABLE IF NOT EXISTS `tbl_checkin` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11),
@@ -489,7 +496,7 @@ CREATE TABLE `tbl_checkin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_weibo_topic` (
+CREATE TABLE IF NOT EXISTS `tbl_weibo_topic` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `name` varchar(255),
@@ -498,14 +505,14 @@ CREATE TABLE `tbl_weibo_topic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_member_level` (
+CREATE TABLE IF NOT EXISTS `tbl_member_level` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `name` varchar(255),
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_cardkey` (
+CREATE TABLE IF NOT EXISTS `tbl_cardkey` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `member_id` INT(11),
@@ -517,7 +524,7 @@ CREATE TABLE `tbl_cardkey` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_payment_type` (
+CREATE TABLE IF NOT EXISTS `tbl_payment_type` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
   `name` varchar(32),
@@ -525,7 +532,7 @@ CREATE TABLE `tbl_payment_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_financial` (
+CREATE TABLE IF NOT EXISTS `tbl_financial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime NULL DEFAULT NULL,
   `type` int(11) NULL DEFAULT '0' COMMENT '类型，0收入，1支出',
@@ -540,7 +547,7 @@ CREATE TABLE `tbl_financial` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_article_favor`  (
+CREATE TABLE IF NOT EXISTS `tbl_article_favor`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `article_id` int(11) NULL DEFAULT 0,
@@ -551,7 +558,7 @@ CREATE TABLE `tbl_article_favor`  (
   CONSTRAINT `fk_article_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_group_topic_favor`  (
+CREATE TABLE IF NOT EXISTS `tbl_group_topic_favor`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `group_topic_id` int(11) NULL DEFAULT 0,
@@ -562,7 +569,7 @@ CREATE TABLE `tbl_group_topic_favor`  (
   CONSTRAINT `fk_group_topic_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_question` (
+CREATE TABLE IF NOT EXISTS `tbl_question` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
   `member_id` INT(11) COMMENT '会员',
@@ -578,7 +585,7 @@ CREATE TABLE `tbl_question` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_question_type` (
+CREATE TABLE IF NOT EXISTS `tbl_question_type` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
   `name` varchar(32),
@@ -588,7 +595,7 @@ CREATE TABLE `tbl_question_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `tbl_answer` (
+CREATE TABLE IF NOT EXISTS `tbl_answer` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime  DEFAULT NULL COMMENT '最后修改时间',
@@ -600,7 +607,7 @@ CREATE TABLE `tbl_answer` (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tbl_pay` (
+CREATE TABLE IF NOT EXISTS `tbl_pay` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime  DEFAULT NULL COMMENT '创建时间',
   `no` varchar(32) COMMENT '订单号',
@@ -613,41 +620,6 @@ CREATE TABLE `tbl_pay` (
   `trade_no` varchar(32)  COMMENT '支付宝交易号',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_action_log` ADD CONSTRAINT `fk_action_log_action` FOREIGN KEY (`action_id`) REFERENCES `tbl_action` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_archive_favor` ADD CONSTRAINT `fk_archive_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_archive_favor` ADD CONSTRAINT `fk_archive_favor_archive` FOREIGN KEY (`archive_id`) REFERENCES `tbl_archive` (`archive_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_article` ADD CONSTRAINT `fk_article_archive` FOREIGN KEY (`archive_id`) REFERENCES `tbl_archive` (`archive_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_article` ADD CONSTRAINT `fk_article_cate` FOREIGN KEY (`cate_id`) REFERENCES `tbl_article_cate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_article_comment` ADD CONSTRAINT `fk_article_comment_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_article_comment` ADD CONSTRAINT `fk_article_comment_article` FOREIGN KEY (`article_id`) REFERENCES `tbl_article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group` ADD CONSTRAINT `fk_group_member` FOREIGN KEY (`creator`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_weibo` ADD CONSTRAINT `fk_weibo_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group_topic` ADD CONSTRAINT `fk_group_topic_group` FOREIGN KEY (`group_id`) REFERENCES `tbl_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group_topic` ADD CONSTRAINT `fk_group_topic_archive` FOREIGN KEY (`archive_id`) REFERENCES `tbl_archive` (`archive_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group_fans` ADD CONSTRAINT `fk_group_fans_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group_fans` ADD CONSTRAINT `fk_group_fans_group` FOREIGN KEY (`group_id`) REFERENCES `tbl_group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group_topic_comment` ADD CONSTRAINT `fk_group_topic_comment_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group_topic_comment` ADD CONSTRAINT `fk_group_topic_comment_group_topic` FOREIGN KEY (`group_topic_id`) REFERENCES `tbl_group_topic` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_member_fans` ADD CONSTRAINT `fk_member_fans_follow_who` FOREIGN KEY (`follow_who`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_member_fans` ADD CONSTRAINT `fk_member_fans_who_follow` FOREIGN KEY (`who_follow`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_weibo_comment` ADD CONSTRAINT `fk_weibo_comment_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_weibo_comment` ADD CONSTRAINT `fk_weibo_comment_weibo` FOREIGN KEY (`weibo_id`) REFERENCES `tbl_weibo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_weibo_favor` ADD CONSTRAINT `fk_weibo_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_weibo_favor` ADD CONSTRAINT `fk_weibo_favor_weibo` FOREIGN KEY (`weibo_id`) REFERENCES `tbl_weibo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_from_member` FOREIGN KEY (`from_member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_to_member` FOREIGN KEY (`to_member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_score_detail` ADD CONSTRAINT `fk_score_detail_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_member_token` ADD CONSTRAINT `fk_member_token_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_message` ADD CONSTRAINT `fk_message_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_picture_comment` ADD CONSTRAINT `fk_picture_comment_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_picture_favor` ADD CONSTRAINT `fk_picture_favor_picture` FOREIGN KEY (`picture_id`) REFERENCES `tbl_picture` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `tbl_group_topic` ADD CONSTRAINT `fk_group_topic_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_topic_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-ALTER TABLE `tbl_group` ADD CONSTRAINT `fk_group_type` FOREIGN KEY (`type_id`) REFERENCES `tbl_group_type` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-ALTER TABLE `tbl_checkin` ADD CONSTRAINT `fk_checkin_member` FOREIGN KEY (`member_id`) REFERENCES `tbl_member` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 
 

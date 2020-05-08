@@ -1,5 +1,6 @@
 package com.lxinet.jeesns;
 
+import com.lxinet.jeesns.interceptor.ApiTokenInterceptor;
 import com.lxinet.jeesns.interceptor.InitInterceptor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +17,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
-
 /**
- *
- * @author zchuanzhao
+ * @author zhangchuanzhao
+ * @date 2020/5/8 13:24
  */
 @EnableAutoConfiguration
 @ComponentScan
@@ -32,6 +32,7 @@ public class AppConfigurer implements WebMvcConfigurer {
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(new InitInterceptor()).addPathPatterns("/**").excludePathPatterns("/res/**");
+        registry.addInterceptor(new ApiTokenInterceptor()).addPathPatterns("/api/**");
         registry.addInterceptor(localeChangeInterceptor());
     }
 
