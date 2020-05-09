@@ -12,6 +12,7 @@ import com.lxinet.jeesns.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
@@ -75,8 +76,17 @@ public class JwtUtil {
         }catch (Exception e){
             return null;
         }
-
     }
+
+    public Member getMember(HttpServletRequest request) {
+        try {
+            String token = request.getHeader("aut");
+            return getMember(token);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 
 
 }
