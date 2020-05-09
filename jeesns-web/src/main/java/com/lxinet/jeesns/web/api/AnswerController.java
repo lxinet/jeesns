@@ -1,15 +1,11 @@
 package com.lxinet.jeesns.web.api;
 
-import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.Result;
-import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.service.question.AnswerService;
-import com.lxinet.jeesns.utils.MemberUtil;
-import org.springframework.stereotype.Controller;
+import com.lxinet.jeesns.utils.JwtUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,16 +18,14 @@ import javax.annotation.Resource;
 @RequestMapping("/api/question/{questionId}/answer/")
 public class AnswerController extends BaseController {
     @Resource
-    private JeesnsConfig jeesnsConfig;
-    @Resource
     private AnswerService answerService;
+    @Resource
+    private JwtUtil jwtUtil;
 
 
     @PostMapping(value="commit")
-    @ResponseBody
-    @Before(UserLoginInterceptor.class)
     public Result commit(@PathVariable("questionId") Integer questionId, Answer answer) {
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         answer.setMemberId(loginMember.getId());
         answer.setQuestionId(questionId);
         answerService.save(answer);

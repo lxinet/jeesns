@@ -1,13 +1,11 @@
 package com.lxinet.jeesns.web.api;
 
-import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.NotLoginException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
-import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.picture.Picture;
 import com.lxinet.jeesns.model.picture.PictureAlbum;
@@ -15,9 +13,8 @@ import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.picture.PictureAlbumService;
 import com.lxinet.jeesns.service.picture.PictureCommentService;
 import com.lxinet.jeesns.service.picture.PictureService;
-import com.lxinet.jeesns.utils.MemberUtil;
+import com.lxinet.jeesns.utils.JwtUtil;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,6 +47,8 @@ public class PictureController extends BaseController {
     private MemberService memberService;
     @Resource
     private JeesnsConfig jeesnsConfig;
+    @Resource
+    private JwtUtil jwtUtil;
 
     @GetMapping(value = "/picture/album/{memberId}")
     public String album(Model model,@PathVariable("memberId") Integer memberId){
@@ -62,7 +61,7 @@ public class PictureController extends BaseController {
 
     @GetMapping(value = "/member/picture/album")
     public String album(Model model){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         Member findMember = memberService.findById(loginMember.getId());
         model.addAttribute("member",findMember);
         Result result = pictureAlbumService.listByMember(loginMember.getId());
@@ -80,7 +79,7 @@ public class PictureController extends BaseController {
         if (StringUtils.isEmpty(pictureAlbum.getName())){
             return new Result(-1,"相册名称不能为空");
         }
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         pictureAlbum.setMemberId(loginMember.getId());
         return new Result(pictureAlbumService.save(pictureAlbum));
     }
@@ -88,7 +87,7 @@ public class PictureController extends BaseController {
     @GetMapping(value = "/picture/list/{memberId}-{albumId}")
     public String indexList(Model model,@PathVariable("memberId") Integer memberId,@PathVariable("albumId") Integer albumId){
         Page page = new Page(request);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         PictureAlbum pictureAlbum = pictureAlbumService.findById(albumId);
         if (pictureAlbum == null || memberId.intValue() != pictureAlbum.getMemberId().intValue()){
@@ -106,7 +105,7 @@ public class PictureController extends BaseController {
     @GetMapping(value = "/member/picture/list/{memberId}-{albumId}")
     public String list(Model model,@PathVariable("memberId") Integer memberId,@PathVariable("albumId") Integer albumId){
         Page page = new Page(request);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         if (loginMemberId != memberId){
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1001, Const.INDEX_ERROR_FTL_PATH);
@@ -123,7 +122,7 @@ public class PictureController extends BaseController {
 
     @GetMapping(value = {"/picture","/picture/"})
     public String index(Model model){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Page page = new Page(request);
         Result result = pictureService.listByPage(page,loginMemberId);
@@ -134,7 +133,7 @@ public class PictureController extends BaseController {
     @GetMapping(value = "/picture/indexData")
     public Result indexData(){
         Page page = new Page(request);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Result result = pictureService.listByPage(page,loginMemberId);
         return result;
@@ -142,7 +141,7 @@ public class PictureController extends BaseController {
 
     @GetMapping(value = "/picture/detail/{pictureId}")
     public String detail(Model model,@PathVariable("pictureId") Integer pictureId) throws NotLoginException {
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Picture picture = pictureService.findById(pictureId,loginMemberId);
         if (picture == null){
@@ -155,7 +154,7 @@ public class PictureController extends BaseController {
 
     @PostMapping(value="/picture/comment/{pictureId}")
     public Result comment(@PathVariable("pictureId") Integer pictureId, String content) throws NotLoginException {
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         if(StringUtils.isEmpty(content)){
             return new Result(-1,"内容不能为空");
         }
@@ -176,7 +175,7 @@ public class PictureController extends BaseController {
 
     @GetMapping(value="/picture/favor/{pictureId}")
     public Result favor(@PathVariable("pictureId") Integer pictureId) throws NotLoginException, ParamException {
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         if(pictureId == null) {
             throw new ParamException();
         }
@@ -186,7 +185,7 @@ public class PictureController extends BaseController {
     @GetMapping(value="/member/picture/uploadPic")
     public String uploadPic(Model model,Integer albumId) {
         PictureAlbum pictureAlbum = pictureAlbumService.findById(albumId);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         if (pictureAlbum == null){
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1010, Const.INDEX_ERROR_FTL_PATH);
         }
@@ -199,7 +198,7 @@ public class PictureController extends BaseController {
 
     @PostMapping(value="/member/picture/uploadPic/{albumId}")
     public Result uploadPic(@RequestParam(value = "file", required = false) MultipartFile file, @PathVariable("albumId") Integer albumId) {
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf("."),fileName.length());
         if(suffix == null || (!".png".equals(suffix.toLowerCase()) && !".jpg".equals(suffix.toLowerCase()) && !".gif".equals(suffix.toLowerCase()) && !".jpeg".equals(suffix.toLowerCase()) && !".bmp".equals(suffix.toLowerCase()))) {

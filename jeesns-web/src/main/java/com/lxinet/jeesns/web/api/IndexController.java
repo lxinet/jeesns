@@ -6,7 +6,6 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.ErrorUtil;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.system.ActionLog;
 import com.lxinet.jeesns.service.cms.ArticleService;
@@ -20,15 +19,11 @@ import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.system.ActionLogService;
 import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.EmojiUtil;
-import com.lxinet.jeesns.utils.MemberUtil;
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Controller;
+import com.lxinet.jeesns.utils.JwtUtil;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * @author zhangchuanzhao
@@ -59,6 +54,8 @@ public class IndexController extends BaseController {
     private MemberFansService memberFansService;
     @Resource
     private LinkService linkService;
+    @Resource
+    private JwtUtil jwtUtil;
 
 
     @GetMapping(value = "u/{id}")
@@ -69,7 +66,7 @@ public class IndexController extends BaseController {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model,-1005, Const.INDEX_ERROR_FTL_PATH);
         }
         model.addAttribute("member",member);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         model.addAttribute("loginMember", loginMember);
         Result<ActionLog> list = actionLogService.memberActionLog(page,id);
         model.addAttribute("actionLogModel",list);
@@ -85,7 +82,7 @@ public class IndexController extends BaseController {
         }
         model.addAttribute("member",member);
 
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         model.addAttribute("loginMember", loginMember);
         int loginMemberId = 0;
         if(loginMember != null){

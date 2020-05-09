@@ -1,20 +1,17 @@
 package com.lxinet.jeesns.web.api;
 
-import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.NotFountException;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.Const;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.weibo.Weibo;
 import com.lxinet.jeesns.service.weibo.WeiboCommentService;
 import com.lxinet.jeesns.service.weibo.WeiboService;
-import com.lxinet.jeesns.utils.MemberUtil;
+import com.lxinet.jeesns.utils.JwtUtil;
 import com.lxinet.jeesns.utils.ValidLoginUtill;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,17 +33,19 @@ public class WeiboController extends BaseController {
     private WeiboCommentService weiboCommentService;
     @Resource
     private JeesnsConfig jeesnsConfig;
+    @Resource
+    private JwtUtil jwtUtil;
 
     @PostMapping("/publish")
     public Result publish(String content, String pictures){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         return new Result(weiboService.save(request, loginMember,content, pictures));
     }
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "key",required = false,defaultValue = "") String key, Model model){
         Page page = new Page(request);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Result result = weiboService.listByPage(page,0,loginMemberId,key);
         model.addAttribute("model", result);
@@ -58,7 +57,7 @@ public class WeiboController extends BaseController {
 
     @GetMapping(value = "/detail/{weiboId}")
     public String detail(@PathVariable("weiboId") Integer weiboId, Model model){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Weibo weibo = weiboService.findById(weiboId,loginMemberId);
         if (weibo == null){
@@ -71,7 +70,7 @@ public class WeiboController extends BaseController {
 
     @GetMapping(value="/delete/{weiboId}")
     public Result delete(@PathVariable("weiboId") Integer weiboId){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         boolean flag = weiboService.userDelete(request, loginMember,weiboId);
         Result result = new Result(flag);
         if(result.getCode() >= 0){
@@ -84,7 +83,7 @@ public class WeiboController extends BaseController {
 
     @PostMapping(value="/comment/{weiboId}")
     public Result comment(@PathVariable("weiboId") Integer weiboId, String content, Integer weiboCommentId){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         ValidLoginUtill.checkLogin(loginMember);
         return new Result(weiboCommentService.save(loginMember,content,weiboId,weiboCommentId));
     }
@@ -97,7 +96,7 @@ public class WeiboController extends BaseController {
 
     @GetMapping(value="/favor/{weiboId}")
     public Result favor(@PathVariable("weiboId") Integer weiboId){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         Result result = weiboService.favor(loginMember,weiboId);
         return result;
     }
@@ -111,7 +110,7 @@ public class WeiboController extends BaseController {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         int loginMemberId = loginMember == null ? 0 : loginMember.getId();
         Result result = null;
         result = weiboService.listByTopic(page,loginMemberId,topicName);

@@ -9,14 +9,12 @@ import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.utils.*;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.model.system.ActionLog;
 import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.member.MessageService;
 import com.lxinet.jeesns.service.system.ActionLogService;
 import com.lxinet.jeesns.service.system.ConfigService;
 import com.lxinet.jeesns.utils.ConfigUtil;
-import com.lxinet.jeesns.utils.MemberUtil;
-import org.springframework.stereotype.Controller;
+import com.lxinet.jeesns.utils.JwtUtil;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +25,7 @@ import java.util.Map;
  * @author zhangchuanzhao
  * @date 2020/5/8 12:46
  */
-@RestController("apiIndexController")
+@RestController("apiMemberController")
 @RequestMapping("/api/member")
 public class MemberController extends BaseController {
     private static final String MEMBER_FTL_PATH = "/member/";
@@ -41,6 +39,8 @@ public class MemberController extends BaseController {
     private MessageService messageService;
     @Resource
     private JeesnsConfig jeesnsConfig;
+    @Resource
+    private JwtUtil jwtUtil;
     private static final String EXT_CARDKEY_SERVICE = "extCardkeyService";
 
 
@@ -81,7 +81,7 @@ public class MemberController extends BaseController {
 
     @PostMapping(value = "/active")
     public Result active(String randomCode){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         return memberService.active(loginMember,randomCode,request);
     }
 
@@ -114,14 +114,14 @@ public class MemberController extends BaseController {
 
     @PostMapping(value = "/editBaseInfo")
     public Result editBaseInfo(String name, String sex, String introduce){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         return memberService.editBaseInfo(loginMember,name,sex,introduce);
     }
 
     @PostMapping(value = "/editOtherInfo")
     public Result editOtherInfo(String birthday, String qq, String wechat, String contactPhone,
                                      String contactEmail, String website){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         return memberService.editOtherInfo(loginMember,birthday,qq,wechat,contactPhone,contactEmail,website);
     }
 
@@ -136,7 +136,7 @@ public class MemberController extends BaseController {
         if(!newPassword.equals(renewPassword)){
             return new Result(-1,"两次密码输入不一致");
         }
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         return memberService.changepwd(loginMember,oldPassword,newPassword);
     }
 
@@ -147,7 +147,7 @@ public class MemberController extends BaseController {
      */
     @PostMapping(value = "/follows/{followWhoId}")
     public Result follows(@PathVariable(value = "followWhoId") Integer followWhoId){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         return memberService.follows(loginMember,followWhoId);
     }
 
@@ -158,7 +158,7 @@ public class MemberController extends BaseController {
      */
     @GetMapping(value = "/isFollowed/{followWhoId}")
     public Result isFollowed(@PathVariable(value = "followWhoId") Integer followWhoId){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         return memberService.isFollowed(loginMember,followWhoId);
     }
 
@@ -171,7 +171,7 @@ public class MemberController extends BaseController {
     @GetMapping(value = "/listContactMembers")
     public Result listContactMembers(){
         Page page = new Page(request);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         //获取联系人
         Result contactMembers = memberService.listContactMembers(page, loginMember.getId());
         return contactMembers;
@@ -185,7 +185,7 @@ public class MemberController extends BaseController {
     @GetMapping(value = "/messageRecords/{memberId}")
     public Result messageRecords(@PathVariable("memberId") Integer memberId){
         Page page = new Page(request);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         Result messageRecords = messageService.messageRecords(page, memberId, loginMember.getId());
         return messageRecords;
     }
@@ -217,7 +217,7 @@ public class MemberController extends BaseController {
      */
     @PostMapping(value = "/sendMessage")
     public Result sendMessage(String content,Integer memberId){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         if(memberId == null){
             return new Result(-1,"请选择发送对象");
         }
@@ -236,7 +236,7 @@ public class MemberController extends BaseController {
     @GetMapping(value = "/systemMessage")
     public String systemMessage(Model model){
         Page page = new Page(request);
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         loginMember = memberService.findById(loginMember.getId());
         Result messageModel = messageService.systemMessage(page, loginMember.getId(),request.getContextPath());
         model.addAttribute("member",loginMember);
@@ -247,7 +247,7 @@ public class MemberController extends BaseController {
     @GetMapping("/cdkRecharge")
     @Before(UserLoginInterceptor.class)
     public String recharge(Model model){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         Member findMember = memberService.findById(loginMember.getId());
         model.addAttribute("member", findMember);
         return MEMBER_FTL_PATH + "cdkRecharge";
@@ -256,7 +256,7 @@ public class MemberController extends BaseController {
     @PostMapping("/cdkRecharge")
     public Result recharge(@RequestParam("cardkeyNo") String cardkeyNo){
         ValidUtill.checkIsBlank(cardkeyNo, "卡号不能为空");
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         boolean result = (boolean) JeesnsInvoke.invoke(EXT_CARDKEY_SERVICE, "recharge", cardkeyNo, loginMember.getId());
         return new Result(result);
     }
