@@ -66,7 +66,7 @@
                                         <label class="col-sm-2 control-label">性别：</label>
                                         <div class="col-sm-8">
                                             <label><input type="radio" value="保密" name="sex"
-                                                              <#if loginUser.sex=='' || loginUser.sex==null || loginUser.sex=='保密'>checked</#if>/>
+                                                              <#if loginUser.sex?default('')==''>checked</#if>/>
                                                 <i></i> 保密</label>
                                             <label><input type="radio" value="男" name="sex"
                                                               <#if loginUser.sex=='男'>checked</#if>> <i></i>

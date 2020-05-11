@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>问题修改 - ${group.name} - ${SITE_NAME} - Powered By JEESNS</title>
+    <title>问题修改 - 问答 - ${SITE_NAME} - Powered By JEESNS</title>
     <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
     <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <link href="${basePath}/res/plugins/webuploader/webuploader.css" rel="stylesheet">

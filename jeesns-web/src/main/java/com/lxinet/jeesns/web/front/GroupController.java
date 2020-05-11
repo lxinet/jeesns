@@ -76,6 +76,7 @@ public class GroupController extends BaseController {
         if (group == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1002, Const.INDEX_ERROR_FTL_PATH);
         }
+        group.setCreatorMember(memberService.findById(group.getCreator()));
         model.addAttribute("group", group);
         Member loginMember = MemberUtil.getLoginMember(request);
         int memberId = 0;
@@ -164,6 +165,7 @@ public class GroupController extends BaseController {
                 newManagerNames = newManagerNames.substring(0, newManagerNames.length() - 1);
             }
         }
+
         List<GroupType> groupTypeList = groupTypeService.list();
         model.addAttribute("groupTypeList",groupTypeList);
         model.addAttribute("managerNames", newManagerNames);
@@ -186,6 +188,8 @@ public class GroupController extends BaseController {
         if (groupTopic == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1004, Const.INDEX_ERROR_FTL_PATH);
         }
+        groupTopic.setGroup(groupService.findById(groupTopic.getGroupId()));
+        groupTopic.setMember(memberService.findById(groupTopic.getMemberId()));
         groupTopicService.updateViewCount(groupTopic.getId());
         model.addAttribute("groupTopic", groupTopic);
 
@@ -197,7 +201,7 @@ public class GroupController extends BaseController {
         String[] groupManagerArr = groupManagers.split(",");
         boolean isfollow = false;
         if (loginMember == null) {
-            model.addAttribute("isPermission", 0);
+            model.addAttribute("isManager", 0);
         } else {
             boolean isManager = false;
             for (String manager : groupManagerArr) {
@@ -207,7 +211,7 @@ public class GroupController extends BaseController {
             }
             if (loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() > 0 ||
                     isManager || loginMember.getId().intValue() == group.getCreator().intValue()) {
-                model.addAttribute("isPermission", 1);
+                model.addAttribute("isManager", 1);
             }
             //判断是否已关注该群组
             GroupFans groupFans = groupFansService.findByMemberAndGroup(groupTopic.getGroup().getId(), loginMember.getId());
@@ -357,6 +361,7 @@ public class GroupController extends BaseController {
         if (group == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1002, Const.INDEX_ERROR_FTL_PATH);
         }
+        group.setCreatorMember(memberService.findById(group.getCreator()));
         model.addAttribute("group", group);
         Member loginMember = MemberUtil.getLoginMember(request);
         int memberId = 0;
@@ -472,6 +477,7 @@ public class GroupController extends BaseController {
         if (group == null) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1002, Const.INDEX_ERROR_FTL_PATH);
         }
+        group.setCreatorMember(memberService.findById(group.getCreator()));
         String managerIds = group.getManagers();
         if (("," + managerIds + ",").indexOf("," + loginMember.getId() + ",") == -1) {
             return jeesnsConfig.getFrontTemplate() + ErrorUtil.error(model, -1001, Const.INDEX_ERROR_FTL_PATH);

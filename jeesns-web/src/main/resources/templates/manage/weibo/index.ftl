@@ -92,7 +92,7 @@
                         </div>
                         <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right"
-                                url="${managePath}/weibo/index?key=${key}"
+                                url="${managePath}/weibo/index?key=${key?default('')}"
                                 currentPage="${model.page.pageNo}"
                                 pageCount="${model.page.totalPage}">
                             </ul>

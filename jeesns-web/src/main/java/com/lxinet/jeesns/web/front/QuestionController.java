@@ -10,6 +10,7 @@ import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.model.question.Question;
 import com.lxinet.jeesns.model.question.QuestionType;
+import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.question.AnswerService;
 import com.lxinet.jeesns.service.question.QuestionService;
 import com.lxinet.jeesns.service.question.QuestionTypeService;
@@ -36,6 +37,8 @@ public class QuestionController extends BaseController {
     private QuestionService questionService;
     @Resource
     private AnswerService answerService;
+    @Resource
+    private MemberService memberService;
 
     @UsePage
     @RequestMapping(value={"/","list","list-{statusName}"},method = RequestMethod.GET)
@@ -56,6 +59,7 @@ public class QuestionController extends BaseController {
     public String detail(@PathVariable("id") Integer id, Model model){
         Member loginMember = MemberUtil.getLoginMember(request);
         Question question = questionService.findById(id);
+        question.setMember(memberService.findById(question.getMemberId()));
         Answer bestAnswer = answerService.findById(question.getAnswerId());
         Result answerModel = answerService.listByQuestion(id);
         List<QuestionType> questionTypeList = questionTypeService.listAll();
