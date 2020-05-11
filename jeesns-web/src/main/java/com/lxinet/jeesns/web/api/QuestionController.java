@@ -1,11 +1,9 @@
 package com.lxinet.jeesns.web.api;
 
-import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.annotation.UsePage;
 import com.lxinet.jeesns.core.controller.BaseController;
 import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.utils.JeesnsConfig;
-import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.Member;
 import com.lxinet.jeesns.model.question.Answer;
 import com.lxinet.jeesns.model.question.Question;
@@ -13,8 +11,7 @@ import com.lxinet.jeesns.model.question.QuestionType;
 import com.lxinet.jeesns.service.question.AnswerService;
 import com.lxinet.jeesns.service.question.QuestionService;
 import com.lxinet.jeesns.service.question.QuestionTypeService;
-import com.lxinet.jeesns.utils.MemberUtil;
-import org.springframework.stereotype.Controller;
+import com.lxinet.jeesns.utils.JwtUtil;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +33,8 @@ public class QuestionController extends BaseController {
     private QuestionService questionService;
     @Resource
     private AnswerService answerService;
+    @Resource
+    private JwtUtil jwtUtil;
 
     @UsePage
     @GetMapping(value={"/","list","list-{statusName}"})
@@ -54,7 +53,7 @@ public class QuestionController extends BaseController {
     @UsePage
     @GetMapping(value="detail/{id}")
     public String detail(@PathVariable("id") Integer id, Model model){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         Question question = questionService.findById(id);
         Answer bestAnswer = answerService.findById(question.getAnswerId());
         Result answerModel = answerService.listByQuestion(id);
@@ -78,7 +77,7 @@ public class QuestionController extends BaseController {
 
     @PostMapping(value="ask")
     public Result ask(Question question) {
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         question.setMemberId(loginMember.getId());
         questionService.save(question);
         Result result = new Result(0);
@@ -95,7 +94,7 @@ public class QuestionController extends BaseController {
 
     @PostMapping(value="/update")
     public Result update(Question question) {
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         Result result = new Result(questionService.update(loginMember,question));
         result.setData(question.getId());
         return result;
@@ -104,21 +103,21 @@ public class QuestionController extends BaseController {
 
     @GetMapping(value="delete/{id}")
     public Result delete(@PathVariable("id") Integer id){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         Result result = new Result(questionService.delete(loginMember, id));
         return result;
     }
 
     @GetMapping(value="close/{id}")
     public Result close(@PathVariable("id") Integer id){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         questionService.close(loginMember, id);
         return new Result(0);
     }
 
     @GetMapping(value="bestAnswer/{id}/{answerId}")
     public Result bestAnswer(@PathVariable("id") Integer id, @PathVariable("answerId") Integer answerId){
-        Member loginMember = MemberUtil.getLoginMember(request);
+        Member loginMember = jwtUtil.getMember(request);
         questionService.bestAnswer(loginMember, answerId, id);
         return new Result(0);
     }

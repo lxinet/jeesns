@@ -12,9 +12,9 @@ import com.lxinet.jeesns.model.picture.PictureAlbum;
 import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.picture.PictureAlbumService;
 import com.lxinet.jeesns.service.picture.PictureService;
+import com.lxinet.jeesns.utils.JwtUtil;
 import com.lxinet.jeesns.utils.MemberUtil;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,6 +42,8 @@ public class UploadController extends BaseController {
 	private PictureService pictureService;
 	@Resource
 	private PictureAlbumService pictureAlbumService;
+	@Resource
+	private JwtUtil jwtUtil;
 
 	@PostMapping("${managePath}/uploadImage")
 	public Object manageUploadImage(@RequestParam(value = "file", required = false) MultipartFile file) {
@@ -86,7 +88,7 @@ public class UploadController extends BaseController {
 	 * @return
 	 */
 	private Object uploadImage(MultipartFile file, int type) {
-		Member loginMember = MemberUtil.getLoginMember(request);
+		Member loginMember = jwtUtil.getMember(request);
 		if (loginMember == null){
 			throw new NotLoginException();
 		}
@@ -184,7 +186,7 @@ public class UploadController extends BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Member loginMember = MemberUtil.getLoginMember(request);
+		Member loginMember = jwtUtil.getMember(request);
 		Member findMember = memberService.findById(loginMember.getId());
 		Map result = new HashMap();
 		if(findMember != null){
