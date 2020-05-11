@@ -71,7 +71,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">性别</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" data-type="require" value="${member.sex}" disabled>
+                        <input type="text" class="form-control" data-type="require" value="${member.sex?default('0')}" disabled>
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">生日</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" data-type="require" value="${member.birthday}" disabled>
+                        <input type="text" class="form-control" data-type="require" value="${member.birthday?default('')}" disabled>
                     </div>
                 </div>
             </div>

@@ -63,7 +63,7 @@
                         <div class="col-sm-10">
                             <div id="uploader">
                                 <!--用来存放文件信息-->
-                                <input type="hidden" id="thumbnail" name="thumbnail" value="${article.thumbnail}">
+                                <input type="hidden" id="thumbnail" name="thumbnail" value="${article.thumbnail?default('')}">
                                 <div id="preview" class="uploader-list">
                                 <#if article.thumbnail?? && article.thumbnail!=''>
                                     <img src="${basePath}${article.thumbnail}" width="100px" height="100px"/>
@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label for="firstname" class="col-sm-1 control-label">描述</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" name="description">${article.description}</textarea>
+                            <textarea class="form-control" rows="3" name="description">${article.description?default('')}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -94,13 +94,13 @@
                     <div class="form-group">
                         <label for="firstname" class="col-sm-1 control-label">来源</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="source" name="source" value="${article.source}">
+                            <input type="text" class="form-control" id="source" name="source" value="${article.source?default('')}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="firstname" class="col-sm-1 control-label">作者</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="writer" name="writer" value="${article.writer}">
+                            <input type="text" class="form-control" id="writer" name="writer" value="${article.writer?default('')}">
                         </div>
                     </div>
                     <div class="form-group">

@@ -17,7 +17,7 @@
 
   <sql id="select_column">
     a.id,a.create_time,a.member_id,b.name,b.avatar,
-    b.introduce as 'member.introduce',b.follows as 'member.follows', b.fans as 'member.fans',
+    b.introduce as 'member.introduce',ifnull(b.follows, 0) as 'member.follows', ifnull(b.fans, 0) as 'member.fans',
     a.type,a.content,a.favor,a.status,(select count(id) from tbl_weibo_comment as d where d.weibo_id=a.id) comment_count,
     (CASE WHEN (SELECT id FROM tbl_weibo_favor WHERE weibo_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
   </sql>

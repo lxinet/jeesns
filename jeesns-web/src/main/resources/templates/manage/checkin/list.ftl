@@ -54,7 +54,7 @@
                                 <#list model.data as checkin>
                                 <tr>
                                     <td>${checkin.id}</td>
-                                    <td><a href="${base}/u/${checkin.member.id}" target="_blank">${checkin.member.name}</a></td>
+                                    <td><a href="${basePath}/u/${checkin.member.id}" target="_blank">${checkin.member.name}</a></td>
                                     <td>${checkin.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>${checkin.continueDay}</td>
                                 </tr>

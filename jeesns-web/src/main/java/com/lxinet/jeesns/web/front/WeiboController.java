@@ -1,6 +1,7 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.service.member.MemberService;
 import com.lxinet.jeesns.service.weibo.WeiboCommentService;
 import com.lxinet.jeesns.service.weibo.WeiboService;
 import com.lxinet.jeesns.utils.MemberUtil;
@@ -34,6 +35,8 @@ public class WeiboController extends BaseController {
     @Resource
     private WeiboCommentService weiboCommentService;
     @Resource
+    private MemberService memberService;
+    @Resource
     private JeesnsConfig jeesnsConfig;
 
     @RequestMapping(value = "/publish",method = RequestMethod.POST)
@@ -65,6 +68,7 @@ public class WeiboController extends BaseController {
         if (weibo == null){
             throw new NotFountException("微博不存在");
         }
+        weibo.setMember(memberService.findById(weibo.getMemberId()));
         model.addAttribute("weibo",weibo);
         model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/weibo/detail";
