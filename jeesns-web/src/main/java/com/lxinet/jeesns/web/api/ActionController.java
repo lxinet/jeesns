@@ -22,15 +22,12 @@ import javax.annotation.Resource;
 public class ActionController extends BaseController {
     @Resource
     private ActionLogService actionLogService;
-    @Resource
-    private JeesnsConfig jeesnsConfig;
 
     @GetMapping("list")
-    public String list(Model model){
+    public Result list(){
         Page page = new Page(request);
-        Result<ActionLog> actionList = actionLogService.memberActionLog(page,0);
-        model.addAttribute("model", actionList);
-        return jeesnsConfig.getFrontTemplate() + "/action/list";
+        Result<ActionLog> result = actionLogService.memberActionLog(page,0);
+        return result;
     }
 
 
