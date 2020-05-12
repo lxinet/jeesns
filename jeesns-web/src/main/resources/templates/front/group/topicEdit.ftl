@@ -51,7 +51,7 @@
                             <label class="col-sm-1 control-label">帖子分类</label>
                             <div class="col-sm-3">
                                 <select class="form-control" name="typeId">
-                                    <option value="" <#if groupTopic.typeId == null>selected</#if>>不选择分类</option>
+                                    <option value="" <#if groupTopic.typeId?default(0) == 0>selected</#if>>不选择分类</option>
                                     <#list groupTopicTypeList as groupTopicType>
                                     <option value="${groupTopicType.id}" <#if groupTopic.typeId == groupTopicType.id>selected</#if>>${groupTopicType.name}</option>
                                     </#list>
@@ -63,7 +63,7 @@
                             <div class="col-sm-10">
                                 <div id="uploader">
                                     <!--用来存放文件信息-->
-                                    <input type="hidden" id="thumbnail" name="thumbnail" value="${groupTopic.thumbnail}">
+                                    <input type="hidden" id="thumbnail" name="thumbnail" value="${groupTopic.thumbnail?default('')}">
                                     <div id="preview" class="uploader-list">
                                     <#if groupTopic.thumbnail??>
                                         <img src="${basePath}${groupTopic.thumbnail}" width="100px" height="100px"/>

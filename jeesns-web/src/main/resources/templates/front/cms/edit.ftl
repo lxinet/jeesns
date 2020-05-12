@@ -66,7 +66,7 @@
                             <div class="col-sm-10">
                                 <div id="uploader">
                                     <!--用来存放文件信息-->
-                                    <input type="hidden" id="thumbnail" name="thumbnail" value="${article.thumbnail}">
+                                    <input type="hidden" id="thumbnail" name="thumbnail" value="${article.thumbnail?default('')}">
                                     <div id="preview" class="uploader-list">
                                     <#if article.thumbnail?? && article.thumbnail!=''>
                                         <img src="${basePath}${article.thumbnail}" width="100px" height="100px"/>

@@ -25,6 +25,7 @@
     <result column="check_admin" jdbcType="INTEGER" property="checkAdmin" />
     <result column="favor" jdbcType="INTEGER" property="favor" />
     <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="is_favor" jdbcType="VARCHAR" property="isFavor" />
     <association property="articleCate" column="article_cate_id" javaType="ArticleCate">
       <result column="c_id" jdbcType="INTEGER" property="id" />
       <result column="c_fid" jdbcType="INTEGER" property="fid" />
@@ -85,7 +86,7 @@
 
   <select id="findById" parameterType="java.lang.Integer" resultMap="ArticleResult">
      select <include refid="select_column"/>,a.content,
-    (CASE WHEN (SELECT id FROM tbl_article_favor WHERE article_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) isFavor
+    (CASE WHEN (SELECT id FROM tbl_article_favor WHERE article_id=a.id AND member_id=#{loginMemberId}) IS NULL THEN 0 ELSE 1 END) is_favor
     from tbl_article as a  LEFT JOIN tbl_article_cate as c ON a.cate_id = c.id LEFT JOIN tbl_member as d on a.member_id=d.id
     where a.id = #{id}
   </select>
@@ -93,22 +94,6 @@
     delete from tbl_action_log where type=1 and foreign_id = #{id};
     delete from tbl_article where id = #{id}
   </delete>
-  <!--<update id="update" parameterType="Article">-->
-    <!--update tbl_article-->
-    <!--<set>-->
-      <!--update_time = now(),-->
-      <!--<if test="cateId != null">cate_id = #{cateId},</if>-->
-      <!--<if test="title != null">title = #{title},</if>-->
-      <!--<if test="description != null">description = #{description},</if>-->
-      <!--<if test="keywords != null">keywords = #{keywords},</if>-->
-      <!--<if test="writer != null">writer = #{writer},</if>-->
-      <!--<if test="source != null">source = #{source},</if>-->
-      <!--<if test="thumbnail != null">thumbnail = #{thumbnail},</if>-->
-      <!--<if test="canReply != null">can_reply = #{canReply},</if>-->
-      <!--<if test="content != null">content = #{content},</if>-->
-    <!--</set>-->
-    <!--where id = #{id}-->
-  <!--</update>-->
 
   <update id="audit">
     update tbl_article set status=(CASE WHEN status=0 THEN 1 ELSE 0 END)

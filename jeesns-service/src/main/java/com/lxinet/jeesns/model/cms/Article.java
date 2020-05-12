@@ -85,7 +85,6 @@ public class Article implements Serializable {
     /**
      * 会员是否已点击喜欢
      */
-    @Column("is_favor")
     private Integer isFavor;
 
     private ArticleCate articleCate;
