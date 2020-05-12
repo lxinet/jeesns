@@ -18,7 +18,11 @@
             <artifactId>jeesns-core</artifactId>
             <version>2.0.0-Beta1</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.lxinet</groupId>
+            <artifactId>jeesns-authorize</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

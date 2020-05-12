@@ -8,7 +8,7 @@
 	</appender>
 	
 	<appender name="rollfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${catalina.base:-.}/logs/shop.log</File>
+		<File>${catalina.base:-.}/logs/jeesns.log</File>
 		<encoder>
 			<charset>UTF-8</charset>
 			<pattern>%date [%thread] %-5level %logger{80} [%line] - %msg%n</pattern>
@@ -23,6 +23,7 @@
 
 	<root level="INFO">
 		<appender-ref ref="stdout" />
+		<appender-ref ref="rollfile" />
 	</root>
 	
 </configuration>

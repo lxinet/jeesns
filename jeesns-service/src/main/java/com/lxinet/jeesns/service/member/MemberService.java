@@ -1,5 +1,6 @@
 package com.lxinet.jeesns.service.member;
 
+import com.lxinet.jeesns.core.event.AnalyticsUseEvent;
 import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.service.system.ActionLogService;
 import com.lxinet.jeesns.service.system.ConfigService;
