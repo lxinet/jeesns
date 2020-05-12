@@ -157,6 +157,24 @@
                                         <div class="panel-heading">
                                             <h5 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#version"
+                                                   href="#v200beta1">v2.0.0-Beta1</a><code class="pull-right">2020.05.12</code>
+                                            </h5>
+                                        </div>
+                                        <div id="v200beta1" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>框架改成SpringBoot2</li>
+                                                        <li>修订已知bug</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#version"
                                                    href="#v142">v1.4.2</a><code class="pull-right">2018.12.24</code>
                                             </h5>
                                         </div>

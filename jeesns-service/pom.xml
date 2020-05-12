@@ -6,17 +6,17 @@
     <parent>
         <groupId>com.lxinet</groupId>
         <artifactId>jeesns</artifactId>
-        <version>1.4.2</version>
+        <version>2.0.0-Beta1</version>
     </parent>
     <groupId>com.lxinet</groupId>
     <artifactId>jeesns-service</artifactId>
-    <version>1.4.2</version>
+    <version>2.0.0-Beta1</version>
     <name>jeesns-service</name>
     <dependencies>
         <dependency>
             <groupId>com.lxinet</groupId>
             <artifactId>jeesns-core</artifactId>
-            <version>2.0.0</version>
+            <version>2.0.0-Beta1</version>
         </dependency>
 
         <dependency>
