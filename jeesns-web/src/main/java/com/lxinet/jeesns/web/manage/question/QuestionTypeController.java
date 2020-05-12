@@ -20,7 +20,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/12/7.
  */
 @Controller
-@RequestMapping("${managePath}/question/type/")
+@RequestMapping("${jeesns.managePath}/question/type/")
 @Before(AdminLoginInterceptor.class)
 public class QuestionTypeController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/question/type/";

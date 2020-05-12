@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2019/1/5.
  */
 @Controller("scoreDetailManageController")
-@RequestMapping("${managePath}/member/scoreDetail")
+@RequestMapping("${jeesns.managePath}/member/scoreDetail")
 @Before(UserLoginInterceptor.class)
 public class ScoreDetailController extends BaseController {
     private static final String INDEX_FTL_PATH = "/manage/member/scoreDetail/";

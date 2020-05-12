@@ -22,7 +22,7 @@ import java.util.Properties;
  * Created by zchuanzhao on 16/9/26.
  */
 @Controller("manageIndexController")
-@RequestMapping("/${managePath}")
+@RequestMapping("/${jeesns.managePath}")
 @Before(AdminLoginInterceptor.class)
 public class IndexController extends BaseController {
     private static final String FTL_PATH = "/manage";

@@ -20,7 +20,7 @@ import java.util.List;
  * Created by zchuanzhao on 18/8/15.
  */
 @Controller("manageArticleCommentController")
-@RequestMapping("${managePath}/cms/comment")
+@RequestMapping("${jeesns.managePath}/cms/comment")
 @Before(AdminLoginInterceptor.class)
 public class ArticleCommentController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/cms/comment/";

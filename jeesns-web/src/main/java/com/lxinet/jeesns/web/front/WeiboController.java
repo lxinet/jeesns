@@ -28,7 +28,7 @@ import java.util.List;
  * Created by zchuanzhao on 2016/12/20.
  */
 @Controller("frontWeiboController")
-@RequestMapping("/${weiboPath}")
+@RequestMapping("/${jeesns.weiboPath}")
 public class WeiboController extends BaseController {
     @Resource
     private WeiboService weiboService;

@@ -45,7 +45,7 @@ public class UploadController extends BaseController {
 	@Resource
 	private JwtUtil jwtUtil;
 
-	@PostMapping("${managePath}/uploadImage")
+	@PostMapping("${jeesns.managePath}/uploadImage")
 	public Object manageUploadImage(@RequestParam(value = "file", required = false) MultipartFile file) {
 		return uploadImage(file, 0);
 	}

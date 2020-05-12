@@ -33,7 +33,7 @@ public class MemberController extends BaseController {
     @Resource
     private MemberService memberService;
 
-    @RequestMapping("${managePath}/member/index")
+    @RequestMapping("${jeesns.managePath}/member/index")
     @Before(AdminLoginInterceptor.class)
     public String index(String key,Model model) {
         Page page = new Page(request);
@@ -47,7 +47,7 @@ public class MemberController extends BaseController {
     /**
      * 会员详情
      */
-    @GetMapping("${managePath}/member/info/{id}")
+    @GetMapping("${jeesns.managePath}/member/info/{id}")
     public String info(@PathVariable("id") int id, Model model) {
         Member member = memberService.findById(id);
         model.addAttribute("member", member);
@@ -57,19 +57,19 @@ public class MemberController extends BaseController {
     /**
      * 会员启用、禁用操作
      */
-    @RequestMapping(value = "${managePath}/member/isenable/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/member/isenable/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Result isenable(@PathVariable("id") int id) {
         return memberService.isenable(id);
     }
 
-    @RequestMapping(value = "${managePath}/member/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/member/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Result delete(@PathVariable("id") int id) {
         return memberService.delete(id);
     }
 
-    @RequestMapping(value = "${managePath}/member/changepwd/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/member/changepwd/{id}", method = RequestMethod.GET)
     public String changepwd(@PathVariable("id") int id, Model model) {
         Member member = memberService.findById(id);
         if (member == null) {
@@ -79,7 +79,7 @@ public class MemberController extends BaseController {
         return MANAGE_FTL_PATH + "changepwd";
     }
 
-    @RequestMapping(value = "${managePath}/member/changepwd", method = RequestMethod.POST)
+    @RequestMapping(value = "${jeesns.managePath}/member/changepwd", method = RequestMethod.POST)
     @ResponseBody
     public Result changepwd(int id, String password) {
         Member loginMember = MemberUtil.getLoginMember(request);
@@ -97,7 +97,7 @@ public class MemberController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "${managePath}/member/managerList",method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/member/managerList",method = RequestMethod.GET)
     public String managerList(String key,Model model) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getIsAdmin() == 1){
@@ -115,7 +115,7 @@ public class MemberController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "${managePath}/member/managerAdd",method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/member/managerAdd",method = RequestMethod.GET)
     public String managerAdd(Model model) {
         Member loginMember = MemberUtil.getLoginMember(request);
         if(loginMember.getIsAdmin() == 1){
@@ -129,7 +129,7 @@ public class MemberController extends BaseController {
      * @param name
      * @return
      */
-    @RequestMapping(value = "${managePath}/member/managerAdd",method = RequestMethod.POST)
+    @RequestMapping(value = "${jeesns.managePath}/member/managerAdd",method = RequestMethod.POST)
     @ResponseBody
     public Result managerAdd(String name) {
         Member loginMember = MemberUtil.getLoginMember(request);
@@ -145,7 +145,7 @@ public class MemberController extends BaseController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "${managePath}/member/managerCancel/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/member/managerCancel/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Result managerCancel(@PathVariable("id") Integer id) {
         if(id == null){
@@ -162,7 +162,7 @@ public class MemberController extends BaseController {
      * @param id
      * @return
      */
-    @GetMapping("${managePath}/member/level/{id}")
+    @GetMapping("${jeesns.managePath}/member/level/{id}")
     public String level(@PathVariable("id") Integer id, Model model) {
         Member findMember = memberService.findById(id);
         ValidUtill.checkIsNull(findMember, Messages.USER_NOT_EXISTS);
@@ -176,7 +176,7 @@ public class MemberController extends BaseController {
      * @param id
      * @return
      */
-    @PostMapping("${managePath}/member/setLevel")
+    @PostMapping("${jeesns.managePath}/member/setLevel")
     @ResponseBody
     public Result setLevel(@Param("id") Integer id,@Param("memberLevelId") Integer memberLevelId) {
         ValidUtill.checkIsNull(id, Messages.PARAM_ERROR);
@@ -189,7 +189,7 @@ public class MemberController extends BaseController {
      * @param id
      * @return
      */
-    @GetMapping("${managePath}/member/increaseMoney/{id}")
+    @GetMapping("${jeesns.managePath}/member/increaseMoney/{id}")
     public String increaseMoney(@PathVariable("id") Integer id, Model model) {
         Member findMember = memberService.findById(id);
         model.addAttribute("member", findMember);
@@ -201,7 +201,7 @@ public class MemberController extends BaseController {
      * @param id
      * @return
      */
-    @PostMapping("${managePath}/member/increaseMoney/{id}")
+    @PostMapping("${jeesns.managePath}/member/increaseMoney/{id}")
     @ResponseBody
     public Result increaseMoney(@PathVariable("id") Integer id, @RequestParam(value = "money", defaultValue = "0") Double money) {
         memberService.increaseMoney(money, id);
@@ -213,7 +213,7 @@ public class MemberController extends BaseController {
      * @param id
      * @return
      */
-    @GetMapping("${managePath}/member/increaseScore/{id}")
+    @GetMapping("${jeesns.managePath}/member/increaseScore/{id}")
     public String increaseScore(@PathVariable("id") Integer id, Model model) {
         Member findMember = memberService.findById(id);
         model.addAttribute("member", findMember);
@@ -225,7 +225,7 @@ public class MemberController extends BaseController {
      * @param id
      * @return
      */
-    @PostMapping("${managePath}/member/increaseScore/{id}")
+    @PostMapping("${jeesns.managePath}/member/increaseScore/{id}")
     @ResponseBody
     public Result increaseScore(@PathVariable("id") Integer id, @RequestParam(value = "score", defaultValue = "0") Integer score) {
         memberService.increaseScore(score, id);

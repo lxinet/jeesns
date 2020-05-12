@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2017/10/13.
  */
 @Controller
-@RequestMapping("/${managePath}/link")
+@RequestMapping("/${jeesns.managePath}/link")
 @Before(AdminLoginInterceptor.class)
 public class LinkController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/link/";

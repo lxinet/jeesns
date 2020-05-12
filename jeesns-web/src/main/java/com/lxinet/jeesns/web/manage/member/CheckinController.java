@@ -19,7 +19,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/8/20.
  */
 @Controller("manageCheckinController")
-@RequestMapping("/${managePath}/checkin/")
+@RequestMapping("/${jeesns.managePath}/checkin/")
 @Before(AdminLoginInterceptor.class)
 public class CheckinController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/checkin/";

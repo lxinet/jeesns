@@ -1,4 +1,4 @@
-package com.lxinet.jeesns;
+package com.lxinet.jeesns.configurer;
 
 import com.lxinet.jeesns.interceptor.ApiTokenInterceptor;
 import com.lxinet.jeesns.interceptor.InitInterceptor;

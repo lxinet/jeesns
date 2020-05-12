@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2018/12/24.
  */
 @Controller("answerController")
-@RequestMapping("${managePath}/question/{questionId}/answer/")
+@RequestMapping("${jeesns.managePath}/question/{questionId}/answer/")
 public class AnswerController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/question/answer/";
     @Resource

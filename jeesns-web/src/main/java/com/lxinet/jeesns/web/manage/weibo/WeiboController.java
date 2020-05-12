@@ -25,7 +25,7 @@ public class WeiboController extends BaseController {
     @Resource
     private WeiboService weiboService;
 
-    @RequestMapping("${managePath}/weibo/index")
+    @RequestMapping("${jeesns.managePath}/weibo/index")
     @Before(AdminLoginInterceptor.class)
     public String index(@RequestParam(value = "key",required = false,defaultValue = "") String key, Model model) {
         Page page = new Page(request);
@@ -34,7 +34,7 @@ public class WeiboController extends BaseController {
         return MANAGE_FTL_PATH + "index";
     }
 
-    @RequestMapping(value = "${managePath}/weibo/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/weibo/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Result delete(@PathVariable("id") int id) {
         Member loginMember = MemberUtil.getLoginMember(request);

@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @date 2017/11/01
  */
 @Controller
-@RequestMapping("/${managePath}/picture")
+@RequestMapping("/${jeesns.managePath}/picture")
 @Before(AdminLoginInterceptor.class)
 public class PictureController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/picture/";
