@@ -1,13 +1,16 @@
 package com.lxinet.jeesns.service.system;
 
 import com.lxinet.jeesns.core.dto.Result;
+import com.lxinet.jeesns.core.event.AnalyticsUseEvent;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.core.service.BaseService;
+import com.lxinet.jeesns.core.utils.SpringContextUtil;
 import com.lxinet.jeesns.dao.system.IActionLogDao;
 import com.lxinet.jeesns.model.system.Action;
 import com.lxinet.jeesns.model.system.ActionLog;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

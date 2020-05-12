@@ -165,6 +165,7 @@
                                                 <div class="alert alert-success">
                                                     <ul>
                                                         <li>框架改成SpringBoot2</li>
+                                                        <li>增加app、小程序、h5 api接口</li>
                                                         <li>修订已知bug</li>
                                                     </ul>
                                                 </div>
