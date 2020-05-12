@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2018/12/7.
  */
 @Controller
-@RequestMapping("${managePath}/question/")
+@RequestMapping("${jeesns.managePath}/question/")
 @Before(AdminLoginInterceptor.class)
 public class QuestionController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/question/";

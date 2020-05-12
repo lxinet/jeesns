@@ -21,7 +21,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/11/27.
  */
 @Controller("manageCardkeyController")
-@RequestMapping("${managePath}/member/cardkey/")
+@RequestMapping("${jeesns.managePath}/member/cardkey/")
 @Before(AdminLoginInterceptor.class)
 public class CardkeyController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/member/cardkey/";

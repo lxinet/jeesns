@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2020/5/8 12:45
  */
 @RestController("apiWeiboController")
-@RequestMapping("/api/${weiboPath}")
+@RequestMapping("/api/${jeesns.weiboPath}")
 public class WeiboController extends BaseController {
     @Resource
     private WeiboService weiboService;

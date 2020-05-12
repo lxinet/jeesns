@@ -17,7 +17,7 @@ import java.util.List;
  * Created by zchuanzhao on 2017/3/24.
  */
 @Controller
-@RequestMapping("/${managePath}/system/scoreRule/")
+@RequestMapping("/${jeesns.managePath}/system/scoreRule/")
 @Before(AdminLoginInterceptor.class)
 public class ScoreRuleController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/system/scoreRule/";

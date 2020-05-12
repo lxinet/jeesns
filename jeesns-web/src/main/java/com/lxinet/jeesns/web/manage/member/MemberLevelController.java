@@ -16,7 +16,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/11/19.
  */
 @Controller("manageMemberLevelController")
-@RequestMapping("${managePath}/member/level/")
+@RequestMapping("${jeesns.managePath}/member/level/")
 @Before(AdminLoginInterceptor.class)
 public class MemberLevelController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/member/level/";

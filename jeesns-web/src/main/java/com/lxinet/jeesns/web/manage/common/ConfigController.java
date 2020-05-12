@@ -24,7 +24,7 @@ import java.util.Map;
  * Created by zchuanzhao on 2017/1/3.
  */
 @Controller
-@RequestMapping("/${managePath}/system/config/")
+@RequestMapping("/${jeesns.managePath}/system/config/")
 @Before(AdminLoginInterceptor.class)
 public class ConfigController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/system/config/";

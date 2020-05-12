@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2017/10/13.
  */
 @Controller
-@RequestMapping("/${managePath}/tag")
+@RequestMapping("/${jeesns.managePath}/tag")
 @Before(AdminLoginInterceptor.class)
 public class TagController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/tag/";

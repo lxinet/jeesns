@@ -25,7 +25,7 @@ import java.util.List;
  * Created by zchuanzhao on 16/12/26.
  */
 @Controller("frontGroupController")
-@RequestMapping("/${groupPath}")
+@RequestMapping("/${jeesns.groupPath}")
 public class GroupController extends BaseController {
     @Resource
     private JeesnsConfig jeesnsConfig;

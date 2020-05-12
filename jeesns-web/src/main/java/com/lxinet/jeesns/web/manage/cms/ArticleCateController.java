@@ -28,19 +28,19 @@ public class ArticleCateController extends BaseController {
     @Resource
     private ArticleCateService articleCateService;
 
-    @RequestMapping("${managePath}/cms/articleCate/list")
+    @RequestMapping("${jeesns.managePath}/cms/articleCate/list")
     public String list(Model model){
         List<ArticleCate> list = articleCateService.list();
         model.addAttribute("list",list);
         return MANAGE_FTL_PATH + "/list";
     }
 
-    @RequestMapping("${managePath}/cms/articleCate/add")
+    @RequestMapping("${jeesns.managePath}/cms/articleCate/add")
     public String add(Model model){
         return MANAGE_FTL_PATH + "/add";
     }
 
-    @RequestMapping("${managePath}/cms/articleCate/save")
+    @RequestMapping("${jeesns.managePath}/cms/articleCate/save")
     @ResponseBody
     public Result save(ArticleCate articleCate){
         if(articleCate == null){
@@ -52,14 +52,14 @@ public class ArticleCateController extends BaseController {
         return new Result(articleCateService.save(articleCate));
     }
 
-    @RequestMapping("${managePath}/cms/articleCate/edit/{id}")
+    @RequestMapping("${jeesns.managePath}/cms/articleCate/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model){
         ArticleCate articleCate = articleCateService.findById(id);
         model.addAttribute("articleCate",articleCate);
         return MANAGE_FTL_PATH + "/edit";
     }
 
-    @RequestMapping("${managePath}/cms/articleCate/update")
+    @RequestMapping("${jeesns.managePath}/cms/articleCate/update")
     @ResponseBody
     public Result update(ArticleCate articleCate){
         if(articleCate == null){
@@ -72,7 +72,7 @@ public class ArticleCateController extends BaseController {
     }
 
 
-    @RequestMapping("${managePath}/cms/articleCate/delete/{id}")
+    @RequestMapping("${jeesns.managePath}/cms/articleCate/delete/{id}")
     @ResponseBody
     public Result delete(@PathVariable("id") int id){
         return new Result(articleCateService.delete(id));

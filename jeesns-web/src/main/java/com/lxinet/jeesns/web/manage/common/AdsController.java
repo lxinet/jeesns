@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * Created by zchuanzhao on 2017/9/07.
  */
 @Controller
-@RequestMapping("/${managePath}/ads")
+@RequestMapping("/${jeesns.managePath}/ads")
 @Before(AdminLoginInterceptor.class)
 public class AdsController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/ads/";

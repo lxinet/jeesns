@@ -20,7 +20,7 @@ import java.util.List;
  * Created by zchuanzhao on 2018/11/28.
  */
 @Controller
-@RequestMapping("/${managePath}/member/financial/")
+@RequestMapping("/${jeesns.managePath}/member/financial/")
 @Before(AdminLoginInterceptor.class)
 public class FinancialController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/member/financial/";

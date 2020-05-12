@@ -26,7 +26,7 @@ public class GroupController extends BaseController {
     @Resource
     private GroupService groupService;
 
-    @RequestMapping(value = "${managePath}/group/index")
+    @RequestMapping(value = "${jeesns.managePath}/group/index")
     public String index(@RequestParam(value = "status",required = false,defaultValue = "-1") Integer status,
                         String key,
                         Model model) {
@@ -37,14 +37,14 @@ public class GroupController extends BaseController {
         return MANAGE_FTL_PATH + "index";
     }
 
-    @RequestMapping(value = "${managePath}/group/delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/group/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Result delete(@PathVariable("id") int id){
         Member loginMember = MemberUtil.getLoginMember(request);
         return new Result(groupService.delete(loginMember,id));
     }
 
-    @RequestMapping(value = "${managePath}/group/changeStatus/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "${jeesns.managePath}/group/changeStatus/{id}",method = RequestMethod.GET)
     @ResponseBody
     public Result changeStatus(@PathVariable("id") int id){
         return new Result(groupService.changeStatus(id));

@@ -65,16 +65,17 @@ spring:
 
 mybatis:
   typeAliasesPackage: com.lxinet.jeesns.model
-  configLocation: classpath:mybatis-config.xml
   mapperLocations: classpath*:mybatis/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
 logging:
   config: classpath:logback-server.xml
 
-
-managePath: manage
-groupPath: group
-weiboPath: weibo
-frontTemplate: front
-memberTemplate: member
-manageTemplate: manage
-mobileTemplate: mobile
+jeesns:
+  managePath: manage
+  groupPath: group
+  weiboPath: weibo
+  frontTemplate: front
+  memberTemplate: member
+  manageTemplate: manage
+  mobileTemplate: mobile

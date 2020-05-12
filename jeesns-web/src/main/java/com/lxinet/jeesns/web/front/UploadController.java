@@ -41,7 +41,7 @@ public class UploadController extends BaseController {
 	@Resource
 	private PictureAlbumService pictureAlbumService;
 
-	@RequestMapping("${managePath}/uploadImage")
+	@RequestMapping("${jeesns.managePath}/uploadImage")
 	@ResponseBody
 	public Object manageUploadImage(@RequestParam(value = "file", required = false) MultipartFile file) {
 		return uploadImage(file, 0);
