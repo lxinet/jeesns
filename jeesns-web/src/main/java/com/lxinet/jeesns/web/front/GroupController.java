@@ -107,19 +107,18 @@ public class GroupController extends BaseController {
         model.addAttribute("managerList", managerList);
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
-        if (loginMember == null) {
-            model.addAttribute("isManager", 0);
-        } else {
-            boolean isManager = false;
-            for (String manager : groupManagerArr) {
-                if (loginMember.getId() == Integer.parseInt(manager)) {
-                    isManager = true;
-                }
-            }
-            if (isManager || loginMember.getId().intValue() == group.getCreator().intValue()) {
-                model.addAttribute("isManager", 1);
+        int isManager = 0;
+        boolean isManagerFlag = false;
+        for (String manager : groupManagerArr) {
+            if (loginMember.getId() == Integer.parseInt(manager)) {
+                isManagerFlag = true;
+                break;
             }
         }
+        if (isManagerFlag || loginMember.getId().intValue() == group.getCreator().intValue()) {
+            isManager = 1;
+        }
+        model.addAttribute("isManager", isManager);
         //获取群组粉丝列表,第一页，20条数据
         Page groupFansPage = new Page(1, 20);
         List<GroupFans> groupFansList = (List<GroupFans>) groupFansService.listByPage(groupFansPage, groupId).getData();
@@ -200,18 +199,12 @@ public class GroupController extends BaseController {
         String groupManagers = group.getManagers();
         String[] groupManagerArr = groupManagers.split(",");
         boolean isfollow = false;
-        if (loginMember == null) {
-            model.addAttribute("isManager", 0);
-        } else {
-            boolean isManager = false;
-            for (String manager : groupManagerArr) {
-                if (loginMember.getId() == Integer.parseInt(manager)) {
-                    isManager = true;
-                }
-            }
-            if (loginMember.getId().intValue() == groupTopic.getMember().getId().intValue() || loginMember.getIsAdmin() > 0 ||
-                    isManager || loginMember.getId().intValue() == group.getCreator().intValue()) {
-                model.addAttribute("isManager", 1);
+        int isManager = 0;
+        boolean isManagerFlag = false;
+        for (String manager : groupManagerArr) {
+            if (loginMember.getId() == Integer.parseInt(manager)) {
+                isManagerFlag = true;
+                break;
             }
             //判断是否已关注该群组
             GroupFans groupFans = groupFansService.findByMemberAndGroup(groupTopic.getGroup().getId(), loginMember.getId());
@@ -219,6 +212,10 @@ public class GroupController extends BaseController {
                 isfollow = true;
             }
         }
+        if (isManagerFlag || loginMember.getId().intValue() == group.getCreator().intValue()) {
+            isManager = 1;
+        }
+        model.addAttribute("isManager", isManager);
         model.addAttribute("isfollow", isfollow);
         model.addAttribute("loginUser", loginMember);
         return jeesnsConfig.getFrontTemplate() + "/group/topic";
