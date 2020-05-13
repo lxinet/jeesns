@@ -19,6 +19,6 @@
 
 官方网站：[http://www.jeesns.cn](http://www.jeesns.cn/)
 
-技术支持：[http://www.lxinet.com](http://www.lxinet.com/)
+技术支持：[http://www.lxinet.cn](http://www.lxinet.cn/)
 
 服务器支持：[http://www.919dns.com](http://www.919dns.com/)
