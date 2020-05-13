@@ -149,17 +149,28 @@ var jeesns = {
     jeesnsLink : function (){
         $('a[target="_jeesnsLink"]').on('click',function() {
             var url = $(this).attr('data-href');
+            var method = $(this).attr('data-method');
+            var data = $(this).attr('data-data');
             if (url == undefined){
                 url = $(this).attr('href');
+            }
+            if (method == undefined){
+                method = "GET";
+            }
+            console.log("method",method)
+            if (data == undefined){
+                data = null;
+            } else {
+                data = eval("(" + data + ")");
             }
             var title = $(this).attr('confirm');
             var callback = $(this).attr('callback');
             if (title) {
                 jeesnsDialog.confirm(title, function () {
-                    jeesns.jeesnsAjax(url,"GET",null,callback);
+                    jeesns.jeesnsAjax(url,method,data,callback);
                 });
             }else {
-                jeesns.jeesnsAjax(url,"GET",null,callback);
+                jeesns.jeesnsAjax(url,method,data,callback);
             }
             return false;
         });

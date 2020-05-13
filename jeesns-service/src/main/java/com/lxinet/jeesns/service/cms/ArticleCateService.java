@@ -62,7 +62,7 @@ public class ArticleCateService extends BaseService<ArticleCate> {
         findArticleCate.setFid(articleCate.getFid());
         findArticleCate.setName(articleCate.getName());
         findArticleCate.setSort(articleCate.getSort());
-        if (!super.update(articleCate)){
+        if (!super.update(findArticleCate)){
             throw new OpeErrorException();
         }
         return true;

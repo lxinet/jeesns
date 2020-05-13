@@ -74,6 +74,16 @@
                     <li><a href="${managePath}/cms/comment/list" module="cms"><i class="fa fa-circle-o"></i>评论管理</a></li>
                 </ul>
             </li>
+            <li class="treeview" module="shop">
+                <a href="#">
+                    <i class="fa fa-book"></i> <span>商品管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${managePath}/shop/goodsCate/list" module="shop"><i class="fa fa-circle-o"></i>分类管理</a></li>
+                    <li><a href="${managePath}/shop/goods/list" module="shop"><i class="fa fa-circle-o"></i>商品管理</a></li>
+                </ul>
+            </li>
             <li class="treeview" module="member">
                 <a href="#">
                     <i class="fa fa-user"></i> <span>会员管理</span>

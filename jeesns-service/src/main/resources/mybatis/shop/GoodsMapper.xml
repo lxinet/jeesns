@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxinet.jeesns.dao.shop.IGoodsDao">
+  <resultMap id="GoodsResult" type="Goods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cate_id" jdbcType="INTEGER" property="cateId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pub_time" jdbcType="TIMESTAMP" property="pubTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <association property="goodsCate" column="article_cate_id" javaType="GoodsCate">
+      <result column="c_id" jdbcType="INTEGER" property="id" />
+      <result column="c_fid" jdbcType="INTEGER" property="fid" />
+      <result column="c_name" jdbcType="VARCHAR" property="name" />
+      <result column="c_level" jdbcType="VARCHAR" property="level" />
+      <result column="c_status" jdbcType="INTEGER" property="status" />
+      <result column="c_sort" jdbcType="INTEGER" property="sort" />
+    </association>
+  </resultMap>
+  <sql id="select_column">
+    a.id,a.cate_id,a.title,a.subtitle, a.no,a.create_time,a.pub_time,a.update_time,a.description,a.keywords,
+    a.view_count,a.thumbnail,a.price,a.stock,a.status,a.sort,
+    c.id as c_id,c.fid as c_fid,c.name as c_name,c.status as c_status,c.sort as c_sort,c.level as c_level
+  </sql>
+  <sql id="common_select">
+    select <include refid="select_column"/>
+    from tbl_goods as a
+    LEFT JOIN tbl_goods_cate as c ON a.cate_id = c.id
+  </sql>
+
+  <select id="list" resultMap="GoodsResult">
+    <include refid="common_select"/>
+    <where>
+      <if test="cateid &gt; 0">
+        (a.cate_id = #{cateid} or c.fid = #{cateid})
+      </if>
+      <if test="key != null and key != ''">
+        and (a.title LIKE #{key} or a.subtitle like #{key})
+      </if>
+      <if test="status != -1">
+        and a.status = #{status}
+      </if>
+    </where>
+    order by a.sort DESC,a.id DESC
+  </select>
+
+  <select id="findById" parameterType="java.lang.Integer" resultMap="GoodsResult">
+     select <include refid="select_column"/>,a.content,
+    from tbl_goods as a  LEFT JOIN tbl_goods_cate as c ON a.cate_id = c.id
+    where a.id = #{id}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_goods where id = #{id}
+  </delete>
+  <update id="changeStatus">
+    update tbl_goods set status=(CASE WHEN status=0 THEN 1 ELSE 0 END) where id = #{id}
+  </update>
+  <select id="listByCustom" resultMap="GoodsResult">
+    <include refid="common_select"/>
+    <where>
+      AND a.status = 1
+      <if test="cid &gt; 0">
+      AND a.cate_id = #{cid}
+      </if>
+      <if test="day &gt; 0">
+      AND DATEDIFF(now(),a.create_time) &lt;= #{day} AND DATEDIFF(now(),a.create_time) &gt;= 0
+      </if>
+      <if test="thumbnail == 1">
+      AND a.thumbnail is not NULL
+      </if>
+    </where>
+    ORDER BY
+    <choose>
+      <when test="sort == 'id'">
+        id
+      </when >
+      <when test="sort == 'view_count'">
+        view_count
+      </when >
+      <when test="sort == 'update_time'">
+        update_time
+      </when >
+      <otherwise>
+        id
+      </otherwise>
+    </choose>
+    DESC
+    limit 0,#{num}
+  </select>
+
+  <update id="updateViewCount" parameterType="java.lang.Integer">
+    update tbl_goods set view_count=view_count+1 where id=${id}
+  </update>
+
+</mapper>

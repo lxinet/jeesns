@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="firstname" class="col-sm-2 control-label">图标</label>
+                            <label class="col-sm-2 control-label">图标</label>
                             <div class="col-sm-8">
                                 <img src="${basePath}${group.logo}" height="80px"/>
                                 <div id="uploader" class="wu-example">

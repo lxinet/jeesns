@@ -10,7 +10,6 @@
 
             };
 
-
             if(pageinfo.pageCount<2)
                 return false;
             //初始起始页数、结束页数
@@ -56,16 +55,17 @@
             });
 
             function redirectTo(page){
-
                 var url=pageinfo.url;
-                if(url.indexOf("?")==-1)
+                if (url.charAt(url.length - 1) == "?" || url.charAt(url.length - 1) == "&"){
+                    url = url.substring(0, url.length - 1);
+                }
+                if(url.indexOf("?")==-1){
                     url+="?";
-                else
+                }else{
                     url+="&";
+                }
                 url+="pageNo="+page;
-                window.location.href=url;
-
-
+                window.location.href = url;
             }
             return $this;
         }
