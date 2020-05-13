@@ -8,7 +8,7 @@
     <meta name="keywords" content="${SITE_KEYS}"/>
     <meta name="description" content="${SITE_DESCRIPTION}"/>
     <meta name="author" content="JEESNS"/>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="${basePath}/favicon.ico">
     <link href="${basePath}/res/common/css/zui.min.css" rel="stylesheet">
     <link href="${basePath}/res/front/css/app.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -27,13 +27,7 @@
 <div class="wrapper wrapper-content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-2 col-xs-12">
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="${basePath}/member/avatar">修改头像</a></li>
-                    <li class="list-group-item"><a href="${basePath}/member/editInfo">修改信息</a></li>
-                    <li class="list-group-item"><a href="${basePath}/member/password">修改密码</a></li>
-                </ul>
-            </div>
+            <#include "/member/common/settingMenu.ftl"/>
             <div class="col-sm-10 col-xs-12">
                 <div class="col-xs-12 white-bg">
                     <div class="list list-condensed">

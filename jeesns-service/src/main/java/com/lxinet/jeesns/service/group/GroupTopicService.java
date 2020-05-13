@@ -305,7 +305,9 @@ public class GroupTopicService extends BaseService<GroupTopic> {
     }
 
     public GroupTopic atFormat(GroupTopic groupTopic){
-        groupTopic.setContent(memberService.atFormat(groupTopic.getContent()));
+        if (groupTopic != null){
+            groupTopic.setContent(memberService.atFormat(groupTopic.getContent()));
+        }
         return groupTopic;
     }
 }

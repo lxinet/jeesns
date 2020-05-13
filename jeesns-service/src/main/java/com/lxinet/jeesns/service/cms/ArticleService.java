@@ -253,7 +253,9 @@ public class ArticleService extends BaseService<Article> {
     }
 
     public Article atFormat(Article article){
-        article.setContent(memberService.atFormat(article.getContent()));
+        if (article != null){
+            article.setContent(memberService.atFormat(article.getContent()));
+        }
         return article;
     }
 }

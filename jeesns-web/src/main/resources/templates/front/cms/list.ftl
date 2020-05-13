@@ -57,7 +57,7 @@
                     </div>
                     </#list>
                         <ul class="pager pagination pagination-sm no-margin pull-right"
-                            url="${basePath}/article/list?<#if articleCate??>cid=${articleCate.id}&</#if>key="
+                            url="${basePath}/article/list?<#if articleCate??>cid=${articleCate.id}&</#if><#if key??>key=${key}&</#if>"
                             currentPage="${model.page.pageNo}"
                             pageCount="${model.page.totalPage}">
                         </ul>
