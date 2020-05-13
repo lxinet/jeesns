@@ -156,8 +156,8 @@
                                     <label class="col-sm-1 control-label">会员登录</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="member_login_open">
-                                            <option value="0" <#if member_login_open==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if member_login_open==1>selected</#if>>开启</option>
+                                            <option value="0" <#if member_login_open=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if member_login_open=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
@@ -165,8 +165,8 @@
                                     <label class="col-sm-1 control-label">会员注册</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="member_register_open">
-                                            <option value="0" <#if member_register_open==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if member_register_open==1>selected</#if>>开启</option>
+                                            <option value="0" <#if member_register_open=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if member_register_open=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
@@ -174,8 +174,8 @@
                                     <label class="col-sm-1 control-label">邮箱验证</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="member_email_valid">
-                                            <option value="0" <#if member_email_valid==0>selected</#if>>不需要验证</option>
-                                            <option value="1" <#if member_email_valid==1>selected</#if>>需要验证</option>
+                                            <option value="0" <#if member_email_valid=='0'>selected</#if>>不需要验证</option>
+                                            <option value="1" <#if member_email_valid=='1'>selected</#if>>需要验证</option>
                                         </select>
                                     </div>
                                 </div>
@@ -183,8 +183,8 @@
                                     <label class="col-sm-1 control-label">推荐注册</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="member_recommend">
-                                            <option value="0" <#if member_recommend==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if member_recommend==1>selected</#if>>开启</option>
+                                            <option value="0" <#if member_recommend=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if member_recommend=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
@@ -217,8 +217,8 @@
                                     <label class="col-sm-1 control-label">文章投稿</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="cms_post">
-                                            <option value="0" <#if cms_post==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if cms_post==1>selected</#if>>开启</option>
+                                            <option value="0" <#if cms_post=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if cms_post=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
@@ -226,8 +226,8 @@
                                     <label class="col-sm-1 control-label">投稿审核</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="cms_post_review">
-                                            <option value="0" <#if cms_post_review==0>selected</#if>>需要审核</option>
-                                            <option value="1" <#if cms_post_review==1>selected</#if>>无需审核</option>
+                                            <option value="0" <#if cms_post_review=='0'>selected</#if>>需要审核</option>
+                                            <option value="1" <#if cms_post_review=='1'>selected</#if>>无需审核</option>
                                         </select>
                                     </div>
                                 </div>
@@ -253,8 +253,8 @@
                                     <label class="col-sm-1 control-label">微博发布</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="weibo_post">
-                                            <option value="0" <#if weibo_post==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if weibo_post==1>selected</#if>>开启</option>
+                                            <option value="0" <#if weibo_post=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if weibo_post=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
@@ -286,8 +286,8 @@
                                     <label class="col-sm-1 control-label">群组申请</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="group_apply">
-                                            <option value="0" <#if group_apply==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if group_apply==1>selected</#if>>开启</option>
+                                            <option value="0" <#if group_apply=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if group_apply=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
@@ -295,8 +295,8 @@
                                     <label class="col-sm-1 control-label">申请审核</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="group_apply_review">
-                                            <option value="0" <#if group_apply_review==0>selected</#if>>需要审核</option>
-                                            <option value="1" <#if group_apply_review==1>selected</#if>>无需审核</option>
+                                            <option value="0" <#if group_apply_review=='0'>selected</#if>>需要审核</option>
+                                            <option value="1" <#if group_apply_review=='1'>selected</#if>>无需审核</option>
                                         </select>
                                     </div>
                                 </div>
@@ -322,8 +322,8 @@
                                     <label class="col-sm-1 control-label">支付宝支付</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="alipay_open">
-                                            <option value="0" <#if alipay_open==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if alipay_open==1>selected</#if>>开启</option>
+                                            <option value="0" <#if alipay_open=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if alipay_open=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
@@ -350,8 +350,8 @@
                                     <label class="col-sm-1 control-label">PAYJS微信支付</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="payjs_open">
-                                            <option value="0" <#if payjs_open==0>selected</#if>>关闭</option>
-                                            <option value="1" <#if payjs_open==1>selected</#if>>开启</option>
+                                            <option value="0" <#if payjs_open=='0'>selected</#if>>关闭</option>
+                                            <option value="1" <#if payjs_open=='1'>selected</#if>>开启</option>
                                         </select>
                                     </div>
                                 </div>
