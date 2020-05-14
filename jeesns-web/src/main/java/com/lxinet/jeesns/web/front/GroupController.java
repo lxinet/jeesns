@@ -115,7 +115,7 @@ public class GroupController extends BaseController {
                 break;
             }
         }
-        if (isManagerFlag || loginMember.getId().intValue() == group.getCreator().intValue()) {
+        if (isManagerFlag || (null != loginMember && loginMember.getId().intValue() == group.getCreator().intValue())) {
             isManager = 1;
         }
         model.addAttribute("isManager", isManager);
@@ -207,12 +207,14 @@ public class GroupController extends BaseController {
                 break;
             }
             //判断是否已关注该群组
-            GroupFans groupFans = groupFansService.findByMemberAndGroup(groupTopic.getGroup().getId(), loginMember.getId());
-            if (groupFans != null) {
-                isfollow = true;
+            if (null != loginMember){
+                GroupFans groupFans = groupFansService.findByMemberAndGroup(groupTopic.getGroup().getId(), loginMember.getId());
+                if (groupFans != null) {
+                    isfollow = true;
+                }
             }
         }
-        if (isManagerFlag || loginMember.getId().intValue() == group.getCreator().intValue()) {
+        if (isManagerFlag || (null != loginMember && loginMember.getId().intValue() == group.getCreator().intValue())) {
             isManager = 1;
         }
         model.addAttribute("isManager", isManager);
