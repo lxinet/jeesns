@@ -6,23 +6,23 @@
 	<parent>
 		<groupId>com.lxinet</groupId>
 		<artifactId>jeesns</artifactId>
-		<version>1.4.2</version>
+		<version>2.0.0-Beta1</version>
 	</parent>
 	<groupId>com.lxinet</groupId>
 	<artifactId>jeesns-web</artifactId>
 	<packaging>war</packaging>
-	<version>1.4.2</version>
+	<version>2.0.0-Beta1</version>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.lxinet</groupId>
 			<artifactId>jeesns-core</artifactId>
-			<version>1.4.2</version>
+			<version>2.0.0-Beta1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.lxinet</groupId>
 			<artifactId>jeesns-service</artifactId>
-			<version>1.4.2</version>
+			<version>2.0.0-Beta1</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -77,10 +77,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>

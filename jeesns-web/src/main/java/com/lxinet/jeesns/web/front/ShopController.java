@@ -1,13 +1,13 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.enums.GoodsStatue;
 import com.lxinet.jeesns.model.shop.Goods;
 import com.lxinet.jeesns.model.shop.GoodsCate;
-import com.lxinet.jeesns.service.shop.IGoodsCateService;
-import com.lxinet.jeesns.service.shop.IGoodsService;
+import com.lxinet.jeesns.service.shop.GoodsCateService;
+import com.lxinet.jeesns.service.shop.GoodsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +23,9 @@ import java.util.List;
 @RequestMapping("/shop")
 public class ShopController extends BaseController {
     @Resource
-    private IGoodsService goodsService;
+    private GoodsService goodsService;
     @Resource
-    private IGoodsCateService goodsCateService;
+    private GoodsCateService goodsCateService;
 
     @GetMapping(value = {"/list", "/list-{cateId}"})
     public String list(@PathVariable(value = "cateId", required = false) Integer cateId, Model model){
@@ -33,7 +33,7 @@ public class ShopController extends BaseController {
         Page page = new Page(request);
         List<GoodsCate> topCateList = goodsCateService.topList();
         List<GoodsCate> sonCateList = goodsCateService.sonList();
-        ResultModel goodsResultModel = goodsService.listByPage(page, "", cateId, GoodsStatue.ENABLED.value());
+        Result goodsResultModel = goodsService.listByPage(page, "", cateId, GoodsStatue.ENABLED.value());
         GoodsCate goodsCate = null;
         if (cateId > 0){
             goodsCate = goodsCateService.findById(cateId);

@@ -2,12 +2,12 @@ package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.interceptor.UserLoginInterceptor;
 import com.lxinet.jeesns.model.member.DeliveryAddress;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.member.IDeliveryAddressService;
+import com.lxinet.jeesns.service.member.DeliveryAddressService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +28,7 @@ import java.util.List;
 public class DeliveryAddressController extends BaseController {
     private static final String MEMBER_FTL_PATH = "/member/deliveryAddress/";
     @Resource
-    private IDeliveryAddressService deliveryAddressService;
+    private DeliveryAddressService deliveryAddressService;
 
     @GetMapping("list")
     public String list(Model model){
@@ -46,14 +46,14 @@ public class DeliveryAddressController extends BaseController {
 
     @PostMapping("save")
     @ResponseBody
-    public ResultModel save(@Validated DeliveryAddress deliveryAddress){
+    public Result save(@Validated DeliveryAddress deliveryAddress){
         if (deliveryAddress.getIsDefault() == null){
             deliveryAddress.setIsDefault(0);
         }
         Member loginMember = MemberUtil.getLoginMember(request);
         deliveryAddress.setMemberId(loginMember.getId());
         boolean result = deliveryAddressService.save(deliveryAddress);
-        return new ResultModel(result);
+        return new Result(result);
     }
 
     @GetMapping("edit/{id}")
@@ -68,7 +68,7 @@ public class DeliveryAddressController extends BaseController {
 
     @PostMapping("update")
     @ResponseBody
-    public ResultModel update(@Valid DeliveryAddress deliveryAddress){
+    public Result update(@Valid DeliveryAddress deliveryAddress){
         Member loginMember = MemberUtil.getLoginMember(request);
         DeliveryAddress findDeliveryAddress = deliveryAddressService.findById(deliveryAddress.getId());
         if (findDeliveryAddress.getMemberId().intValue() != loginMember.getId().intValue()){
@@ -78,19 +78,19 @@ public class DeliveryAddressController extends BaseController {
             deliveryAddress.setIsDefault(0);
         }
         boolean result = deliveryAddressService.update(deliveryAddress);
-        return new ResultModel(result);
+        return new Result(result);
     }
 
 
     @GetMapping("delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
+    public Result delete(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
         DeliveryAddress findDeliveryAddress = deliveryAddressService.findById(id);
         if (findDeliveryAddress.getMemberId().intValue() != loginMember.getId().intValue()){
             throw new OpeErrorException("error");
         }
         deliveryAddressService.delete(findDeliveryAddress);
-        return new ResultModel(0);
+        return new Result(0);
     }
 }

@@ -1,17 +1,15 @@
-package com.lxinet.jeesns.service.shop.impl;
+package com.lxinet.jeesns.service.shop;
 
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.core.utils.HtmlUtil;
 import com.lxinet.jeesns.core.utils.StringUtils;
 import com.lxinet.jeesns.core.utils.ValidUtill;
 import com.lxinet.jeesns.dao.shop.IGoodsDao;
-import com.lxinet.jeesns.enums.GoodsStatue;
 import com.lxinet.jeesns.model.shop.Goods;
-import com.lxinet.jeesns.service.shop.IGoodsService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -27,16 +25,14 @@ import java.util.List;
  * Created by zchuanzhao on 2019/5/15.
  */
 @Service("goodsService")
-public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements IGoodsService {
+public class GoodsService extends BaseService<Goods> {
     @Resource
     private IGoodsDao goodsDao;
 
-    @Override
     public Goods findById(int id) {
         return this.findById(id);
     }
 
-    @Override
     @Transactional
     public boolean save(Goods goods) {
         if(goods.getCateId() == null || goods.getCateId() == 0){
@@ -67,23 +63,20 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements IGoodsSe
         return result;
     }
 
-    @Override
-    public ResultModel listByPage(Page page, String key, int cateid, int status) {
+    public Result listByPage(Page page, String key, int cateid, int status) {
         if (StringUtils.isNotBlank(key)){
             key = "%"+key+"%";
         }
         List<Goods> list = goodsDao.list(page, key,cateid, status);
-        ResultModel model = new ResultModel(0,page);
+        Result model = new Result(0,page);
         model.setData(list);
         return model;
     }
 
-    @Override
     public void updateViewCount(int id) {
         goodsDao.updateViewCount(id);
     }
 
-    @Override
     public boolean changeStatus(int id) {
         if(goodsDao.changeStatus(id) == 0){
              throw new OpeErrorException();
@@ -91,12 +84,10 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements IGoodsSe
         return true;
     }
 
-    @Override
     public List<Goods> listByCustom(int cid, String sort, int num, int day,int thumbnail) {
         return goodsDao.listByCustom(cid,sort,num,day,thumbnail);
     }
 
-    @Override
     @Transactional
     public boolean update(Goods goods) {
         Goods findGoods = this.findById(goods.getId());
@@ -136,7 +127,6 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods> implements IGoodsSe
         return true;
     }
 
-    @Override
     @Transactional
     public boolean delete(int id) {
         boolean result = super.deleteById(id);
