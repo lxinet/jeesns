@@ -78,7 +78,7 @@
                                     <td>${member.name}</td>
                                     <td>${member.email}</td>
                                     <td>${(member.isVip == 0)?string("否","是")}</td>
-                                    <td>${member.phone}</td>
+                                    <td>${member.phone!''}</td>
                                     <td>${member.loginCount}</td>
                                     <td>${member.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>
