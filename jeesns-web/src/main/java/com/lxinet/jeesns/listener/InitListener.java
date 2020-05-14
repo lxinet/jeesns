@@ -50,5 +50,8 @@ public class InitListener implements ServletRequestListener {
         }
     }
 
+    @Override
+    public void requestDestroyed(ServletRequestEvent sre) {
 
+    }
 }
