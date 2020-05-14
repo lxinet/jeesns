@@ -56,7 +56,7 @@
                             <p>上传于${picture.createTime?string("yyyy年MM月dd HH:mm")}</p>
                         </div>
                     </div>
-                    <div class="description emoji-render-content">${picture.description}</div>
+                    <div class="description emoji-render-content">${picture.description!''}</div>
                     <div class="right">
                         <a class="text-primary picture-favor" data-id="${picture.id}">
                             <i class="icon icon-thumbs<#if picture.isFavor==0>-o</#if>-up"></i> ${picture.favorCount}
