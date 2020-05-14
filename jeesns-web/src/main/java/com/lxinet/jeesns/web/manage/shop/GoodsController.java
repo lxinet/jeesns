@@ -21,7 +21,7 @@ import java.util.List;
  * Created by zchuanzhao on 2019/5/15.
  */
 @Controller("manageGoodsController")
-@RequestMapping("${managePath}/shop/goods/")
+@RequestMapping("${jeesns.managePath}/shop/goods/")
 @Before(AdminLoginInterceptor.class)
 public class GoodsController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/shop/goods/";
