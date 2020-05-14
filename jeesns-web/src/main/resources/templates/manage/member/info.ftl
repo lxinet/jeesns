@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">手机号码</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" data-type="require" value="${member.phone}" disabled>
+                        <input type="text" class="form-control" data-type="require" value="${member.phone!''}" disabled>
                     </div>
                 </div>
             </div>
