@@ -2,10 +2,12 @@ package com.lxinet.jeesns.dao.common;
 
 import com.lxinet.jeesns.core.dao.BaseMapper;
 import com.lxinet.jeesns.model.common.Area;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface IAreaDao extends BaseMapper<Area> {
 
     /**
