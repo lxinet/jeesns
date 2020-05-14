@@ -9,13 +9,18 @@
                 <div class="info">
                     <div class="name">
                     ${member.name}
-                        <#if member.sex=='女'>
-                            <span class="sex"><i class="icon icon-venus"></i></span>
-                        <#elseif member.sex=='男'>
-                            <span class="sex"><i class="icon icon-mars"></i></span>
-                        <#else>
-                            <span class="sex"><i class="icon icon-intersex"></i></span>
+                        <#if member.sex??>
+                            <#if member.sex=='女'>
+                                <span class="sex"><i class="icon icon-venus"></i></span>
+                            <#elseif member.sex=='男'>
+                                <span class="sex"><i class="icon icon-mars"></i></span>
+                            <#else>
+                                <span class="sex"><i class="icon icon-intersex"></i></span>
+                            </#if>
+                            <#else>
+                                <span class="sex"><i class="icon icon-intersex"></i></span>
                         </#if>
+
                         <span class="label label-danger" style="font-size: 12px;">${member.memberLevel.name}</span>
                         <a class="label label-primary edit" href="${basePath}/member/editInfo">
                             <i class="icon icon-edit"></i> 编辑
