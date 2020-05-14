@@ -1,25 +1,22 @@
-package com.lxinet.jeesns.service.member.impl;
+package com.lxinet.jeesns.service.member;
 
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.member.IDeliveryAddressDao;
 import com.lxinet.jeesns.model.member.DeliveryAddress;
-import com.lxinet.jeesns.service.member.IDeliveryAddressService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service("deliveryAddressService")
-public class DeliveryAddressServiceImpl extends BaseServiceImpl<DeliveryAddress> implements IDeliveryAddressService {
+public class DeliveryAddressService extends BaseService<DeliveryAddress> {
     @Resource
     private IDeliveryAddressDao deliveryAddressDao;
 
-    @Override
     public List<DeliveryAddress> listByMemberId(Integer memberId) {
         return deliveryAddressDao.listByMemberId(memberId);
     }
 
-    @Override
     public Boolean dealDefault(Integer id) {
         return deliveryAddressDao.dealDefault(id);
     }

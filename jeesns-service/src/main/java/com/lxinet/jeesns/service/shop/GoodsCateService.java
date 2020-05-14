@@ -1,14 +1,10 @@
-package com.lxinet.jeesns.service.shop.impl;
+package com.lxinet.jeesns.service.shop;
 
 import com.lxinet.jeesns.core.exception.OpeErrorException;
 import com.lxinet.jeesns.core.exception.ParamException;
-import com.lxinet.jeesns.core.service.impl.BaseServiceImpl;
-import com.lxinet.jeesns.dao.cms.IArticleCateDao;
+import com.lxinet.jeesns.core.service.BaseService;
 import com.lxinet.jeesns.dao.shop.IGoodsCateDao;
-import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.shop.GoodsCate;
-import com.lxinet.jeesns.service.cms.IArticleCateService;
-import com.lxinet.jeesns.service.shop.IGoodsCateService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,7 +15,7 @@ import java.util.List;
  * Created by zchuanzhao on 2019/5/15.
  */
 @Service("goodsCateService")
-public class GoodsCateServiceImpl extends BaseServiceImpl<GoodsCate> implements IGoodsCateService {
+public class GoodsCateService extends BaseService<GoodsCate> {
 
     @Resource
     private IGoodsCateDao goodsCateDao;
@@ -82,7 +78,6 @@ public class GoodsCateServiceImpl extends BaseServiceImpl<GoodsCate> implements 
         return true;
     }
 
-    @Override
     public boolean delete(int id) {
         List sonList = this.findListByFid(id);
         if(sonList.size() > 0){
@@ -95,22 +90,18 @@ public class GoodsCateServiceImpl extends BaseServiceImpl<GoodsCate> implements 
         return true;
     }
 
-    @Override
     public List<GoodsCate> list() {
         return goodsCateDao.list();
     }
 
-    @Override
     public List<GoodsCate> topList() {
         return goodsCateDao.topList();
     }
 
-    @Override
     public List<GoodsCate> sonList() {
         return goodsCateDao.sonList();
     }
 
-    @Override
     public List<GoodsCate> findListByFid(int fid) {
         return goodsCateDao.findListByFid(fid);
     }

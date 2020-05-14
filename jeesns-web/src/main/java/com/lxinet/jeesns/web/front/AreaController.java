@@ -1,15 +1,10 @@
 package com.lxinet.jeesns.web.front;
 
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
-import com.lxinet.jeesns.core.model.Page;
-import com.lxinet.jeesns.core.utils.JeesnsConfig;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.model.common.Area;
-import com.lxinet.jeesns.model.system.ActionLog;
-import com.lxinet.jeesns.service.common.IAreaService;
-import com.lxinet.jeesns.service.system.IActionLogService;
+import com.lxinet.jeesns.service.common.AreaService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,30 +21,30 @@ import java.util.List;
 @RequestMapping("/area/")
 public class AreaController extends BaseController {
     @Resource
-    private IAreaService areaService;
+    private AreaService areaService;
 
 
     @PostMapping("provinceList")
     @ResponseBody
-    public ResultModel provinceList(){
+    public Result provinceList(){
         List<Area> provinceList = areaService.provinceList();
-        return new ResultModel(provinceList);
+        return new Result(provinceList);
     }
 
 
     @PostMapping("cityList/{provinceCode}")
     @ResponseBody
-    public ResultModel cityList(@PathVariable("provinceCode") String provinceCode){
+    public Result cityList(@PathVariable("provinceCode") String provinceCode){
         List<Area> cityList = areaService.cityList(provinceCode);
-        return new ResultModel(cityList);
+        return new Result(cityList);
     }
 
 
     @PostMapping("areaList/{cityCode}")
     @ResponseBody
-    public ResultModel areaList(@PathVariable("cityCode") String cityCode){
+    public Result areaList(@PathVariable("cityCode") String cityCode){
         List<Area> areaList = areaService.areaList(cityCode);
-        return new ResultModel(areaList);
+        return new Result(areaList);
     }
 
 

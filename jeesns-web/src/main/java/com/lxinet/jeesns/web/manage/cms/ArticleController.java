@@ -1,16 +1,16 @@
 package com.lxinet.jeesns.web.manage.cms;
 
 import com.lxinet.jeesns.core.controller.BaseController;
+import com.lxinet.jeesns.core.dto.Result;
+import com.lxinet.jeesns.service.cms.ArticleCateService;
+import com.lxinet.jeesns.service.cms.ArticleService;
 import com.lxinet.jeesns.utils.MemberUtil;
 import com.lxinet.jeesns.core.annotation.Before;
-import com.lxinet.jeesns.core.dto.ResultModel;
 import com.lxinet.jeesns.core.model.Page;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
 import com.lxinet.jeesns.model.cms.Article;
 import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.member.Member;
-import com.lxinet.jeesns.service.cms.IArticleCateService;
-import com.lxinet.jeesns.service.cms.IArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,9 +29,9 @@ import java.util.List;
 public class ArticleController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/cms/article/";
     @Resource
-    private IArticleCateService articleCateService;
+    private ArticleCateService articleCateService;
     @Resource
-    private IArticleService articleService;
+    private ArticleService articleService;
 
     @RequestMapping("${managePath}/cms/index")
     @Before(AdminLoginInterceptor.class)
@@ -40,7 +40,7 @@ public class ArticleController extends BaseController {
     @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
         List<ArticleCate> cateList = articleCateService.list();
         Page page = new Page(request);
-        ResultModel resultModel = articleService.listByPage(page,key,cateid,status,memberId);
+        Result resultModel = articleService.listByPage(page,key,cateid,status,memberId);
         model.addAttribute("model", resultModel);
         model.addAttribute("cateList",cateList);
         model.addAttribute("key",key);
@@ -57,12 +57,12 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value="${managePath}/cms/article/save",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel save(@Valid Article article, BindingResult bindingResult) {
+    public Result save(@Valid Article article, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return new ResultModel(-1,getErrorMessages(bindingResult));
+            return new Result(-1,getErrorMessages(bindingResult));
         }
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(articleService.save(loginMember,article));
+        return new Result(articleService.save(loginMember,article));
     }
 
     @RequestMapping(value="${managePath}/cms/article/list",method = RequestMethod.GET)
@@ -70,7 +70,7 @@ public class ArticleController extends BaseController {
                        @RequestParam(value = "status",defaultValue = "2",required = false) Integer status,
                        @RequestParam(value = "memberId",defaultValue = "0",required = false) Integer memberId, Model model) {
         Page page = new Page(request);
-        ResultModel resultModel = articleService.listByPage(page,key,cateid,status,memberId);
+        Result resultModel = articleService.listByPage(page,key,cateid,status,memberId);
         model.addAttribute("model", resultModel);
         return MANAGE_FTL_PATH + "list";
     }
@@ -87,29 +87,29 @@ public class ArticleController extends BaseController {
 
     @RequestMapping(value="${managePath}/cms/article/update",method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel update(@Valid Article article,BindingResult bindingResult) {
+    public Result update(@Valid Article article,BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return new ResultModel(-1,getErrorMessages(bindingResult));
+            return new Result(-1,getErrorMessages(bindingResult));
         }
         if(article.getId() == null){
-            return new ResultModel(-2);
+            return new Result(-2);
         }
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(articleService.update(loginMember,article));
+        return new Result(articleService.update(loginMember,article));
     }
 
 
     @RequestMapping(value = "${managePath}/cms/article/delete/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") Integer id){
+    public Result delete(@PathVariable("id") Integer id){
         Member loginMember = MemberUtil.getLoginMember(request);
-        return new ResultModel(articleService.delete(loginMember,id));
+        return new Result(articleService.delete(loginMember,id));
     }
 
     @RequestMapping(value = "${managePath}/cms/article/audit/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResultModel audit(@PathVariable("id") Integer id){
-        return new ResultModel(articleService.audit(id));
+    public Result audit(@PathVariable("id") Integer id){
+        return new Result(articleService.audit(id));
     }
 
 }

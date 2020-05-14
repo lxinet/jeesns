@@ -110,7 +110,7 @@ public class GroupController extends BaseController {
         int isManager = 0;
         boolean isManagerFlag = false;
         for (String manager : groupManagerArr) {
-            if (loginMember.getId() == Integer.parseInt(manager)) {
+            if (null != loginMember && loginMember.getId() == Integer.parseInt(manager)) {
                 isManagerFlag = true;
                 break;
             }
@@ -202,7 +202,7 @@ public class GroupController extends BaseController {
         int isManager = 0;
         boolean isManagerFlag = false;
         for (String manager : groupManagerArr) {
-            if (loginMember.getId() == Integer.parseInt(manager)) {
+            if (null != loginMember && loginMember.getId() == Integer.parseInt(manager)) {
                 isManagerFlag = true;
                 break;
             }

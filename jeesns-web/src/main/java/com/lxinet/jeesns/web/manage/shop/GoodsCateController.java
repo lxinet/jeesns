@@ -2,14 +2,12 @@ package com.lxinet.jeesns.web.manage.shop;
 
 import com.lxinet.jeesns.core.annotation.Before;
 import com.lxinet.jeesns.core.controller.BaseController;
-import com.lxinet.jeesns.core.dto.ResultModel;
+import com.lxinet.jeesns.core.dto.Result;
 import com.lxinet.jeesns.core.enums.Messages;
 import com.lxinet.jeesns.core.exception.ParamException;
 import com.lxinet.jeesns.interceptor.AdminLoginInterceptor;
-import com.lxinet.jeesns.model.cms.ArticleCate;
 import com.lxinet.jeesns.model.shop.GoodsCate;
-import com.lxinet.jeesns.service.cms.IArticleCateService;
-import com.lxinet.jeesns.service.shop.IGoodsCateService;
+import com.lxinet.jeesns.service.shop.GoodsCateService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +28,7 @@ import java.util.List;
 public class GoodsCateController extends BaseController {
     private static final String MANAGE_FTL_PATH = "/manage/shop/goodsCate";
     @Resource
-    private IGoodsCateService goodsCateService;
+    private GoodsCateService goodsCateService;
 
     @RequestMapping("list")
     public String list(Model model){
@@ -50,14 +48,14 @@ public class GoodsCateController extends BaseController {
 
     @RequestMapping("save")
     @ResponseBody
-    public ResultModel save(GoodsCate goodsCate){
+    public Result save(GoodsCate goodsCate){
         if(goodsCate == null){
             throw new ParamException();
         }
         if(StringUtils.isEmpty(goodsCate.getName())){
             throw new ParamException(Messages.NAME_NOT_EMPTY);
         }
-        return new ResultModel(goodsCateService.save(goodsCate));
+        return new Result(goodsCateService.save(goodsCate));
     }
 
     @RequestMapping("edit/{id}")
@@ -71,20 +69,20 @@ public class GoodsCateController extends BaseController {
 
     @RequestMapping("update")
     @ResponseBody
-    public ResultModel update(GoodsCate goodsCate){
+    public Result update(GoodsCate goodsCate){
         if(goodsCate == null){
             throw new ParamException();
         }
         if(StringUtils.isEmpty(goodsCate.getName())){
             throw new ParamException(Messages.NAME_NOT_EMPTY);
         }
-        return new ResultModel(goodsCateService.update(goodsCate));
+        return new Result(goodsCateService.update(goodsCate));
     }
 
 
     @RequestMapping("delete/{id}")
     @ResponseBody
-    public ResultModel delete(@PathVariable("id") int id){
-        return new ResultModel(goodsCateService.delete(id));
+    public Result delete(@PathVariable("id") int id){
+        return new Result(goodsCateService.delete(id));
     }
 }
