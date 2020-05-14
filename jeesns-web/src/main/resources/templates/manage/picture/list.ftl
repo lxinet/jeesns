@@ -48,7 +48,7 @@
                                 <#list model.data as picture>
                                     <li>
                                         <span class="mailbox-attachment-icon has-img">
-                                            <img src="${basePath}${picture.smallPath}" title="${picture.description}" style="max-width: 100%;height: 160px;">
+                                            <img src="${basePath}${picture.smallPath}" title="${picture.description!''}" style="max-width: 100%;height: 160px;">
                                         </span>
                                         <div class="mailbox-attachment-info">
                                             <a href="${basePath}/u/${picture.member.id}" target="_blank">${picture.member.name}</a>
