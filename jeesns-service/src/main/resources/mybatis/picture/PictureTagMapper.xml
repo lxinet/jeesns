@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lxinet.jeesns.dao.picture.IPictureTagDao">
+<mapper namespace="cn.jeesns.dao.picture.IPictureTagDao">
   <resultMap id="PictureTagResult" type="PictureTag">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="picture_id" jdbcType="INTEGER" property="pictureId" />

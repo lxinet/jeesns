@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lxinet.jeesns.dao.member.IMemberGroupDao">
+<mapper namespace="cn.jeesns.dao.member.IMemberGroupDao">
   <resultMap id="MemgroupResult" type="Memgroup">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="isadmin" jdbcType="INTEGER" property="isadmin" />

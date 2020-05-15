@@ -65,7 +65,7 @@ spring:
     basename: i18n/messages
 
 mybatis:
-  typeAliasesPackage: com.lxinet.jeesns.model
+  typeAliasesPackage: cn.jeesns.model
   mapperLocations: classpath*:mybatis/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
