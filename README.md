@@ -1,5 +1,7 @@
 # JEESNS
 
+## v2.0.0目前为beta版本，正在持续开发中，可能会存在比较多的问题，或者会有大的改动，请不要正式使用，如需正式使用，请使用v1.4.2版本[https://gitee.com/zchuanzhao/jeesns/releases/v1.4.2](https://gitee.com/zchuanzhao/jeesns/releases/v1.4.2)
+
 开发语言：JAVA
 
 数据库：MYSQL
