@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lxinet.jeesns.dao.weibo.IWeiboCommentDao">
+<mapper namespace="cn.jeesns.dao.weibo.IWeiboCommentDao">
   <resultMap id="WeiboCommentResult" type="WeiboComment">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -10,7 +10,7 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <association property="member" column="member_id" select="selectMember"></association>
-    <association column="comment_id" property="weiboComment" javaType="WeiboComment" select="com.lxinet.jeesns.dao.weibo.IWeiboCommentDao.findById"/>
+    <association column="comment_id" property="weiboComment" javaType="WeiboComment" select="cn.jeesns.dao.weibo.IWeiboCommentDao.findById"/>
   </resultMap>
   <select id="listByWeibo" resultMap="WeiboCommentResult">
     select a.id,a.create_time,a.member_id,a.weibo_id,a.content,a.comment_id,c.name,c.avatar

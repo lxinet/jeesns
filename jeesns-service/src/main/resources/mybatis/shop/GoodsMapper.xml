@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lxinet.jeesns.dao.shop.IGoodsDao">
+<mapper namespace="cn.jeesns.dao.shop.IGoodsDao">
   <resultMap id="GoodsResult" type="Goods">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cate_id" jdbcType="INTEGER" property="cateId" />

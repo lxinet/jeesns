@@ -94,7 +94,7 @@ github：[https://github.com/zchuanzhao/jeesns](https://github.com/zchuanzhao/je
    
    在命令行中输入以下命令
    
-   `mvn install:install-file -Dfile=D:\jeesns-core.jar -DgroupId=com.lxinet -DartifactId=jeesns-core -Dversion=2.0.0 -Dpackaging=jar`
+   `mvn install:install-file -Dfile=D:\jeesns-core.jar -DgroupId=cn.jeesns -DartifactId=jeesns-core -Dversion=2.0.0 -Dpackaging=jar`
    
    执行成功后，jeesns-core-1.4.jar会自动添加到本地maven仓库中。
 7. 编译项目。在eclipse中，右键点击项目名，选择`Run as` - `Maven build...`，`Goals`填入`clean package`，然后点击`Run`，第一次运行需要下载jar包，请耐心等待。

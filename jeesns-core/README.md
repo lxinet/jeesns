@@ -10,7 +10,7 @@
 
 在命令行中输入以下命令
 
-`mvn install:install-file -Dfile=D:\jeesns-core-2.0.0-Beta1.jar -DgroupId=com.lxinet -DartifactId=jeesns-core -Dversion=2.0.0-Beta1 -Dpackaging=jar`
+`mvn install:install-file -Dfile=D:\jeesns-core-2.0.0-Beta1.jar -DgroupId=cn.jeesns -DartifactId=jeesns-core -Dversion=2.0.0-Beta1 -Dpackaging=jar`
 
 执行成功后，jeesns-core-2.0.0-Beta1.jar会自动添加到本地maven仓库中。
 
