@@ -38,7 +38,7 @@
                 </header>
                 <form class="form-horizontal jeesns_form" action="${basePath}/member/register" method="post"
                       callback="_success">
-                    <input type="hidden" name="redirectUrl" value="${redirectUrl}">
+                    <input type="hidden" name="redirectUrl" value="${redirectUrl!''}">
                     <div class="form-group m-b-30">
                         <label class="col-sm-3 required">用户名</label>
                         <div class="col-md-8 col-sm-10">
@@ -63,7 +63,7 @@
                             <input type="password" name="repassword" class="form-control" placeholder="确认密码" data-type="require" data-rule="equal[password]">
                         </div>
                     </div>
-                    <#if MEMBER_RECOMMEND == 1>
+                    <#if MEMBER_RECOMMEND == '1'>
                         <div class="form-group m-b-30">
                             <label class="col-sm-3">上级会员</label>
                             <div class="col-md-8 col-sm-10">
@@ -71,7 +71,7 @@
                                 <input type="text" class="form-control" placeholder="上级会员" value="${superMember.name}" readonly>
                                 <input type="hidden" class="form-control" name="superMemberId" placeholder="上级会员" value="${superMember.id}">
                             <#else>
-                                <input type="text" class="form-control" id="superMemberName" placeholder="上级会员用户名或者邮箱" value="${superMember.name}">
+                                <input type="text" class="form-control" id="superMemberName" placeholder="上级会员用户名或者邮箱">
                                 <input type="hidden" class="form-control" id="superMemberId" name="superMemberId" placeholder="上级会员">
                             </#if>
                             </div>
