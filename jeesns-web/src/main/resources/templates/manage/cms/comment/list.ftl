@@ -72,13 +72,13 @@
                                 <tr>
                                     <td>${articleComment.id}</td>
                                     <td>
-                                        <a href="${base}/u/${articleComment.member.id}" target="_blank">
+                                        <a href="${basePath}/u/${articleComment.member.id}" target="_blank">
                                             ${articleComment.member.name}
                                         </a>
                                         </td>
                                     <td>${articleComment.content}</td>
                                     <td>
-                                        <a href="${base}/article/detail/${articleComment.article.id}" target="_blank">
+                                        <a href="${basePath}/article/detail/${articleComment.article.id}" target="_blank">
                                         《${articleComment.article.title}》
                                         </a>
                                     </td>

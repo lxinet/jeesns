@@ -52,7 +52,8 @@ spring:
     date-format: yyyy-MM-dd
     time-format: HH:mm:ss
     datetime-format: yyyy-MM-dd HH\:mm\:ss
-    number-format: \#.##
+    settings:
+      number_format: 0.##
   logging:
     level: com.ibatis:DEBUG
   http:
