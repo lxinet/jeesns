@@ -53,11 +53,11 @@
                             <div class="item">
                                 <div class="item-heading">
                                     <div class="pull-right"><span class="text-muted">${message.createTime?string('yyyy-MM-dd HH:mm:ss')}</span></div>
-                                    <h4><a href="${basePath}/u/${message.member.id}"><strong>@${message.member.name} </strong></a>：${message.content}</h4>
+                                    <h4><a href="${basePath}/u/${message.member.id}"><strong>@${message.member.name} </strong></a>：${message.content!''}</h4>
                                 </div>
                                 <div class="item-content">
                                     <div class="text">
-                                        ${message.description}
+                                        ${message.description!''}
                                     </div>
                                 </div>
                             </div>
