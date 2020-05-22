@@ -14,8 +14,6 @@ import cn.jeesns.core.dto.Result;
 import cn.jeesns.core.exception.ParamException;
 import cn.jeesns.core.model.Page;
 import cn.jeesns.core.utils.*;
-import cn.jeesns.model.group.*;
-import cn.jeesns.service.group.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -132,7 +130,7 @@ public class GroupController extends BaseController {
     public Result topic(@PathVariable("topicId") Integer topicId) {
         Member loginMember = jwtUtil.getMember(request);
         GroupTopic groupTopic = groupTopicService.findById(topicId, loginMember);
-        ValidUtill.checkParam(groupTopic == null);
+        Assert.notNull(groupTopic);
         //更新点击次数
         groupTopicService.updateViewCount(groupTopic.getId());
         return new Result(groupTopic);
