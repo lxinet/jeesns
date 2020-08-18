@@ -153,10 +153,10 @@
                                     <div class="text">
                                         ${answer.content}
                                     </div>
-                                    <#if question.status == 0 && loginUser.id == question.memberId>
-                                         <div class="actions">
-                                             <a href="javascript:void(0)" data-href="${basePath}/question/bestAnswer/${question.id}/${answer.id}" target="_jeesnsLink" callback="reload"><i class="icon icon-check"></i> 采用该答案</a>
-                                         </div>
+                                    <#if question.status == 0 && loginUser?? && loginUser.id == question.memberId>
+                                        <div class="actions">
+                                            <a href="javascript:void(0)" data-href="${basePath}/question/bestAnswer/${question.id}/${answer.id}" target="_jeesnsLink" callback="reload"><i class="icon icon-check"></i> 采用该答案</a>
+                                        </div>
                                     </#if>
                                 </div>
                             </div>

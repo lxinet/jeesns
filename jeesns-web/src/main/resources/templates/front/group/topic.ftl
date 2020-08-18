@@ -110,7 +110,7 @@
                         <div class="alert alert-danger">
                             <p>该群组为<span class="label label-info">付费</span>群组，需要先加入群组才可以查看该帖子</p>
                             <p>
-                                <#if loginUser == null>
+                                <#if loginUser??>
                                     我还没有登录，我要先<a href="/member/login" target="_blank">登录</a>
                                     <#else>
                                     这篇帖子很重要，我要
